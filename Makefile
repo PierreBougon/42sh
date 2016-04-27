@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon Apr 18 00:16:16 2016 Poc
+## Last update Wed Apr 27 18:57:28 2016 Poc
 ##
 
 DEBUG=	yes
@@ -17,10 +17,10 @@ OBJ=	$(addprefix src/, $(SRC:.c=.o))
 RM=	rm -f
 
 ifeq ($(DEBUG), yes)
-	CFLAGS=		$(HEAD) -W -Wall -Wextra -ansi -pedantic -g -D DEBUG
+	CFLAGS=		-W -Wall -Wextra -ansi -pedantic -g -D DEBUG -O0
 	CC=		clang
 else
-	CFLAGS=		$(HEAD) -W -Wall -Wextra -Werror -ansi -pedantic
+	CFLAGS=		-W -Wall -Wextra -Werror -ansi -pedantic
 	CC=		gcc
 endif
 
@@ -57,4 +57,4 @@ fclean: clean
 re:	fclean all
 %.o:                    %.c
 			@ echo "[ OK ] Compiling" $<
-			@ $(CC) -o $@ -c $< $(CFLAGS)
+			@ $(CC) -o $@ -c $< $(CFLAGS) $(HEAD)
