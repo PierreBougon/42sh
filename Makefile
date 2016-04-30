@@ -5,12 +5,14 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed Apr 27 18:57:28 2016 Poc
+## Last update Sat Apr 30 22:23:29 2016 Poc
 ##
 
 DEBUG=	yes
 
 SRC=	main.c		\
+	epur.c		\
+	my_strlen.c	\
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
