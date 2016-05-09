@@ -5,13 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Sat May  7 17:19:29 2016 marel_m
+** Last update Mon May  9 14:20:07 2016 marel_m
 */
 
 #ifndef FPTRTAB_H_
 # define FPTRTAB_H_
 
-#include "mysh.h"
+#include "42s.h"
 
 enum		env
   {
