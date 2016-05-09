@@ -5,12 +5,12 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Sat Apr  2 16:25:58 2016 Poc
-** Last update Sat Apr 30 22:22:02 2016 Poc
+** Last update Sat May  7 17:55:01 2016 marel_m
 */
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "42s.h"
+#include <string.h>
 
 char	*epur_str(char *str)
 {
@@ -22,7 +22,7 @@ char	*epur_str(char *str)
   i = 0;
   if (str == NULL)
     return (NULL);
-  if ((new_str = malloc(sizeof(char) * my_strlen(str) + 1)) == NULL)
+  if ((new_str = malloc(sizeof(char) * strlen(str) + 1)) == NULL)
     return (NULL);
   while ((str[i] == 32 || str[i] == '\t') && str[i++] != 0);
   while (str[i])

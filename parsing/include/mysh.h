@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:01:43 2016 marel_m
-** Last update Sat Apr 30 22:42:41 2016 marel_m
+** Last update Sat May  7 18:30:14 2016 marel_m
 */
 
 #ifndef MYSH_H_
@@ -24,6 +24,11 @@ typedef struct	s_env
   char		*pwd;
   char		*oldpwd;
   char		*home;
+  char		**path;
+  char		pst_pwd;
+  char		pst_home;
+  char		pst_oldpwd;
+  char		pst_path;
 }		t_env;
 
 typedef struct	s_sh
@@ -32,6 +37,13 @@ typedef struct	s_sh
   t_env		*env;
 }		t_sh;
 
+char		**my_str_to_word_tab(char *, char);
+char		*my_strdup_e(char *, int);
+int		check_env(t_sh *, char **);
+int		check_path(t_sh *);
+int		check_home(t_sh *);
+int		check_pwd(t_sh *);
+int		check_oldpwd(t_sh *);
 char		*get_next_line(int);
 
 #endif /* MYSH_H_ */
