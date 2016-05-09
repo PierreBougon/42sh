@@ -1,55 +1,39 @@
 /*
-** epur.c for sh in /home/peau_c/rendu/PSU/PSU_2015_minishell2
+** main.c for int main in /home/peau_c/PSU_2015_42sh/parsing
 **
-** Made by Poc
+** Made by
 ** Login   <peau_c@epitech.net>
 **
-** Started on  Sat Apr  2 16:25:58 2016 Poc
-** Last update Sat Apr 30 22:22:02 2016 Poc
+** Started on  Mon May  9 13:23:09 2016
+** Last update Mon May  9 14:14:44 2016 
 */
 
 #include <stdlib.h>
-#include <stdio.h>
-#include "42s.h"
+#include <string.h>
 
-char	*epur_str(char *str)
+char	*epur(char *str)
 {
   int	i;
-  int	k;
+  int	j;
   char	*new_str;
 
-  k = 0;
+  i = -1;
+  if ((new_str = malloc(sizeof(char) * (strlen(str) + 1))) == NULL)
+    return (NULL);
+  while (str[++i])
+    if (str[i] == '\t')
+      str[i] = ' ';
   i = 0;
-  if (str == NULL)
-    return (NULL);
-  if ((new_str = malloc(sizeof(char) * my_strlen(str) + 1)) == NULL)
-    return (NULL);
-  while ((str[i] == 32 || str[i] == '\t') && str[i++] != 0);
+  j = 0;
+  while (str[i] == ' ')
+    i++;
   while (str[i])
     {
-      if (str[i] == '\t')
-	str[i] = ' ';
-      while (str[i] == 32 && str[i + 1] != 0 && str[i + 1] == 32)
+      while ((str[i] == ' ' && (str[i + 1] == ' ' || str[i + 1] == 0)))
 	i++;
-      new_str[k++] = str[i++];
+      new_str[j++] = str[i++];
+      i = (str[i - 1] == 0 ? i - 1 : i);
     }
-  if (i != 0 && new_str[k - 1] == 32)
-    new_str[k - 1] = 0;
-  new_str[k] = 0;
-  free(str);
+  new_str[j] = 0;
   return (new_str);
-}
-
-char	**epur_tab(char **tab)
-{
-  int	i;
-
-  i = 0;
-  while (tab[i])
-    {
-      if ((tab[i] = epur_str(tab[i])) == NULL)
-	return (NULL);
-      i++;
-    }
-  return (tab);
 }
