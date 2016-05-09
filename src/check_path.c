@@ -5,12 +5,12 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar 29 15:21:39 2016 marel_m
-** Last update Sat May  7 18:01:01 2016 marel_m
+** Last update Mon May  9 14:19:42 2016 marel_m
 */
 
 #include <stdlib.h>
 #include <string.h>
-#include "mysh.h"
+#include "42s.h"
 
 int	check_path(t_sh *sh)
 {

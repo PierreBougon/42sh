@@ -5,13 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Apr 29 18:23:11 2016 marel_m
-** Last update Sat May  7 23:08:08 2016 marel_m
+** Last update Mon May  9 14:22:32 2016 marel_m
 */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include "mysh.h"
+#include "42s.h"
 #include "fptrtab.h"
 
 int	create_env(t_sh *sh)
@@ -58,7 +58,7 @@ int     copy_env(t_sh *sh, char **env)
 	return (1);
       l++;
     }
-  sh->env->env[l] = '\0';
+  sh->env->env[l] = NULL;
   return (0);
 }
 

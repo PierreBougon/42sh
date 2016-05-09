@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May  9 13:23:09 2016
-** Last update Mon May  9 14:14:44 2016 
+** Last update Mon May  9 14:27:22 2016 
 */
 
 #include <stdlib.h>
@@ -17,9 +17,9 @@ char	*epur(char *str)
   int	j;
   char	*new_str;
 
-  i = -1;
   if ((new_str = malloc(sizeof(char) * (strlen(str) + 1))) == NULL)
     return (NULL);
+  i = -1;
   while (str[++i])
     if (str[i] == '\t')
       str[i] = ' ';

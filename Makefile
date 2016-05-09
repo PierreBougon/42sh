@@ -5,24 +5,31 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sat Apr 30 22:23:29 2016 Poc
+## Last update Mon May  9 14:22:06 2016 marel_m
 ##
 
 DEBUG=	yes
 
-SRC=	main.c		\
-	epur.c		\
-	my_strlen.c	\
+SRC=	main.c			\
+	epur.c			\
+	check_home.c		\
+	check_oldpwd.c		\
+	check_path.c		\
+	check_pwd.c		\
+	env.c			\
+	my_get_next_line.c	\
+	my_str_to_word_tab.c	\
+	my_strdup_e.c		\
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
 RM=	rm -f
 
 ifeq ($(DEBUG), yes)
-	CFLAGS=		-W -Wall -Wextra -ansi -pedantic -g -D DEBUG -O0
+	CFLAGS=		-W -Wall -Wextra -g -D DEBUG -O0
 	CC=		clang
 else
-	CFLAGS=		-W -Wall -Wextra -Werror -ansi -pedantic
+	CFLAGS=		-W -Wall -Wextra -Werror
 	CC=		gcc
 endif
 

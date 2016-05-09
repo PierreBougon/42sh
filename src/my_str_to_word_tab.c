@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jan  6 14:52:17 2016 maud marel
-** Last update Sat May  7 18:00:44 2016 marel_m
+** Last update Mon May  9 14:22:50 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -70,6 +70,6 @@ char	**my_str_to_word_tab(char *str, char sign)
 	i++;
       tab[l++][j] = '\0';
     }
-  tab[l] = '\0';
+  tab[l] = NULL;
   return (tab);
 }
