@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May  9 14:19:29 2016 marel_m
+** Last update Mon May  9 14:25:25 2016 marel_m
 */
 
 #include <unistd.h>
@@ -36,9 +36,10 @@ int	main(int ac, char **av, char **env)
   while (42)
     {
       write(1, "hey ->", 7);
-      if ((str = get_next_line(0)) == NULL)
+      if ((str = get_next_line(0)) == NULL
+	  || (str = epur_str(str)) == NULL)
 	return (-1);
-      write(1, str, strlen(str));
+      printf("%s\n", str);
     }
   return (0);
 }

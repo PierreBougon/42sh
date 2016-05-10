@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May  9 14:15:29 2016 marel_m
+** Last update Mon May  9 15:06:11 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -39,6 +39,7 @@ typedef struct  s_sh
 
 char            **my_str_to_word_tab(char *, char);
 char            *my_strdup_e(char *, int);
+char		*epur_str(char *);
 int             check_env(t_sh *, char **);
 int             check_path(t_sh *);
 int             check_home(t_sh *);
