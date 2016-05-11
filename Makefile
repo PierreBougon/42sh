@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May  9 14:22:06 2016 marel_m
+## Last update Wed May 11 13:34:11 2016 Poc
 ##
 
 DEBUG=	yes
@@ -20,6 +20,7 @@ SRC=	main.c			\
 	my_get_next_line.c	\
 	my_str_to_word_tab.c	\
 	my_strdup_e.c		\
+	ncurses.c		\
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
@@ -51,7 +52,7 @@ ifeq ($(DEBUG), yes)
 endif
 	@ echo "CC = $(CC)"
 	@ echo "CFLAGS = $(CFLAGS)"
-	@ $(CC) $(OBJ) -o $(NAME)
+	@ $(CC) $(OBJ) -o $(NAME) -lncurses
 	@ echo -e "\033[1;31m \t \t \n \t ♩♪♫ $(NAME) Compiled\033[0;31m®\033[1;31m Created Sucesfully \033[0m"
 
 all:		$(NAME)
