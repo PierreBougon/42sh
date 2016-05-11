@@ -1,7 +1,59 @@
 
-inc/get_next_line.h,61
-# define GET_NEXT_LINE_H_12,256
-#  define READ_SIZE 15,302
+src/epur.c,24
+char	*epur(epur14,239
+
+src/env/check_home.c,27
+int     check_home(15,308
+
+src/env/check_oldpwd.c,29
+int     check_oldpwd(15,306
+
+src/env/env.c,230
+int	create_env(17,320
+int     nb_line(36,894
+int     copy_env(46,1003
+int	check_if_present_in_env(65,1351
+t_env_elem	*init_tab_env_elem(init_tab_env_elem82,1839
+int		check_if_present_env(99,2287
+int     check_env(124,2790
+
+src/env/check_path.c,53
+int	check_path(15,308
+int	check_path_setenv(39,840
+
+src/env/check_pwd.c,26
+int     check_pwd(15,306
+
+src/my_str_to_word_tab.c,98
+int	check_nb(15,334
+int	check_first(34,609
+char	**my_str_to_word_tab(my_str_to_word_tab48,834
+
+src/main.c,42
+void	my_show_tab(18,355
+int	main(30,493
+
+src/create_tree.c,25
+int		create_tree(13,273
+
+src/my_strdup_e.c,38
+char	*my_strdup_e(my_strdup_e14,307
+
+src/my_get_next_line.c,113
+char	*my_realloc(my_realloc13,265
+char	*last_buff(last_buff30,540
+char		*get_next_line(get_next_line50,925
+
+tree.c,280
+t_node		*new_node(new_node13,276
+t_list_tree	*new_tree(new_tree26,498
+void	add_tree(37,686
+t_node		**insert_node(insert_node48,841
+void		deltree(66,1224
+void		del_all_tree(78,1401
+void		print_tab_arg_dir(91,1578
+void		print_tree(110,1903
+void		print_all_tree(120,2101
 
 inc/fptrtab.h,268
 # define FPTRTAB_H_12,265
@@ -16,12 +68,9 @@ typedef struct	s_env_elem25,382
   int		(*ft_env_elem)ft_env_elem28,429
 }		t_env_elem;29,460
 
-inc/my.h,105
-# define MY_H_12,235
-typedef	struct	s_tab14,251
-  int		nb;16,274
-  int		size;17,285
-}		t_tab;18,298
+inc/get_next_line.h,61
+# define GET_NEXT_LINE_H_12,256
+#  define READ_SIZE 15,302
 
 inc/42s.h,681
 # define _42s_H_12,227
@@ -46,47 +95,9 @@ typedef struct  s_sh34,635
   t_env         *env;env37,681
 }               t_sh;38,703
 
-src/env/env.c,230
-int	create_env(17,320
-int     nb_line(36,894
-int     copy_env(46,1003
-int	check_if_present_in_env(65,1351
-t_env_elem	*init_tab_env_elem(init_tab_env_elem82,1839
-int		check_if_present_env(99,2287
-int     check_env(124,2790
-
-src/env/check_home.c,27
-int     check_home(15,308
-
-src/env/check_oldpwd.c,29
-int     check_oldpwd(15,306
-
-src/env/check_pwd.c,26
-int     check_pwd(15,306
-
-src/env/check_path.c,53
-int	check_path(15,308
-int	check_path_setenv(39,840
-
-src/my_strdup_e.c,38
-char	*my_strdup_e(my_strdup_e14,307
-
-src/my_get_next_line.c,113
-char	*my_realloc(my_realloc13,265
-char	*last_buff(last_buff30,540
-char		*get_next_line(get_next_line50,925
-
-src/create_tree.c,25
-int		create_tree(13,273
-
-src/my_str_to_word_tab.c,98
-int	check_nb(15,334
-int	check_first(34,609
-char	**my_str_to_word_tab(my_str_to_word_tab48,834
-
-src/main.c,42
-void	my_show_tab(17,320
-int	main(29,458
-
-src/epur.c,24
-char	*epur(epur14,239
+inc/my.h,105
+# define MY_H_12,235
+typedef	struct	s_tab14,251
+  int		nb;16,274
+  int		size;17,285
+}		t_tab;18,298

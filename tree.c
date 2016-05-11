@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue Mar 29 11:56:22 2016 Mathieu Sauvau
-** Last update Thu Mar 31 15:09:21 2016 Mathieu Sauvau
+** Last update Wed May 11 15:28:55 2016 Mathieu Sauvau
 */
 
 #include "sh.h"
@@ -63,8 +63,6 @@ t_node		**insert_node(t_node **tree, char **arg, char type, e_dir dir)
   return (tree);
 }
 
-
-
 void		deltree(t_node *tree)
 {
   if (tree)
@@ -89,8 +87,6 @@ void		del_all_tree(t_list_tree *tree)
       free(tmp);
     }
 }
-
-
 
 void		print_tab_arg_dir(char **arg, char type, e_dir dir)
 {

@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed May 11 16:09:41 2016 Mathieu Sauvau
+** Last update Wed May 11 16:12:53 2016 Mathieu Sauvau
 */
 
+#include <ncurses.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -39,7 +40,7 @@ int	main(int ac, char **av, char **env)
       if ((str = get_next_line(0)) == NULL
 	  || (str = epur(str)) == NULL)
 	return (-1);
-      printf("%s\n", str);
+      printf("bite %s\n", str);
     }
   return (0);
 }
