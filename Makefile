@@ -5,18 +5,18 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May  9 14:22:06 2016 marel_m
+## Last update Wed May 11 13:51:51 2016 marel_m
 ##
 
 DEBUG=	yes
 
 SRC=	main.c			\
 	epur.c			\
-	check_home.c		\
-	check_oldpwd.c		\
-	check_path.c		\
-	check_pwd.c		\
-	env.c			\
+	env/check_home.c	\
+	env/check_oldpwd.c	\
+	env/check_path.c	\
+	env/check_pwd.c		\
+	env/env.c		\
 	my_get_next_line.c	\
 	my_str_to_word_tab.c	\
 	my_strdup_e.c		\
