@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 15:27:48 2016 Mathieu Sauvau
+** Last update Thu May 12 16:42:56 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -72,7 +72,7 @@ void            change_read_mode(int i, int time, int nb_char)
 }
 
 
-int		do_action(t_key_act actions[2], char *str)
+int		do_action(t_key_act actions[2], char **str)
 {
   static int		cur_pos;
   char		buff[10];
@@ -91,7 +91,11 @@ int		do_action(t_key_act actions[2], char *str)
 	  return (1);
 	}
     }
-  write(1, buff, strlen(buff));
+  *str = realloc(*str, strlen(*str) + strlen(buff) + 1);
+  strcat(*str, buff);
+  write(1, "\r", 1);
+  write(1, "hey ->", 6);
+  write(1, *str, strlen(*str));
   i = -1;
   while (buff[++i])
     {
@@ -101,30 +105,43 @@ int		do_action(t_key_act actions[2], char *str)
   return (0);
 }
 
+char		*term()
+{
+  char		*str;
+  t_key_act	actions[2];
+  int		a;
+
+  init_actions(actions);
+  a = 3;
+  if ((str = malloc(sizeof(char) * 10)) == NULL)
+    return (NULL);
+  str[0] = 0;
+  memset(str, 0, 10);
+  while (42)
+    {
+      a = do_action(actions, &str);
+      if (a == 3)
+	{
+	  // execute_command(str); // Fonction d'exec et de parsing
+	  free(str);
+	  if ((str = malloc(sizeof(char) * 10)) == NULL)
+	    return (NULL);
+	    str[0] = 0;
+	  write(1, "hey ->", 7);
+	}
+    }
+}
+
 int		main(int ac, char **av, char **env)
 {
   char		*str;
   t_sh		sh;
-  t_key_act	actions[2];
-  int		a;
 
   if (check_env(&sh, env))
     return (-1);
   setupterm(NULL, 0, NULL);
   printf("%s\n", tigetstr("smkx"));
-  init_actions(actions);
   change_read_mode(0, 100, 0);
-  str = NULL;
-  a = 3;
-  while (42)
-    {
-      if (a == 3)
-	write(1, "hey ->", 7);
-      a = do_action(actions, str);
-      /* if ((str = get_next_line(0)) == NULL */
-      /* 	  || (str = epur(str)) == NULL) */
-      /* 	return (-1); */
-      free(str);
-    }
+  str = term();
   return (0);
 }
