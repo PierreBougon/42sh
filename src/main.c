@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 16:59:27 2016 Mathieu Sauvau
+** Last update Thu May 12 17:39:47 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -76,12 +76,13 @@ int		do_action(t_key_act actions[4], char **str)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
-	  actions[i].fct(*str, &cur_pos);
+	  actions[i].fct(str, &cur_pos);
 	  return (1);
 	}
     }
   *str = realloc(*str, strlen(*str) + strlen(buff) + 1);
   strcat(*str, buff);
+  cur_pos = strlen(*str);
   write(1, "\r", 1);
   write(1, "hey ->", 6);
   write(1, *str, strlen(*str));
@@ -89,7 +90,10 @@ int		do_action(t_key_act actions[4], char **str)
   while (buff[++i])
     {
       if (buff[i] == '\n')
-	return (3);
+	{
+	  cur_pos = 0;
+	  return (3);
+	}
     }
   return (0);
 }
