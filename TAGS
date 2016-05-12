@@ -40,13 +40,13 @@ int	check_first(34,609
 char	**my_str_to_word_tab(my_str_to_word_tab48,834
 
 src/main.c,189
-void	my_show_tab(22,441
-void		init_actions(34,579
-void            change_read_mode(48,998
-int		cpy_to_pos(67,1407
-int		do_action(99,2017
-char		*term(term130,2478
-int		main(158,2985
+void	my_show_tab(21,413
+void		init_actions(33,551
+void            change_read_mode(47,970
+int		cpy_to_pos(66,1379
+int		do_action(97,1988
+char		*term(term128,2449
+int		main(156,2956
 
 src/create_tree.c,25
 int		create_tree(13,273

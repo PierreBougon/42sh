@@ -5,10 +5,9 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 20:05:30 2016 Mathieu Sauvau
+** Last update Thu May 12 20:46:38 2016 Mathieu Sauvau
 */
 
-#include <ncurses/curses.h>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <ncurses.h>
@@ -94,7 +93,6 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   fflush(stdout);
   return (0);
 }
-
 
 int		do_action(t_key_act actions[5], char **str)
 {
