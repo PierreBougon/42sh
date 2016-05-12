@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 16:42:56 2016 Poc
+** Last update Thu May 12 16:55:56 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -117,17 +117,19 @@ char		*term()
     return (NULL);
   str[0] = 0;
   memset(str, 0, 10);
+  write(1, "hey ->", 7);
   while (42)
     {
+
       a = do_action(actions, &str);
       if (a == 3)
 	{
 	  // execute_command(str); // Fonction d'exec et de parsing
 	  free(str);
+	  write(1, "hey ->", 7);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
 	    return (NULL);
 	    str[0] = 0;
-	  write(1, "hey ->", 7);
 	}
     }
 }
