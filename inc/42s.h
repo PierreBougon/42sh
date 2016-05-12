@@ -5,19 +5,20 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 12 15:23:04 2016 Mathieu Sauvau
+** Last update Thu May 12 16:50:18 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
 # define _42s_H_
 
-# define cursorforward(x) printf("\033[%dC", (x))
-# define cursorbackward(x) printf("\033[%dD", (x))
+# define UNUSED __attribute__((unused))
+# define CURSOR_FORWARD(x) printf("\033[%dC", (x))
+# define CURSOR_BACKWARD(x) printf("\033[%dD", (x))
 
 typedef struct	s_key_action
 {
   char		*key;
-  void		(*fct)(int *);
+  void		(*fct)(char *, int *);
 }		t_key_act;
 
 typedef struct  s_node
@@ -56,4 +57,13 @@ int             check_pwd(t_sh *);
 int             check_oldpwd(t_sh *);
 char            *get_next_line(int);
 
-#endif /* _42s_H_ */
+/*
+** ACTION
+*/
+void		move_left(char *str, int *pos);
+void		move_right(char *str, int *pos);
+void		debut(char *str, int *pos);
+void		end(char *str, int *pos);
+void		backspace(char *str, int *pos);
+
+#endif /* !_42s_H_ */

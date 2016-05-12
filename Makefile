@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed May 11 16:12:38 2016 Mathieu Sauvau
+## Last update Thu May 12 16:45:21 2016 Mathieu Sauvau
 ##
 
 DEBUG=	yes
@@ -21,6 +21,7 @@ SRC=	main.c			\
 	my_str_to_word_tab.c	\
 	my_strdup_e.c		\
 	ncurses.c		\
+	actions.c		\
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
