@@ -45,7 +45,7 @@ void		init_actions(33,551
 void            change_read_mode(47,930
 int		do_action(66,1339
 char		*term(term97,1882
-int		main(124,2361
+int		main(126,2387
 
 src/create_tree.c,25
 int		create_tree(13,273
