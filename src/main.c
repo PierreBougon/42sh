@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 17:39:47 2016 Mathieu Sauvau
+** Last update Thu May 12 18:43:11 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -30,17 +30,17 @@ void	my_show_tab(char **str)
     }
 }
 
-void		init_actions(t_key_act actions[4])
+void		init_actions(t_key_act actions[5])
 {
-  actions[0].key = tigetstr("kcub1");
+  actions[0].key = strdup(tigetstr("kcub1"));
   actions[0].fct = &move_left;
-  actions[1].key = tigetstr("kcuf1");
+  actions[1].key = strdup(tigetstr("kcuf1"));
   actions[1].fct = &move_right;
-  actions[2].key = tigetstr("khome");
+  actions[2].key = strdup(tigetstr("khome"));
   actions[2].fct = &debut;
-  actions[3].key = tigetstr("kend");
+  actions[3].key = strdup(tigetstr("kend"));
   actions[3].fct = &end;
-  actions[4].key = tigetstr("kbs");
+  actions[4].key = strdup(tigetstr("kbs"));
   actions[4].fct = &backspace;
 }
 
@@ -63,7 +63,7 @@ void            change_read_mode(int i, int time, int nb_char)
     ioctl(0, TCSETS, &old);
 }
 
-int		do_action(t_key_act actions[4], char **str)
+int		do_action(t_key_act actions[5], char **str)
 {
   static int	cur_pos;
   char		buff[10];
@@ -72,7 +72,7 @@ int		do_action(t_key_act actions[4], char **str)
   i = -1;
   memset(buff, 0, 10);
   read(0, buff, 10);
-  while (++i < 4)
+  while (++i < 5)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -101,7 +101,7 @@ int		do_action(t_key_act actions[4], char **str)
 char		*term()
 {
   char		*str;
-  t_key_act	actions[4];
+  t_key_act	actions[5];
   int		a;
 
   init_actions(actions);
@@ -113,7 +113,6 @@ char		*term()
   write(1, "hey ->", 7);
   while (42)
     {
-
       a = do_action(actions, &str);
       if (a == 3)
 	{
@@ -122,7 +121,7 @@ char		*term()
 	  write(1, "hey ->", 7);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
 	    return (NULL);
-	    str[0] = 0;
+	  str[0] = 0;
 	}
     }
 }
@@ -136,7 +135,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
     return (-1);
   setupterm(NULL, 0, NULL);
   printf("%s\n", tigetstr("smkx"));
-  change_read_mode(0, 100, 0);
+  change_read_mode(0, 100, 1);
   str = term();
   return (0);
 }

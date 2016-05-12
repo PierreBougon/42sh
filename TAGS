@@ -3,11 +3,11 @@ src/ncurses.c,40
 char	*ncurses_mode(ncurses_mode11,195
 
 src/actions.c,111
-void		move_left(15,296
-void		move_right(25,436
-void		debut(35,580
-void		end(48,753
-void		backspace(62,971
+void		move_left(16,316
+void		move_right(26,456
+void		debut(36,605
+void		end(49,778
+void		backspace(62,954
 
 src/epur.c,24
 char	*epur(epur14,239
@@ -42,10 +42,10 @@ char	**my_str_to_word_tab(my_str_to_word_tab48,834
 src/main.c,164
 void	my_show_tab(21,413
 void		init_actions(33,551
-void            change_read_mode(47,930
-int		do_action(66,1339
-char		*term(term101,1931
-int		main(130,2436
+void            change_read_mode(47,970
+int		do_action(66,1379
+char		*term(term101,1971
+int		main(129,2473
 
 src/create_tree.c,25
 int		create_tree(13,273

@@ -5,11 +5,12 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Thu May 12 16:33:46 2016 Mathieu Sauvau
-** Last update Thu May 12 17:46:29 2016 Mathieu Sauvau
+** Last update Thu May 12 18:41:48 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "42s.h"
 
 void		move_left(UNUSED char **str, int *pos)
@@ -24,7 +25,7 @@ void		move_left(UNUSED char **str, int *pos)
 
 void		move_right(char **str, int *pos)
 {
-  if (*pos < strlen(*str))
+  if (*pos < (int)strlen(*str))
     {
       CURSOR_FORWARD(1);
       ++*pos;
@@ -60,5 +61,23 @@ void		end(char **str, int *pos)
 
 void		backspace(char **str, int *pos)
 {
+  char		*new;
+  int		i;
+  int		j;
 
+  new = strdup(*str);
+  //  printf("%s\n", *str);
+  //  free(str);
+  if ((*str = malloc(strlen(new))) == NULL)
+    return ;
+  i = -1;
+  j = 0;
+  while (++i < strlen(new) - 1)
+    {
+      if (i != *pos)
+  	(*str)[j] = new[i];
+      j++;
+    }
+  //  printf("%s\n", *str);
+  free(new);
 }
