@@ -4,10 +4,10 @@ char	*ncurses_mode(ncurses_mode11,195
 
 src/actions.c,111
 void		move_left(15,296
-void		move_right(21,385
-void		debut(27,474
-void		end(33,567
-void		backspace(39,657
+void		move_right(25,436
+void		debut(35,580
+void		end(48,753
+void		backspace(62,971
 
 src/epur.c,24
 char	*epur(epur14,239
@@ -39,13 +39,13 @@ int	check_nb(15,334
 int	check_first(34,609
 char	**my_str_to_word_tab(my_str_to_word_tab48,834
 
-src/main.c,163
+src/main.c,164
 void	my_show_tab(21,413
 void		init_actions(33,551
 void            change_read_mode(47,930
 int		do_action(66,1339
-char		*term(term97,1882
-int		main(126,2387
+char		*term(term101,1931
+int		main(130,2436
 
 src/create_tree.c,25
 int		create_tree(13,273
@@ -94,27 +94,27 @@ inc/42s.h,877
 typedef struct	s_key_action18,396
   char		*key;key20,426
   void		(*fct)fct21,440
-}		t_key_act;22,471
-typedef struct  s_node24,486
-  int           power;26,511
-  struct s_node *left;left27,534
-  struct s_node *right;right28,557
-}               t_node;29,581
-typedef struct  s_env31,606
-  char          **env;env33,630
-  char          *pwd;pwd34,653
-  char          *oldpwd;oldpwd35,675
-  char          *home;home36,700
-  char          **path;path37,723
-  char          pst_pwd;38,747
-  char          pst_home;39,772
-  char          pst_oldpwd;40,798
-  char          pst_path;41,826
-}               t_env;42,852
-typedef struct  s_sh44,876
-  t_node        *tree;tree46,899
-  t_env         *env;env47,922
-}               t_sh;48,944
+}		t_key_act;22,472
+typedef struct  s_node24,487
+  int           power;26,512
+  struct s_node *left;left27,535
+  struct s_node *right;right28,558
+}               t_node;29,582
+typedef struct  s_env31,607
+  char          **env;env33,631
+  char          *pwd;pwd34,654
+  char          *oldpwd;oldpwd35,676
+  char          *home;home36,701
+  char          **path;path37,724
+  char          pst_pwd;38,748
+  char          pst_home;39,773
+  char          pst_oldpwd;40,799
+  char          pst_path;41,827
+}               t_env;42,853
+typedef struct  s_sh44,877
+  t_node        *tree;tree46,900
+  t_env         *env;env47,923
+}               t_sh;48,945
 
 inc/my.h,105
 # define MY_H_12,242

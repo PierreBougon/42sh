@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 12 16:50:18 2016 Mathieu Sauvau
+** Last update Thu May 12 17:46:39 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -18,7 +18,7 @@
 typedef struct	s_key_action
 {
   char		*key;
-  void		(*fct)(char *, int *);
+  void		(*fct)(char **, int *);
 }		t_key_act;
 
 typedef struct  s_node
@@ -60,10 +60,10 @@ char            *get_next_line(int);
 /*
 ** ACTION
 */
-void		move_left(char *str, int *pos);
-void		move_right(char *str, int *pos);
-void		debut(char *str, int *pos);
-void		end(char *str, int *pos);
-void		backspace(char *str, int *pos);
+void		move_left(char **, int *pos);
+void		move_right(char **, int *pos);
+void		debut(char **, int *pos);
+void		end(char **, int *pos);
+void		backspace(char **, int *pos);
 
 #endif /* !_42s_H_ */
