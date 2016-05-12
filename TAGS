@@ -39,12 +39,13 @@ int	check_nb(15,334
 int	check_first(34,609
 char	**my_str_to_word_tab(my_str_to_word_tab48,834
 
-src/main.c,136
+src/main.c,163
 void	my_show_tab(21,413
 void		init_actions(33,551
 void            change_read_mode(47,930
 int		do_action(66,1339
-int		main(93,1756
+char		*term(term97,1882
+int		main(124,2361
 
 src/create_tree.c,25
 int		create_tree(13,273
