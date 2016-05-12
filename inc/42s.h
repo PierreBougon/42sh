@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 12 19:04:07 2016 Mathieu Sauvau
+** Last update Thu May 12 19:21:28 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -16,6 +16,7 @@
 # define CURSOR_BACKWARD(x) printf("\033[%dD", (x))
 # define CURSOR_SAVE printf("\033[s")
 # define CURSOR_RESTORE printf("\033[u")
+# define MOVE_CURSOR_TO(x, y) printf("\033[%d;%dH", (x), (y))
 
 typedef struct	s_key_action
 {

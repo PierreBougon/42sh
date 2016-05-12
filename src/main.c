@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 19:11:04 2016 Mathieu Sauvau
+** Last update Thu May 12 20:05:30 2016 Mathieu Sauvau
 */
 
+#include <ncurses/curses.h>
 #include <sys/ioctl.h>
 #include <termios.h>
 #include <ncurses.h>
@@ -67,7 +68,11 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
 {
   char		*start;
   char		*end;
+  int		y;
+  int		x;
 
+  y = 0;
+  x = 0;
   start = strdup(*str);
   start[*curs_pos] = 0;
   end = strdup(*str + *curs_pos);
@@ -78,6 +83,9 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   *curs_pos += 1;
   CURSOR_FORWARD(1);
   CURSOR_SAVE;
+  getsyx(y,x);
+  //  printf("     %d\n", y);
+  /* MOVE_CURSOR_TO(0, y); */
   fflush(stdout);
   write(1, "\r", 1);
   write(1, "hey ->", 6);
@@ -86,6 +94,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   fflush(stdout);
   return (0);
 }
+
 
 int		do_action(t_key_act actions[5], char **str)
 {
@@ -137,7 +146,7 @@ char		*term()
       if (a == 3)
 	{
 	  // execute_command(str); // Fonction d'exec et de parsing
-	  free(str);
+	  //	  free(str);
 	  write(1, "hey ->", 7);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
 	    return (NULL);

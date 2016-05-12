@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Thu May 12 16:33:46 2016 Mathieu Sauvau
-** Last update Thu May 12 19:14:24 2016 Mathieu Sauvau
+** Last update Thu May 12 20:11:47 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -61,23 +61,18 @@ void		end(char **str, int *pos)
 
 void		backspace(char **str, int *pos)
 {
-  char		*new;
+  char		*start;
+  char		*end;
   int		i;
   int		j;
 
-  new = strdup(*str);
-  //  printf("%s\n", *str);
-  //  free(str);
-  if ((*str = malloc(strlen(new))) == NULL)
-    return ;
-  i = -1;
-  j = 0;
-  while (++i < strlen(new) - 1)
-    {
-      if (i != *pos)
-  	(*str)[j] = new[i];
-      j++;
-    }
-  //  printf("%s\n", *str);
-  free(new);
+  start = strdup(*str);
+  start[*pos - 1] = 0;
+  end = strdup(*str + *pos);
+  free(*str);
+  *str = strdup(start);
+  strcat(*str, end);
+  *pos--;
+  printf("%s\n", *str);
+  free(start);
 }
