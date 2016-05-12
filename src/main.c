@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 18:43:11 2016 Mathieu Sauvau
+** Last update Thu May 12 18:50:07 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -63,6 +63,26 @@ void            change_read_mode(int i, int time, int nb_char)
     ioctl(0, TCSETS, &old);
 }
 
+int		cpy_to_pos(char **str, char *buff, int *curs_pos)
+{
+  char		*start;
+  char		*end;
+
+  start = strdup(*str);
+  start[*curs_pos] = 0;
+  end = strdup(*str + *curs_pos);
+  *str = realloc(*str, strlen(*str) + strlen(buff) + 1);
+  strcpy(*str, start);
+  strcat(*str, buff);
+  strcat(*str, end);
+  *curs_pos += 1;
+  write(1, "\r", 1);
+  write(1, "hey ->", 6);
+  write(1, *str, strlen(*str));
+  CURSOR_BACKWARD(strlen(*str) - *curs_pos);
+  return (0);
+}
+
 int		do_action(t_key_act actions[5], char **str)
 {
   static int	cur_pos;
@@ -80,21 +100,17 @@ int		do_action(t_key_act actions[5], char **str)
 	  return (1);
 	}
     }
-  *str = realloc(*str, strlen(*str) + strlen(buff) + 1);
-  strcat(*str, buff);
-  cur_pos = strlen(*str);
-  write(1, "\r", 1);
-  write(1, "hey ->", 6);
-  write(1, *str, strlen(*str));
   i = -1;
   while (buff[++i])
     {
       if (buff[i] == '\n')
 	{
+	  printf("\n");
 	  cur_pos = 0;
 	  return (3);
 	}
     }
+  cpy_to_pos(str, buff, &cur_pos);
   return (0);
 }
 
