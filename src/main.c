@@ -5,12 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 12 20:46:38 2016 Mathieu Sauvau
+** Last update Fri May 13 12:44:13 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
-#include <termios.h>
 #include <ncurses.h>
+#include <termios.h>
+#include <term.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -82,12 +83,9 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   *curs_pos += 1;
   CURSOR_FORWARD(1);
   CURSOR_SAVE;
-  getsyx(y,x);
-  //  printf("     %d\n", y);
-  /* MOVE_CURSOR_TO(0, y); */
   fflush(stdout);
-  write(1, "\r", 1);
-  write(1, "hey ->", 6);
+  //  ERASE(
+  write(1, "\rhey ->", 7);
   write(1, *str, strlen(*str));
   CURSOR_RESTORE;
   fflush(stdout);

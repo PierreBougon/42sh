@@ -5,9 +5,11 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Thu May 12 16:33:46 2016 Mathieu Sauvau
-** Last update Thu May 12 20:43:57 2016 Mathieu Sauvau
+** Last update Fri May 13 12:34:28 2016 Mathieu Sauvau
 */
 
+#include <curses.h>
+#include <term.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,7 +19,7 @@ void		move_left(UNUSED char **str, int *pos)
 {
   if (*pos > 0)
     {
-      CURSOR_BACKWARD(1);
+     CURSOR_BACKWARD(1);
       --*pos;
       fflush(stdout);
     }
@@ -57,30 +59,4 @@ void		end(char **str, int *pos)
       *pos = len;
       fflush(stdout);
     }
-}
-
-void		backspace(char **str, int *pos)
-{
-  char		*start;
-  char		*end;
-  int		i;
-  int		j;
-
-  start = strdup(*str);
-  start[*pos - 1] = 0;
-  start[*pos] = 0;
-  end = strdup(*str + *pos);
-  free(*str);
-  *str = strdup(start);
-  strcat(*str, end);
-  /* printf("START %s\n", start); */
-  /* printf("END %s\n", end); */
-  --*pos;
-  write(1, "\r", 1);
-  printf("%c[2K", 27);
-  fflush(stdout);
-  write(1, "hey ->", 6);
-  write(1, *str, strlen(*str));
-  /* printf("\r%s", *str); */
-  free(start);
 }

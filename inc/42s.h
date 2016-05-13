@@ -5,18 +5,19 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 12 19:21:28 2016 Mathieu Sauvau
+** Last update Fri May 13 11:57:04 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
 # define _42s_H_
 
 # define UNUSED __attribute__((unused))
-# define CURSOR_FORWARD(x) printf("\033[%dC", (x))
-# define CURSOR_BACKWARD(x) printf("\033[%dD", (x))
-# define CURSOR_SAVE printf("\033[s")
-# define CURSOR_RESTORE printf("\033[u")
+# define CURSOR_BACKWARD(x) printf("%s", tiparm(tigetstr("cub"), (x)))
+# define CURSOR_FORWARD(x)  printf("%s", tiparm(tigetstr("cuf"), (x)))
+# define CURSOR_SAVE printf("%s", tigetstr("sc"))
+# define CURSOR_RESTORE printf("%s", tigetstr("rc"))
 # define MOVE_CURSOR_TO(x, y) printf("\033[%d;%dH", (x), (y))
+# define ERASE(x) printf("%s", tiparm(tigetstr("ech"), (x)));
 
 typedef struct	s_key_action
 {
