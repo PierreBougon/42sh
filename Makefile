@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri May 13 12:33:14 2016 Mathieu Sauvau
+## Last update Fri May 13 17:50:12 2016 Mathieu Sauvau
 ##
 
 DEBUG=	yes
@@ -23,6 +23,7 @@ SRC=	main.c			\
 	ncurses.c		\
 	actions.c		\
 	erase.c			\
+	history.c		\
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
