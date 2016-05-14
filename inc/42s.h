@@ -5,15 +5,34 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May  9 15:06:11 2016 marel_m
+** Last update Thu May 12 16:31:27 2016 marel_m
 */
 
 #ifndef _42s_H_
 # define _42s_H_
 
+typedef enum		e_dir
+  {
+    LEFT,
+    RIGHT,
+  }		t_dir;
+
+typedef enum	e_type
+  {
+    SEMICOLON,
+    DOUBLE_PIPE,
+    DOUBLE_AND,
+    PIPE,
+    REDIR_RIGHT,
+    REDIR_LEFT,
+    DOUBLE_REDIR_RIGHT,
+    DOUBLE_REDIR_LEFT
+  }		t_type;
+
 typedef struct  s_node
 {
-  int           power;
+  t_type          type;
+  char		*arg;
   struct s_node *left;
   struct s_node *right;
 }               t_node;
@@ -33,10 +52,13 @@ typedef struct  s_env
 
 typedef struct  s_sh
 {
-  t_node        *tree;
+  t_node        *node;
   t_env         *env;
 }               t_sh;
 
+char		*epur(char *);
+int		parsing(t_sh *, char *);
+t_node		**insert_node(t_node **, char *, t_type, t_dir);
 char            **my_str_to_word_tab(char *, char);
 char            *my_strdup_e(char *, int);
 char		*epur_str(char *);

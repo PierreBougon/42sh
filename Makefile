@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed May 11 13:51:51 2016 marel_m
+## Last update Fri May 13 15:46:27 2016 marel_m
 ##
 
 DEBUG=	yes
@@ -20,6 +20,9 @@ SRC=	main.c			\
 	my_get_next_line.c	\
 	my_str_to_word_tab.c	\
 	my_strdup_e.c		\
+	parsing.c		\
+	parsing_sep.c		\
+	tree.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 

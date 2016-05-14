@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed May 11 13:50:32 2016 marel_m
+** Last update Sat May 14 16:37:03 2016 marel_m
 */
 
 #include <unistd.h>
@@ -35,11 +35,15 @@ int	main(int ac, char **av, char **env)
     return (-1);
   while (42)
     {
+      sh.node = NULL;
       write(1, "hey ->", 7);
       if ((str = get_next_line(0)) == NULL
 	  || (str = epur(str)) == NULL)
 	return (-1);
-      printf("%s\n", str);
+      parsing(&sh, str);
+      print_tree(sh.node);
+      free(sh.node);
+      /* deltree(sh.node); */
     }
   return (0);
 }

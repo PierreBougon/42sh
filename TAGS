@@ -23,28 +23,43 @@ typedef	struct	s_tab14,251
   int		size;17,285
 }		t_tab;18,298
 
-inc/42s.h,681
+inc/42s.h,1028
 # define _42s_H_12,227
-typedef struct  s_node14,245
-  int           power;16,270
-  struct s_node *left;left17,293
-  struct s_node *right;right18,316
-}               t_node;19,340
-typedef struct  s_env21,365
-  char          **env;env23,389
-  char          *pwd;pwd24,412
-  char          *oldpwd;oldpwd25,434
-  char          *home;home26,459
-  char          **path;path27,482
-  char          pst_pwd;28,506
-  char          pst_home;29,531
-  char          pst_oldpwd;30,557
-  char          pst_path;31,585
-}               t_env;32,611
-typedef struct  s_sh34,635
-  t_node        *tree;tree36,658
-  t_env         *env;env37,681
-}               t_sh;38,703
+typedef enum		e_dir14,245
+    LEFT,16,269
+    RIGHT,17,279
+  }		t_dir;18,290
+typedef enum	e_type20,303
+    SEMICOLON,22,327
+    DOUBLE_PIPE,23,342
+    DOUBLE_AND,24,359
+    PIPE,25,375
+    REDIR_RIGHT,26,385
+    REDIR_LEFT,27,402
+    DOUBLE_REDIR_RIGHT,28,418
+    DOUBLE_REDIR_LEFT29,442
+  }		t_type;30,464
+typedef struct  s_node32,478
+  t_type          type;34,503
+  char		*arg;arg35,527
+  struct s_node *left;left36,541
+  struct s_node *right;right37,564
+}               t_node;38,588
+typedef struct  s_env40,613
+  char          **env;env42,637
+  char          *pwd;pwd43,660
+  char          *oldpwd;oldpwd44,682
+  char          *home;home45,707
+  char          **path;path46,730
+  char          pst_pwd;47,754
+  char          pst_home;48,779
+  char          pst_oldpwd;49,805
+  char          pst_path;50,833
+}               t_env;51,859
+typedef struct  s_sh53,883
+  t_node        *node;node55,906
+  t_env         *env;env56,929
+}               t_sh;57,951
 
 src/env/env.c,230
 int	create_env(17,320
@@ -76,13 +91,31 @@ char	*my_realloc(my_realloc13,265
 char	*last_buff(last_buff30,540
 char		*get_next_line(get_next_line50,925
 
-src/create_tree.c,25
-int		create_tree(13,273
+src/parsing_sep.c,218
+int	pars_semicolon(15,304
+int	pars_double_pipe(30,649
+int	pars_double_and(45,1019
+int	pars_double(58,1319
+int	pars_pipe(76,1574
+int	pars_redir_right(89,1841
+int	pars_redir_left(102,2122
+int	pars_redir(115,2403
 
 src/my_str_to_word_tab.c,98
 int	check_nb(15,334
 int	check_first(34,609
 char	**my_str_to_word_tab(my_str_to_word_tab48,834
+
+src/parsing.c,53
+int	check_first_priority(14,275
+int	parsing(38,736
+
+src/tree.c,159
+t_node		*new_node(new_node16,329
+t_node		**insert_node(insert_node31,616
+void		deltree(49,1002
+void		print_tab_arg_dir(61,1177
+void		print_tree(68,1291
 
 src/main.c,42
 void	my_show_tab(17,320

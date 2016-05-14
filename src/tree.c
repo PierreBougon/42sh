@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue Mar 29 11:56:22 2016 Mathieu Sauvau
-** Last update Sat May 14 20:04:08 2016 marel_m
+** Last update Sat May 14 16:41:15 2016 marel_m
 */
 
 #include <stdio.h>
@@ -32,16 +32,17 @@ t_node		**insert_node(t_node **tree, char *arg, t_type type, t_dir dir)
 {
   t_node	*new;
 
-  if (dir == LEFT)
-    insert_node(&(*tree)->left, arg, type, NULL);
-  else if (dir == RIGHT)
-    insert_node(&(*tree)->right, arg, type, NULL);
-  else
+  if (!(*tree))
     {
       if ((new = new_node(arg, type)) == NULL)
   	return (NULL);
       *tree = new;
+      return (tree);
     }
+  if (dir == LEFT)
+    insert_node(&(*tree)->left, arg, type, dir);
+  else if (dir == RIGHT)
+    insert_node(&(*tree)->right, arg, type, dir);
   return (tree);
 }
 
