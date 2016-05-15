@@ -1,132 +1,0 @@
-
-src/ncurses.c,40
-char	*ncurses_mode(ncurses_mode11,195
-
-src/actions.c,87
-void		move_left(18,354
-void		move_right(28,493
-void		debut(38,642
-void		end(51,815
-
-src/erase.c,47
-void		edit_str(19,372
-void		backspace(33,599
-
-src/epur.c,24
-char	*epur(epur14,239
-
-src/env/check_home.c,27
-int     check_home(15,308
-
-src/env/check_oldpwd.c,29
-int     check_oldpwd(15,306
-
-src/env/env.c,230
-int	create_env(17,320
-int     nb_line(36,894
-int     copy_env(46,1003
-int	check_if_present_in_env(65,1351
-t_env_elem	*init_tab_env_elem(init_tab_env_elem82,1839
-int		check_if_present_env(99,2287
-int     check_env(124,2790
-
-src/env/check_path.c,53
-int	check_path(15,308
-int	check_path_setenv(39,840
-
-src/env/check_pwd.c,26
-int     check_pwd(15,306
-
-src/my_str_to_word_tab.c,98
-int	check_nb(15,334
-int	check_first(34,609
-char	**my_str_to_word_tab(my_str_to_word_tab48,834
-
-src/main.c,189
-void	my_show_tab(22,431
-void		init_actions(34,569
-void            change_read_mode(48,988
-int		cpy_to_pos(67,1397
-int		do_action(95,1925
-char		*term(term126,2386
-int		main(154,2893
-
-src/create_tree.c,25
-int		create_tree(13,273
-
-src/my_strdup_e.c,38
-char	*my_strdup_e(my_strdup_e14,307
-
-src/my_get_next_line.c,113
-char	*my_realloc(my_realloc13,265
-char	*last_buff(last_buff30,540
-char		*get_next_line(get_next_line50,925
-
-tree.c,280
-t_node		*new_node(new_node13,276
-t_list_tree	*new_tree(new_tree26,498
-void	add_tree(37,686
-t_node		**insert_node(insert_node48,841
-void		deltree(66,1224
-void		del_all_tree(78,1401
-void		print_tab_arg_dir(91,1578
-void		print_tree(110,1903
-void		print_all_tree(120,2101
-
-inc/fptrtab.h,268
-# define FPTRTAB_H_12,265
-enum		env16,304
-    PATH,18,318
-    HOME,19,328
-    PWD,20,338
-    OLDPWD,21,347
-    MAX_ELEM_ENV22,359
-typedef struct	s_env_elem25,382
-  char		*env_elem;env_elem27,410
-  int		(*ft_env_elem)ft_env_elem28,429
-}		t_env_elem;29,460
-
-inc/get_next_line.h,61
-# define GET_NEXT_LINE_H_12,256
-#  define READ_SIZE 15,302
-
-inc/42s.h,1002
-# define _42s_H_12,234
-# define UNUSED 14,252
-# define CURSOR_BACKWARD(15,292
-# define CURSOR_FORWARD(16,363
-# define CURSOR_SAVE 17,434
-# define CURSOR_RESTORE 18,484
-# define MOVE_CURSOR_TO(19,537
-# define ERASE(20,599
-typedef struct	s_key_action22,662
-  char		*key;key24,692
-  void		(*fct)fct25,706
-}		t_key_act;26,738
-typedef struct  s_node28,753
-  int           power;30,778
-  struct s_node *left;left31,801
-  struct s_node *right;right32,824
-}               t_node;33,848
-typedef struct  s_env35,873
-  char          **env;env37,897
-  char          *pwd;pwd38,920
-  char          *oldpwd;oldpwd39,942
-  char          *home;home40,967
-  char          **path;path41,990
-  char          pst_pwd;42,1014
-  char          pst_home;43,1039
-  char          pst_oldpwd;44,1065
-  char          pst_path;45,1093
-}               t_env;46,1119
-typedef struct  s_sh48,1143
-  t_node        *tree;tree50,1166
-  t_env         *env;env51,1189
-}               t_sh;52,1211
-
-inc/my.h,105
-# define MY_H_12,242
-typedef	struct	s_tab14,258
-  int		nb;16,281
-  int		size;17,292
-}		t_tab;18,305
