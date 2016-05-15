@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Thu May 12 16:33:46 2016 Mathieu Sauvau
-** Last update Fri May 13 12:34:28 2016 Mathieu Sauvau
+** Last update Fri May 13 19:22:15 2016 Mathieu Sauvau
 */
 
 #include <curses.h>
@@ -15,7 +15,8 @@
 #include <stdlib.h>
 #include "42s.h"
 
-void		move_left(UNUSED char **str, int *pos)
+void		move_left(UNUSED char **str, int *pos,
+			  UNUSED t_head *history)
 {
   if (*pos > 0)
     {
@@ -25,7 +26,8 @@ void		move_left(UNUSED char **str, int *pos)
     }
 }
 
-void		move_right(char **str, int *pos)
+void		move_right(char **str, int *pos,
+			   UNUSED t_head *history)
 {
   if (*pos < (int)strlen(*str))
     {
@@ -35,7 +37,8 @@ void		move_right(char **str, int *pos)
     }
 }
 
-void		debut(char **str, int *pos)
+void		debut(char **str, int *pos,
+		      UNUSED t_head *history)
 {
   int		len;
 
@@ -48,7 +51,8 @@ void		debut(char **str, int *pos)
     }
 }
 
-void		end(char **str, int *pos)
+void		end(char **str, int *pos,
+		    UNUSED t_head *history)
 {
   int		len;
 

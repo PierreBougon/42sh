@@ -5,11 +5,12 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Fri May 13 11:57:04 2016 Mathieu Sauvau
+** Last update Sat May 14 10:39:28 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
 # define _42s_H_
+
 
 # define UNUSED __attribute__((unused))
 # define CURSOR_BACKWARD(x) printf("%s", tiparm(tigetstr("cub"), (x)))
@@ -19,10 +20,12 @@
 # define MOVE_CURSOR_TO(x, y) printf("\033[%d;%dH", (x), (y))
 # define ERASE(x) printf("%s", tiparm(tigetstr("ech"), (x)));
 
+# include "history.h"
+
 typedef struct	s_key_action
 {
   char		*key;
-  void		(*fct)(char **, int *);
+  void		(*fct)(char **, int *, t_head *);
 }		t_key_act;
 
 typedef struct  s_node
@@ -49,6 +52,8 @@ typedef struct  s_sh
 {
   t_node        *tree;
   t_env         *env;
+  t_history	*history;
+  int		fd_history;
 }               t_sh;
 
 char            **my_str_to_word_tab(char *, char);
@@ -64,10 +69,10 @@ char            *get_next_line(int);
 /*
 ** ACTION
 */
-void		move_left(char **, int *pos);
-void		move_right(char **, int *pos);
-void		debut(char **, int *pos);
-void		end(char **, int *pos);
-void		backspace(char **, int *pos);
+void		move_left(char **, int *, t_head *);
+void		move_right(char **, int *, t_head *);
+void		debut(char **, int *, t_head *);
+void		end(char **, int *, t_head *);
+void		backspace(char **, int *, t_head *);
 
 #endif /* !_42s_H_ */

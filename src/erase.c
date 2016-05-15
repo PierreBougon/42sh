@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 12:31:02 2016 Mathieu Sauvau
-** Last update Fri May 13 12:35:47 2016 Mathieu Sauvau
+** Last update Fri May 13 19:22:27 2016 Mathieu Sauvau
 */
 
 #include <unistd.h>
@@ -30,7 +30,8 @@ void		edit_str(char **str, int *pos)
   strcat(*str, end);
 }
 
-void		backspace(char **str, int *pos)
+void		backspace(char **str, int *pos,
+			  UNUSED t_head *history)
 {
   if (*pos > 0)
     {

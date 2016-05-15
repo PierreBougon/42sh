@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Fri May 13 12:44:13 2016 Mathieu Sauvau
+** Last update Sat May 14 11:00:31 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -19,6 +19,10 @@
 #include <string.h>
 #include "42s.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 void	my_show_tab(char **str)
 {
   int	i;
@@ -31,7 +35,7 @@ void	my_show_tab(char **str)
     }
 }
 
-void		init_actions(t_key_act actions[5])
+void		init_actions(t_key_act actions[7])
 {
   actions[0].key = strdup(tigetstr("kcub1"));
   actions[0].fct = &move_left;
@@ -43,6 +47,10 @@ void		init_actions(t_key_act actions[5])
   actions[3].fct = &end;
   actions[4].key = strdup(tigetstr("kbs"));
   actions[4].fct = &backspace;
+  actions[5].key = strdup(tigetstr("kcuu1"));
+  actions[5].fct = &history_up;
+  actions[6].key = strdup(tigetstr("kcud1"));
+  actions[6].fct = &history_down;
 }
 
 void            change_read_mode(int i, int time, int nb_char)
@@ -84,7 +92,6 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   CURSOR_FORWARD(1);
   CURSOR_SAVE;
   fflush(stdout);
-  //  ERASE(
   write(1, "\rhey ->", 7);
   write(1, *str, strlen(*str));
   CURSOR_RESTORE;
@@ -92,7 +99,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   return (0);
 }
 
-int		do_action(t_key_act actions[5], char **str)
+int		do_action(t_key_act actions[7], char **str, t_head *history)
 {
   static int	cur_pos;
   char		buff[10];
@@ -101,11 +108,11 @@ int		do_action(t_key_act actions[5], char **str)
   i = -1;
   memset(buff, 0, 10);
   read(0, buff, 10);
-  while (++i < 5)
+  while (++i < 7)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
-	  actions[i].fct(str, &cur_pos);
+	  actions[i].fct(str, &cur_pos, history);
 	  return (1);
 	}
     }
@@ -123,12 +130,27 @@ int		do_action(t_key_act actions[5], char **str)
   return (0);
 }
 
-char		*term()
+void		get_history(int fd_history, t_head *history)
 {
   char		*str;
-  t_key_act	actions[5];
-  int		a;
 
+  while ((str = get_next_line(fd_history)))
+    {
+      push_front_history(history, str);
+      free(str);
+    }
+}
+
+char		*term(t_sh *sh)
+{
+  char		*str;
+  t_key_act	actions[7];
+  int		a;
+  t_head	history;
+
+  history.first = NULL;
+  history.last = NULL;
+  get_history(sh->fd_history, &history);
   init_actions(actions);
   a = 3;
   if ((str = malloc(sizeof(char) * 10)) == NULL)
@@ -138,9 +160,13 @@ char		*term()
   write(1, "hey ->", 7);
   while (42)
     {
-      a = do_action(actions, &str);
+      a = do_action(actions, &str, &history);
       if (a == 3)
 	{
+	  push_front_history(&history, str);
+	  if (sh->fd_history > 0)
+	    dprintf(sh->fd_history, "%s\n", str);
+	  print_history(history.first);
 	  // execute_command(str); // Fonction d'exec et de parsing
 	  //	  free(str);
 	  write(1, "hey ->", 7);
@@ -149,6 +175,13 @@ char		*term()
 	  str[0] = 0;
 	}
     }
+}
+
+void		create_history_file(t_sh *sh)
+{
+  sh->fd_history = open(".history", O_CREAT | O_RDWR | O_APPEND,
+			S_IRUSR | S_IWUSR | S_IRGRP |
+			S_IWGRP | S_IROTH | S_IWOTH);
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)
@@ -160,7 +193,9 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
     return (-1);
   setupterm(NULL, 0, NULL);
   printf("%s\n", tigetstr("smkx"));
+  create_history_file(&sh);
   change_read_mode(0, 100, 1);
-  str = term();
+  sh.history = NULL;
+  str = term(&sh);
   return (0);
 }
