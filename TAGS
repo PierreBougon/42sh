@@ -4,9 +4,16 @@ char	*ncurses_mode(ncurses_mode11,195
 
 src/actions.c,87
 void		move_left(18,354
-void		move_right(29,522
-void		debut(40,701
-void		end(54,906
+void		move_right(30,551
+void		debut(42,759
+void		end(57,995
+
+src/cursor.c,136
+void	cursor_backward(16,314
+void	cursor_forward(30,482
+void	cursor_erase(44,649
+void	cursor_save(56,806
+void	cursor_restore(66,914
 
 src/erase.c,47
 void		edit_str(19,372
@@ -43,15 +50,15 @@ int	check_first(34,609
 char	**my_str_to_word_tab(my_str_to_word_tab48,834
 
 src/main.c,255
-void	my_show_tab(26,496
-void		init_actions(38,634
-void            change_read_mode(56,1211
-int		cpy_to_pos(75,1620
-int		do_action(102,2135
-void		get_history(133,2622
-char		*term(term144,2806
-void		create_history_file(180,3578
-int		main(187,3750
+void	my_show_tab(25,495
+void		init_actions(37,633
+void            change_read_mode(55,1210
+int		cpy_to_pos(74,1619
+int		do_action(101,2138
+void		get_history(133,2669
+char		*term(term144,2853
+void		create_history_file(180,3625
+int		main(187,3797
 
 src/create_tree.c,25
 int		create_tree(13,273
@@ -61,9 +68,9 @@ void		push_front_history(18,354
 void		free_history(35,702
 void		print_history(45,855
 char			*seek_prev_history(seek_prev_history55,1015
-char			*seek_next_history(seek_next_history81,1480
-void		history_up(98,1804
-void		history_down(119,2210
+char			*seek_next_history(seek_next_history74,1371
+void		history_up(91,1696
+void		history_down(112,2136
 
 src/my_strdup_e.c,38
 char	*my_strdup_e(my_strdup_e14,307
@@ -113,41 +120,35 @@ inc/get_next_line.h,61
 # define GET_NEXT_LINE_H_12,256
 #  define READ_SIZE 15,302
 
-inc/42s.h,1069
+inc/42s.h,875
 # define _42s_H_12,234
-# define UNUSED 15,253
-# define CURSOR_BACKWARD(16,293
-# define CURSOR_FORWARD(17,364
-# define CURSOR_SAVE 18,435
-# define CURSOR_RESTORE 19,485
-# define MOVE_CURSOR_TO(20,538
-# define ERASE(21,600
-typedef struct	s_key_action25,686
-  char		*key;key27,716
-  void		(*fct)fct28,730
-}		t_key_act;29,772
-typedef struct  s_node31,787
-  int           power;33,812
-  struct s_node *left;left34,835
-  struct s_node *right;right35,858
-}               t_node;36,882
-typedef struct  s_env38,907
-  char          **env;env40,931
-  char          *pwd;pwd41,954
-  char          *oldpwd;oldpwd42,976
-  char          *home;home43,1001
-  char          **path;path44,1024
-  char          pst_pwd;45,1048
-  char          pst_home;46,1073
-  char          pst_oldpwd;47,1099
-  char          pst_path;48,1127
-}               t_env;49,1153
-typedef struct  s_sh51,1177
-  t_node        *tree;tree53,1200
-  t_env         *env;env54,1223
-  t_history	*history;history55,1245
-  int		fd_history;56,1267
-}               t_sh;57,1286
+# define UNUSED 14,252
+typedef struct	s_key_action18,316
+  char		*key;key20,346
+  void		(*fct)fct21,360
+}		t_key_act;22,409
+typedef struct  s_node24,424
+  int           power;26,449
+  struct s_node *left;left27,472
+  struct s_node *right;right28,495
+}               t_node;29,519
+typedef struct  s_env31,544
+  char          **env;env33,568
+  char          *pwd;pwd34,591
+  char          *oldpwd;oldpwd35,613
+  char          *home;home36,638
+  char          **path;path37,661
+  char          pst_pwd;38,685
+  char          pst_home;39,710
+  char          pst_oldpwd;40,736
+  char          pst_path;41,764
+}               t_env;42,790
+typedef struct  s_sh44,814
+  t_node        *tree;tree46,837
+  t_env         *env;env47,860
+  t_history	*history;history48,882
+  int		fd_history;49,904
+}               t_sh;50,923
 
 inc/my.h,105
 # define MY_H_12,242

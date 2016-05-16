@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat May 14 11:00:31 2016 Mathieu Sauvau
+** Last update Mon May 16 15:13:33 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -17,11 +17,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include "42s.h"
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include "42s.h"
 
 void	my_show_tab(char **str)
 {
@@ -89,12 +88,12 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   strcat(*str, buff);
   strcat(*str, end);
   *curs_pos += 1;
-  CURSOR_FORWARD(1);
-  CURSOR_SAVE;
+  cursor_forward(1);
+  cursor_save();
   fflush(stdout);
   write(1, "\rhey ->", 7);
   write(1, *str, strlen(*str));
-  CURSOR_RESTORE;
+  cursor_restore();
   fflush(stdout);
   return (0);
 }
@@ -102,6 +101,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
 int		do_action(t_key_act actions[7], char **str, t_head *history)
 {
   static int	cur_pos;
+  static int	index_history;
   char		buff[10];
   int		i;
 
@@ -112,7 +112,7 @@ int		do_action(t_key_act actions[7], char **str, t_head *history)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
-	  actions[i].fct(str, &cur_pos, history);
+	  actions[i].fct(str, &cur_pos, history, &index_history);
 	  return (1);
 	}
     }

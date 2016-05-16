@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 12:31:02 2016 Mathieu Sauvau
-** Last update Fri May 13 19:22:27 2016 Mathieu Sauvau
+** Last update Mon May 16 15:13:55 2016 Mathieu Sauvau
 */
 
 #include <unistd.h>
@@ -31,24 +31,25 @@ void		edit_str(char **str, int *pos)
 }
 
 void		backspace(char **str, int *pos,
-			  UNUSED t_head *history)
+			  UNUSED t_head *history,
+			  UNUSED int *i_history)
 {
   if (*pos > 0)
     {
       edit_str(str, pos);
       --*pos;
-      CURSOR_SAVE;
-      CURSOR_FORWARD(strlen(*str) - *pos);
-      CURSOR_BACKWARD(1);
-      ERASE(1);
-      CURSOR_RESTORE;
-      CURSOR_BACKWARD(1);
-      ERASE(1);
-      CURSOR_SAVE;
+      cursor_save();
+      cursor_forward(strlen(*str) - *pos);
+      cursor_backward(1);
+      cursor_erase(1);
+      cursor_restore();
+      cursor_backward(1);
+      cursor_erase(1);
+      cursor_save();
       fflush(stdout);
       write(1, "\rhey ->", 7);
       write(1, *str, strlen(*str));
-      CURSOR_RESTORE;
+      cursor_restore();
       fflush(stdout);
     }
 }
