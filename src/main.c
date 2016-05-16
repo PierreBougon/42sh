@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 16 15:13:33 2016 Mathieu Sauvau
+** Last update Mon May 16 16:05:58 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -34,7 +34,7 @@ void	my_show_tab(char **str)
     }
 }
 
-void		init_actions(t_key_act actions[7])
+void		init_actions(t_key_act actions[8])
 {
   actions[0].key = strdup(tigetstr("kcub1"));
   actions[0].fct = &move_left;
@@ -50,6 +50,8 @@ void		init_actions(t_key_act actions[7])
   actions[5].fct = &history_up;
   actions[6].key = strdup(tigetstr("kcud1"));
   actions[6].fct = &history_down;
+  actions[7].key = strdup("\t");
+  actions[7].fct = &auto_complet;
 }
 
 void            change_read_mode(int i, int time, int nb_char)
@@ -98,7 +100,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   return (0);
 }
 
-int		do_action(t_key_act actions[7], char **str, t_head *history)
+int		do_action(t_key_act actions[8], char **str, t_head *history)
 {
   static int	cur_pos;
   static int	index_history;
@@ -108,7 +110,7 @@ int		do_action(t_key_act actions[7], char **str, t_head *history)
   i = -1;
   memset(buff, 0, 10);
   read(0, buff, 10);
-  while (++i < 7)
+  while (++i < 8)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -144,7 +146,7 @@ void		get_history(int fd_history, t_head *history)
 char		*term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[7];
+  t_key_act	actions[8];
   int		a;
   t_head	history;
 

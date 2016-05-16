@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Thu May 12 16:33:46 2016 Mathieu Sauvau
-** Last update Mon May 16 15:11:52 2016 Mathieu Sauvau
+** Last update Mon May 16 16:00:36 2016 Mathieu Sauvau
 */
 
 #include <curses.h>

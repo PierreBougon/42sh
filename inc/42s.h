@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 16 15:09:35 2016 Mathieu Sauvau
+** Last update Mon May 16 16:01:05 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -67,6 +67,7 @@ void		move_right(char **, int *, t_head *, int *);
 void		debut(char **, int *, t_head *, int *);
 void		end(char **, int *, t_head *, int *);
 void		backspace(char **, int *, t_head *, int *);
+void		auto_complet(char **, int *, t_head *, int *);
 
 /*
 ** CURSOR

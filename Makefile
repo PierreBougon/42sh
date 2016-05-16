@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 16 14:26:34 2016 Mathieu Sauvau
+## Last update Mon May 16 16:00:19 2016 Mathieu Sauvau
 ##
 
 DEBUG=	yes
@@ -25,6 +25,7 @@ SRC=	main.c			\
 	erase.c			\
 	history.c		\
 	cursor.c		\
+	autocompletion.c	\
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 

@@ -2,6 +2,16 @@
 src/ncurses.c,40
 char	*ncurses_mode(ncurses_mode11,195
 
+src/autocompletion.c,254
+int		find_in_(21,429
+int	strlen_b_slash(49,972
+char    *revstr(revstr61,1117
+char	*get_elem(get_elem79,1353
+char	*get_path(get_path98,1645
+char	*get_cur_dir(get_cur_dir118,2008
+char	*find_match(find_match129,2143
+void		auto_complet(165,2734
+
 src/actions.c,87
 void		move_left(18,354
 void		move_right(30,551
@@ -10,10 +20,10 @@ void		end(57,995
 
 src/cursor.c,136
 void	cursor_backward(16,314
-void	cursor_forward(30,482
-void	cursor_erase(44,649
-void	cursor_save(56,806
-void	cursor_restore(66,914
+void	cursor_forward(28,474
+void	cursor_erase(40,633
+void	cursor_save(52,790
+void	cursor_restore(60,881
 
 src/erase.c,47
 void		edit_str(19,372
@@ -52,25 +62,25 @@ char	**my_str_to_word_tab(my_str_to_word_tab48,834
 src/main.c,255
 void	my_show_tab(25,495
 void		init_actions(37,633
-void            change_read_mode(55,1210
-int		cpy_to_pos(74,1619
-int		do_action(101,2138
-void		get_history(133,2669
-char		*term(term144,2853
-void		create_history_file(180,3625
-int		main(187,3797
+void            change_read_mode(57,1277
+int		cpy_to_pos(76,1686
+int		do_action(103,2205
+void		get_history(135,2736
+char		*term(term146,2920
+void		create_history_file(182,3692
+int		main(189,3864
 
 src/create_tree.c,25
 int		create_tree(13,273
 
-src/history.c,249
+src/history.c,247
 void		push_front_history(18,354
 void		free_history(35,702
 void		print_history(45,855
-char			*seek_prev_history(seek_prev_history55,1015
-char			*seek_next_history(seek_next_history74,1371
-void		history_up(91,1696
-void		history_down(112,2136
+char		*seek_prev_history(seek_prev_history55,1015
+char		*seek_next_history(seek_next_history75,1377
+void		history_up(93,1708
+void		history_down(114,2148
 
 src/my_strdup_e.c,38
 char	*my_strdup_e(my_strdup_e14,307
