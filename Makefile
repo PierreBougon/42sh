@@ -5,10 +5,10 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri May 13 17:50:12 2016 Mathieu Sauvau
+## Last update Mon May 16 15:48:09 2016 Poc
 ##
 
-DEBUG=	yes
+DEBUG=	no
 
 SRC=	main.c			\
 	epur.c			\
@@ -17,6 +17,8 @@ SRC=	main.c			\
 	env/check_path.c	\
 	env/check_pwd.c		\
 	env/env.c		\
+	conf.c			\
+	42rc_create_alias.c	\
 	my_get_next_line.c	\
 	my_str_to_word_tab.c	\
 	my_strdup_e.c		\
@@ -24,6 +26,7 @@ SRC=	main.c			\
 	actions.c		\
 	erase.c			\
 	history.c		\
+	index.c			\
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
@@ -31,10 +34,8 @@ RM=	rm -f
 
 ifeq ($(DEBUG), yes)
 	CFLAGS=		-W -Wall -Wextra -g -D DEBUG -O0
-	CC=		clang
 else
 	CFLAGS=		-W -Wall -Wextra -Werror
-	CC=		gcc
 endif
 
 NAME=	mysh

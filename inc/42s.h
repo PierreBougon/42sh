@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sat May 14 10:39:28 2016 Mathieu Sauvau
+** Last update Mon May 16 15:08:57 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -22,49 +22,61 @@
 
 # include "history.h"
 
-typedef struct	s_key_action
+typedef struct		s_key_action
 {
-  char		*key;
-  void		(*fct)(char **, int *, t_head *);
-}		t_key_act;
+  char			*key;
+  void			(*fct)(char **, int *, t_head *);
+}			t_key_act;
 
-typedef struct  s_node
+typedef struct		s_node
 {
-  int           power;
-  struct s_node *left;
-  struct s_node *right;
-}               t_node;
+  int			power;
+  struct s_node		*left;
+  struct s_node		*right;
+}			t_node;
 
-typedef struct  s_env
+typedef struct		s_env
 {
-  char          **env;
-  char          *pwd;
-  char          *oldpwd;
-  char          *home;
-  char          **path;
-  char          pst_pwd;
-  char          pst_home;
-  char          pst_oldpwd;
-  char          pst_path;
-}               t_env;
+  char			**env;
+  char			*pwd;
+  char			*oldpwd;
+  char			*home;
+  char			**path;
+  char			pst_pwd;
+  char			pst_home;
+  char			pst_oldpwd;
+  char			pst_path;
+}			t_env;
 
-typedef struct  s_sh
+typedef struct		s_aliases
 {
-  t_node        *tree;
-  t_env         *env;
-  t_history	*history;
-  int		fd_history;
-}               t_sh;
+  char			*alias;
+  struct s_aliases	*next;
+}			t_aliases;
 
-char            **my_str_to_word_tab(char *, char);
-char            *my_strdup_e(char *, int);
+typedef struct		s_conf
+{
+  t_aliases		*head;
+}			t_conf;
+
+typedef struct		s_sh
+{
+  t_node		*tree;
+  t_env			*env;
+  t_history		*history;
+  t_conf		conf;
+  int			fd_history;
+}			t_sh;
+
+char		**my_str_to_word_tab(char *, char);
+char		*my_strdup_e(char *, int);
 char		*epur_str(char *);
-int             check_env(t_sh *, char **);
-int             check_path(t_sh *);
-int             check_home(t_sh *);
-int             check_pwd(t_sh *);
-int             check_oldpwd(t_sh *);
-char            *get_next_line(int);
+int		check_env(t_sh *, char **);
+int		check_path(t_sh *);
+int		check_home(t_sh *);
+int		check_pwd(t_sh *);
+int		check_oldpwd(t_sh *);
+char		*get_next_line(int);
 
 /*
 ** ACTION
@@ -74,5 +86,10 @@ void		move_right(char **, int *, t_head *);
 void		debut(char **, int *, t_head *);
 void		end(char **, int *, t_head *);
 void		backspace(char **, int *, t_head *);
+
+/*
+** CONFIGURATION
+*/
+int		create_alias(t_conf *, t_env **, char *);
 
 #endif /* !_42s_H_ */

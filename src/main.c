@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat May 14 11:00:31 2016 Mathieu Sauvau
+** Last update Mon May 16 13:16:44 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -175,11 +175,12 @@ char		*term(t_sh *sh)
 	  str[0] = 0;
 	}
     }
+  return (str);
 }
 
 void		create_history_file(t_sh *sh)
 {
-  sh->fd_history = open(".history", O_CREAT | O_RDWR | O_APPEND,
+  sh->fd_history = open(".42sh_history", O_CREAT | O_RDWR | O_APPEND,
 			S_IRUSR | S_IWUSR | S_IRGRP |
 			S_IWGRP | S_IROTH | S_IWOTH);
 }
@@ -191,6 +192,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
 
   if (check_env(&sh, env))
     return (-1);
+  get_conf_file(&sh.conf, &sh.env);
   setupterm(NULL, 0, NULL);
   printf("%s\n", tigetstr("smkx"));
   create_history_file(&sh);
