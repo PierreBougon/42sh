@@ -1,19 +1,18 @@
 /*
-** create_tree.c for minishell2 in /home/sauvau_m/rendu/PSU_2015_minishell2
+** create_tree.c for create_tree in /home/marel_m/Rendu/Semestre_2/PSU/PSU_2015_42sh
 **
-** Made by Mathieu Sauvau
-** Login   <sauvau_m@epitech.net>
+** Made by marel_m
+** Login   <marel_m@epitech.net>
 **
-** Started on  Tue Mar 29 11:56:22 2016 Mathieu Sauvau
-** Last update Sat May 14 20:04:08 2016 marel_m
+** Started on  Mon May 16 18:06:10 2016 marel_m
+** Last update Mon May 16 19:17:25 2016 marel_m
 */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"
 
-t_node		*new_node(char *arg, t_type type)
+t_node		*one_node(char *arg, t_type type)
 {
   t_node	*new;
 
@@ -28,43 +27,42 @@ t_node		*new_node(char *arg, t_type type)
   return (new);
 }
 
-t_node		**insert_node(t_node **tree, char *arg, t_type type, t_dir dir)
+t_node		*new_node(char *arg_l, char *arg_r, t_type type)
 {
   t_node	*new;
 
-  if (dir == LEFT)
-    insert_node(&(*tree)->left, arg, type, NULL);
-  else if (dir == RIGHT)
-    insert_node(&(*tree)->right, arg, type, NULL);
-  else
+  if ((new = malloc(sizeof(t_node))) == NULL)
+    return (NULL);
+  new->left = one_node(arg_l, type);
+  new->right = one_node(arg_r, type);
+  new->type = type;
+  new->arg = NULL;
+  return (new);
+}
+
+t_node		**insert_node(t_node **tree, char *arg_l, char *arg_r,
+			      t_type type)
+{
+  t_node	*new;
+
+  if (!(*tree))
     {
-      if ((new = new_node(arg, type)) == NULL)
-  	return (NULL);
+      if ((new = new_node(arg_l, arg_r, type)) == NULL)
+	return (NULL);
       *tree = new;
+      return (tree);
     }
+  insert_node(&(*tree)->right, arg_l, arg_r, type);
   return (tree);
 }
 
-void		deltree(t_node *tree)
-{
-  if (tree)
-    {
-      if (tree->arg)
-      	free(tree->arg);
-      deltree(tree->left);
-      deltree(tree->right);
-      free(tree);
-    }
-}
-
-void		print_tab_arg_dir(char *arg, t_type type)
+void            print_tab_arg_dir(char *arg, t_type type)
 {
   if (arg)
     printf("%s %d\n", arg, type);
-  printf("\n");
 }
 
-void		print_tree(t_node *tree)
+void            print_tree(t_node *tree)
 {
   if (tree)
     {

@@ -23,43 +23,56 @@ typedef	struct	s_tab14,251
   int		size;17,285
 }		t_tab;18,298
 
-inc/42s.h,1028
+inc/42s.h,1174
 # define _42s_H_12,227
 typedef enum		e_dir14,245
     LEFT,16,269
     RIGHT,17,279
-  }		t_dir;18,290
-typedef enum	e_type20,303
-    SEMICOLON,22,327
-    DOUBLE_PIPE,23,342
-    DOUBLE_AND,24,359
-    PIPE,25,375
-    REDIR_RIGHT,26,385
-    REDIR_LEFT,27,402
-    DOUBLE_REDIR_RIGHT,28,418
-    DOUBLE_REDIR_LEFT29,442
-  }		t_type;30,464
-typedef struct  s_node32,478
-  t_type          type;34,503
-  char		*arg;arg35,527
-  struct s_node *left;left36,541
-  struct s_node *right;right37,564
-}               t_node;38,588
-typedef struct  s_env40,613
-  char          **env;env42,637
-  char          *pwd;pwd43,660
-  char          *oldpwd;oldpwd44,682
-  char          *home;home45,707
-  char          **path;path46,730
-  char          pst_pwd;47,754
-  char          pst_home;48,779
-  char          pst_oldpwd;49,805
-  char          pst_path;50,833
-}               t_env;51,859
-typedef struct  s_sh53,883
-  t_node        *node;node55,906
-  t_env         *env;env56,929
-}               t_sh;57,951
+    RIGHT_LEFT18,290
+  }			t_dir;19,305
+typedef enum		e_type21,319
+    SEMICOLON,23,344
+    DOUBLE_PIPE,24,359
+    DOUBLE_AND,25,376
+    PIPE,26,392
+    REDIR_RIGHT,27,402
+    REDIR_LEFT,28,419
+    DOUBLE_REDIR_RIGHT,29,435
+    DOUBLE_REDIR_LEFT30,459
+  }			t_type;31,481
+typedef struct		s_node33,496
+  char			*arg;arg35,521
+  t_type		type;36,536
+  struct s_node		*left;left37,552
+  struct s_node		*right;right38,576
+}			t_node;39,601
+typedef struct		s_list_sh41,614
+  t_node		*node;node43,642
+  t_type		type;44,659
+  char			*arg;arg45,675
+  struct s_list_sh	*next;next46,690
+  struct s_list_sh	*prev;prev47,716
+}			t_list_sh;48,742
+typedef struct		s_env50,758
+  char			**env;env52,782
+  char			*pwd;pwd53,798
+  char			*oldpwd;oldpwd54,813
+  char			*home;home55,831
+  char			**path;path56,847
+  char			pst_pwd;57,864
+  char			pst_home;58,882
+  char			pst_oldpwd;59,901
+  char			pst_path;60,922
+}			t_env;61,941
+typedef struct		s_sh63,953
+  t_list_sh		*root;root65,976
+  int			lenght;66,996
+  t_env			*env;env67,1012
+}			t_sh;68,1028
+
+src/create_list.c,74
+int		create_list(14,284
+t_list_sh	*add_list_after(add_list_after27,488
 
 src/env/env.c,230
 int	create_env(17,320
@@ -91,35 +104,44 @@ char	*my_realloc(my_realloc13,265
 char	*last_buff(last_buff30,540
 char		*get_next_line(get_next_line50,925
 
-src/parsing_sep.c,218
-int	pars_semicolon(15,304
-int	pars_double_pipe(30,649
-int	pars_double_and(45,1019
-int	pars_double(58,1319
-int	pars_pipe(76,1574
-int	pars_redir_right(89,1841
-int	pars_redir_left(102,2122
-int	pars_redir(115,2403
+src/parsing_sep.c,102
+int	pars_pipe(15,304
+int	pars_redir_right(29,558
+int	pars_redir_left(40,763
+int	pars_redir(51,968
+
+src/my_strdup_bt.c,40
+char	*my_strdup_bt(my_strdup_bt14,303
+
+src/create_tree.c,191
+t_node		*one_node(one_node15,304
+t_node		*new_node(new_node30,591
+t_node		**insert_node(insert_node43,864
+void            print_tab_arg_dir(59,1179
+void            print_tree(65,1287
 
 src/my_str_to_word_tab.c,98
 int	check_nb(15,334
 int	check_first(34,609
 char	**my_str_to_word_tab(my_str_to_word_tab48,834
 
-src/parsing.c,53
-int	check_first_priority(14,275
-int	parsing(38,736
+src/parsing.c,92
+int	check_prior(14,275
+int		pars_tree(34,569
+int		stock_elem(51,878
+int	parsing(65,1179
 
 src/tree.c,159
 t_node		*new_node(new_node16,329
-t_node		**insert_node(insert_node31,616
-void		deltree(49,1002
-void		print_tab_arg_dir(61,1177
-void		print_tree(68,1291
+t_node		**insert_node(insert_node35,648
+void		deltree(55,1114
+void		print_tab_arg_dir(67,1289
+void		print_tree(74,1403
 
 src/main.c,42
 void	my_show_tab(17,320
 int	main(29,458
 
-src/epur.c,24
-char	*epur(epur14,239
+src/epur.c,72
+char	*space_around_act(space_around_act14,246
+char	*epur(epur34,819

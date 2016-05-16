@@ -5,50 +5,100 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Sat May 14 16:38:15 2016 marel_m
+** Last update Mon May 16 19:07:11 2016 marel_m
 */
 
 #include <stdio.h>
 #include "42s.h"
 
-int	check_first_priority(char *str)
+int	check_prior(char *str)
 {
   int	i;
   int	prior;
 
   i = 0;
+  if (str == NULL)
+    return (0);
   prior = 0;
   while (str[i] != '\0' && str)
     {
-      if (str[i] == ';')
-	prior = 4;
-      else if (((str[i] == '|' && str[i + 1] == '|')
-	       || (str[i] == '&' && str[i + 1] == '&'))
-	       && prior < 3)
-	prior = 3;
-      else if ((str[i] == '>' || str[i] == '<') && prior < 2)
-	prior = 2;
-      else if (str[i] == '|' && prior < 1)
+      if (str[i] == '|' && prior < 1)
 	prior = 1;
+      else if (str[i] == '>' || str[i] == '<')
+	prior = 2;
       i++;
     }
   return (prior);
 }
 
+int		pars_tree(t_list_sh *elem, char *str)
+{
+  int		prior;
+
+  prior = check_prior(str);
+  if (prior == 0)
+    {
+      insert_node(&elem->node, str, NULL, 3);
+      str = NULL;
+    }
+  else if (prior == 1)
+    str = pars_pipe(elem, str);
+  if (check_prior(str) != 0)
+    pars_tree(elem, str);
+  return (0);
+}
+
+int		stock_elem(t_sh *sh, char *str, int st, int end)
+{
+  t_list_sh	*elem;
+
+  if ((elem = add_list_after(sh)) == NULL
+      || (elem->arg = my_strdup_bt(str, st, end)) == NULL)
+    return (1);
+  elem->node = NULL;
+  if (pars_tree(elem, str))
+    return (1);
+  print_tree(elem->node);
+  return (0);
+}
+
 int	parsing(t_sh *sh, char *str)
 {
-  int	prior;
+  int	i;
+  int	j;
 
-  printf("str = %s\n", str);
-  prior = check_first_priority(str);
-  printf("%d\n", prior);
-  if (prior == 4)
-    pars_semicolon(sh, str);
-  /* else if (prior == 3) */
-  /*   pars_double(sh, str); */
-  else if (prior == 2)
-    pars_redir(sh, str);
-  else if (prior == 1)
-    pars_pipe(sh, str);
+  if (str == NULL)
+    return (0);
+  if (create_list(sh))
+    return (-1);
+  i = 0;
+  j = 0;
+  while (str[i] != '\0' && str)
+    {
+      if (str[i] == ';')
+	{
+	  stock_elem(sh, str, j, i);
+	  i++;
+	  j = i;
+	  sh->root->prev->type = SEMICOLON;
+	}
+      else if (str[i] == '&' && str[i + 1] == '&')
+	{
+	  stock_elem(sh, str, j, i);
+	  i += 2;
+	  j = i;
+	  sh->root->prev->type = DOUBLE_AND;
+	}
+      else if (str[i] == '|' && str[i + 1] == '|')
+	{
+	  stock_elem(sh, str, j, i);
+	  i += 2;
+	  j = i;
+	  sh->root->prev->type = DOUBLE_PIPE;
+	}
+      else
+	i++;
+    }
+  stock_elem(sh, str, j, i);
   return (0);
 }
