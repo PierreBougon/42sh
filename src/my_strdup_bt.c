@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar  8 09:15:03 2016 maud marel
-** Last update Wed Apr 13 15:11:15 2016 marel_m
+** Last update Tue May 17 10:24:40 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -21,10 +21,12 @@ char	*my_strdup_bt(char *str, int st, int end)
     return (NULL);
   while (st < end && str[st] != '\0' && str)
     {
+      printf("%c", str[st]);
       new[j] = str[st];
       st++;
       j++;
     }
+  printf("\n");
   new[j] = '\0';
   return (new);
 }

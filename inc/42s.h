@@ -5,24 +5,19 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 16 18:53:33 2016 marel_m
+** Last update Tue May 17 11:37:47 2016 marel_m
 */
 
 #ifndef _42s_H_
 # define _42s_H_
 
-typedef enum		e_dir
-  {
-    LEFT,
-    RIGHT,
-    RIGHT_LEFT
-  }			t_dir;
+# define UNUSED __attribute__((unused))
 
 typedef enum		e_type
   {
     SEMICOLON,
-    DOUBLE_PIPE,
     DOUBLE_AND,
+    DOUBLE_PIPE,
     PIPE,
     REDIR_RIGHT,
     REDIR_LEFT,
@@ -67,21 +62,36 @@ typedef struct		s_sh
   t_env			*env;
 }			t_sh;
 
-char		*epur(char *);
-int		parsing(t_sh *, char *);
-t_node		**insert_node(t_node **, char *, char *, t_type);
-char            **my_str_to_word_tab(char *, char);
-char            *my_strdup_e(char *, int);
-char		*epur_str(char *);
-int             check_env(t_sh *, char **);
-int             check_path(t_sh *);
-int             check_home(t_sh *);
-int             check_pwd(t_sh *);
-int             check_oldpwd(t_sh *);
-char            *get_next_line(int);
-t_list_sh	*add_list_after(t_sh *);
-char		*my_strdup_bt(char *, int, int);
-int		create_list(t_sh *);
-void		print_tree(t_node *);
+/*
+** PARSING
+*/
+char			*epur(char *);
+int			parsing(t_sh *, char *);
+t_node			**insert_node(t_node **, char *, char *, t_type);
+int			create_list(t_sh *);
+t_list_sh		*add_list_after(t_sh *);
+char			*pars_pipe(t_list_sh *, char *);
+char			*pars_redir(t_list_sh *, char *);
+
+/*
+** ENV
+*/
+int			check_env(t_sh *, char **);
+int			check_path(t_sh *);
+int			check_home(t_sh *);
+int			check_pwd(t_sh *);
+int			check_oldpwd(t_sh *);
+int			check_if_present_env(t_sh *);
+
+/*
+** LIB
+*/
+char			*get_next_line(int);
+char			*my_strdup_bt(char *, int, int);
+char			**my_str_to_word_tab(char *, char);
+char			*my_strdup_e(char *, int);
+int			my_strlen(char *);
+
+void			print_tree(t_node *);
 
 #endif /* _42s_H_ */

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 16 10:32:53 2016 marel_m
+** Last update Mon May 16 22:19:36 2016 marel_m
 */
 
 #include <unistd.h>
@@ -26,7 +26,7 @@ void	my_show_tab(char **str)
     }
 }
 
-int	main(int ac, char **av, char **env)
+int	main(UNUSED int ac, UNUSED char **av, char **env)
 {
   char	*str;
   t_sh	sh;

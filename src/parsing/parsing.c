@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Mon May 16 19:07:11 2016 marel_m
+** Last update Tue May 17 11:35:33 2016 marel_m
 */
 
 #include <stdio.h>
@@ -38,11 +38,14 @@ int		pars_tree(t_list_sh *elem, char *str)
   prior = check_prior(str);
   if (prior == 0)
     {
-      insert_node(&elem->node, str, NULL, 3);
+      insert_node(&elem->node, str, NULL, 8);
       str = NULL;
+      return (0);
     }
   else if (prior == 1)
     str = pars_pipe(elem, str);
+  else if (prior == 2)
+    str = pars_redir(elem, str);
   if (check_prior(str) != 0)
     pars_tree(elem, str);
   return (0);
@@ -56,10 +59,39 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
       || (elem->arg = my_strdup_bt(str, st, end)) == NULL)
     return (1);
   elem->node = NULL;
-  if (pars_tree(elem, str))
+  if (pars_tree(elem, elem->arg))
     return (1);
   print_tree(elem->node);
   return (0);
+}
+
+int	which_separator(t_sh *sh, char *str, int *i, int *j)
+{
+  if (str[(*i)] == ';')
+    {
+      stock_elem(sh, str, *j, *i);
+      (*i)++;
+      *j = *i;
+      sh->root->prev->type = SEMICOLON;
+      return (0);
+    }
+  else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
+    {
+      stock_elem(sh, str, *j, *i);
+      *i += 2;
+      *j = *i;
+      sh->root->prev->type = DOUBLE_AND;
+      return (0);
+    }
+  else if (str[(*i)] == '|' && str[(*i) + 1] == '|')
+    {
+      stock_elem(sh, str, *j, *i);
+      *i += 2;
+      *j = *i;
+      sh->root->prev->type = DOUBLE_PIPE;
+      return (0);
+    }
+  return (1);
 }
 
 int	parsing(t_sh *sh, char *str)
@@ -75,28 +107,7 @@ int	parsing(t_sh *sh, char *str)
   j = 0;
   while (str[i] != '\0' && str)
     {
-      if (str[i] == ';')
-	{
-	  stock_elem(sh, str, j, i);
-	  i++;
-	  j = i;
-	  sh->root->prev->type = SEMICOLON;
-	}
-      else if (str[i] == '&' && str[i + 1] == '&')
-	{
-	  stock_elem(sh, str, j, i);
-	  i += 2;
-	  j = i;
-	  sh->root->prev->type = DOUBLE_AND;
-	}
-      else if (str[i] == '|' && str[i + 1] == '|')
-	{
-	  stock_elem(sh, str, j, i);
-	  i += 2;
-	  j = i;
-	  sh->root->prev->type = DOUBLE_PIPE;
-	}
-      else
+      if (which_separator(sh, str, &i, &j))
 	i++;
     }
   stock_elem(sh, str, j, i);

@@ -5,26 +5,28 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 16 18:20:39 2016 marel_m
+## Last update Tue May 17 10:13:17 2016 marel_m
 ##
 
 DEBUG=	yes
 
 SRC=	main.c			\
-	epur.c			\
 	env/check_home.c	\
 	env/check_oldpwd.c	\
 	env/check_path.c	\
 	env/check_pwd.c		\
 	env/env.c		\
+	env/verif_env.c		\
 	my_get_next_line.c	\
 	my_str_to_word_tab.c	\
-	my_strdup_e.c		\
-	parsing.c		\
-	create_list.c		\
 	my_strdup_bt.c		\
-	create_tree.c		\
-	parsing_sep.c
+	my_strdup_e.c		\
+	my_strlen.c		\
+	parsing/epur.c		\
+	parsing/parsing.c	\
+	parsing/create_list.c	\
+	parsing/create_tree.c	\
+	parsing/parsing_sep.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
