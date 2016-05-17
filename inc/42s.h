@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Tue May 17 11:37:47 2016 marel_m
+** Last update Tue May 17 13:55:24 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -22,7 +22,8 @@ typedef enum		e_type
     REDIR_RIGHT,
     REDIR_LEFT,
     DOUBLE_REDIR_RIGHT,
-    DOUBLE_REDIR_LEFT
+    DOUBLE_REDIR_LEFT,
+    NO_ONE
   }			t_type;
 
 typedef struct		s_node

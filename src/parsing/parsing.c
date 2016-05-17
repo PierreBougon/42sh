@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Tue May 17 11:35:33 2016 marel_m
+** Last update Tue May 17 14:47:50 2016 marel_m
 */
 
 #include <stdio.h>
@@ -37,11 +37,7 @@ int		pars_tree(t_list_sh *elem, char *str)
 
   prior = check_prior(str);
   if (prior == 0)
-    {
-      insert_node(&elem->node, str, NULL, 8);
-      str = NULL;
-      return (0);
-    }
+    return (0);
   else if (prior == 1)
     str = pars_pipe(elem, str);
   else if (prior == 2)
@@ -59,6 +55,12 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
       || (elem->arg = my_strdup_bt(str, st, end)) == NULL)
     return (1);
   elem->node = NULL;
+  if (check_prior(elem->arg) == 0)
+    {
+      insert_node(&elem->node, elem->arg, NULL, NO_ONE);
+      print_tree(elem->node);
+      return (0);
+    }
   if (pars_tree(elem, elem->arg))
     return (1);
   print_tree(elem->node);
