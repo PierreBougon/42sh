@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 16 22:19:36 2016 marel_m
+** Last update Wed May 18 19:23:43 2016 marel_m
 */
 
 #include <unistd.h>
@@ -40,6 +40,7 @@ int	main(UNUSED int ac, UNUSED char **av, char **env)
 	  || (str = epur(str)) == NULL)
 	return (-1);
       parsing(&sh, str);
+      execute_each_act(&sh);
     }
   return (0);
 }

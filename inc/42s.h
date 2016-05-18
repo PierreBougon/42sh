@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Tue May 17 13:55:24 2016 marel_m
+** Last update Wed May 18 19:22:00 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -56,11 +56,21 @@ typedef struct		s_env
   char			pst_path;
 }			t_env;
 
+typedef struct		s_exec
+{
+  char			**arg;
+  char			*exec;
+  int			fd;
+  char			*good_path;
+  int			exit;
+}			t_exec;
+
 typedef struct		s_sh
 {
   t_list_sh		*root;
   int			lenght;
   t_env			*env;
+  t_exec		*exec;
 }			t_sh;
 
 /*
@@ -73,6 +83,31 @@ int			create_list(t_sh *);
 t_list_sh		*add_list_after(t_sh *);
 char			*pars_pipe(t_list_sh *, char *);
 char			*pars_redir(t_list_sh *, char *);
+int			check_prior(char *);
+
+/*
+**BUILTINS
+*/
+int			my_setenv(t_sh *);
+int			check_path_setenv(t_sh *);
+int			my_unsetenv(t_sh *);
+int			my_exit(t_sh *);
+int			my_env(t_sh *);
+int			my_cd(t_sh *);
+int			check_cd_home(t_sh *);
+int			check_cd_dash(t_sh *);
+int			check_cd_good(t_sh *);
+int			check_cd_else(t_sh *);
+int			cd_action(t_sh *);
+void			my_show_tab(char **);
+
+/*
+**EXEC
+*/
+int			execute_each_act(t_sh *);
+int			check_good_path(t_sh *);
+int			check_builtin(t_sh *);
+int			builtin_or_exec(t_sh *);
 
 /*
 ** ENV
@@ -92,6 +127,9 @@ char			*my_strdup_bt(char *, int, int);
 char			**my_str_to_word_tab(char *, char);
 char			*my_strdup_e(char *, int);
 int			my_strlen(char *);
+char			**my_realloc_tab(char **, int);
+void			free_tab(char **);
+char			*my_strcat(char *, char *);
 
 void			print_tree(t_node *);
 

@@ -5,28 +5,41 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 17 10:13:17 2016 marel_m
+## Last update Wed May 18 19:21:29 2016 marel_m
 ##
 
 DEBUG=	yes
 
-SRC=	main.c			\
-	env/check_home.c	\
-	env/check_oldpwd.c	\
-	env/check_path.c	\
-	env/check_pwd.c		\
-	env/env.c		\
-	env/verif_env.c		\
-	my_get_next_line.c	\
-	my_str_to_word_tab.c	\
-	my_strdup_bt.c		\
-	my_strdup_e.c		\
-	my_strlen.c		\
-	parsing/epur.c		\
-	parsing/parsing.c	\
-	parsing/create_list.c	\
-	parsing/create_tree.c	\
-	parsing/parsing_sep.c
+SRC=	main.c				\
+	my_get_next_line.c		\
+	my_str_to_word_tab.c		\
+	my_strdup_bt.c			\
+	my_strdup_e.c			\
+	my_strlen.c			\
+	my_strcat.c			\
+	free_tab.c			\
+	my_realloc_tab.c		\
+	env/check_home.c		\
+	env/check_oldpwd.c		\
+	env/check_path.c		\
+	env/check_pwd.c			\
+	env/env.c			\
+	env/verif_env.c			\
+	parsing/epur.c			\
+	parsing/parsing.c		\
+	parsing/create_list.c		\
+	parsing/create_tree.c		\
+	parsing/parsing_sep.c		\
+	exec/execute.c			\
+	exec/builtin_or_exec.c		\
+	exec/check_good_path.c		\
+	builtins/check_builtins.c	\
+	builtins/check_cd.c		\
+	builtins/check_env.c		\
+	builtins/check_exit.c		\
+	builtins/check_setenv.c		\
+	builtins/check_unsetenv.c	\
+	builtins/check_which_cd.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar 29 15:21:39 2016 marel_m
-** Last update Mon May  9 14:19:42 2016 marel_m
+** Last update Wed May 18 19:25:46 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -23,7 +23,7 @@ int	check_path(t_sh *sh)
     l++;
   if (strlen(sh->env->env[l]) == 5)
     {
-      if ((sh->env->env[l] = strcat(sh->env->env[l],
+      if ((sh->env->env[l] = my_strcat(sh->env->env[l],
 				   "~/bin:/bin:/sbin:/usr/bin:/usr/sbin"))
 	  == NULL)
 	return (1);

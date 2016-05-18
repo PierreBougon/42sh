@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Apr 29 18:23:11 2016 marel_m
-** Last update Mon May 16 22:54:17 2016 marel_m
+** Last update Wed May 18 19:24:35 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -20,7 +20,7 @@ int	create_env(t_sh *sh)
   if ((sh->env->env = malloc(sizeof(char *) * 2)) == NULL
       || (pwd = getcwd(NULL, 0)) == NULL
       || (sh->env->env[0] = strdup("PWD=")) == NULL
-      || (sh->env->env[0] = strcat(sh->env->env[0], pwd)) == NULL)
+      || (sh->env->env[0] = my_strcat(sh->env->env[0], pwd)) == NULL)
     return (1);
   sh->env->env[1] = NULL;
   sh->env->pst_home = 0;

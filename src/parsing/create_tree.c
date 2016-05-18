@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Tue May 17 16:02:08 2016 marel_m
+** Last update Wed May 18 13:03:07 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -35,7 +35,6 @@ t_node		*new_node(char *arg_l, char *arg_r, t_type type)
 {
   t_node	*new;
 
-  printf("\nl-> %s r-> %s type -> %d\n\n", arg_l, arg_r, type);
   if ((new = malloc(sizeof(t_node))) == NULL)
     return (NULL);
   new->type = type;
@@ -62,14 +61,7 @@ t_node		*new_node(char *arg_l, char *arg_r, t_type type)
   else
     new->arg = NULL;
   new->left = one_node(arg_l, type);
-  if (check_prior(arg_r) != 0)
-    {
-      if (type == PIPE)
-  	new->right = one_node("|", type);
-      else if (type == REDIR_RIGHT)
-  	new->right = one_node(">", type);
-    }
-  else
+  if (check_prior(arg_r) == 0)
     new->right = one_node(arg_r, type);
   return (new);
 }
@@ -86,6 +78,7 @@ t_node		**insert_node(t_node **tree, char *arg_l, char *arg_r,
       *tree = new;
       return (tree);
     }
+  (*tree)->right = NULL;
   insert_node(&(*tree)->right, arg_l, arg_r, type);
   return (tree);
 }
