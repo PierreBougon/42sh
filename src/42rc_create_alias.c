@@ -5,9 +5,12 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 13:22:30 2016 Poc
-** Last update Mon May 16 17:04:59 2016 Poc
+** Last update Wed May 18 12:37:27 2016 Poc
 */
 
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "42s.h"
 
@@ -22,17 +25,28 @@ static t_aliases	*create_alias_node()
   return (new_node);
 }
 
-static int     		push_alias_string_back(t_aliases *head, char *string)
+static int     		push_alias_string_back(t_aliases *head,
+					       char *first,
+					       char *last)
 {
   t_aliases		*alias;
 
-  if ((alias = malloc(sizeof(t_aliases))) == NULL)
-    return (1);
-  while (head->next)
-    head = head->next;
-  head->next = alias;
-  alias->alias = string;
-  alias->next = NULL;
+  if ((head->alias == NULL))
+    {
+      head->original = first;
+      head->alias = last;
+    }
+  else
+  {
+    if ((alias = create_alias_node()) == NULL)
+      return (1);
+    while (head->next)
+      head = head->next;
+    head->next = alias;
+    alias->alias = first;
+    alias->original = last;
+    alias->next = NULL;
+  }
   return (0);
 }
 
@@ -43,7 +57,7 @@ static char		*isolate_str(char *str)
 
   i = 0;
   if ((cleaned_str = my_index(str, '=')) == NULL)
-    return (NULL);
+      return (NULL);
   if (cleaned_str[0] == '\'' || cleaned_str[0] == '\"')
     {
       if ((str = strdup(cleaned_str + 1)) == NULL)
@@ -51,25 +65,53 @@ static char		*isolate_str(char *str)
       while (str[i])
 	{
 	  if (str[i] == '\'' || str[i] == '\"')
-	      str[i] = 0;
+	    str[i] = 0;
 	  i++;
 	}
     }
+  else if ((str = strdup(cleaned_str)) == NULL)
+    return (NULL);
+  return (str);
 }
 
-int			create_alias(t_conf *conf, t_env **env, char *str)
+static char		*get_first_alias_part(char *str)
 {
-  printf("Je cree un joyeux alias\n");
-  printf("Create alias str = %s\n", str);
-  if ((str = isolate_str(str)) == NULL)
-    return (0);
-  if (conf->head == NULL)
+  char			*new_chain;
+  char			*tmp;
+  int			i;
+
+  i = 0;
+  if ((new_chain = my_index(str, ' ')) == NULL)
+    return (NULL);
+  if (((tmp = my_index(str, '\'')) == NULL))
+    if (((tmp = my_index(str, '\"')) == NULL))
+      {}
+  if (tmp)
     {
-      if (!(conf->head = create_alias_node()))
-	return (1);
-      conf->head->alias = str;
+      free(new_chain);
+      new_chain = tmp;
     }
-  else
-    if (!push_alias_string_back(conf->head, str))
-      return (0);
+  while (new_chain[i] && new_chain[i] != '=' &&
+	 (new_chain[i] != '\'' || new_chain[i] == '\"'))
+    i++;
+  new_chain[((i != 0 &&
+	      (str[i - 1] == '\'' || str[i - 1] == '\"')) ? i - 1 : i)] = 0;
+  return (new_chain);
+}
+
+int			create_alias(t_conf *conf,
+				     UNUSED t_env **env,
+				     char *str)
+{
+  char			*first_part;
+  char			*second_part;
+
+  if (!conf->head && (conf->head = create_alias_node()) == NULL)
+    return (1);
+  if ((first_part = get_first_alias_part(str)) == NULL)
+    return (0);
+  if ((second_part = isolate_str(str)) == NULL)
+    return (0);
+  if (push_alias_string_back(conf->head, second_part, first_part))
+    return (0);
 }

@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 16 15:08:57 2016 Poc
+** Last update Wed May 18 10:30:37 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -51,6 +51,7 @@ typedef struct		s_env
 typedef struct		s_aliases
 {
   char			*alias;
+  char			*original;
   struct s_aliases	*next;
 }			t_aliases;
 
@@ -77,6 +78,8 @@ int		check_home(t_sh *);
 int		check_pwd(t_sh *);
 int		check_oldpwd(t_sh *);
 char		*get_next_line(int);
+char		*my_index(char *, char);
+char		*epur(char  *);
 
 /*
 ** ACTION

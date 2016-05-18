@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 16 13:16:44 2016 Poc
+** Last update Wed May 18 13:01:55 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -167,6 +167,7 @@ char		*term(t_sh *sh)
 	  if (sh->fd_history > 0)
 	    dprintf(sh->fd_history, "%s\n", str);
 	  print_history(history.first);
+	  check_alias(sh->conf.head, &str);
 	  // execute_command(str); // Fonction d'exec et de parsing
 	  //	  free(str);
 	  write(1, "hey ->", 7);

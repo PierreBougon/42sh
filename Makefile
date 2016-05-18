@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 16 15:48:09 2016 Poc
+## Last update Wed May 18 12:49:21 2016 Poc
 ##
 
 DEBUG=	no
@@ -19,6 +19,7 @@ SRC=	main.c			\
 	env/env.c		\
 	conf.c			\
 	42rc_create_alias.c	\
+	42rc_alias_checker.c	\
 	my_get_next_line.c	\
 	my_str_to_word_tab.c	\
 	my_strdup_e.c		\

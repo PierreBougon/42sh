@@ -5,9 +5,10 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 15:43:39 2016 Poc
-** Last update Mon May 16 16:30:25 2016 Poc
+** Last update Wed May 18 10:27:29 2016 Poc
 */
 
+#include <string.h>
 #include <unistd.h>
 
 char	*my_index(char *str, char c)

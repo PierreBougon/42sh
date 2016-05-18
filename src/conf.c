@@ -5,9 +5,10 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Mon May 16 14:59:29 2016 Poc
+** Last update Wed May 18 12:33:08 2016 Poc
 */
 
+#include <string.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -30,6 +31,15 @@ int	prepare_fct_tab(t_conf_tab *tab)
   return (0);
 }
 
+void	showlist(t_aliases *alias)
+{
+  while (alias)
+    {
+      printf("\nOriginal = %s\nAlias = %s\n", alias->original, alias->alias);
+      alias = alias->next;
+    }
+}
+
 int	get_conf_file(t_conf *conf, t_env **env)
 {
   int		fd;
@@ -39,7 +49,7 @@ int	get_conf_file(t_conf *conf, t_env **env)
 
   conf->head = NULL;
   if ((fd = open(".42rc", O_RDONLY)) == -1)
-    return (0);
+    return (write(1, "Unable to locale .42rc\n", 23) - 23);
   prepare_fct_tab(&tab);
   while ((str = get_next_line(fd)))
     {
@@ -48,10 +58,10 @@ int	get_conf_file(t_conf *conf, t_env **env)
 	{
 	  if (strncmp(tab.dico[i], str, strlen(tab.dico[i])) == 0)
 	    tab.fp_conf[i](conf, env, str);
-	    i++;
+	  i++;
 	}
       str = epur(str);
-      printf("%s\n", str);
     }
+  showlist(conf->head);
   return (0);
 }
