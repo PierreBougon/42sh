@@ -62,13 +62,13 @@ char	**my_str_to_word_tab(my_str_to_word_tab48,834
 src/main.c,255
 void	my_show_tab(25,495
 void		init_actions(37,633
-void            change_read_mode(57,1277
-int		cpy_to_pos(76,1686
-int		do_action(103,2205
-void		get_history(135,2736
-char		*term(term146,2920
-void		create_history_file(182,3692
-int		main(189,3864
+void            change_read_mode(59,1353
+int		cpy_to_pos(78,1762
+int		do_action(105,2281
+void		get_history(137,2812
+char		*term(term148,2996
+void		create_history_file(184,3768
+int		main(191,3940
 
 src/create_tree.c,25
 int		create_tree(13,273

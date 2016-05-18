@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 16 16:05:58 2016 Mathieu Sauvau
+** Last update Wed May 18 14:11:58 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -34,7 +34,7 @@ void	my_show_tab(char **str)
     }
 }
 
-void		init_actions(t_key_act actions[8])
+void		init_actions(t_key_act actions[9])
 {
   actions[0].key = strdup(tigetstr("kcub1"));
   actions[0].fct = &move_left;
@@ -46,12 +46,14 @@ void		init_actions(t_key_act actions[8])
   actions[3].fct = &end;
   actions[4].key = strdup(tigetstr("kbs"));
   actions[4].fct = &backspace;
-  actions[5].key = strdup(tigetstr("kcuu1"));
-  actions[5].fct = &history_up;
-  actions[6].key = strdup(tigetstr("kcud1"));
-  actions[6].fct = &history_down;
-  actions[7].key = strdup("\t");
-  actions[7].fct = &auto_complet;
+  actions[5].key = strdup(tigetstr("cub1"));
+  actions[5].fct = &backspace;
+  actions[6].key = strdup(tigetstr("kcuu1"));
+  actions[6].fct = &history_up;
+  actions[7].key = strdup(tigetstr("kcud1"));
+  actions[7].fct = &history_down;
+  actions[8].key = strdup("\t");
+  actions[8].fct = &auto_complet;
 }
 
 void            change_read_mode(int i, int time, int nb_char)
@@ -100,7 +102,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   return (0);
 }
 
-int		do_action(t_key_act actions[8], char **str, t_head *history)
+int		do_action(t_key_act actions[9], char **str, t_head *history)
 {
   static int	cur_pos;
   static int	index_history;
@@ -146,7 +148,7 @@ void		get_history(int fd_history, t_head *history)
 char		*term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[8];
+  t_key_act	actions[9];
   int		a;
   t_head	history;
 
