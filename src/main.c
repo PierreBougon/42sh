@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed May 18 14:19:05 2016 Poc
+** Last update Wed May 18 14:41:31 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -79,11 +79,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
 {
   char		*start;
   char		*end;
-  int		y;
-  int		x;
 
-  y = 0;
-  x = 0;
   start = strdup(*str);
   start[*curs_pos] = 0;
   end = strdup(*str + *curs_pos);
@@ -192,17 +188,16 @@ void		create_history_file(t_sh *sh)
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)
 {
-  char		*str;
   t_sh		sh;
 
   if (check_env(&sh, env))
     return (-1);
-  get_conf_file(&sh.conf, &sh.env);
+  get_conf_file(&sh.conf, sh.env->env);
   setupterm(NULL, 0, NULL);
   printf("%s\n", tigetstr("smkx"));
   create_history_file(&sh);
   change_read_mode(0, 100, 1);
   sh.history = NULL;
-  str = term(&sh);
+  term(&sh);
   return (0);
 }

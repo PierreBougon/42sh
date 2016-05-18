@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Thu May 12 16:33:46 2016 Mathieu Sauvau
-** Last update Mon May 16 16:00:36 2016 Mathieu Sauvau
+** Last update Wed May 18 14:46:35 2016 Poc
 */
 
 #include <curses.h>
@@ -39,15 +39,12 @@ void		move_right(char **str, int *pos,
     }
 }
 
-void		debut(char **str, int *pos,
+void		debut(UNUSED char **str, int *pos,
 		      UNUSED t_head *history,
 		      UNUSED int *i_history)
 {
-  int		len;
-
   if (*pos > 0)
     {
-      len = strlen(*str);
       cursor_backward(*pos);
       fflush(stdout);
       *pos = 0;

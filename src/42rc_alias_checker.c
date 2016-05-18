@@ -5,25 +5,26 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Wed May 18 12:37:44 2016 Poc
-** Last update Wed May 18 13:57:44 2016 Poc
+** Last update Wed May 18 14:45:04 2016 Poc
 */
 
+#include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "42s.h"
 
-int	change_word(char **str, t_aliases *node, int pos, int end)
+int	change_word(char **str, t_aliases *node, UNUSED int pos, UNUSED int end)
 {
   char	*corrected_chain;
-  int	i;
-  int	j;
+  /* int	i; */
+  /* int	j; */
 
-  j = 0;
-  i = 0;
+  /* j = 0; */
+  /* i = 0; */
   printf("%s\n", *str);
   if ((corrected_chain =
        malloc(sizeof(char) * (strlen(*str) + strlen(node->original) + 1))) == NULL)
     return (1);
-
   return (0);
 }
 

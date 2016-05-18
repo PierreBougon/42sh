@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 13:22:30 2016 Poc
-** Last update Wed May 18 12:37:27 2016 Poc
+** Last update Wed May 18 14:42:48 2016 Poc
 */
 
 #include <string.h>
@@ -100,7 +100,7 @@ static char		*get_first_alias_part(char *str)
 }
 
 int			create_alias(t_conf *conf,
-				     UNUSED t_env **env,
+				     UNUSED char **env,
 				     char *str)
 {
   char			*first_part;
@@ -114,4 +114,5 @@ int			create_alias(t_conf *conf,
     return (0);
   if (push_alias_string_back(conf->head, second_part, first_part))
     return (0);
+  return (0);
 }

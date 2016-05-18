@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed May 18 14:20:20 2016 Poc
+** Last update Wed May 18 14:43:24 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -13,6 +13,7 @@
 
 # define UNUSED __attribute__((unused))
 
+# include <stdio.h>
 # include "history.h"
 
 typedef struct		s_key_action
@@ -85,6 +86,13 @@ void		backspace(char **, int *, t_head *, int *);
 void		auto_complet(char **, int *, t_head *, int *);
 
 /*
+** 42RC
+*/
+int	check_alias(t_aliases *, char **);
+int	get_conf_file(t_conf *, char **);
+int	create_alias(t_conf *, char **, char *);
+
+/*
 ** CURSOR
 */
 void	cursor_forward(int x);
@@ -93,9 +101,5 @@ void	cursor_erase(int x);
 void	cursor_save();
 void	cursor_restore();
 
-/*
-** CONFIGURATION
-*/
-int		create_alias(t_conf *, t_env **, char *);
 
 #endif /* !_42s_H_ */

@@ -5,9 +5,12 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Wed May 18 12:33:08 2016 Poc
+** Last update Wed May 18 14:38:47 2016 Poc
 */
 
+
+#include <unistd.h>
+#include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -15,7 +18,7 @@
 #include "42s.h"
 #include "fptrtab.h"
 
-int	joyeuse_fonction(t_conf *conf, char **env, char *str)
+int	joyeuse_fonction(UNUSED t_conf *conf, UNUSED char **env, UNUSED char *str)
 {
   printf("Je suis une joyeuse fonction\n");
   return (0);
@@ -40,7 +43,7 @@ void	showlist(t_aliases *alias)
     }
 }
 
-int	get_conf_file(t_conf *conf, t_env **env)
+int	get_conf_file(t_conf *conf, char **env)
 {
   int		fd;
   char		*str;
