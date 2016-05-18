@@ -5,10 +5,10 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed May 18 19:21:29 2016 marel_m
+## Last update Wed May 18 19:32:42 2016 marel_m
 ##
 
-DEBUG=	yes
+DEBUG=	no
 
 SRC=	main.c				\
 	my_get_next_line.c		\
@@ -17,6 +17,16 @@ SRC=	main.c				\
 	my_strdup_e.c			\
 	my_strlen.c			\
 	my_strcat.c			\
+	conf.c				\
+	42rc_create_alias.c		\
+	42rc_alias_checker.c		\
+	ncurses.c			\
+	actions.c			\
+	erase.c				\
+	history.c			\
+	index.c				\
+	cursor.c			\
+	autocompletion.c		\
 	free_tab.c			\
 	my_realloc_tab.c		\
 	env/check_home.c		\
@@ -47,10 +57,8 @@ RM=	rm -f
 
 ifeq ($(DEBUG), yes)
 	CFLAGS=		-W -Wall -Wextra -g -D DEBUG -O0
-	CC=		clang
 else
 	CFLAGS=		-W -Wall -Wextra -Werror
-	CC=		gcc
 endif
 
 NAME=	mysh
@@ -71,7 +79,7 @@ ifeq ($(DEBUG), yes)
 endif
 	@ echo "CC = $(CC)"
 	@ echo "CFLAGS = $(CFLAGS)"
-	@ $(CC) $(OBJ) -o $(NAME)
+	@ $(CC) $(OBJ) -o $(NAME) -lncurses
 	@ echo -e "\033[1;31m \t \t \n \t ♩♪♫ $(NAME) Compiled\033[0;31m®\033[1;31m Created Sucesfully \033[0m"
 
 all:		$(NAME)

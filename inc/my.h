@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Mar 18 14:26:59 2016
-** Last update Wed Apr  6 18:30:38 2016 marel_m
+** Last update Thu May 12 14:33:53 2016 Mathieu Sauvau
 */
 
 #ifndef MY_H_

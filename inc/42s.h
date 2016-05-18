@@ -5,13 +5,21 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed May 18 19:22:00 2016 marel_m
+** Last update Wed May 18 19:29:19 2016 marel_m
 */
 
 #ifndef _42s_H_
 # define _42s_H_
 
 # define UNUSED __attribute__((unused))
+
+# include "history.h"
+
+typedef struct		s_key_action
+{
+  char			*key;
+  void			(*fct)(char **, int *, t_head *, int *);
+}			t_key_act;
 
 typedef enum		e_type
   {
@@ -33,6 +41,18 @@ typedef struct		s_node
   struct s_node		*left;
   struct s_node		*right;
 }			t_node;
+
+typedef struct		s_aliases
+{
+  char			*alias;
+  char			*original;
+  struct s_aliases	*next;
+}			t_aliases;
+
+typedef struct		s_conf
+{
+  t_aliases		*head;
+}			t_conf;
 
 typedef struct		s_list_sh
 {
@@ -69,9 +89,51 @@ typedef struct		s_sh
 {
   t_list_sh		*root;
   int			lenght;
+  t_node		*tree;
   t_env			*env;
   t_exec		*exec;
+  t_history		*history;
+  t_conf		conf;
+  int			fd_history;
 }			t_sh;
+
+char		**my_str_to_word_tab(char *, char);
+char		*my_strdup_e(char *, int);
+char		*epur_str(char *);
+int		check_env(t_sh *, char **);
+int		check_path(t_sh *);
+int		check_home(t_sh *);
+int		check_pwd(t_sh *);
+int		check_oldpwd(t_sh *);
+char		*get_next_line(int);
+char		*my_index(char *, char);
+char		*epur(char  *);
+
+/*
+** ACTION
+*/
+void		move_left(char **, int *, t_head *, int *);
+void		move_right(char **, int *, t_head *, int *);
+void		debut(char **, int *, t_head *, int *);
+void		end(char **, int *, t_head *, int *);
+void		backspace(char **, int *, t_head *, int *);
+void		auto_complet(char **, int *, t_head *, int *);
+
+/*
+** 42RC
+*/
+int	check_alias(t_aliases *, char **);
+int	get_conf_file(t_conf *, char **);
+int	create_alias(t_conf *, char **, char *);
+
+/*
+** CURSOR
+*/
+void	cursor_forward(int x);
+void	cursor_backward(int x);
+void	cursor_erase(int x);
+void	cursor_save();
+void	cursor_restore();
 
 /*
 ** PARSING

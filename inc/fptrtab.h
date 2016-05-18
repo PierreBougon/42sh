@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Wed May 18 18:33:39 2016 marel_m
+** Last update Wed May 18 19:28:51 2016 marel_m
 */
 
 #ifndef FPTRTAB_H_
@@ -57,5 +57,17 @@ typedef struct	s_blt
   char		*blt;
   int		(*ft_blt)(t_sh *);
 }		t_blt;
+
+enum		conf_tab
+  {
+    ALIASES,
+    EXPORTS,
+  };
+
+typedef struct	s_conf_tab
+{
+  int		(*(fp_conf[2]))(t_conf *, char **, char *);
+  char		*(dico[5]);
+}		t_conf_tab;
 
 #endif /* !FPTRTAB_H_ */
