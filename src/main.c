@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed May 18 13:01:55 2016 Poc
+** Last update Wed May 18 14:19:05 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -17,11 +17,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include "42s.h"
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include "42s.h"
 
 void	my_show_tab(char **str)
 {
@@ -35,7 +34,7 @@ void	my_show_tab(char **str)
     }
 }
 
-void		init_actions(t_key_act actions[7])
+void		init_actions(t_key_act actions[9])
 {
   actions[0].key = strdup(tigetstr("kcub1"));
   actions[0].fct = &move_left;
@@ -47,10 +46,14 @@ void		init_actions(t_key_act actions[7])
   actions[3].fct = &end;
   actions[4].key = strdup(tigetstr("kbs"));
   actions[4].fct = &backspace;
-  actions[5].key = strdup(tigetstr("kcuu1"));
-  actions[5].fct = &history_up;
-  actions[6].key = strdup(tigetstr("kcud1"));
-  actions[6].fct = &history_down;
+  actions[5].key = strdup(tigetstr("cub1"));
+  actions[5].fct = &backspace;
+  actions[6].key = strdup(tigetstr("kcuu1"));
+  actions[6].fct = &history_up;
+  actions[7].key = strdup(tigetstr("kcud1"));
+  actions[7].fct = &history_down;
+  actions[8].key = strdup("\t");
+  actions[8].fct = &auto_complet;
 }
 
 void            change_read_mode(int i, int time, int nb_char)
@@ -89,30 +92,31 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   strcat(*str, buff);
   strcat(*str, end);
   *curs_pos += 1;
-  CURSOR_FORWARD(1);
-  CURSOR_SAVE;
+  cursor_forward(1);
+  cursor_save();
   fflush(stdout);
   write(1, "\rhey ->", 7);
   write(1, *str, strlen(*str));
-  CURSOR_RESTORE;
+  cursor_restore();
   fflush(stdout);
   return (0);
 }
 
-int		do_action(t_key_act actions[7], char **str, t_head *history)
+int		do_action(t_key_act actions[9], char **str, t_head *history)
 {
   static int	cur_pos;
+  static int	index_history;
   char		buff[10];
   int		i;
 
   i = -1;
   memset(buff, 0, 10);
   read(0, buff, 10);
-  while (++i < 7)
+  while (++i < 8)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
-	  actions[i].fct(str, &cur_pos, history);
+	  actions[i].fct(str, &cur_pos, history, &index_history);
 	  return (1);
 	}
     }
@@ -144,7 +148,7 @@ void		get_history(int fd_history, t_head *history)
 char		*term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[7];
+  t_key_act	actions[9];
   int		a;
   t_head	history;
 

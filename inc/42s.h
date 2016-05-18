@@ -5,28 +5,21 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed May 18 10:30:37 2016 Poc
+** Last update Wed May 18 14:20:20 2016 Poc
 */
 
 #ifndef _42s_H_
 # define _42s_H_
 
-
 # define UNUSED __attribute__((unused))
-# define CURSOR_BACKWARD(x) printf("%s", tiparm(tigetstr("cub"), (x)))
-# define CURSOR_FORWARD(x)  printf("%s", tiparm(tigetstr("cuf"), (x)))
-# define CURSOR_SAVE printf("%s", tigetstr("sc"))
-# define CURSOR_RESTORE printf("%s", tigetstr("rc"))
-# define MOVE_CURSOR_TO(x, y) printf("\033[%d;%dH", (x), (y))
-# define ERASE(x) printf("%s", tiparm(tigetstr("ech"), (x)));
 
 # include "history.h"
 
 typedef struct		s_key_action
 {
-  char			*key;
-  void			(*fct)(char **, int *, t_head *);
-}			t_key_act;
+  char		*key;
+  void		(*fct)(char **, int *, t_head *, int *);
+}		t_key_act;
 
 typedef struct		s_node
 {
@@ -84,11 +77,21 @@ char		*epur(char  *);
 /*
 ** ACTION
 */
-void		move_left(char **, int *, t_head *);
-void		move_right(char **, int *, t_head *);
-void		debut(char **, int *, t_head *);
-void		end(char **, int *, t_head *);
-void		backspace(char **, int *, t_head *);
+void		move_left(char **, int *, t_head *, int *);
+void		move_right(char **, int *, t_head *, int *);
+void		debut(char **, int *, t_head *, int *);
+void		end(char **, int *, t_head *, int *);
+void		backspace(char **, int *, t_head *, int *);
+void		auto_complet(char **, int *, t_head *, int *);
+
+/*
+** CURSOR
+*/
+void	cursor_forward(int x);
+void	cursor_backward(int x);
+void	cursor_erase(int x);
+void	cursor_save();
+void	cursor_restore();
 
 /*
 ** CONFIGURATION

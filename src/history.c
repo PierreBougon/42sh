@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 17:39:20 2016 Mathieu Sauvau
-** Last update Sat May 14 12:25:58 2016 Mathieu Sauvau
+** Last update Mon May 16 15:20:25 2016 Mathieu Sauvau
 */
 
 #include <curses.h>
@@ -52,59 +52,54 @@ void		print_history(t_history *history)
   printf("\n");
 }
 
-char			*seek_prev_history(t_history *history, char *str)
+char		*seek_prev_history(t_history *history, char *str,
+					   int *i_history)
 {
-  static t_history	*save;
+  int		i;
 
+  i = -1;
   if (!history)
     return (NULL);
   if (!str || !str[0])
     return (history->str);
-  if (!save)
-    save = history;
-  while (history)
-    {
-      if (strcmp(history->str, str) == 0)
-	{
-	  if (history->next)
-	    {
-	      save = history->next;
-	      return (history->next->str);
-	    }
-	  return (history->str);
-	}
+  while (++i < *i_history)
       history = history->next;
+  if (history->next)
+    {
+      ++*i_history;
+      return (history->next->str);
     }
-  return (save->str);
+  return (history->str);
 }
 
-char			*seek_next_history(t_history *history, char *str)
+char		*seek_next_history(t_history *history, char *str,
+					   int *i_history)
 {
+  int		i;
+
+  i = -1;
   if (!history || !str || !str[0])
     return (NULL);
-  while (history)
-    {
-      if (strcmp(history->str, str) == 0)
-	{
-	  if (history->prev)
-	    return (history->prev->str);
-	  return (history->str);
-	}
+  while (++i < *i_history)
       history = history->next;
+  if (history->prev)
+    {
+      --*i_history;
+      return (history->prev->str);
     }
-  return (NULL);
+  return (history->str);
 }
 
 void		history_up(char **str, int *pos,
-			   t_head *history)
+			   t_head *history, int *i_history)
 {
   char		*h;
 
-  CURSOR_BACKWARD(strlen(*str) + 10);
-  ERASE(strlen(*str) + 10);
+  cursor_backward(strlen(*str) + 10);
+  cursor_erase(strlen(*str) + 10);
   if (history && history->first)
     {
-      if ((h = seek_prev_history(history->first, *str)))
+      if ((h = seek_prev_history(history->first, *str, i_history)))
 	{
 	  free(*str);
 	  *str = strdup(h);
@@ -117,16 +112,16 @@ void		history_up(char **str, int *pos,
 }
 
 void		history_down(char **str, int *pos,
-			     t_head *history)
+			     t_head *history, int *i_history)
 {
 
   char		*h;
 
-  CURSOR_BACKWARD(strlen(*str) + 10);
-  ERASE(strlen(*str) + 10);
+  cursor_backward(strlen(*str) + 10);
+  cursor_erase(strlen(*str) + 10);
   if (history && history->first)
     {
-      if ((h = seek_next_history(history->first, *str)))
+      if ((h = seek_next_history(history->first, *str, i_history)))
 	{
 	  free(*str);
 	  *str = strdup(h);
