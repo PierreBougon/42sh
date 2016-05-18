@@ -5,25 +5,24 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar  8 09:15:03 2016 maud marel
-** Last update Tue May 17 11:37:18 2016 marel_m
+** Last update Tue May 17 12:40:05 2016 marel_m
 */
 
 #include <stdlib.h>
-#include <string.h>
-#include "42s.h"
+#include "my.h"
 
-char	*my_strdup_e(char *str, int i)
+char	*my_strdup_bt(char *str, int st, int end)
 {
   char	*new;
   int	j;
 
   j = 0;
-  if ((new = malloc(sizeof(char) * (my_strlen(str) - 1))) == NULL)
+  if ((new = malloc(sizeof(char) * (end - st + 2))) == NULL)
     return (NULL);
-  while (str && str[i])
+  while (st < end && str[st] != '\0' && str)
     {
-      new[j] = str[i];
-      i++;
+      new[j] = str[st];
+      st++;
       j++;
     }
   new[j] = '\0';

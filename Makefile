@@ -5,13 +5,13 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed May 18 14:20:36 2016 Poc
+## Last update Wed May 18 15:02:19 2016 Poc
+## Last update Tue May 17 10:13:17 2016 marel_m
 ##
 
 DEBUG=	no
 
 SRC=	main.c			\
-	epur.c			\
 	env/check_home.c	\
 	env/check_oldpwd.c	\
 	env/check_path.c	\
@@ -20,8 +20,10 @@ SRC=	main.c			\
 	conf.c			\
 	42rc_create_alias.c	\
 	42rc_alias_checker.c	\
+	env/verif_env.c		\
 	my_get_next_line.c	\
 	my_str_to_word_tab.c	\
+	my_strdup_bt.c		\
 	my_strdup_e.c		\
 	ncurses.c		\
 	actions.c		\
@@ -30,6 +32,12 @@ SRC=	main.c			\
 	index.c			\
 	cursor.c		\
 	autocompletion.c	\
+	my_strlen.c		\
+	parsing/epur.c		\
+	parsing/parsing.c	\
+	parsing/create_list.c	\
+	parsing/create_tree.c	\
+	parsing/parsing_sep.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
