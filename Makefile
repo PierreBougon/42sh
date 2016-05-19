@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed May 18 19:32:42 2016 marel_m
+## Last update Thu May 19 13:08:43 2016 marel_m
 ##
 
 DEBUG=	no
@@ -58,7 +58,7 @@ RM=	rm -f
 ifeq ($(DEBUG), yes)
 	CFLAGS=		-W -Wall -Wextra -g -D DEBUG -O0
 else
-	CFLAGS=		-W -Wall -Wextra -Werror
+	CFLAGS=		-W -Wall -Wextra
 endif
 
 NAME=	mysh

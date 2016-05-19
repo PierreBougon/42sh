@@ -236,11 +236,11 @@ int	check_wrong_path(28,585
 int	check_good_path_normal_case(46,1001
 int	check_good_path(64,1497
 
-src/exec/execute.c,116
+src/exec/execute.c,117
 int	no_separator(15,296
-int	act_for_which_sep(22,455
-int	check_which_config(33,665
-int		execute_each_act(45,945
+int	act_for_which_sep(23,501
+int	check_which_config(36,747
+int		execute_each_act(50,1063
 
 src/my_strcat.c,34
 char	*my_strcat(my_strcat14,272
@@ -309,8 +309,8 @@ int		cpy_to_pos(78,1755
 int		do_action(101,2236
 void		get_history(133,2767
 char		*term(term144,2951
-void		create_history_file(183,3761
-int		main(190,3938
+void		create_history_file(184,3785
+int		main(191,3962
 
 src/autocompletion.c,254
 int		find_in_(21,429
@@ -330,17 +330,6 @@ char		*seek_prev_history(seek_prev_history55,1015
 char		*seek_next_history(seek_next_history75,1377
 void		history_up(93,1708
 void		history_down(114,2148
-
-tree.c,280
-t_node		*new_node(new_node13,276
-t_list_tree	*new_tree(new_tree26,498
-void	add_tree(37,686
-t_node		**insert_node(insert_node48,841
-void		deltree(66,1224
-void		del_all_tree(78,1401
-void		print_tab_arg_dir(91,1578
-void		print_tree(110,1903
-void		print_all_tree(120,2101
 
 src/42rc_functions.c,0
 

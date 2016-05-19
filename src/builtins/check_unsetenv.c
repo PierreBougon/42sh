@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:11:47 2016 marel_m
-** Last update Wed May 18 19:25:45 2016 marel_m
+** Last update Wed May 18 20:03:53 2016 marel_m
 */
 
 #include <unistd.h>
@@ -43,7 +43,7 @@ int	my_unsetenv(t_sh *sh)
   int	nb;
   int	l;
 
-  if (sh->exec->arg[2] == NULL)
+  if (sh->exec->arg[1] == NULL)
     return (write(2, "unsetenv: Too few arguments.\n", 29), 1);
   nb = 1;
   while (sh->exec->arg[nb] != NULL)
