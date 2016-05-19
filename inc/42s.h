@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed May 18 15:01:28 2016 Poc
+** Last update Wed May 18 19:25:52 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -154,7 +154,6 @@ char			*my_strdup_bt(char *, int, int);
 char			**my_str_to_word_tab(char *, char);
 char			*my_strdup_e(char *, int);
 int			my_strlen(char *);
-
 void			print_tree(t_node *);
 
 #endif /* _42s_H_ */

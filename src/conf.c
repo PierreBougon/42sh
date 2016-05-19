@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Wed May 18 14:38:47 2016 Poc
+** Last update Wed May 18 17:54:35 2016 Mathieu Sauvau
 */
 
 
@@ -66,5 +66,6 @@ int	get_conf_file(t_conf *conf, char **env)
       str = epur(str);
     }
   showlist(conf->head);
+  close(fd);
   return (0);
 }
