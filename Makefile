@@ -5,21 +5,12 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri May 20 15:52:10 2016 marel_m
+## Last update Sun May 22 11:48:16 2016 marel_m
 ##
 
 DEBUG=	no
 
 SRC=	main.c				\
-	my_get_next_line.c		\
-	my_str_to_word_tab.c		\
-	my_strdup_bt.c			\
-	my_strdup_e.c			\
-	my_strlen.c			\
-	my_strcat.c			\
-	conf.c				\
-	42rc_create_alias.c		\
-	42rc_alias_checker.c		\
 	ncurses.c			\
 	actions.c			\
 	erase.c				\
@@ -28,7 +19,16 @@ SRC=	main.c				\
 	cursor.c			\
 	autocompletion.c		\
 	free_tab.c			\
-	my_realloc_tab.c		\
+	conf/conf.c			\
+	conf/42rc_create_alias.c	\
+	conf/42rc_alias_checker.c	\
+	lib/my_get_next_line.c		\
+	lib/my_str_to_word_tab.c	\
+	lib/my_strdup_bt.c		\
+	lib/my_strdup_e.c		\
+	lib/my_strlen.c			\
+	lib/my_strcat.c			\
+	lib/my_realloc_tab.c		\
 	env/check_home.c		\
 	env/check_oldpwd.c		\
 	env/check_path.c		\
