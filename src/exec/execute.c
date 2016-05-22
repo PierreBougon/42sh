@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Fri May 20 18:27:25 2016 marel_m
+** Last update Sun May 22 11:43:02 2016 marel_m
 */
 
 #include <sys/types.h>
@@ -51,7 +51,6 @@ int	act_for_which_sep(t_sh *sh, UNUSED t_list_sh *list, t_node *tree)
 	}
       if (builtin_or_exec(sh))
 	return (1);
-      exit(1);
     }
   return (0);
 }

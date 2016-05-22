@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Fri May 20 16:02:20 2016 marel_m
+** Last update Sun May 22 11:44:05 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -166,7 +166,7 @@ char		*term(t_sh *sh)
 	  push_front_history(&history, str);
 	  if (sh->fd_history > 0)
 	    dprintf(sh->fd_history, "%s\n", str);
-	  print_history(history.first);
+	  /* print_history(history.first); */
 	  check_alias(sh->conf.head, &str);
 	  parsing(sh, str);
 	  if (execute_each_act(sh))
