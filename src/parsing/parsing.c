@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Wed May 18 13:49:14 2016 marel_m
+** Last update Fri May 20 16:03:00 2016 marel_m
 */
 
 #include <stdio.h>
@@ -60,8 +60,7 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
       insert_node(&elem->node, elem->arg, NULL, NO_ONE);
       return (0);
     }
-  if (pars_tree(elem, elem->arg))
-    return (1);
+  pars_tree(elem, elem->arg);
   return (0);
 }
 
@@ -101,8 +100,9 @@ int	parsing(t_sh *sh, char *str)
 
   if (str == NULL)
     return (0);
-  if (create_list(sh))
-    return (-1);
+  if (create_list(sh)
+      || (str = epur(str)) == NULL)
+    return (1);
   i = 0;
   j = 0;
   while (str[i] != '\0' && str)

@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed May 18 19:29:19 2016 marel_m
+** Last update Sun May 22 11:39:35 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -13,6 +13,7 @@
 
 # define UNUSED __attribute__((unused))
 
+# include <stdio.h>
 # include "history.h"
 
 typedef struct		s_key_action

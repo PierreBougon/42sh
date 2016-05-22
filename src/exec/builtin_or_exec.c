@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Wed May 18 19:12:23 2016 marel_m
+** Last update Fri May 20 16:37:16 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -18,10 +18,15 @@ int	action(t_sh *sh)
   pid_t	pid;
   int	status;
 
-  if ((pid = fork()) == -1)
+   if ((pid = fork()) == -1)
     return (1);
   if (pid == 0)
     {
+      if (sh->exec->fd != 1)
+	{
+	  if (dup2(sh->exec->fd, 1) == -1)
+	    return (1);
+	}
       if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
 	return (1);
     }
@@ -31,6 +36,12 @@ int	action(t_sh *sh)
 	return (1);
       if (WIFSIGNALED(status))
 	write(2, "Segmentation fault\n", 19);
+    }
+  if (sh->exec->fd != 1)
+    {
+      if (close(sh->exec->fd) == -1
+	  || waitpid(pid, &status, 0) == -1)
+	return (1);
     }
   return (0);
 }

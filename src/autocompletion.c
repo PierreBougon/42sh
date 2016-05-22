@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 15:27:20 2016 Mathieu Sauvau
-** Last update Mon May 16 19:16:59 2016 Mathieu Sauvau
+** Last update Fri May 20 13:39:55 2016 marel_m
 */
 
 #include <sys/types.h>
@@ -129,7 +129,6 @@ char	*get_cur_dir()
 char	*find_match(char *str)
 {
   char	*res;
-  char	*s;
   char	*path;
   char	*elem;
 
@@ -162,7 +161,8 @@ char	*find_match(char *str)
   return (res);
 }
 
-void		auto_complet(char **str, int *pos,
+void		auto_complet(char **str,
+			     UNUSED int *pos,
 			     UNUSED t_head *history,
 			     UNUSED int *i_history)
 {

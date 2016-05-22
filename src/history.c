@@ -5,9 +5,10 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 17:39:20 2016 Mathieu Sauvau
-** Last update Mon May 16 15:20:25 2016 Mathieu Sauvau
+** Last update Fri May 20 13:39:11 2016 marel_m
 */
 
+#include <unistd.h>
 #include <curses.h>
 #include <term.h>
 #include <stdio.h>
