@@ -5,10 +5,12 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun May 22 11:48:16 2016 marel_m
+## Last update Mon May 23 18:40:41 2016 Mathieu Sauvau
 ##
 
 DEBUG=	no
+
+AUTO=	auto_completion/
 
 SRC=	main.c				\
 	ncurses.c			\
@@ -17,7 +19,9 @@ SRC=	main.c				\
 	history.c			\
 	index.c				\
 	cursor.c			\
-	autocompletion.c		\
+	$(AUTO)autocompletion.c		\
+	$(AUTO)auto_completion_find.c	\
+	$(AUTO)auto_completion_utility.c\
 	free_tab.c			\
 	conf/conf.c			\
 	conf/42rc_create_alias.c	\

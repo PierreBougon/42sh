@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 12:31:02 2016 Mathieu Sauvau
-** Last update Mon May 16 15:13:55 2016 Mathieu Sauvau
+** Last update Mon May 23 17:34:08 2016 Mathieu Sauvau
 */
 
 #include <unistd.h>
@@ -26,7 +26,9 @@ void		edit_str(char **str, int *pos)
   start[*pos] = 0;
   end = strdup(*str + *pos);
   free(*str);
-  *str = strdup(start);
+  if (!(*str = malloc(strlen(start) + strlen(end) + 1)))
+    return ;
+  *str = strcpy(*str, start);
   strcat(*str, end);
 }
 
