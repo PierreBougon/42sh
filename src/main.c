@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun May 22 11:44:05 2016 marel_m
+** Last update Mon May 23 17:03:07 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -169,8 +169,8 @@ char		*term(t_sh *sh)
 	  /* print_history(history.first); */
 	  check_alias(sh->conf.head, &str);
 	  parsing(sh, str);
-	  if (execute_each_act(sh))
-	    return (NULL);
+	  /* if (execute_each_act(sh)) */
+	  /*   return (NULL); */
 	  //	  free(str);
 	  write(1, "hey ->", 6);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
