@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 15:27:20 2016 Mathieu Sauvau
-** Last update Thu May 19 10:33:45 2016 Mathieu Sauvau
+** Last update Fri May 20 17:14:06 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -25,6 +25,7 @@ int		find_in_(char *path, char *str, char **res)
   struct dirent	*dir;
   int		i;
   struct stat	st;
+  char		*all_dir_path;
 
   if (!(d = opendir(path)))
     return (-1);
@@ -32,17 +33,25 @@ int		find_in_(char *path, char *str, char **res)
   //  printf("path %s\n", path);
   while ((dir = readdir(d)))
     {
-      if (strncmp(str, dir->d_name, strlen(str)) == 0)
+      if (dir->d_name[0] != '.' && strncmp(str, dir->d_name, strlen(str)) == 0)
 	{
-	  printf("name %s\n", dir->d_name);
-	  if (!(*res = realloc(*res, strlen(*res) + strlen(dir->d_name) + 6)))
+	  /* printf("name %s\n", dir->d_name); */
+	  if (!(*res = realloc(*res, strlen(*res) + strlen(dir->d_name) + 3)) ||
+	      !(all_dir_path = malloc(strlen(dir->d_name) + strlen(path) + 1)))
 	    return (-1);
-	  stat(dir->d_name, &st);
+	  all_dir_path[0] = 0;
+	  strcat(all_dir_path, path);
+	  if (path[0] == '.')
+	    strcat(all_dir_path, "/");
+	  strcat(all_dir_path, dir->d_name);
+	  /* printf("\nall_dir_path %s\n", all_dir_path); */
+	  stat(all_dir_path, &st);
 	  strcat(*res, dir->d_name);
 	  if (S_ISDIR(st.st_mode))
 	    strcat(*res, "/");
 	  strcat(*res, " ");
 	  ++i;
+	  free(all_dir_path);
 	}
     }
   closedir(d);
@@ -56,7 +65,7 @@ int	strlen_b_slash(char *str)
 
   i = strlen(str) + 1;
   r = 0;
-  while (str[--i] != '/' && str[i])
+  while (--i >= 0 && str[i] != '/')
     ++r;
   return (r);
 }
@@ -91,7 +100,7 @@ char	*get_elem(char *str)
   if (!(elem = malloc(len + 2)))
     return (NULL);
   j = 0;
-  while (str[--i] != '/' && str[i])
+  while (--i >= 0 && str[i] != '/')
     elem[j++] = str[i];
   elem[j] = 0;
   revstr(elem);
@@ -104,11 +113,12 @@ char	*get_path(char *str)
   int	i;
   int	j;
 
-  i = strlen(str);
-  if (!(path = malloc(i - strlen_b_slash(str) + 1)))
+  i = strlen(str) + 1;
+  if (!(path = malloc(i - strlen_b_slash(str) + 2)))
     return (NULL);
   j = 0;
-  while (str[--i] != '/' && str[i]);
+  while (--i >= 0 && str[i] != '/');
+  ++i;
   while (--i >= 0)
     path[j++] = str[i];
   path[j] = 0;
@@ -117,11 +127,11 @@ char	*get_path(char *str)
       path[j++] = '.';
       path[j] = 0;
     }
-  else if (str[0] == '/')
-    {
-      path[j++] = '/';
-      path[j] = 0;
-    }
+  /* else if (str[0] == '/') */
+  /*   { */
+  /*     path[j++] = '/'; */
+  /*     path[j] = 0; */
+  /*   } */
   revstr(path);
   return (path);
 }
@@ -137,32 +147,47 @@ char	*get_cur_dir()
   return (path);
 }
 
-char	**find_match(char *str)
+char	**find_match(char **str)
 {
   char	*res;
-  char	*s;
+  char	*complet;
   char	*path;
   char	*elem;
   char	**tab;
 
-  if (!(res = malloc(1)))
+  if (!(res = malloc(1)) || !(path = get_path(*str)))
     return (NULL);
+  tab = NULL;
   res[0] = 0;
-  if (!(path = get_path(str)))
-    return (NULL);
-  if (str && str[0])
+  if (*str && *str[0])
     {
-      if (!(elem = get_elem(str)))
+      if (!(elem = get_elem(*str)))
 	return (NULL);
     }
   else
     {
-      if (!(elem = strdup(str)))
+      if (!(elem = strdup(*str)))
 	return (NULL);
     }
-  printf("\npath %s\n elem %s\n", path, elem);
-  find_in_(path, elem, &res);
-  tab =  my_str_to_word_tab(res, ' ');
+  if ((find_in_(path, elem, &res)) == 1)
+    {
+      free(*str);
+      if (strcmp(path, ".") != 0)
+      	*str = malloc(strlen(res) + strlen(path) + 1);
+      else
+      	*str = malloc(strlen(res) + 1);
+      if (!*str)
+      	return (NULL);
+      res[strlen(res) - 1] = 0;
+      *str[0] = 0;
+      if (strcmp(path, ".") != 0)
+	strcat(*str, path);
+      strcat(*str, res);
+    }
+  else
+    tab =  my_str_to_word_tab(res, ' ');
+  printf("\npath %s elem %s\n", path, elem);
+  free(res);
   free(path);
   free(elem);
   return (tab);
@@ -191,8 +216,9 @@ void		print_word_tab(char **tab, int nb_col)
 
   i = -1;
   all = 0;
+  if (!tab)
+    return ;
   col_size = get_max_len(tab) + 5;
-  printf("%d\n", col_size);
   while (tab[++i])
     {
       if (all > nb_col - col_size)
@@ -200,10 +226,7 @@ void		print_word_tab(char **tab, int nb_col)
 	  all = 0;
 	  printf("\n");
 	}
-      //      if (all != 0)
       printf("%*s ", -col_size, tab[i]);
-      /* else */
-      /* printf("%s", tab[i]); */
       all += col_size;
     }
   printf("\n");
@@ -217,13 +240,10 @@ void			auto_complet(char **str, int *pos,
   struct winsize	w;
 
   ioctl(0, TIOCGWINSZ, &w);
-
-  tab = find_match(*str);
+  tab = find_match(str);
   print_word_tab(tab, w.ws_col);
+  cursor_forward(strlen(*str));
+  *pos = strlen(*str);
   printf("\nhey ->%s", *str);
   fflush(stdout);
-  //  {
-      //      free(*str);
-      /* *str = */
-  //}
 }
