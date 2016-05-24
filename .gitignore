@@ -1,0 +1,16 @@
+# Object
+*.o
+vgcore*
+TAGS*
+
+# Lib
+*.a
+
+# Exec
+*.out
+
+# Tmp
+.#*
+*~
+\#*#
+*log*
