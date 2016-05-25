@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Wed May 18 13:03:07 2016 marel_m
+** Last update Mon May 23 18:57:20 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -31,6 +31,15 @@ t_node		*one_node(char *arg, t_type type)
   return (new);
 }
 
+t_node		*last_node(t_node *new, char *arg_l, t_type type)
+{
+  if ((new->arg = strdup(arg_l)) == NULL
+      || (new->left = one_node(NULL, type)) == NULL
+      || (new->right = one_node(NULL, type)) == NULL)
+    return (NULL);
+  return (new);
+}
+
 t_node		*new_node(char *arg_l, char *arg_r, t_type type)
 {
   t_node	*new;
@@ -39,12 +48,7 @@ t_node		*new_node(char *arg_l, char *arg_r, t_type type)
     return (NULL);
   new->type = type;
   if (type == NO_ONE)
-    {
-      new->arg = strdup(arg_l);
-      new->left = one_node(NULL, type);
-      new->right = one_node(NULL, type);
-      return (new);
-    }
+    return (last_node(new, arg_l, type));
   if (check_prior(arg_l) == 0)
     {
       if (type == PIPE)
@@ -57,12 +61,19 @@ t_node		*new_node(char *arg_l, char *arg_r, t_type type)
 	  if ((new->arg = strdup(">")) == NULL)
 	    return (NULL);
 	}
+      else if (type == REDIR_LEFT)
+	{
+	  if ((new->arg = strdup("<")) == NULL)
+	    return (NULL);
+	}
     }
   else
     new->arg = NULL;
-  new->left = one_node(arg_l, type);
+  if ((new->left = one_node(arg_l, type)) == NULL)
+    return (NULL);
   if (check_prior(arg_r) == 0)
-    new->right = one_node(arg_r, type);
+    if ((new->right = one_node(arg_r, type)) == NULL)
+      return (NULL);
   return (new);
 }
 
@@ -79,7 +90,8 @@ t_node		**insert_node(t_node **tree, char *arg_l, char *arg_r,
       return (tree);
     }
   (*tree)->right = NULL;
-  insert_node(&(*tree)->right, arg_l, arg_r, type);
+  if ((insert_node(&(*tree)->right, arg_l, arg_r, type)) == NULL)
+    return (NULL);
   return (tree);
 }
 
