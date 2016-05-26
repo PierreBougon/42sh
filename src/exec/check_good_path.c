@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:33:30 2016 marel_m
-** Last update Tue May 24 12:28:44 2016 marel_m
+** Last update Thu May 26 14:58:23 2016 bougon_p
 */
 
 #include <string.h>
@@ -17,12 +17,14 @@ void	wrong_access(t_sh *sh)
 {
   write(2, sh->exec->exec, strlen(sh->exec->exec));
   write(2, ": Access required.\n", 19);
+  suggest(sh, sh->exec->exec);
 }
 
 void	wrong_command(t_sh *sh)
 {
   write(2, sh->exec->exec, strlen(sh->exec->exec));
   write(2, ": Command not found.\n", 21);
+  suggest(sh, sh->exec->exec);
 }
 
 int	check_wrong_path(t_sh *sh)
@@ -32,6 +34,7 @@ int	check_wrong_path(t_sh *sh)
     {
       write(2, sh->exec->exec, strlen(sh->exec->exec));
       write(2, ": Command not found.\n", 21);
+      suggest(sh, sh->exec->exec);
       return (1);
     }
   if (access(sh->exec->good_path, F_OK) == 0)

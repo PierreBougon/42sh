@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon Nov 23 11:36:14 2015 maud marel
-** Last update Wed May 18 18:39:12 2016 marel_m
+** Last update Thu May 26 12:29:55 2016 bougon_p
 */
 
 #include <string.h>
@@ -28,3 +28,21 @@ char	**my_realloc_tab(char **old, int size)
   free(old);
   return (new);
 }
+
+char	**my_realloc_tabadd(char **tab, int add_lines)
+{
+  char	**new_tab;
+  int	act_lines;
+  int	j;
+
+  act_lines = -1;
+  while (tab[++act_lines] != NULL);
+  if ((new_tab = malloc(sizeof(char *)
+			      * (act_lines + add_lines + 1))) == NULL)
+    return (NULL);
+  new_tab[act_lines + add_lines] = NULL;
+  j = -1;
+  while (++j < act_lines)
+    new_tab[j] = tab[j];
+  free(tab);
+  return (new_tab);}
