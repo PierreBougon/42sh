@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 24 14:36:19 2016 bougon_p
+## Last update Thu May 26 14:51:09 2016 bougon_p
 ##
 
 DEBUG=	no
@@ -49,7 +49,10 @@ SRC=	main.c				\
 	builtins/check_exit.c		\
 	builtins/check_setenv.c		\
 	builtins/check_unsetenv.c	\
-	builtins/check_which_cd.c
+	builtins/check_which_cd.c	\
+	suggest/check_all_path.c	\
+	suggest/levenshtein.c		\
+	suggest/suggest.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 

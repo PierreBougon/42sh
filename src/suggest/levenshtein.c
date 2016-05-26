@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Tue May 24 14:58:26 2016 bougon_p
-** Last update Tue May 24 15:56:03 2016 bougon_p
+** Last update Thu May 26 12:30:21 2016 bougon_p
 */
 
 #include <stdlib.h>
@@ -23,7 +23,7 @@ void	print_matrix(int **matrix, int width)
       i = -1;
       while (++i <= width)
 	{
-	  printf("%d", matrix[j][i]);
+	  printf("%d ", matrix[j][i]);
 	}
       printf("\n");
     }
@@ -46,21 +46,41 @@ int	minimum(int **matrix, int i, int j, int cost)
     return (c);
 }
 
-int	**init_tab(int height, int width)
+void	free_matrix(int **matrix)
 {
   int	i;
-  int	**tab;
 
-  if (!(tab = malloc(sizeof(int *) * (height + 2))))
+  i = -1;
+  while (matrix[++i])
+    {
+      free(matrix[i]);
+    }
+  free(matrix);
+}
+
+int	**init_matrix(int height, int width)
+{
+  int	i;
+  int	j;
+  int	**matrix;
+
+  if (!(matrix = malloc(sizeof(int *) * (height + 2))))
     return (NULL);
-  tab[height + 1] = NULL;
+  matrix[height + 1] = NULL;
   i = -1;
   while (++i < height + 1)
     {
-      if (!(tab[i] = malloc(sizeof(int) * (width + 2))))
+      if (!(matrix[i] = malloc(sizeof(int) * (width + 2))))
 	return (NULL);
     }
-  return (tab);
+  i = 0;
+  while (++i <= height)
+    matrix[i][0] = i;
+  j = 0;
+  while (++j <= width)
+    matrix[0][j] = j;
+  matrix[0][0] = 0;
+  return (matrix);
 }
 
 int	levenshtein(char *str1, char *str2)
@@ -74,15 +94,8 @@ int	levenshtein(char *str1, char *str2)
 
   len1 = strlen(str1);
   len2 = strlen(str2);
-  if (!(matrix = init_tab(len1, len2)))
+  if (!(matrix = init_matrix(len1, len2)))
     return (-1);
-  i = 0;
-  while (++i <= len1)
-    matrix[i][0] = i;
-  j = 0;
-  while (++j <= len2)
-    matrix[0][j] = j;
-  matrix[0][0] = 0;
   i = 0;
   while (++i <= len1)
     {
@@ -93,16 +106,8 @@ int	levenshtein(char *str1, char *str2)
 	  matrix[i][j] = minimum(matrix, i, j, cost);
 	}
     }
-  print_matrix(matrix, len2);
-  return (matrix[len1 - 1][len2 - 1]);
-}
-
-int	main(int ac, char **av)
-{
-  int	dist;
-
-  if (ac != 3)
-    return (printf("Wrong usage\n"), 1);
-  dist = levenshtein(av[1], av[2]);
-  printf("Distance = %d\n", dist);
+  /* print_matrix(matrix, len2); */
+  cost = matrix[len1][len2];
+  free_matrix(matrix);
+  return (cost);
 }

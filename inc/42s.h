@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun May 22 11:39:35 2016 marel_m
+** Last update Thu May 26 13:04:13 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -195,5 +195,10 @@ void			free_tab(char **);
 char			*my_strcat(char *, char *);
 
 void			print_tree(t_node *);
+
+/*
+** Suggest algorithm
+*/
+int	suggest(t_sh *, char *);
 
 #endif /* _42s_H_ */

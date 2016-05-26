@@ -1,20 +1,4 @@
 
-inc/history.h,300
-# define _HISTORY_H_12,259
-typedef struct		s_history14,281
-  char			*str;str16,309
-  struct s_history	*next;next17,324
-  struct s_history	*prev;prev18,350
-}			t_history;19,376
-typedef struct		s_head21,392
-  t_history		*first;first23,417
-  t_history		*last;last24,438
-}			t_head;25,458
-
-inc/get_next_line.h,61
-# define GET_NEXT_LINE_H_12,256
-#  define READ_SIZE 15,302
-
 inc/fptrtab.h,845
 # define FPTRTAB_H_12,265
 enum		env16,304
@@ -55,6 +39,78 @@ typedef struct	s_conf_tab67,825
   char	70,904
 }		t_conf_tab;71,924
 
+inc/get_next_line.h,61
+# define GET_NEXT_LINE_H_12,256
+#  define READ_SIZE 15,302
+
+inc/42s.h,1820
+# define _42s_H_12,227
+# define UNUSED 14,245
+typedef struct		s_key_action19,329
+  char			*key;key21,360
+  void			(*fct)fct22,375
+}			t_key_act;23,425
+typedef enum		e_type25,441
+    SEMICOLON,27,466
+    DOUBLE_AND,28,481
+    DOUBLE_PIPE,29,497
+    PIPE,30,514
+    REDIR_RIGHT,31,524
+    REDIR_LEFT,32,541
+    DOUBLE_REDIR_RIGHT,33,557
+    DOUBLE_REDIR_LEFT,34,581
+    NO_ONE35,604
+  }			t_type;36,615
+typedef struct		s_node38,630
+  char			*arg;arg40,655
+  t_type		type;41,670
+  struct s_node		*left;left42,686
+  struct s_node		*right;right43,710
+}			t_node;44,735
+typedef struct		s_aliases46,748
+  char			*alias;alias48,776
+  char			*original;original49,793
+  struct s_aliases	*next;next50,813
+}			t_aliases;51,839
+typedef struct		s_conf53,855
+  t_aliases		*head;head55,880
+}			t_conf;56,900
+typedef struct		s_list_sh58,913
+  t_node		*node;node60,941
+  t_type		type;61,958
+  char			*arg;arg62,974
+  struct s_list_sh	*next;next63,989
+  struct s_list_sh	*prev;prev64,1015
+}			t_list_sh;65,1041
+typedef struct		s_env67,1057
+  char			**env;env69,1081
+  char			*pwd;pwd70,1097
+  char			*oldpwd;oldpwd71,1112
+  char			*home;home72,1130
+  char			**path;path73,1146
+  char			pst_pwd;74,1163
+  char			pst_home;75,1181
+  char			pst_oldpwd;76,1200
+  char			pst_path;77,1221
+}			t_env;78,1240
+typedef struct		s_exec80,1252
+  char			**arg;arg82,1277
+  char			*exec;exec83,1293
+  int			fd;84,1309
+  char			*good_path;good_path85,1321
+  int			exit;86,1342
+}			t_exec;87,1356
+typedef struct		s_sh89,1369
+  t_list_sh		*root;root91,1392
+  int			lenght;92,1412
+  t_node		*tree;tree93,1428
+  t_env			*env;env94,1445
+  t_exec		*exec;exec95,1461
+  t_history		*history;history96,1478
+  t_conf		conf;97,1501
+  int			fd_history;98,1517
+}			t_sh;99,1537
+
 inc/my.h,105
 # define MY_H_12,242
 typedef	struct	s_tab14,258
@@ -62,111 +118,17 @@ typedef	struct	s_tab14,258
   int		size;17,292
 }		t_tab;18,305
 
-inc/42s.h,1819
-# define _42s_H_12,227
-# define UNUSED 14,245
-typedef struct		s_key_action18,309
-  char			*key;key20,340
-  void			(*fct)fct21,355
-}			t_key_act;22,405
-typedef enum		e_type24,421
-    SEMICOLON,26,446
-    DOUBLE_AND,27,461
-    DOUBLE_PIPE,28,477
-    PIPE,29,494
-    REDIR_RIGHT,30,504
-    REDIR_LEFT,31,521
-    DOUBLE_REDIR_RIGHT,32,537
-    DOUBLE_REDIR_LEFT,33,561
-    NO_ONE34,584
-  }			t_type;35,595
-typedef struct		s_node37,610
-  char			*arg;arg39,635
-  t_type		type;40,650
-  struct s_node		*left;left41,666
-  struct s_node		*right;right42,690
-}			t_node;43,715
-typedef struct		s_aliases45,728
-  char			*alias;alias47,756
-  char			*original;original48,773
-  struct s_aliases	*next;next49,793
-}			t_aliases;50,819
-typedef struct		s_conf52,835
-  t_aliases		*head;head54,860
-}			t_conf;55,880
-typedef struct		s_list_sh57,893
-  t_node		*node;node59,921
-  t_type		type;60,938
-  char			*arg;arg61,954
-  struct s_list_sh	*next;next62,969
-  struct s_list_sh	*prev;prev63,995
-}			t_list_sh;64,1021
-typedef struct		s_env66,1037
-  char			**env;env68,1061
-  char			*pwd;pwd69,1077
-  char			*oldpwd;oldpwd70,1092
-  char			*home;home71,1110
-  char			**path;path72,1126
-  char			pst_pwd;73,1143
-  char			pst_home;74,1161
-  char			pst_oldpwd;75,1180
-  char			pst_path;76,1201
-}			t_env;77,1220
-typedef struct		s_exec79,1232
-  char			**arg;arg81,1257
-  char			*exec;exec82,1273
-  int			fd;83,1289
-  char			*good_path;good_path84,1301
-  int			exit;85,1322
-}			t_exec;86,1336
-typedef struct		s_sh88,1349
-  t_list_sh		*root;root90,1372
-  int			lenght;91,1392
-  t_node		*tree;tree92,1408
-  t_env			*env;env93,1425
-  t_exec		*exec;exec94,1441
-  t_history		*history;history95,1458
-  t_conf		conf;96,1481
-  int			fd_history;97,1497
-}			t_sh;98,1517
-
-src/my_strlen.c,22
-int	my_strlen(11,242
-
-src/env/env.c,99
-int	create_env(16,299
-int     nb_line(37,885
-int     copy_env(47,994
-int     check_env(66,1342
-
-src/env/check_home.c,27
-int     check_home(15,308
-
-src/env/check_oldpwd.c,29
-int     check_oldpwd(15,306
-
-src/env/verif_env.c,127
-int	check_if_present_in_env(17,341
-t_env_elem	*init_tab_env_elem(init_tab_env_elem35,830
-int		check_if_present_env(52,1278
-
-src/env/check_pwd.c,26
-int     check_pwd(15,306
-
-src/env/check_path.c,53
-int	check_path(15,308
-int	check_path_setenv(39,843
-
-src/my_strdup_e.c,38
-char	*my_strdup_e(my_strdup_e15,324
-
-src/ncurses.c,40
-char	*ncurses_mode(ncurses_mode11,195
-
-src/my_get_next_line.c,113
-char	*my_realloc(my_realloc13,265
-char	*last_buff(last_buff30,540
-char		*get_next_line(get_next_line50,925
+inc/history.h,300
+# define _HISTORY_H_12,259
+typedef struct		s_history14,281
+  char			*str;str16,309
+  struct s_history	*next;next17,324
+  struct s_history	*prev;prev18,350
+}			t_history;19,376
+typedef struct		s_head21,392
+  t_history		*first;first23,417
+  t_history		*last;last24,438
+}			t_head;25,458
 
 src/cursor.c,136
 void	cursor_backward(16,314
@@ -178,25 +140,72 @@ void	cursor_restore(60,881
 src/free_tab.c,22
 void	free_tab(13,267
 
-src/my_strdup_bt.c,40
-char	*my_strdup_bt(my_strdup_bt14,303
+src/ncurses.c,40
+char	*ncurses_mode(ncurses_mode11,195
 
-src/my_realloc_tab.c,45
+src/lib/my_realloc_tab.c,45
 char	**my_realloc_tab(my_realloc_tab14,301
 
-src/42rc_alias_checker.c,48
+src/lib/my_strcat.c,34
+char	*my_strcat(my_strcat14,272
+
+src/lib/my_strdup_e.c,38
+char	*my_strdup_e(my_strdup_e15,324
+
+src/lib/my_strdup_bt.c,40
+char	*my_strdup_bt(my_strdup_bt14,303
+
+src/lib/my_str_to_word_tab.c,98
+int	check_nb(15,334
+int	check_first(34,609
+char	**my_str_to_word_tab(my_str_to_word_tab48,834
+
+src/lib/my_get_next_line.c,113
+char	*my_realloc(my_realloc13,265
+char	*last_buff(last_buff30,540
+char		*get_next_line(get_next_line50,925
+
+src/lib/my_strlen.c,22
+int	my_strlen(11,242
+
+src/conf/conf.c,105
+int	joyeuse_fonction(21,363
+int	prepare_fct_tab(27,505
+void	showlist(37,709
+int	get_conf_file(46,879
+
+src/conf/42rc_alias_checker.c,48
 int	change_word(16,302
 int	check_alias(31,633
 
-src/index.c,32
-char	*my_index(my_index14,246
+src/conf/42rc_create_alias.c,251
+static t_aliases	*create_alias_node(create_alias_node17,315
+static int     		push_alias_string_back(28,528
+static char		*isolate_str(isolate_str53,1002
+static char		*get_first_alias_part(get_first_alias_part77,1470
+int			create_alias(102,2038
 
-src/builtins/check_unsetenv.c,67
-char	**take_away_env(take_away_env16,330
-int	my_unsetenv(41,800
+src/exec/builtin_or_exec.c,65
+int	action(16,333
+int	exec(49,906
+int	builtin_or_exec(61,1072
 
-src/builtins/check_exit.c,20
-int	my_exit(14,282
+src/exec/execute.c,142
+int	no_separator(19,381
+int	redirection(27,586
+int	act_for_which_sep(38,916
+int	check_which_config(58,1286
+int		execute_each_act(70,1520
+
+src/exec/redirections.c,30
+int	redirection_right(11,248
+
+src/exec/check_good_path.c,152
+void	wrong_access(16,332
+void	wrong_command(22,457
+int	check_wrong_path(28,585
+int	check_good_path_normal_case(46,1001
+int	check_good_path(64,1497
 
 src/builtins/check_setenv.c,117
 int	in_env(16,326
@@ -214,36 +223,22 @@ int	my_cd(65,1322
 src/builtins/check_env.c,19
 int	my_env(13,260
 
-src/builtins/check_which_cd.c,105
-int	check_cd_home(15,310
-int	check_cd_dash(32,693
-int	check_cd_good(42,874
-int	check_cd_else(58,1213
+src/builtins/check_exit.c,20
+int	my_exit(14,282
+
+src/builtins/check_unsetenv.c,67
+char	**take_away_env(take_away_env16,330
+int	my_unsetenv(41,800
 
 src/builtins/check_builtins.c,77
 t_blt	*init_tab_builtins(init_tab_builtins16,331
 int	check_builtin(35,765
 
-src/exec/builtin_or_exec.c,64
-int	action(16,333
-int	exec(38,693
-int	builtin_or_exec(50,859
-
-src/exec/check_good_path.c,152
-void	wrong_access(16,332
-void	wrong_command(22,457
-int	check_wrong_path(28,585
-int	check_good_path_normal_case(46,1001
-int	check_good_path(64,1497
-
-src/exec/execute.c,117
-int	no_separator(15,296
-int	act_for_which_sep(23,501
-int	check_which_config(36,747
-int		execute_each_act(50,1063
-
-src/my_strcat.c,34
-char	*my_strcat(my_strcat14,272
+src/builtins/check_which_cd.c,105
+int	check_cd_home(15,310
+int	check_cd_dash(32,693
+int	check_cd_good(42,874
+int	check_cd_else(58,1213
 
 src/actions.c,87
 void		move_left(18,343
@@ -251,37 +246,18 @@ void		move_right(30,540
 void		debut(42,748
 void		end(54,952
 
-src/my_str_to_word_tab.c,98
-int	check_nb(15,334
-int	check_first(34,609
-char	**my_str_to_word_tab(my_str_to_word_tab48,834
-
-src/42rc_create_alias.c,251
-static t_aliases	*create_alias_node(create_alias_node17,315
-static int     		push_alias_string_back(28,528
-static char		*isolate_str(isolate_str53,1002
-static char		*get_first_alias_part(get_first_alias_part77,1470
-int			create_alias(102,2038
-
-src/conf.c,105
-int	joyeuse_fonction(21,363
-int	prepare_fct_tab(27,505
-void	showlist(37,709
-int	get_conf_file(46,879
-
-src/erase.c,47
-void		edit_str(19,372
-void		backspace(33,599
-
-src/parsing/create_list.c,74
-int		create_list(14,284
-t_list_sh	*add_list_after(add_list_after27,488
+src/index.c,32
+char	*my_index(my_index14,246
 
 src/parsing/parsing_sep.c,165
 char	*pars_pipe(pars_pipe15,304
 char	*pars_redir_right(pars_redir_right29,565
 char	*pars_redir_left(pars_redir_left44,847
 char	*pars_redir(pars_redir59,1129
+
+src/parsing/epur.c,72
+char	*space_around_act(space_around_act14,246
+char	*epur(epur34,819
 
 src/parsing/create_tree.c,192
 t_node		*one_node(one_node15,304
@@ -290,16 +266,63 @@ t_node		**insert_node(insert_node69,1347
 void            print_tab_arg_dir(86,1687
 void            print_tree(94,1820
 
+src/parsing/create_list.c,74
+int		create_list(14,284
+t_list_sh	*add_list_after(add_list_after27,488
+
 src/parsing/parsing.c,121
 int	check_prior(14,275
 int		pars_tree(34,569
 int		stock_elem(50,874
-int	which_separator(68,1277
-int	parsing(97,1890
+int	which_separator(67,1257
+int	parsing(96,1870
 
-src/parsing/epur.c,72
-char	*space_around_act(space_around_act14,246
-char	*epur(epur34,819
+src/history.c,247
+void		push_front_history(19,367
+void		free_history(36,715
+void		print_history(46,868
+char		*seek_prev_history(seek_prev_history56,1028
+char		*seek_next_history(seek_next_history76,1390
+void		history_up(94,1721
+void		history_down(115,2161
+
+src/autocompletion.c,254
+int		find_in_(21,422
+int	strlen_b_slash(49,965
+char    *revstr(revstr61,1110
+char	*get_elem(get_elem79,1346
+char	*get_path(get_path98,1638
+char	*get_cur_dir(get_cur_dir118,2001
+char	*find_match(find_match129,2136
+void		auto_complet(164,2716
+
+src/erase.c,47
+void		edit_str(19,372
+void		backspace(33,599
+
+src/env/check_oldpwd.c,29
+int     check_oldpwd(15,306
+
+src/env/env.c,99
+int	create_env(16,299
+int     nb_line(37,885
+int     copy_env(47,994
+int     check_env(66,1342
+
+src/env/check_pwd.c,26
+int     check_pwd(15,306
+
+src/env/check_home.c,27
+int     check_home(15,308
+
+src/env/verif_env.c,127
+int	check_if_present_in_env(17,341
+t_env_elem	*init_tab_env_elem(init_tab_env_elem35,830
+int		check_if_present_env(52,1278
+
+src/env/check_path.c,53
+int	check_path(15,308
+int	check_path_setenv(39,843
 
 src/main.c,255
 void	my_show_tab(25,488
@@ -309,28 +332,17 @@ int		cpy_to_pos(78,1755
 int		do_action(101,2236
 void		get_history(133,2767
 char		*term(term144,2951
-void		create_history_file(184,3785
-int		main(191,3962
+void		create_history_file(184,3791
+int		main(191,3968
 
-src/autocompletion.c,254
-int		find_in_(21,429
-int	strlen_b_slash(49,972
-char    *revstr(revstr61,1117
-char	*get_elem(get_elem79,1353
-char	*get_path(get_path98,1645
-char	*get_cur_dir(get_cur_dir118,2008
-char	*find_match(find_match129,2143
-void		auto_complet(165,2734
+levenshtein.c,153
+void	print_matrix(15,300
+int	minimum(32,510
+void	free_matrix(49,788
+int	**init_matrix(init_matrix61,917
+int	levenshtein(86,1375
+int	main(115,1878
 
-src/history.c,247
-void		push_front_history(18,354
-void		free_history(35,702
-void		print_history(45,855
-char		*seek_prev_history(seek_prev_history55,1015
-char		*seek_next_history(seek_next_history75,1377
-void		history_up(93,1708
-void		history_down(114,2148
+src/conf/42rc_create_export.c,0
 
-src/42rc_functions.c,0
-
-src/42rc_create_export.c,0
+src/conf/42rc_functions.c,0
