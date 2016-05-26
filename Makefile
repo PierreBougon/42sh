@@ -5,12 +5,13 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu May 26 14:51:09 2016 bougon_p
+## Last update Thu May 26 14:59:05 2016 bougon_p
 ##
 
 DEBUG=	no
 
 SRC=	main.c				\
+	free_exec.c			\
 	ncurses.c			\
 	actions.c			\
 	erase.c				\

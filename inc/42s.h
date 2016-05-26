@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 26 13:04:13 2016 bougon_p
+** Last update Thu May 26 14:58:54 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -84,6 +84,8 @@ typedef struct		s_exec
   int			fd;
   char			*good_path;
   int			exit;
+  int			stop;
+  t_type		type;
 }			t_exec;
 
 typedef struct		s_sh
@@ -194,6 +196,11 @@ char			**my_realloc_tab(char **, int);
 void			free_tab(char **);
 char			*my_strcat(char *, char *);
 
+/*
+** FREE
+*/
+void			free_exec(t_exec *);
+void			free_struct(t_sh *);
 void			print_tree(t_node *);
 
 /*

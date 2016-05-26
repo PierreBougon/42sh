@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Fri May 20 16:03:00 2016 marel_m
+** Last update Tue May 24 13:09:16 2016 marel_m
 */
 
 #include <stdio.h>
@@ -39,11 +39,18 @@ int		pars_tree(t_list_sh *elem, char *str)
   if (prior == 0)
     return (0);
   else if (prior == 1)
-    str = pars_pipe(elem, str);
+    {
+      if ((str = pars_pipe(elem, str)) == NULL)
+	return (1);
+    }
   else if (prior == 2)
-    str = pars_redir(elem, str);
+    {
+      if ((str = pars_redir(elem, str)) == NULL)
+	return (1);
+    }
   if (check_prior(str) != 0)
-    pars_tree(elem, str);
+    if (pars_tree(elem, str))
+      return (1);
   return (0);
 }
 
@@ -57,10 +64,12 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
   elem->node = NULL;
   if (check_prior(elem->arg) == 0)
     {
-      insert_node(&elem->node, elem->arg, NULL, NO_ONE);
+      if (insert_node(&elem->node, elem->arg, NULL, NO_ONE) == NULL)
+	return (1);
       return (0);
     }
-  pars_tree(elem, elem->arg);
+  if (pars_tree(elem, elem->arg))
+    return (1);
   return (0);
 }
 
@@ -110,6 +119,8 @@ int	parsing(t_sh *sh, char *str)
       if (which_separator(sh, str, &i, &j))
 	i++;
     }
-  stock_elem(sh, str, j, i);
+  if (stock_elem(sh, str, j, i))
+    return (1);
+  sh->root->prev->type = 0;
   return (0);
 }
