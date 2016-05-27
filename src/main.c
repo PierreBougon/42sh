@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 26 14:57:28 2016 bougon_p
+** Last update Fri May 27 14:45:05 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -163,13 +163,13 @@ char		*term(t_sh *sh)
       a = do_action(actions, &str, &history);
       if (a == 3)
 	{
-	  push_front_history(&history, str);
-	  if (sh->fd_history > 0)
-	    dprintf(sh->fd_history, "%s\n", str);
+	  /* push_front_history(&history, str); */
+	  /* if (sh->fd_history > 0) */
+	  /*   dprintf(sh->fd_history, "%s\n", str); */
 	  check_alias(sh->conf.head, &str);
-	  parsing(sh, str);
-	  if (execute_each_act(sh))
-	    return (NULL);
+	  /* parsing(sh, str); */
+	  /* if (execute_each_act(sh)) */
+	  /*   return (NULL); */
 	  //	  free(str);
 	  write(1, "hey ->", 6);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
