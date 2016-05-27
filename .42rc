@@ -1,3 +1,4 @@
 alias coucou='Maud'
 alias 'coucou'="toto tata tutu"
 alias "bite"=cheval
+export TOTO=true

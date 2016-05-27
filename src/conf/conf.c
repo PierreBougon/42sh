@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Fri May 27 19:17:21 2016 Poc
+** Last update Fri May 27 21:18:10 2016 Poc
 */
 
 
@@ -30,7 +30,7 @@ int	prepare_fct_tab(t_conf_tab *tab)
   tab->dico[1] = "export";
   tab->dico[2] = NULL;
   tab->fp_conf[0] = create_alias;
-  tab->fp_conf[1] = joyeuse_fonction;
+  tab->fp_conf[1] = create_export;
   return (0);
 }
 
@@ -43,7 +43,7 @@ void	showlist(t_aliases *alias)
     }
 }
 
-int	get_conf_file(t_conf *conf, char **env)
+int	get_conf_file(t_conf *conf, char ***env)
 {
   int		fd;
   char		*str;

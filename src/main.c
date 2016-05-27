@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Fri May 27 14:45:05 2016 Poc
+** Last update Fri May 27 21:31:25 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -167,9 +167,9 @@ char		*term(t_sh *sh)
 	  /* if (sh->fd_history > 0) */
 	  /*   dprintf(sh->fd_history, "%s\n", str); */
 	  check_alias(sh->conf.head, &str);
-	  /* parsing(sh, str); */
-	  /* if (execute_each_act(sh)) */
-	  /*   return (NULL); */
+	  parsing(sh, str);
+	  if (execute_each_act(sh))
+	    return (NULL);
 	  //	  free(str);
 	  write(1, "hey ->", 6);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
@@ -193,7 +193,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
 
   if (check_env(&sh, env))
     return (-1);
-  get_conf_file(&sh.conf, sh.env->env);
+  get_conf_file(&sh.conf, &sh.env->env);
   setupterm(NULL, 0, NULL);
   printf("%s\n", tigetstr("smkx"));
   create_history_file(&sh);

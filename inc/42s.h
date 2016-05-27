@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 26 14:58:54 2016 bougon_p
+** Last update Fri May 27 21:15:08 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -126,8 +126,9 @@ void		auto_complet(char **, int *, t_head *, int *);
 ** 42RC
 */
 int	check_alias(t_aliases *, char **);
-int	get_conf_file(t_conf *, char **);
-int	create_alias(t_conf *, char **, char *);
+int	get_conf_file(t_conf *, char ***);
+int	create_alias(t_conf *, char ***, char *);
+int	create_export(t_conf *, char ***, char *);
 
 /*
 ** CURSOR
