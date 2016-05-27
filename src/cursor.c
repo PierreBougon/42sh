@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 14:21:37 2016 Mathieu Sauvau
-** Last update Thu May 26 18:39:01 2016 Poc
+** Last update Fri May 27 18:01:08 2016 Poc
 */
 
 #include <stdio.h>
@@ -42,7 +42,7 @@ void	cursor_erase(int x)
   char	*str;
 
   str = NULL;
-  if ((str = (tigetstr("eo"))))
+  if ((str = (tigetstr("dch"))))
     {
       if ((str = tiparm(str, x)))
 	printf("%s", str);

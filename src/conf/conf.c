@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Sun May 22 15:16:00 2016 marel_m
+** Last update Fri May 27 19:17:21 2016 Poc
 */
 
 
@@ -65,6 +65,5 @@ int	get_conf_file(t_conf *conf, char **env)
 	}
       str = epur(str);
     }
-  /* showlist(conf->head); */
   return (0);
 }

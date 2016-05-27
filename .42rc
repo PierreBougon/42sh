@@ -1,4 +1,3 @@
 alias coucou='Maud'
-alias 'c'="toto tata tutu"
-alias 'bite'="cheval"
-alias 'mathieu'="Meilleur petit papi de tout les temps"
+alias 'coucou'="toto tata tutu"
+alias "bite"=cheval
