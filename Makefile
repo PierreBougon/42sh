@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu May 26 14:59:05 2016 bougon_p
+## Last update Fri May 27 20:18:24 2016 Poc
 ##
 
 DEBUG=	no
@@ -65,7 +65,7 @@ else
 	CFLAGS=		-W -Wall -Wextra
 endif
 
-NAME=	mysh
+NAME=	42sh
 
 HEAD=	-I inc/
 
