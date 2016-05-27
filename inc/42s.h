@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 23 18:48:23 2016 Mathieu Sauvau
+// Last update Fri May 27 17:13:16 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -121,6 +121,7 @@ void		debut(char **, int *, t_head *, int *);
 void		end(char **, int *, t_head *, int *);
 void		backspace(char **, int *, t_head *, int *);
 void		auto_complet(char **, int *, t_head *, int *);
+void		clear_scr(char **, int *, t_head *, int *);
 
 /*
 ** 42RC
