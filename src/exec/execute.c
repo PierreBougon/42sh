@@ -5,18 +5,15 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Wed May 25 18:30:03 2016 marel_m
+** Last update Thu May 26 20:02:02 2016 marel_m
 */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <string.h>
 #include "42s.h"
+#include "fptrtab.h"
 
-int	no_separator(t_sh *sh, t_node *tree)
+int	no_separator(t_sh *sh, t_node *tree, UNUSED t_node *tree_bis)
 {
   sh->exec->type = tree->type;
   if ((sh->exec->arg = my_str_to_word_tab(tree->arg, ' ')) == NULL
@@ -25,65 +22,42 @@ int	no_separator(t_sh *sh, t_node *tree)
   return (0);
 }
 
-int	redirection_right(t_sh *sh, t_node *tree_l, t_node *tree_r)
+t_act	*init_tab_act()
 {
-  sh->exec->type = tree_l->type;
-  if ((sh->exec->arg = my_str_to_word_tab(tree_r->arg, ' ')) == NULL
-      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
-    return (1);
-  if ((sh->exec->fd = open(tree_l->arg,
-			   O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
-    return (1);
-  return (0);
-}
+  t_act	*tab;
 
-int	redirection_left(t_sh *sh, t_node *tree_l, t_node *tree_r)
-{
-  sh->exec->type = tree_l->type;
-  if ((sh->exec->arg = my_str_to_word_tab(tree_r->arg, ' ')) == NULL
-      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
-    return (1);
-  if ((sh->exec->fd = open(tree_l->arg, O_RDONLY)) == -1)
-    return (1);
-  return (0);
-}
-
-int	double_redirection_right(t_sh *sh, t_node *tree_l, t_node *tree_r)
-{
-  sh->exec->type = tree_l->type;
-  if ((sh->exec->arg = my_str_to_word_tab(tree_r->arg, ' ')) == NULL
-      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
-    return (1);
-  if ((sh->exec->fd = open(tree_l->arg, O_CREAT | O_WRONLY | O_APPEND, 0644))
-      == -1)
-    return (1);
-  return (0);
+  if ((tab = malloc(sizeof(t_act) * MAX_ACT)) == NULL)
+    return (NULL);
+  tab[NOTHING].act = NO_ONE;
+  tab[NOTHING].ft_act = &no_separator;
+  tab[REDIR_R].act = REDIR_RIGHT;
+  tab[REDIR_R].ft_act = &redirection_right;
+  tab[REDIR_L].act = REDIR_LEFT;
+  tab[REDIR_L].ft_act = &redirection_left;
+  tab[REDIR_RR].act = DOUBLE_REDIR_RIGHT;
+  tab[REDIR_RR].ft_act = &double_redirection_right;
+  return (tab);
 }
 
 int	act_for_which_sep(t_sh *sh, UNUSED t_list_sh *list, t_node *tree)
 {
+  int	i;
+  t_act	*fptrtab;
+
   if (tree->arg != NULL)
     {
-      if (tree->type == NO_ONE)
-	{
-	  if (no_separator(sh, tree))
+      if ((fptrtab = init_tab_act()) == NULL)
+	return (1);
+      i = -1;
+      while (++i < 4)
+	if (tree->type == fptrtab[i].act && i == 0)
+	  {
+	    if (fptrtab[i].ft_act(sh, tree, tree))
+	      return (1);
+	  }
+	else if (tree->type == fptrtab[i].act)
+	  if (fptrtab[i].ft_act(sh, tree->left, tree->right))
 	    return (1);
-	}
-      else if (tree->type == REDIR_RIGHT)
-	{
-	  if (redirection_right(sh, tree->left, tree->right))
-	    return (1);
-	}
-      else if (tree->type == REDIR_LEFT)
-	{
-	  if (redirection_left(sh, tree->left, tree->right))
-	    return (1);
-	}
-      else if (tree->type == DOUBLE_REDIR_RIGHT)
-	{
-	  if (double_redirection_right(sh, tree->left, tree->right))
-	    return (1);
-	}
       if (builtin_or_exec(sh))
 	return (1);
     }

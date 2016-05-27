@@ -5,17 +5,47 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 20 13:59:36 2016 marel_m
-** Last update Fri May 20 15:24:39 2016 marel_m
+** Last update Thu May 26 17:40:44 2016 marel_m
 */
 
-int	redirection_right(t_sh *sh)
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include "42s.h"
+
+int	redirection_right(t_sh *sh, t_node *tree_l, t_node *tree_r)
 {
-  if ((sh->exec->fd = open(sh->exec->exec,
-			   O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -&
-      || (pid = fork()) == -1)
+  sh->exec->type = tree_l->type;
+  if ((sh->exec->arg = my_str_to_word_tab(tree_r->arg, ' ')) == NULL
+      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
     return (1);
-  if (pid == 0)
-    {
-      if (dup2(sh->exec->
-    }
+  if ((sh->exec->fd = open(tree_l->arg,
+			   O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
+    return (1);
+  return (0);
+}
+
+int	redirection_left(t_sh *sh, t_node *tree_l, t_node *tree_r)
+{
+  sh->exec->type = tree_l->type;
+  if ((sh->exec->arg = my_str_to_word_tab(tree_r->arg, ' ')) == NULL
+      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
+    return (1);
+  if ((sh->exec->fd = open(tree_l->arg, O_RDONLY)) == -1)
+    return (1);
+  return (0);
+}
+
+int	double_redirection_right(t_sh *sh, t_node *tree_l, t_node *tree_r)
+{
+  sh->exec->type = tree_l->type;
+  if ((sh->exec->arg = my_str_to_word_tab(tree_r->arg, ' ')) == NULL
+      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
+    return (1);
+  if ((sh->exec->fd = open(tree_l->arg, O_CREAT | O_WRONLY | O_APPEND, 0644))
+      == -1)
+    return (1);
+  return (0);
 }

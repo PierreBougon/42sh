@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 26 12:31:50 2016 marel_m
+** Last update Thu May 26 19:26:58 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -173,6 +173,10 @@ int			execute_each_act(t_sh *);
 int			check_good_path(t_sh *);
 int			check_builtin(t_sh *);
 int			builtin_or_exec(t_sh *);
+int			redirection_right(t_sh *, t_node *, t_node *);
+int			redirection_left(t_sh *, t_node *, t_node *);
+int			double_redirection_right(t_sh *, t_node *, t_node *);
+int			no_separator(t_sh *, t_node *, t_node *);
 
 /*
 ** ENV

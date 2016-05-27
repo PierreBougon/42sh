@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 24 13:23:03 2016 marel_m
+## Last update Thu May 26 17:38:27 2016 marel_m
 ##
 
 DEBUG=	no
@@ -44,6 +44,7 @@ SRC=	main.c				\
 	exec/execute.c			\
 	exec/builtin_or_exec.c		\
 	exec/check_good_path.c		\
+	exec/redirections.c		\
 	builtins/check_builtins.c	\
 	builtins/check_cd.c		\
 	builtins/check_env.c		\

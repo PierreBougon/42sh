@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun May 22 11:44:05 2016 marel_m
+** Last update Thu May 26 19:31:45 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -147,6 +147,7 @@ char		*term(t_sh *sh)
   t_key_act	actions[9];
   int		a;
   t_head	history;
+  int		ret;
 
   history.first = NULL;
   history.last = NULL;
@@ -156,8 +157,8 @@ char		*term(t_sh *sh)
   if ((str = malloc(sizeof(char) * 10)) == NULL)
     return (NULL);
   str[0] = 0;
-  memset(str, 0, 10);
   write(1, "hey ->", 6);
+  memset(str, 0, 10);
   while (42)
     {
       a = do_action(actions, &str, &history);
@@ -168,15 +169,15 @@ char		*term(t_sh *sh)
 	    dprintf(sh->fd_history, "%s\n", str);
 	  /* print_history(history.first); */
 	  check_alias(sh->conf.head, &str);
-	  parsing(sh, str);
-	  if (execute_each_act(sh))
+	  if (parsing(sh, str)
+	      || execute_each_act(sh))
 	    return (NULL);
 	  //	  free(str);
-	  write(1, "hey ->", 6);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
 	    return (NULL);
 	  str[0] = 0;
-	}
+	  write(1, "hey ->", 6);
+ 	}
     }
   return (str);
 }
@@ -200,6 +201,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
   create_history_file(&sh);
   change_read_mode(0, 100, 1);
   sh.history = NULL;
-  term(&sh);
+  if (term(&sh) == NULL)
+    return (-1);
   return (0);
 }

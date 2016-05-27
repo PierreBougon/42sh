@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Thu May 26 11:41:09 2016 marel_m
+** Last update Thu May 26 17:35:48 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -53,9 +53,7 @@ int	action(t_sh *sh)
     {
       if (close(sh->exec->fd) == -1
   	  || waitpid(pid, &status, 0) == -1)
-  	{
-  	  return (1);
-  	}
+	return (1);
     }
   return (0);
 }
