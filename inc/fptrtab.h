@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Wed May 18 19:28:51 2016 marel_m
+** Last update Sun May 29 17:04:21 2016 bougon_p
 */
 
 #ifndef FPTRTAB_H_
@@ -49,6 +49,7 @@ enum		blt
     ENV,
     CD,
     EXIT,
+    ECHO,
     MAX_BLT
   };
 

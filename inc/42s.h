@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 26 14:58:54 2016 bougon_p
+** Last update Sun May 29 18:45:04 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -13,7 +13,13 @@
 
 # define UNUSED __attribute__((unused))
 
+# define ECHO_VERSION "echo 42.0.0\n\
+Copyright (C) 2016 Free Software Foundation, Inc.\n\
+This is free software; see the source for copying conditions.  There is NO\n\
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+
 # include <stdio.h>
+# include <stdbool.h>
 # include "history.h"
 
 typedef struct		s_key_action
@@ -54,6 +60,17 @@ typedef struct		s_conf
 {
   t_aliases		*head;
 }			t_conf;
+
+typedef	struct		s_echo
+{
+  bool			opt_e;
+  bool			opt_n;
+  bool			opt_E;
+  bool			opt_help;
+  bool			opt_vers;
+  int			nb_opt;
+  char			*opt_tab;
+}			t_echo;
 
 typedef struct		s_list_sh
 {
@@ -165,6 +182,12 @@ int			check_cd_good(t_sh *);
 int			check_cd_else(t_sh *);
 int			cd_action(t_sh *);
 void			my_show_tab(char **);
+int			my_echo(t_sh *);
+void			parse_opt(t_echo *, t_sh *);
+void			print_help();
+void			print_echo(t_echo *, char **);
+bool			version(char *);
+bool			help(char *);
 
 /*
 **EXEC
