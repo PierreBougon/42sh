@@ -5,12 +5,13 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu May 26 17:38:27 2016 marel_m
+## Last update Sun May 29 10:10:00 2016 marel_m
 ##
 
 DEBUG=	no
 
 SRC=	main.c				\
+	print_tree.c			\
 	free_exec.c			\
 	ncurses.c			\
 	actions.c			\
@@ -60,10 +61,10 @@ RM=	rm -f
 ifeq ($(DEBUG), yes)
 	CFLAGS=		-W -Wall -Wextra -g -D DEBUG -O0
 else
-	CFLAGS=		-W -Wall -Wextra -g
+	CFLAGS=		-W -Wall -Wextra -Werror
 endif
 
-NAME=	mysh
+NAME=	42sh
 
 HEAD=	-I inc/
 

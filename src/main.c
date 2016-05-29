@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 26 19:31:45 2016 marel_m
+** Last update Sun May 29 10:36:35 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -147,7 +147,6 @@ char		*term(t_sh *sh)
   t_key_act	actions[9];
   int		a;
   t_head	history;
-  int		ret;
 
   history.first = NULL;
   history.last = NULL;
