@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Wed May 25 18:30:03 2016 marel_m
+** Last update Thu May 26 15:14:43 2016 marel_m
 */
 
 #include <sys/types.h>
@@ -44,7 +44,11 @@ int	redirection_left(t_sh *sh, t_node *tree_l, t_node *tree_r)
       || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
     return (1);
   if ((sh->exec->fd = open(tree_l->arg, O_RDONLY)) == -1)
-    return (1);
+    {
+      write(2, sh->exec->exec, strlen(sh->exec->exec));
+      write(2, ": No such file or directory.\n", 29);
+      return (-1);
+    }
   return (0);
 }
 
@@ -62,6 +66,8 @@ int	double_redirection_right(t_sh *sh, t_node *tree_l, t_node *tree_r)
 
 int	act_for_which_sep(t_sh *sh, UNUSED t_list_sh *list, t_node *tree)
 {
+  int	ret;
+
   if (tree->arg != NULL)
     {
       if (tree->type == NO_ONE)
@@ -76,8 +82,8 @@ int	act_for_which_sep(t_sh *sh, UNUSED t_list_sh *list, t_node *tree)
 	}
       else if (tree->type == REDIR_LEFT)
 	{
-	  if (redirection_left(sh, tree->left, tree->right))
-	    return (1);
+	  if ((ret = redirection_left(sh, tree->left, tree->right)) != 0)
+	    return (ret);
 	}
       else if (tree->type == DOUBLE_REDIR_RIGHT)
 	{
@@ -92,12 +98,14 @@ int	act_for_which_sep(t_sh *sh, UNUSED t_list_sh *list, t_node *tree)
 
 int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
 {
+  int	ret;
+
   sh->exec->fd = 1;
   while (tree)
     {
       sh->exec->stop = 0;
-      if (act_for_which_sep(sh, list, tree))
-	return (1);
+      if ((ret = act_for_which_sep(sh, list, tree)) != 0)
+	return (ret);
       free_exec(sh->exec);
       if (tree->right->right != NULL)
 	tree = tree->right->right;
@@ -110,6 +118,7 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
 int		execute_each_act(t_sh *sh)
 {
   int		i;
+  int		ret;
   t_list_sh	*tmp;
 
   if ((sh->exec = malloc(sizeof(t_exec))) == NULL)
@@ -118,20 +127,23 @@ int		execute_each_act(t_sh *sh)
   tmp = sh->root->next;
   while (i < sh->lenght - 1)
     {
-      if (check_which_config(sh, tmp, tmp->node))
+      if ((ret = check_which_config(sh, tmp, tmp->node)) == 1)
 	return (1);
-      if (sh->exec->stop == 0 && tmp->type == DOUBLE_PIPE)
-	while (tmp->type == DOUBLE_PIPE)
-	  {
-	    tmp = tmp->next;
-	    i++;
-	  }
-      else if (sh->exec->stop == 1 && tmp->type == DOUBLE_AND)
-	while (tmp->type == DOUBLE_AND)
-	  {
-	    tmp = tmp->next;
-	    i++;
-	  }
+      if (ret != -1)
+	{
+	  if (sh->exec->stop == 0 && tmp->type == DOUBLE_PIPE)
+	    while (tmp->type == DOUBLE_PIPE)
+	      {
+		tmp = tmp->next;
+		i++;
+	      }
+	  else if (sh->exec->stop == 1 && tmp->type == DOUBLE_AND)
+	    while (tmp->type == DOUBLE_AND)
+	      {
+		tmp = tmp->next;
+		i++;
+	      }
+	}
       else
 	tmp = tmp->next;
       i++;

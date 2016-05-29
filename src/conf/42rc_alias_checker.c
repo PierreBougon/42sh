@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Wed May 18 12:37:44 2016 Poc
-** Last update Wed May 18 14:45:04 2016 Poc
+** Last update Fri May 27 14:41:53 2016 Poc
 */
 
 #include <string.h>
@@ -21,7 +21,7 @@ int	change_word(char **str, t_aliases *node, UNUSED int pos, UNUSED int end)
 
   /* j = 0; */
   /* i = 0; */
-  printf("%s\n", *str);
+  /* printf("change word %s\npos = %d\nend %d\n", *str, pos, end); */
   if ((corrected_chain =
        malloc(sizeof(char) * (strlen(*str) + strlen(node->original) + 1))) == NULL)
     return (1);
@@ -40,10 +40,10 @@ int	check_alias(t_aliases *head, char **str)
 	  if (i == 0 || (*str)[i] == ' ')
 	    if (strcmp((*str) + (i == 0 ? i : i + 1), head->original) == 0)
 	      {
+		/* printf("i zink i now this\n"); */
 		if (change_word(str, head,
 				(i == 0 ? i : i + 1), i + strlen(head->original)))
 		  return (1);
-		printf("i zink i now this\n");
 	      }
 	  i++;
 	}
