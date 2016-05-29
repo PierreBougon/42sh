@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu May 26 14:58:54 2016 bougon_p
+** Last update Sun May 29 22:56:16 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -60,6 +60,7 @@ typedef struct		s_list_sh
   t_node		*node;
   t_type		type;
   char			*arg;
+  int			nb;
   struct s_list_sh	*next;
   struct s_list_sh	*prev;
 }			t_list_sh;
@@ -100,17 +101,17 @@ typedef struct		s_sh
   int			fd_history;
 }			t_sh;
 
-char		**my_str_to_word_tab(char *, char);
-char		*my_strdup_e(char *, int);
-char		*epur_str(char *);
-int		check_env(t_sh *, char **);
-int		check_path(t_sh *);
-int		check_home(t_sh *);
-int		check_pwd(t_sh *);
-int		check_oldpwd(t_sh *);
-char		*get_next_line(int);
-char		*my_index(char *, char);
-char		*epur(char  *);
+char			**my_str_to_word_tab(char *, char);
+char			*my_strdup_e(char *, int);
+char			*epur_str(char *);
+int			check_env(t_sh *, char **);
+int			check_path(t_sh *);
+int			check_home(t_sh *);
+int			check_pwd(t_sh *);
+int			check_oldpwd(t_sh *);
+char			*get_next_line(int);
+char			*my_index(char *, char);
+char			*epur(char  *);
 
 /*
 ** ACTION
@@ -173,6 +174,10 @@ int			execute_each_act(t_sh *);
 int			check_good_path(t_sh *);
 int			check_builtin(t_sh *);
 int			builtin_or_exec(t_sh *);
+int			redirection_right(t_sh *, t_node *);
+int			redirection_left(t_sh *, t_node *);
+int			double_redirection_right(t_sh *, t_node *);
+int			no_separator(t_sh *, t_node *, t_node *);
 
 /*
 ** ENV
@@ -201,6 +206,7 @@ char			*my_strcat(char *, char *);
 */
 void			free_exec(t_exec *);
 void			free_struct(t_sh *);
+
 void			print_tree(t_node *);
 
 /*

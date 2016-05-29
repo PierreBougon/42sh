@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Mon May 23 18:57:20 2016 marel_m
+** Last update Sun May 29 10:06:30 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -66,6 +66,11 @@ t_node		*new_node(char *arg_l, char *arg_r, t_type type)
 	  if ((new->arg = strdup("<")) == NULL)
 	    return (NULL);
 	}
+      else if (type == DOUBLE_REDIR_RIGHT)
+	{
+	  if ((new->arg = strdup(">>")) == NULL)
+	    return (NULL);
+	}
     }
   else
     new->arg = NULL;
@@ -93,27 +98,4 @@ t_node		**insert_node(t_node **tree, char *arg_l, char *arg_r,
   if ((insert_node(&(*tree)->right, arg_l, arg_r, type)) == NULL)
     return (NULL);
   return (tree);
-}
-
-void            print_tab_arg_dir(char *arg, t_type type)
-{
-  if (arg)
-    printf("%s %d\n", arg, type);
-  else
-    printf("\n");
-}
-
-void            print_tree(t_node *tree)
-{
-  if (tree)
-    {
-      printf("node-> ");
-      print_tab_arg_dir(tree->arg, tree->type);
-      if (tree->left && tree->left->arg)
-	{
-	  printf("left-> ");
-	  print_tab_arg_dir(tree->left->arg, tree->left->type);
-	}
-      print_tree(tree->right);
-    }
 }

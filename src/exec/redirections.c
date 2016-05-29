@@ -5,17 +5,39 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 20 13:59:36 2016 marel_m
-** Last update Fri May 20 15:24:39 2016 marel_m
+** Last update Sun May 29 20:40:55 2016 marel_m
 */
 
-int	redirection_right(t_sh *sh)
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include "42s.h"
+
+int	redirection_right(t_sh *sh, t_node *tree)
 {
-  if ((sh->exec->fd = open(sh->exec->exec,
-			   O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -&
-      || (pid = fork()) == -1)
+  sh->exec->type = tree->type;
+  if ((sh->exec->fd = open(tree->arg,
+			   O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
     return (1);
-  if (pid == 0)
-    {
-      if (dup2(sh->exec->
-    }
+  return (0);
+}
+
+int	redirection_left(t_sh *sh, t_node *tree)
+{
+  sh->exec->type = tree->type;
+  if ((sh->exec->fd = open(tree->arg, O_RDONLY)) == -1)
+    return (1);
+  return (0);
+}
+
+int	double_redirection_right(t_sh *sh, t_node *tree)
+{
+  printf("toto\n");
+  sh->exec->type = tree->type;
+  if ((sh->exec->fd = open(tree->arg, O_CREAT | O_WRONLY | O_APPEND, 0644))
+      == -1)
+    return (1);
+  return (0);
 }

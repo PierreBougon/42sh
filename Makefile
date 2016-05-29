@@ -5,12 +5,13 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri May 27 20:18:24 2016 Poc
+## Last update Sun May 29 22:55:56 2016 marel_m
 ##
 
 DEBUG=	no
 
 SRC=	main.c				\
+	print_tree.c			\
 	free_exec.c			\
 	ncurses.c			\
 	actions.c			\
@@ -44,6 +45,7 @@ SRC=	main.c				\
 	exec/execute.c			\
 	exec/builtin_or_exec.c		\
 	exec/check_good_path.c		\
+	exec/redirections.c		\
 	builtins/check_builtins.c	\
 	builtins/check_cd.c		\
 	builtins/check_env.c		\
@@ -62,7 +64,7 @@ RM=	rm -f
 ifeq ($(DEBUG), yes)
 	CFLAGS=		-W -Wall -Wextra -g -D DEBUG -O0
 else
-	CFLAGS=		-W -Wall -Wextra
+	CFLAGS=		-W -Wall -Wextra -Werror
 endif
 
 NAME=	42sh
