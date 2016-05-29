@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Thu May 26 19:22:44 2016 marel_m
+** Last update Sun May 29 20:42:32 2016 marel_m
 */
 
 #ifndef FPTRTAB_H_
@@ -15,10 +15,9 @@
 
 enum		act
   {
-    NOTHING,
+    REDIR_RR,
     REDIR_R,
     REDIR_L,
-    REDIR_RR,
     REDIR_LL,
     PIPE_INF,
     MAX_ACT
@@ -26,8 +25,8 @@ enum		act
 
 typedef struct	s_act
 {
-  t_type	act;
-  int		(*ft_act)(t_sh *, t_node *, t_node *);
+  char		*act;
+  int		(*ft_act)(t_sh *, t_node *);
 }		t_act;
 
 enum		env

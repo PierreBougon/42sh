@@ -15,57 +15,56 @@ inc/get_next_line.h,61
 # define GET_NEXT_LINE_H_12,256
 #  define READ_SIZE 15,302
 
-inc/fptrtab.h,1107
+inc/fptrtab.h,1089
 # define FPTRTAB_H_12,265
 enum		act16,304
-    NOTHING,18,318
-    REDIR_R,19,331
-    REDIR_L,20,344
-    REDIR_RR,21,357
-    REDIR_LL,22,371
-    PIPE_INF,23,385
-    MAX_ACT24,399
-typedef struct	s_act27,417
-  t_type	act;29,440
-  int		(*ft_act)ft_act30,454
-}		t_act;31,500
-enum		env33,511
-    PATH,35,525
-    HOME,36,535
-    PWD,37,545
-    OLDPWD,38,554
-    MAX_ELEM_ENV39,566
-typedef struct	s_env_elem42,589
-  char		*env_elem;env_elem44,617
-  int		(*ft_env_elem)ft_env_elem45,636
-}		t_env_elem;46,667
-enum		cd48,683
-    HOME_CD,50,696
-    DASH_CD,51,709
-    GOOD_CD,52,722
-    ELSE_CD,53,735
-    MAX_CD54,748
-typedef struct	s_cd57,765
-  int		(*ft_cd)ft_cd59,787
-}		t_cd;60,812
-enum		blt62,822
-    SETENV,64,836
-    UNSETENV,65,848
-    ENV,66,862
-    CD,67,871
-    EXIT,68,879
-    MAX_BLT69,889
-typedef struct	s_blt72,907
-  char		*blt;blt74,930
-  int		(*ft_blt)ft_blt75,944
-}		t_blt;76,970
-enum		conf_tab78,981
-    ALIASES,80,1000
-    EXPORTS,81,1013
-typedef struct	s_conf_tab84,1032
-  int		(*(fp_conf[fp_conf86,1060
-  char	87,1111
-}		t_conf_tab;88,1131
+    REDIR_RR,18,318
+    REDIR_R,19,332
+    REDIR_L,20,345
+    REDIR_LL,21,358
+    PIPE_INF,22,372
+    MAX_ACT23,386
+typedef struct	s_act26,404
+  char		*act;act28,427
+  int		(*ft_act)ft_act29,441
+}		t_act;30,477
+enum		env32,488
+    PATH,34,502
+    HOME,35,512
+    PWD,36,522
+    OLDPWD,37,531
+    MAX_ELEM_ENV38,543
+typedef struct	s_env_elem41,566
+  char		*env_elem;env_elem43,594
+  int		(*ft_env_elem)ft_env_elem44,613
+}		t_env_elem;45,644
+enum		cd47,660
+    HOME_CD,49,673
+    DASH_CD,50,686
+    GOOD_CD,51,699
+    ELSE_CD,52,712
+    MAX_CD53,725
+typedef struct	s_cd56,742
+  int		(*ft_cd)ft_cd58,764
+}		t_cd;59,789
+enum		blt61,799
+    SETENV,63,813
+    UNSETENV,64,825
+    ENV,65,839
+    CD,66,848
+    EXIT,67,856
+    MAX_BLT68,866
+typedef struct	s_blt71,884
+  char		*blt;blt73,907
+  int		(*ft_blt)ft_blt74,921
+}		t_blt;75,947
+enum		conf_tab77,958
+    ALIASES,79,977
+    EXPORTS,80,990
+typedef struct	s_conf_tab83,1009
+  int		(*(fp_conf[fp_conf85,1037
+  char	86,1088
+}		t_conf_tab;87,1108
 
 inc/my.h,105
 # define MY_H_12,242
@@ -74,7 +73,7 @@ typedef	struct	s_tab14,258
   int		size;17,292
 }		t_tab;18,305
 
-inc/42s.h,1868
+inc/42s.h,1889
 # define _42s_H_12,227
 # define UNUSED 14,245
 typedef struct		s_key_action19,329
@@ -110,39 +109,40 @@ typedef struct		s_list_sh58,913
   t_node		*node;node60,941
   t_type		type;61,958
   char			*arg;arg62,974
-  struct s_list_sh	*next;next63,989
-  struct s_list_sh	*prev;prev64,1015
-}			t_list_sh;65,1041
-typedef struct		s_env67,1057
-  char			**env;env69,1081
-  char			*pwd;pwd70,1097
-  char			*oldpwd;oldpwd71,1112
-  char			*home;home72,1130
-  char			**path;path73,1146
-  char			pst_pwd;74,1163
-  char			pst_home;75,1181
-  char			pst_oldpwd;76,1200
-  char			pst_path;77,1221
-}			t_env;78,1240
-typedef struct		s_exec80,1252
-  char			**arg;arg82,1277
-  char			*exec;exec83,1293
-  int			fd;84,1309
-  char			*good_path;good_path85,1321
-  int			exit;86,1342
-  int			stop;87,1356
-  t_type		type;88,1370
-}			t_exec;89,1386
-typedef struct		s_sh91,1399
-  t_list_sh		*root;root93,1422
-  int			lenght;94,1442
-  t_node		*tree;tree95,1458
-  t_env			*env;env96,1475
-  t_exec		*exec;exec97,1491
-  t_history		*history;history98,1508
-  t_conf		conf;99,1531
-  int			fd_history;100,1547
-}			t_sh;101,1567
+  int			nb;63,989
+  struct s_list_sh	*next;next64,1001
+  struct s_list_sh	*prev;prev65,1027
+}			t_list_sh;66,1053
+typedef struct		s_env68,1069
+  char			**env;env70,1093
+  char			*pwd;pwd71,1109
+  char			*oldpwd;oldpwd72,1124
+  char			*home;home73,1142
+  char			**path;path74,1158
+  char			pst_pwd;75,1175
+  char			pst_home;76,1193
+  char			pst_oldpwd;77,1212
+  char			pst_path;78,1233
+}			t_env;79,1252
+typedef struct		s_exec81,1264
+  char			**arg;arg83,1289
+  char			*exec;exec84,1305
+  int			fd;85,1321
+  char			*good_path;good_path86,1333
+  int			exit;87,1354
+  int			stop;88,1368
+  t_type		type;89,1382
+}			t_exec;90,1398
+typedef struct		s_sh92,1411
+  t_list_sh		*root;root94,1434
+  int			lenght;95,1454
+  t_node		*tree;tree96,1470
+  t_env			*env;env97,1487
+  t_exec		*exec;exec98,1503
+  t_history		*history;history99,1520
+  t_conf		conf;100,1543
+  int			fd_history;101,1559
+}			t_sh;102,1579
 
 src/print_tree.c,77
 void            print_tab_arg_dir(14,281
@@ -243,16 +243,24 @@ src/builtins/check_builtins.c,77
 t_blt	*init_tab_builtins(init_tab_builtins16,331
 int	check_builtin(35,765
 
+src/exec/old_exec.c,187
+int	no_separator(16,317
+t_act	*init_tab_act(init_tab_act25,578
+int	act_for_which_sep(42,1026
+int	check_which_config(69,1563
+int	loop_execute(86,1894
+int		execute_each_act(106,2306
+
 src/exec/builtin_or_exec.c,91
 int	action_redir(16,333
 int	action(32,676
 int	exec(61,1221
 int	builtin_or_exec(73,1387
 
-src/exec/redirections.c,97
+src/exec/redirections.c,96
 int	redirection_right(18,370
-int	redirection_left(30,739
-int	double_redirection_right(41,1075
+int	redirection_left(27,570
+int	double_redirection_right(35,737
 
 src/exec/check_good_path.c,152
 void	wrong_access(16,332
@@ -264,10 +272,10 @@ int	check_good_path(66,1530
 src/exec/execute.c,187
 int	no_separator(16,317
 t_act	*init_tab_act(init_tab_act25,578
-int	act_for_which_sep(42,1026
-int	check_which_config(69,1563
-int	loop_execute(86,1894
-int		execute_each_act(106,2306
+int	act_for_each_sep(62,1529
+int	check_which_config(84,2043
+int	loop_execute(106,2459
+int		execute_each_act(126,2871
 
 src/actions.c,87
 void		move_left(18,343
@@ -324,9 +332,9 @@ t_node		**insert_node(insert_node85,1770
 src/parsing/parsing.c,122
 int	check_prior(14,275
 int		pars_tree(34,569
-int		stock_elem(57,978
-int	which_separator(77,1432
-int	parsing(106,2045
+int		stock_elem(58,992
+int	which_separator(78,1436
+int	parsing(107,2049
 
 src/parsing/epur.c,72
 char	*space_around_act(space_around_act14,246
