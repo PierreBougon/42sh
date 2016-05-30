@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun May 29 22:42:18 2016 marel_m
+** Last update Mon May 30 10:37:06 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -195,7 +195,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
     return (-1);
   get_conf_file(&sh.conf, sh.env->env);
   setupterm(NULL, 0, NULL);
-  printf("%s\n", tigetstr("smkx"));
+  /* printf("%s\n", tigetstr("smkx")); */
   create_history_file(&sh);
   change_read_mode(0, 100, 1);
   sh.history = NULL;

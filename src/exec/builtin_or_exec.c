@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Thu May 26 17:35:48 2016 marel_m
+** Last update Mon May 30 10:53:40 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -34,7 +34,7 @@ int	action(t_sh *sh)
   pid_t	pid;
   int	status;
 
-   if ((pid = fork()) == -1)
+  if ((pid = fork()) == -1)
     return (1);
   if (pid == 0)
     {
