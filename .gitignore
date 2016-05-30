@@ -1,1 +1,22 @@
+# Object
+*.o
 vgcore*
+TAGS*
+
+# Lib
+*.a
+
+# Exec
+*.out
+
+# Tmp
+.#*
+*~
+\#*#
+*log*
+
+# Exec
+mysh
+
+#history
+.42sh_history

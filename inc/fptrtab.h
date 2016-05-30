@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Sun May 29 20:42:32 2016 marel_m
+** Last update Mon May 30 11:16:06 2016 Poc
 */
 
 #ifndef FPTRTAB_H_
@@ -82,7 +82,7 @@ enum		conf_tab
 
 typedef struct	s_conf_tab
 {
-  int		(*(fp_conf[2]))(t_conf *, char **, char *);
+  int		(*(fp_conf[2]))(t_conf *, char ***, char *);
   char		*(dico[5]);
 }		t_conf_tab;
 

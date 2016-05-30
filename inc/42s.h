@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun May 29 20:37:20 2016 marel_m
+** Last update Mon May 30 11:16:28 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -14,6 +14,8 @@
 # define UNUSED __attribute__((unused))
 
 # include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 # include "history.h"
 
 typedef struct		s_key_action
@@ -122,22 +124,24 @@ void		debut(char **, int *, t_head *, int *);
 void		end(char **, int *, t_head *, int *);
 void		backspace(char **, int *, t_head *, int *);
 void		auto_complet(char **, int *, t_head *, int *);
+void		clear_scr(char **, int *, t_head *, int *);
 
 /*
 ** 42RC
 */
 int	check_alias(t_aliases *, char **);
-int	get_conf_file(t_conf *, char **);
-int	create_alias(t_conf *, char **, char *);
+int	get_conf_file(t_conf *, char ***);
+int	create_alias(t_conf *, char ***, char *);
+int	create_export(t_conf *, char ***, char *);
 
 /*
 ** CURSOR
 */
-void	cursor_forward(int x);
-void	cursor_backward(int x);
-void	cursor_erase(int x);
-void	cursor_save();
-void	cursor_restore();
+void			cursor_forward(int x);
+void			cursor_backward(int x);
+void			cursor_erase(int x);
+void			cursor_save();
+void			cursor_restore();
 
 /*
 ** PARSING
@@ -150,6 +154,21 @@ t_list_sh		*add_list_after(t_sh *);
 char			*pars_pipe(t_list_sh *, char *);
 char			*pars_redir(t_list_sh *, char *);
 int			check_prior(char *);
+
+/*
+** AUTO-COMPLETION
+*/
+char			**find_match(char **);
+char			**find_routine(char **, char *, char *);
+int			find_in_(char *, char *, char **);
+char			*get_all_dir_path(char *, char *);
+int			get_max_len(char **);
+int			strlen_b_slash(char *);
+char			*revstr(char *);
+void			print_word_tab(char **, int);
+char			**get_res(char **, char *, char *, struct stat *);
+char			*get_elem(char *);
+char			*get_path(char *);
 
 /*
 **BUILTINS
@@ -206,7 +225,11 @@ char			*my_strcat(char *, char *);
 */
 void			free_exec(t_exec *);
 void			free_struct(t_sh *);
-
 void			print_tree(t_node *);
+
+/*
+** Suggest algorithm
+*/
+int	suggest(t_sh *, char *);
 
 #endif /* _42s_H_ */
