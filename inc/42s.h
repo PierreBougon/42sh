@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun May 29 18:45:04 2016 bougon_p
+** Last update Mon May 30 16:59:54 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -17,6 +17,7 @@
 Copyright (C) 2016 Free Software Foundation, Inc.\n\
 This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+# define NB_SPE_ECHO 12
 
 # include <stdio.h>
 # include <stdbool.h>
@@ -70,6 +71,8 @@ typedef	struct		s_echo
   bool			opt_vers;
   int			nb_opt;
   char			*opt_tab;
+  void			(*ftab[NB_SPE_ECHO])(void);
+  char			sequence[NB_SPE_ECHO];
 }			t_echo;
 
 typedef struct		s_list_sh
@@ -188,6 +191,19 @@ void			print_help();
 void			print_echo(t_echo *, char **);
 bool			version(char *);
 bool			help(char *);
+void			print_backslash(void);
+void			print_alert(void);
+void			print_backspace(void);
+void			print_nomore(void);
+void			print_escape(void);
+void			print_formfeed(void);
+void			print_newline(void);
+void			print_carriageret(void);
+void			print_tab(void);
+void			print_verttab(void);
+void			print_octal(void);
+void			print_hexa(void);
+bool			opt_exist(char *, t_echo *);
 
 /*
 **EXEC

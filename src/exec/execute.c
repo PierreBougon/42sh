@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Thu May 26 15:14:43 2016 marel_m
+** Last update Mon May 30 17:10:53 2016 bougon_p
 */
 
 #include <sys/types.h>
@@ -106,7 +106,6 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
       sh->exec->stop = 0;
       if ((ret = act_for_which_sep(sh, list, tree)) != 0)
 	return (ret);
-      free_exec(sh->exec);
       if (tree->right->right != NULL)
 	tree = tree->right->right;
       else

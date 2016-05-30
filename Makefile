@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun May 29 18:45:27 2016 bougon_p
+## Last update Mon May 30 17:10:20 2016 bougon_p
 ##
 
 DEBUG=	no
@@ -55,6 +55,7 @@ SRC=	main.c				\
 	builtins/parse_echo.c		\
 	builtins/display_echo.c		\
 	builtins/check_spe_opt.c	\
+	builtins/print_spe_echo.c	\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\
 	suggest/suggest.c

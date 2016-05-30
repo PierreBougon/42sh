@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 16:23:51 2016 bougon_p
-** Last update Sun May 29 18:44:14 2016 bougon_p
+** Last update Mon May 30 16:29:02 2016 bougon_p
 */
 
 #include <stdbool.h>
@@ -63,7 +63,7 @@ int		my_echo(t_sh *sh)
 
   init_opt(&opt);
   parse_opt(&opt, sh);
-  debug_opt(&opt);
+  /* debug_opt(&opt); */
   if (opt.opt_vers)
     {
       printf("%s\n", ECHO_VERSION);
