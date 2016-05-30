@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 30 11:16:28 2016 Poc
+** Last update Mon May 30 14:32:03 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -84,7 +84,7 @@ typedef struct		s_exec
 {
   char			**arg;
   char			*exec;
-  int			fd;
+  int			**fd;
   char			*good_path;
   int			exit;
   int			stop;

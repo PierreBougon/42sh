@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Mon May 30 11:48:10 2016 marel_m
+** Last update Mon May 30 14:32:26 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -56,7 +56,6 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
   int	i;
   int	ret;
 
-  sh->exec->fd = 1;
   if ((fptrtab = init_tab_act()) == NULL)
     return (1);
   i = -1;
@@ -94,6 +93,7 @@ void	loop_execute(t_sh *sh, t_list_sh **tmp, int *i)
 int		execute_each_act(t_sh *sh)
 {
   int		i;
+  int		j;
   t_list_sh	*tmp;
 
   if ((sh->exec = malloc(sizeof(t_exec))) == NULL)
@@ -102,6 +102,16 @@ int		execute_each_act(t_sh *sh)
   tmp = sh->root->next;
   while (i < sh->lenght - 1)
     {
+      if ((sh->exec->fd = malloc(sizeof(int *) * (tmp->nb))) == NULL)
+	return (1);
+      j = -1;
+      while (++j < tmp->nb)
+	{
+	  if ((sh->exec->fd[j] = malloc(sizeof(int) * 2)) == NULL)
+	    return (1);
+	  sh->exec->fd[j][0] = 1;
+	  sh->exec->fd[j][1] = 1;
+	}
       if (check_which_config(sh, tmp, tmp->node) == 1)
 	return (1);
       loop_execute(sh, &tmp, &i);
