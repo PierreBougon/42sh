@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 11:05:39 2016 Mathieu Sauvau
+** Last update Mon May 30 11:18:53 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -121,11 +121,11 @@ int		do_action(t_key_act actions[10], char **str, t_head *history)
 {
   static int	cur_pos;
   static int	index_history;
-  char		buff[10];
+  char		buff[11];
   int		i;
 
   i = -1;
-  memset(buff, 0, 10);
+  memset(buff, 0, 11);
   read(0, buff, 10);
   while (++i < 10)
     {
@@ -138,6 +138,7 @@ int		do_action(t_key_act actions[10], char **str, t_head *history)
   i = -1;
   while (buff[++i])
     {
+      printf("%d\n", i);
       if (buff[i] == '\n')
 	{
 	  printf("\n");
