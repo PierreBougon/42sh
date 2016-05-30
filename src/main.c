@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 11:15:28 2016 Poc
+** Last update Mon May 30 11:20:14 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -215,7 +215,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
 
   if (check_env(&sh, env))
     return (-1);
-  get_conf_file(&sh.conf, sh.env->env);
+  get_conf_file(&sh.conf, &sh.env->env);
   if (setupterm(NULL, 0, NULL) < 0)
     return (1);
   printf("%s", tigetstr("smkx"));
