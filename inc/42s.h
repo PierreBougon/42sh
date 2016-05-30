@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Mon May 30 10:59:04 2016 Mathieu Sauvau
+** Last update Mon May 30 11:16:28 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -129,9 +129,10 @@ void		clear_scr(char **, int *, t_head *, int *);
 /*
 ** 42RC
 */
-int		check_alias(t_aliases *, char **);
-int		get_conf_file(t_conf *, char **);
-int		create_alias(t_conf *, char **, char *);
+int	check_alias(t_aliases *, char **);
+int	get_conf_file(t_conf *, char ***);
+int	create_alias(t_conf *, char ***, char *);
+int	create_export(t_conf *, char ***, char *);
 
 /*
 ** CURSOR
