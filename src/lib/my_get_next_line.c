@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Apr 19 11:03:29 2016 marel_m
-** Last update Mon Apr 25 23:15:51 2016 marel_m
+** Last update Thu May 19 10:06:07 2016 Mathieu Sauvau
 */
 
+#include <string.h>
 #include "get_next_line.h"
 
 char	*my_realloc(char *str, int size)
@@ -71,6 +72,12 @@ char		*get_next_line(const int fd)
       i = -1;
       while (buff[++i] && buff[i] != '\n')
 	str[++j] = buff[i];
+    }
+  if (ret == 0)
+    {
+      memset(buff, 0, sizeof(buff));
+      i = -1;
+      ret = -1;
     }
   if (size)
     return (str);

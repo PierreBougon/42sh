@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 14:21:37 2016 Mathieu Sauvau
-** Last update Thu May 26 18:39:01 2016 Poc
+** Last update Mon May 30 10:58:26 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -18,7 +18,7 @@ void	cursor_backward(int x)
   char	*str;
 
   str = NULL;
-  if ((str = (tigetstr("cub"))))
+  if ((str = (tigetstr("cub"))) != (char *)-1)
     {
       if ((str = tiparm(str, x)))
 	printf("%s", str);
@@ -30,7 +30,7 @@ void	cursor_forward(int x)
   char	*str;
 
   str = NULL;
-  if ((str = (tigetstr("cuf"))))
+  if ((str = (tigetstr("cuf"))) != (char *)-1)
     {
       if ((str = tiparm(str, x)))
 	printf("%s", str);
@@ -42,10 +42,10 @@ void	cursor_erase(int x)
   char	*str;
 
   str = NULL;
-  if ((str = (tigetstr("eo"))))
+  if ((str = (tigetstr("ech"))) != (char *)-1)
     {
       if ((str = tiparm(str, x)))
-	printf("%s", str);
+  	printf("%s", str);
     }
 }
 
@@ -53,7 +53,7 @@ void	cursor_save()
 {
   char	*str;
 
-  if ((str = tigetstr("sc")))
+  if ((str = tigetstr("sc")) != (char *)-1)
     printf("%s", str);
 }
 
@@ -62,6 +62,6 @@ void	cursor_restore()
   char	*str;
 
   str = NULL;
-  if ((str = tigetstr("rc")))
+  if ((str = tigetstr("rc")) != (char *)-1)
     printf("%s", str);
 }
