@@ -5,10 +5,10 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 30 11:32:02 2016 Mathieu Sauvau
+## Last update Mon May 30 14:47:20 2016 Mathieu Sauvau
 ##
 
-DEBUG=	no
+DEBUG=	yes
 
 AUTO=	auto_completion/
 

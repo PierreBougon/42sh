@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 30 11:16:28 2016 Poc
+// Last update Mon May 30 17:49:14 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -23,6 +23,14 @@ typedef struct		s_key_action
   char			*key;
   void			(*fct)(char **, int *, t_head *, int *);
 }			t_key_act;
+
+typedef struct		s_auto_completion
+{
+  char			**tab_str;
+  int			i_elem;
+  char			*path;
+  char			*elem;
+}			t_autoc;
 
 typedef enum		e_type
   {
@@ -158,10 +166,10 @@ int			check_prior(char *);
 /*
 ** AUTO-COMPLETION
 */
-char			**find_match(char **);
-char			**find_routine(char **, char *, char *);
-int			find_in_(char *, char *, char **);
-char			*get_all_dir_path(char *, char *);
+char			**find_match(char **, char **);
+char			**find_routine(char **, char **, t_autoc *);
+int			find_in_(char *, char *, char **, int);
+char			*get_all_dir_path(char *, char *, int);
 int			get_max_len(char **);
 int			strlen_b_slash(char *);
 char			*revstr(char *);
