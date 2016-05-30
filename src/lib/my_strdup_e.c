@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar  8 09:15:03 2016 maud marel
-** Last update Tue May 17 11:37:18 2016 marel_m
+** Last update Mon May 30 16:50:36 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -18,7 +18,7 @@ char	*my_strdup_e(char *str, int i)
   int	j;
 
   j = 0;
-  if ((new = malloc(sizeof(char) * (my_strlen(str) - 1))) == NULL)
+  if ((new = malloc(sizeof(char) * my_strlen(str))) == NULL)
     return (NULL);
   while (str && str[i])
     {

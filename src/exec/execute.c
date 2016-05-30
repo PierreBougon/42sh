@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Mon May 30 14:32:26 2016 marel_m
+** Last update Mon May 30 15:49:18 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -34,6 +34,8 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
   int	ret;
 
   i = -1;
+  if (tree == NULL || tree->arg == NULL)
+    return (1);
   while (++i < 3)
     if (strncmp(tree->arg, fptrtab[i].act, strlen(fptrtab[i].act)) == 0)
       {
@@ -46,7 +48,6 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
       || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL
       || builtin_or_exec(sh))
     return (1);
-  free_exec(sh->exec);
   return (0);
 }
 

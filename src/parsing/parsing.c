@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Mon May 30 15:13:10 2016 marel_m
+** Last update Mon May 30 17:33:29 2016 marel_m
 */
 
 #include <stdio.h>
@@ -17,10 +17,8 @@ int	check_prior(char *str)
   int	prior;
 
   i = 0;
-  if (str == NULL)
-    return (0);
   prior = 0;
-  while (str[i] != '\0' && str)
+  while (str && str[i] != '\0')
     {
       if (str[i] == '|' && prior < 1)
 	prior = 1;
@@ -35,6 +33,8 @@ int		pars_tree(t_list_sh *elem, char *str)
 {
   int		prior;
 
+  if (str == NULL)
+    return (1);
   prior = check_prior(str);
   elem->nb++;
   if (prior == 0)
@@ -66,7 +66,7 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
   elem->nb = 1;
   if (check_prior(elem->arg) == 0)
     {
-      if (insert_node(&elem->node, elem->arg, NULL, NO_ONE) == NULL)
+      if (insert_node(&elem->node, elem->arg, elem->arg, NO_ONE) == NULL)
 	return (1);
       return (0);
     }
@@ -116,7 +116,7 @@ int	parsing(t_sh *sh, char *str)
     return (1);
   i = 0;
   j = 0;
-  while (str[i] != '\0' && str)
+  while (str && str[i] != '\0')
     {
       if (which_separator(sh, str, &i, &j))
 	i++;
