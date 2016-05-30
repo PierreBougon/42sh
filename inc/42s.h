@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 30 22:03:59 2016 marel_m
+** Last update Mon May 30 22:49:01 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -231,6 +231,14 @@ char			*my_strcat(char *, char *);
 void			free_exec(t_exec *);
 void			free_struct(t_sh *);
 void			print_tree(t_node *);
+void			free_env(t_env *);
+void			free_tab_int(int **);
+
+/*
+** PROMPT
+*/
+char			*prompt_from_env(char **);
+char			*get_prompt_value(char **);
 
 /*
 ** Suggest algorithm

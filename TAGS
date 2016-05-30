@@ -242,7 +242,7 @@ static t_aliases	*create_alias_node(create_alias_node17,315
 static int     		push_alias_string_back(28,528
 static char		*isolate_str(isolate_str53,1002
 static char		*get_first_alias_part(get_first_alias_part77,1454
-int			create_alias(102,2022
+int			create_alias(101,1997
 
 src/conf/conf.c,105
 int	joyeuse_fonction(20,362
@@ -258,8 +258,9 @@ src/builtins/check_unsetenv.c,67
 char	**take_away_env(take_away_env16,330
 int	my_unsetenv(41,800
 
-src/builtins/check_exit.c,20
-int	my_exit(14,282
+src/builtins/check_exit.c,48
+void		free_aliases(14,282
+int		my_exit(29,535
 
 src/builtins/check_setenv.c,117
 int	in_env(16,326
@@ -314,6 +315,10 @@ int		execute_each_act(96,2185
 
 src/exec/pipe.c,22
 int	pipe_loop(13,250
+
+src/prompt.c,94
+char	*get_prompt_value(get_prompt_value17,305
+char	*prompt_from_env(prompt_from_env31,497
 
 src/clear.c,23
 void	clear_scr(16,313
@@ -434,17 +439,17 @@ char	*epur(epur34,819
 src/free/free_fptrtab.c,26
 void	free_tab_act(14,290
 
-src/main.c,286
-void	my_show_tab(26,509
-int		init_actions_next(38,647
-int		init_actions(53,1020
-void            change_read_mode(79,1935
-int		cpy_to_pos(98,2344
-int		do_action(121,2825
-void		get_history(153,3358
-char		*term(term165,3573
-void		create_history_file(207,4446
-int		main(214,4623
+src/main.c,287
+void	my_show_tab(34,706
+int		init_actions_next(46,844
+int		init_actions(61,1217
+void            change_read_mode(87,2132
+int		cpy_to_pos(106,2541
+int		do_action(130,3066
+void		get_history(163,3626
+char		*term(term175,3841
+void		create_history_file(219,4819
+int		main(226,4996
 
 src/history.c,247
 void		push_front_history(19,374

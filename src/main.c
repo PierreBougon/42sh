@@ -5,7 +5,15 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
+<<<<<<< HEAD
 ** Last update Mon May 30 22:09:46 2016 marel_m
+=======
+<<<<<<< HEAD
+** Last update Mon May 30 19:02:05 2016 marel_m
+=======
+** Last update Mon May 30 17:31:22 2016 Poc
+>>>>>>> promt
+>>>>>>> 0840c66f97ca8ba6d6e65c91681cf1fcaef14ed0
 */
 
 #include <sys/ioctl.h>
@@ -95,7 +103,7 @@ void            change_read_mode(int i, int time, int nb_char)
     ioctl(0, TCSETS, &old);
 }
 
-int		cpy_to_pos(char **str, char *buff, int *curs_pos)
+int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
 {
   char		*start;
   char		*end;
@@ -111,14 +119,16 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   cursor_forward(1);
   cursor_save();
   fflush(stdout);
-  write(1, "\rhey ->", 7);
+  write(1, "\r", 1);
+  write(1, prompt, strlen(prompt));
   write(1, *str, strlen(*str));
   cursor_restore();
   fflush(stdout);
   return (0);
 }
 
-int		do_action(t_key_act actions[10], char **str, t_head *history)
+int		do_action(t_key_act actions[10], char **str,
+			  t_head *history, char *prompt)
 {
   static int	cur_pos;
   static int	index_history;
@@ -146,7 +156,7 @@ int		do_action(t_key_act actions[10], char **str, t_head *history)
 	  return (3);
 	}
     }
-  cpy_to_pos(str, buff, &cur_pos);
+  cpy_to_pos(str, buff, &cur_pos, prompt);
   return (0);
 }
 
@@ -168,20 +178,22 @@ char		*term(t_sh *sh)
   t_key_act	actions[10];
   int		a;
   t_head	history;
+  char		*prompt;
 
   history.first = NULL;
   history.last = NULL;
   get_history(sh, &history);
   init_actions(actions);
   a = 3;
-  if ((str = malloc(sizeof(char) * 10)) == NULL)
+  if ((str = malloc(sizeof(char) * 10)) == NULL ||
+      (prompt = prompt_from_env(sh->env->env)) == NULL)
     return (NULL);
   str[0] = 0;
-  write(1, "hey ->", 6);
+  write(1, prompt, strlen(prompt));
   memset(str, 0, 10);
   while (42)
     {
-      a = do_action(actions, &str, &history);
+      a = do_action(actions, &str, &history, prompt);
       if (a == 3)
 	{
 	  if (str && str[0])
@@ -198,7 +210,7 @@ char		*term(t_sh *sh)
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
 	    return (NULL);
 	  str[0] = 0;
-	  write(1, "hey ->", 6);
+	  write(1, prompt, strlen(prompt));
  	}
     }
   return (str);

@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Mon May 30 11:15:52 2016 Poc
+** Last update Mon May 30 20:02:09 2016 Poc
 */
 
 #include <unistd.h>
@@ -46,6 +46,7 @@ int	get_conf_file(t_conf *conf, char ***env)
 {
   int		fd;
   char		*str;
+  char		*new_str;
   int		i;
   t_conf_tab	tab;
 
@@ -56,13 +57,15 @@ int	get_conf_file(t_conf *conf, char ***env)
   while ((str = get_next_line(fd)))
     {
       i = 0;
+      new_str = epur(str);
+      free(str);
       while (tab.dico[i])
 	{
-	  if (strncmp(tab.dico[i], str, strlen(tab.dico[i])) == 0)
-	    tab.fp_conf[i](conf, env, str);
+	  if (strncmp(tab.dico[i], new_str, strlen(tab.dico[i])) == 0)
+	    tab.fp_conf[i](conf, env, new_str);
 	  i++;
 	}
-      str = epur(str);
+      free(new_str);
     }
   close(fd);
   return (0);
