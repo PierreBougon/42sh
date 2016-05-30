@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 23:08:49 2016 debrau_c
-** Last update Sun May 29 18:00:19 2016 debrau_c
+** Last update Mon May 30 15:17:14 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -37,7 +37,7 @@ char	*glob_realloc(char *str, int size)
   if ((newer = malloc(sizeof(char) * (glob_strlen(str) + size))) == NULL)
     return (NULL);
   i = 0;
-  while (str[i])
+  while (str && str[i])
     {
       newer[i] = str[i];
       i++;
@@ -54,9 +54,9 @@ void	glob_strcat(char *dest, char *src)
 
   i = 0;
   j = 0;
-  while (dest[i])
+  while (dest && dest[i])
     ++i;
-  while (src[j])
+  while (src && src[j])
     {
       dest[i] = src[j];
       ++i;
@@ -70,7 +70,7 @@ void	glob_clean_tab(char **recup)
   int		i;
 
   i = 0;
-  while (recup[i])
+  while (recup && recup[i])
     {
       free(recup[i]);
       i++;

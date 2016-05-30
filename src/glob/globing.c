@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:52:45 2016 debrau_c
-** Last update Sun May 29 17:59:11 2016 debrau_c
+** Last update Mon May 30 15:16:37 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -74,7 +74,7 @@ static char	*globing_do(char **tab)
   i = -1;
   if ((buf = malloc(sizeof(glob_t))) == NULL)
     return (NULL);
-  while (tab[++i] != NULL)
+  while (tab && tab[++i] != NULL)
     {
       rep = glob(tab[i], 0, NULL, buf);
       if (rep == GLOB_NOMATCH)
