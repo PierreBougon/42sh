@@ -228,8 +228,8 @@ int	check_alias(35,775
 src/conf/42rc_create_export.c,107
 int	arrlen(16,295
 int	cpy_new_env(26,386
-void	create_export_new_chain(54,867
-int	create_export(63,1048
+void	create_export_new_chain(53,841
+int	create_export(62,1022
 
 src/conf/42rc_create_alias.c,251
 static t_aliases	*create_alias_node(create_alias_node17,315
@@ -423,8 +423,8 @@ int		cpy_to_pos(98,2344
 int		do_action(121,2825
 void		get_history(153,3358
 char		*term(term165,3573
-void		create_history_file(207,4436
-int		main(214,4613
+void		create_history_file(207,4440
+int		main(214,4617
 
 src/history.c,247
 void		push_front_history(19,374

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 15:55:23 2016 marel_m
+** Last update Mon May 30 19:02:05 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -192,7 +192,7 @@ char		*term(t_sh *sh)
 	    {
 	      check_alias(sh->conf.head, &str);
 	      if (globing(&str) || parsing(sh, str) || execute_each_act(sh))
-		continue ;
+		return (NULL);
 	    }
 	  free(str);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
