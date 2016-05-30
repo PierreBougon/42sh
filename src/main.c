@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 11:54:18 2016 Mathieu Sauvau
+** Last update Mon May 30 15:29:50 2016 debrau_c
 */
 
 #include <sys/ioctl.h>
@@ -21,6 +21,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "42s.h"
+#include "my_glob.h"
 
 void	my_show_tab(char **str)
 {
@@ -190,7 +191,7 @@ char		*term(t_sh *sh)
 	  if (str && str[0])
 	    {
 	      check_alias(sh->conf.head, &str);
-	      if (parsing(sh, str) || execute_each_act(sh))
+	      if (globing(&str) || parsing(sh, str) || execute_each_act(sh))
 		return (NULL);
 	    }
 	  free(str);

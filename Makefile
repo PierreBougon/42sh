@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 30 11:32:02 2016 Mathieu Sauvau
+## Last update Mon May 30 15:28:19 2016 debrau_c
 ##
 
 DEBUG=	no
@@ -61,7 +61,10 @@ SRC=	main.c				\
 	builtins/check_which_cd.c	\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\
-	suggest/suggest.c
+	suggest/suggest.c		\
+	glob/glob_dep.c			\
+	glob/glob_dep2.c		\
+	glob/globing.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
