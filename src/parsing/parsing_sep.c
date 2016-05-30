@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Mon May 30 11:43:48 2016 marel_m
+** Last update Mon May 30 16:37:23 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -63,11 +63,12 @@ char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
     j++;
   if ((new = strndup(str, i)) == NULL
       || (tmp = my_strdup_bt(str, i, (i + 1))) == NULL
-      || (new = realloc(new, strlen(str))) == NULL
+      || (new = realloc(new, (strlen(new) + strlen(tmp) + 1))) == NULL
       || (new = strcat(new, tmp)) == NULL)
     return (NULL);
   free(tmp);
   if ((tmp = my_strdup_e(str, (j + 1))) == NULL
+      || (new = realloc(new, (strlen(tmp) + strlen(new) + 1))) == NULL
       || (new = strcat(new, tmp)) == NULL)
     return (NULL);
   free(tmp);

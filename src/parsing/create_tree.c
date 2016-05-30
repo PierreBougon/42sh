@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Sun May 29 10:06:30 2016 marel_m
+** Last update Mon May 30 17:33:18 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -16,10 +16,11 @@ t_node		*one_node(char *arg, t_type type)
 {
   t_node	*new;
 
-  if ((new = malloc(sizeof(t_node))) == NULL)
+  if ((new = malloc(sizeof(t_node))) == NULL
+      || memset(new, 0, sizeof(t_node)) == NULL)
     return (NULL);
-  new->left = NULL;
-  new->right = NULL;
+  /* new->left = NULL; */
+  /* new->right = NULL; */
   new->type = type;
   if (arg != NULL)
     {
@@ -44,7 +45,8 @@ t_node		*new_node(char *arg_l, char *arg_r, t_type type)
 {
   t_node	*new;
 
-  if ((new = malloc(sizeof(t_node))) == NULL)
+  if ((new = malloc(sizeof(t_node))) == NULL
+      || memset(new, 0, sizeof(t_node)) == NULL)
     return (NULL);
   new->type = type;
   if (type == NO_ONE)
@@ -87,6 +89,8 @@ t_node		**insert_node(t_node **tree, char *arg_l, char *arg_r,
 {
   t_node	*new;
 
+  if (arg_l == NULL || arg_r == NULL)
+    return (NULL);
   if (!(*tree))
     {
       if ((new = new_node(arg_l, arg_r, type)) == NULL)
