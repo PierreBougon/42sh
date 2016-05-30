@@ -26,56 +26,60 @@ inc/get_next_line.h,61
 # define GET_NEXT_LINE_H_12,256
 #  define READ_SIZE 15,302
 
-inc/fptrtab.h,1089
-# define FPTRTAB_H_12,261
-enum		act16,300
-    REDIR_RR,18,314
-    REDIR_R,19,328
-    REDIR_L,20,341
-    REDIR_LL,21,354
-    PIPE_INF,22,368
-    MAX_ACT23,382
-typedef struct	s_act26,400
-  char		*act;act28,423
-  int		(*ft_act)ft_act29,437
-}		t_act;30,473
-enum		env32,484
-    PATH,34,498
-    HOME,35,508
-    PWD,36,518
-    OLDPWD,37,527
-    MAX_ELEM_ENV38,539
-typedef struct	s_env_elem41,562
-  char		*env_elem;env_elem43,590
-  int		(*ft_env_elem)ft_env_elem44,609
-}		t_env_elem;45,640
-enum		cd47,656
-    HOME_CD,49,669
-    DASH_CD,50,682
-    GOOD_CD,51,695
-    ELSE_CD,52,708
-    MAX_CD53,721
-typedef struct	s_cd56,738
-  int		(*ft_cd)ft_cd58,760
-}		t_cd;59,785
-enum		blt61,795
-    SETENV,63,809
-    UNSETENV,64,821
-    ENV,65,835
-    CD,66,844
-    EXIT,67,852
-    MAX_BLT68,862
-typedef struct	s_blt71,880
-  char		*blt;blt73,903
-  int		(*ft_blt)ft_blt74,917
-}		t_blt;75,943
-enum		conf_tab77,954
-    ALIASES,79,973
-    EXPORTS,80,986
-typedef struct	s_conf_tab83,1005
-  int		(*(fp_conf[fp_conf85,1033
-  char	86,1085
-}		t_conf_tab;87,1105
+inc/fptrtab.h,1211
+# define FPTRTAB_H_12,265
+enum		act16,305
+    REDIR_RR,18,319
+    REDIR_R,19,333
+    REDIR_L,20,346
+    REDIR_LL,21,359
+    PIPE_INF,22,373
+    MAX_ACT23,387
+typedef struct	s_act26,405
+  char		*act;act28,428
+  int		(*ft_act)ft_act29,442
+}		t_act;30,478
+typedef struct	s_arg_act32,489
+  t_type	arg_act;34,516
+  int		(*ft_arg_act)ft_arg_act35,534
+}		t_arg_act;36,565
+enum		env38,580
+    PATH,40,594
+    HOME,41,604
+    PWD,42,614
+    OLDPWD,43,623
+    MAX_ELEM_ENV44,635
+typedef struct	s_env_elem47,658
+  char		*env_elem;env_elem49,686
+  int		(*ft_env_elem)ft_env_elem50,705
+}		t_env_elem;51,736
+enum		cd53,752
+    HOME_CD,55,765
+    DASH_CD,56,778
+    GOOD_CD,57,791
+    ELSE_CD,58,804
+    MAX_CD59,817
+typedef struct	s_cd62,834
+  int		(*ft_cd)ft_cd64,856
+}		t_cd;65,881
+enum		blt67,891
+    SETENV,69,905
+    UNSETENV,70,917
+    ENV,71,931
+    CD,72,940
+    EXIT,73,948
+    MAX_BLT74,958
+typedef struct	s_blt77,976
+  char		*blt;blt79,999
+  int		(*ft_blt)ft_blt80,1013
+}		t_blt;81,1039
+enum		conf_tab83,1050
+    ALIASES,85,1069
+    EXPORTS,86,1082
+typedef struct	s_conf_tab89,1101
+  int		(*(fp_conf[fp_conf91,1129
+  char	92,1181
+}		t_conf_tab;93,1201
 
 inc/my.h,105
 # define MY_H_12,242
@@ -398,10 +402,13 @@ char	*pars_redir_left(pars_redir_left80,1827
 char	*pars_redir(pars_redir101,2280
 
 src/parsing/create_tree.c,150
-t_node		*one_node(one_node15,304
-t_node		*last_node(last_node35,688
-t_node		*new_node(new_node44,933
-t_node		**insert_node(insert_node87,1878
+t_node		*one_node(one_node16,325
+t_node		*last_node(last_node34,656
+t_node		*new_node(new_node43,901
+t_node		**insert_node(insert_node78,1700
+
+src/parsing/fptrtab_sep_node.c,53
+t_arg_act	*init_tab_arg_sep(init_tab_arg_sep15,315
 
 src/parsing/parsing.c,122
 int	check_prior(14,275
@@ -409,6 +416,13 @@ int		pars_tree(32,534
 int		stock_elem(58,992
 int	which_separator(78,1441
 int	parsing(107,2054
+
+src/parsing/copy_arg_sep_node.c,119
+int	arg_pipe(14,299
+int	arg_redir_r(21,397
+int	arg_redir_l(28,498
+int	arg_redir_rr(35,599
+int	arg_redir_ll(42,702
 
 src/parsing/epur.c,72
 char	*space_around_act(space_around_act14,246

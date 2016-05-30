@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 30 14:32:03 2016 marel_m
+** Last update Mon May 30 21:30:35 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -118,21 +118,21 @@ char			*epur(char  *);
 /*
 ** ACTION
 */
-void		move_left(char **, int *, t_head *, int *);
-void		move_right(char **, int *, t_head *, int *);
-void		debut(char **, int *, t_head *, int *);
-void		end(char **, int *, t_head *, int *);
-void		backspace(char **, int *, t_head *, int *);
-void		auto_complet(char **, int *, t_head *, int *);
-void		clear_scr(char **, int *, t_head *, int *);
+void			move_left(char **, int *, t_head *, int *);
+void			move_right(char **, int *, t_head *, int *);
+void			debut(char **, int *, t_head *, int *);
+void			end(char **, int *, t_head *, int *);
+void			backspace(char **, int *, t_head *, int *);
+void			auto_complet(char **, int *, t_head *, int *);
+void			clear_scr(char **, int *, t_head *, int *);
 
 /*
 ** 42RC
 */
-int	check_alias(t_aliases *, char **);
-int	get_conf_file(t_conf *, char ***);
-int	create_alias(t_conf *, char ***, char *);
-int	create_export(t_conf *, char ***, char *);
+int			check_alias(t_aliases *, char **);
+int			get_conf_file(t_conf *, char ***);
+int			create_alias(t_conf *, char ***, char *);
+int			create_export(t_conf *, char ***, char *);
 
 /*
 ** CURSOR
@@ -154,6 +154,11 @@ t_list_sh		*add_list_after(t_sh *);
 char			*pars_pipe(t_list_sh *, char *);
 char			*pars_redir(t_list_sh *, char *);
 int			check_prior(char *);
+int			arg_pipe(char **);
+int			arg_redir_r(char **);
+int			arg_redir_l(char **);
+int			arg_redir_rr(char **);
+int			arg_redir_ll(char **);
 
 /*
 ** AUTO-COMPLETION

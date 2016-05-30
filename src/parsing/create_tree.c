@@ -5,11 +5,12 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Mon May 30 17:33:18 2016 marel_m
+** Last update Mon May 30 21:41:28 2016 marel_m
 */
 
 #include <stdlib.h>
 #include <string.h>
+#include "fptrtab.h"
 #include "42s.h"
 
 t_node		*one_node(char *arg, t_type type)
@@ -19,8 +20,6 @@ t_node		*one_node(char *arg, t_type type)
   if ((new = malloc(sizeof(t_node))) == NULL
       || memset(new, 0, sizeof(t_node)) == NULL)
     return (NULL);
-  /* new->left = NULL; */
-  /* new->right = NULL; */
   new->type = type;
   if (arg != NULL)
     {
@@ -41,6 +40,24 @@ t_node		*last_node(t_node *new, char *arg_l, t_type type)
   return (new);
 }
 
+int		check_good_node_arg(t_node *new, t_type type)
+{
+  t_arg_act	*fptrtab;
+  int		i;
+
+  if ((fptrtab = init_tab_arg_sep()) == NULL)
+    return (1);
+  i = -1;
+  while (++i < MAX_ACT)
+    if (type == fptrtab[i].arg_act)
+      {
+	if (fptrtab[i].ft_arg_act(&new->arg))
+	  return (1);
+	return (0);
+      }
+  return (0);
+}
+
 t_node		*new_node(char *arg_l, char *arg_r, t_type type)
 {
   t_node	*new;
@@ -53,26 +70,8 @@ t_node		*new_node(char *arg_l, char *arg_r, t_type type)
     return (last_node(new, arg_l, type));
   if (check_prior(arg_l) == 0)
     {
-      if (type == PIPE)
-	{
-	  if ((new->arg = strdup("|")) == NULL)
-	    return (NULL);
-	}
-      else if (type == REDIR_RIGHT)
-	{
-	  if ((new->arg = strdup(">")) == NULL)
-	    return (NULL);
-	}
-      else if (type == REDIR_LEFT)
-	{
-	  if ((new->arg = strdup("<")) == NULL)
-	    return (NULL);
-	}
-      else if (type == DOUBLE_REDIR_RIGHT)
-	{
-	  if ((new->arg = strdup(">>")) == NULL)
-	    return (NULL);
-	}
+      if (check_good_node_arg(new, type))
+	return (NULL);
     }
   else
     new->arg = NULL;

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Mon May 30 18:33:24 2016 marel_m
+** Last update Mon May 30 20:45:50 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -95,8 +95,8 @@ char	*pars_redir_left(t_list_sh *elem, char *str)
     if ((new = pars_redir_left_with_other(elem, str, i)) == NULL)
       return (NULL);
   free(str);
-  return (new);}
-
+  return (new);
+}
 
 char	*pars_redir(t_list_sh *elem, char *str)
 {
