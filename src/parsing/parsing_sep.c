@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Mon May 30 16:37:23 2016 marel_m
+** Last update Mon May 30 18:33:24 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -20,8 +20,8 @@ char	*pars_pipe(t_list_sh *elem, char *str)
   i = my_strlen(str) - 1;
   while (str[i] != '|')
     i--;
-  if (insert_node(&elem->node, my_strdup_e(str, i + 1), strndup(str, i), PIPE)
-      == NULL || (new = strndup(str, i)) == NULL)
+  if (insert_node(&elem->node, my_strdup_e(str, i + 1),
+		  (new = strndup(str, i)), PIPE) == NULL)
     return (NULL);
   free(str);
   return (new);
@@ -35,19 +35,18 @@ char	*pars_redir_right(t_list_sh *elem, char *str)
   i = my_strlen(str) - 1;
   while (str[i] != '>')
     i--;
+  if (i == 0)
+    return (NULL);
   if (str[i - 1] != '>')
     {
-      if (insert_node(&elem->node, my_strdup_e(str, i + 1), strndup(str, i),
-		      REDIR_RIGHT) == NULL || (new = strndup(str, i)) == NULL)
+      if (insert_node(&elem->node, my_strdup_e(str, i + 1),
+		      (new = strndup(str, i)), REDIR_RIGHT) == NULL)
 	return (NULL);
     }
   else
-    {
-      if (insert_node(&elem->node, my_strdup_e(str, i + 1), strndup(str, i - 1),
-		      DOUBLE_REDIR_RIGHT) == NULL
-	  || (new = strndup(str, i - 1)) == NULL)
-	return (NULL);
-    }
+    if (insert_node(&elem->node, my_strdup_e(str, i + 1),
+		    (new = strndup(str, i - 1)), DOUBLE_REDIR_RIGHT) == NULL)
+      return (NULL);
   free(str);
   return (new);
 }
@@ -88,16 +87,16 @@ char	*pars_redir_left(t_list_sh *elem, char *str)
     i--;
   if (check_prior(my_strdup_e(str, i + 1)) == 0)
     {
-      if (insert_node(&elem->node, my_strdup_e(str, i + 1), strndup(str, i),
-		      REDIR_LEFT) == NULL || (new = strndup(str, i)) == NULL)
+      if (insert_node(&elem->node, my_strdup_e(str, i + 1),
+		      (new = strndup(str, i)), REDIR_LEFT) == NULL)
 	return (NULL);
     }
   else
     if ((new = pars_redir_left_with_other(elem, str, i)) == NULL)
       return (NULL);
   free(str);
-  return (new);
-}
+  return (new);}
+
 
 char	*pars_redir(t_list_sh *elem, char *str)
 {

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Mon May 30 15:49:18 2016 marel_m
+** Last update Mon May 30 18:23:37 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -45,6 +45,7 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
       }
   sh->exec->type = tree->type;
   if ((sh->exec->arg = my_str_to_word_tab(tree->arg, ' ')) == NULL
+      || sh->exec->arg[0] == NULL
       || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL
       || builtin_or_exec(sh))
     return (1);

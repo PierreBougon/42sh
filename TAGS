@@ -225,10 +225,11 @@ src/conf/42rc_alias_checker.c,48
 int	change_word(16,302
 int	check_alias(35,775
 
-src/conf/42rc_create_export.c,69
+src/conf/42rc_create_export.c,107
 int	arrlen(16,295
 int	cpy_new_env(26,386
-int	create_export(45,692
+void	create_export_new_chain(54,867
+int	create_export(63,1048
 
 src/conf/42rc_create_alias.c,251
 static t_aliases	*create_alias_node(create_alias_node17,315
@@ -283,8 +284,8 @@ int	check_builtin(35,765
 src/exec/builtin_or_exec.c,91
 int	action_redir(16,333
 int	action(31,581
-int	exec(66,1313
-int	builtin_or_exec(78,1479
+int	exec(67,1328
+int	builtin_or_exec(79,1494
 
 src/exec/redirections.c,96
 int	redirection_right(19,390
@@ -301,9 +302,9 @@ int	check_good_path(74,1726
 src/exec/execute.c,160
 t_act	*init_tab_act(init_tab_act16,317
 int	act_for_each_sep(31,692
-int	check_which_config(54,1255
-void	loop_execute(75,1644
-int		execute_each_act(94,2043
+int	check_which_config(55,1289
+void	loop_execute(76,1678
+int		execute_each_act(95,2077
 
 src/exec/pipe.c,22
 int	pipe_loop(13,250
@@ -391,10 +392,10 @@ t_list_sh	*add_list_after(add_list_after27,488
 
 src/parsing/parsing_sep.c,236
 char	*pars_pipe(pars_pipe15,304
-char	*pars_redir_right(pars_redir_right30,612
-char	*pars_redir_left_with_other(pars_redir_left_with_other55,1169
-char	*pars_redir_left(pars_redir_left81,1895
-char	*pars_redir(pars_redir102,2375
+char	*pars_redir_right(pars_redir_right30,583
+char	*pars_redir_left_with_other(pars_redir_left_with_other54,1101
+char	*pars_redir_left(pars_redir_left80,1827
+char	*pars_redir(pars_redir101,2280
 
 src/parsing/create_tree.c,150
 t_node		*one_node(one_node15,304
@@ -406,8 +407,8 @@ src/parsing/parsing.c,122
 int	check_prior(14,275
 int		pars_tree(32,534
 int		stock_elem(58,992
-int	which_separator(78,1436
-int	parsing(107,2049
+int	which_separator(78,1441
+int	parsing(107,2054
 
 src/parsing/epur.c,72
 char	*space_around_act(space_around_act14,246
