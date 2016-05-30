@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 18:40:38 2016 bougon_p
-** Last update Mon May 30 16:58:46 2016 bougon_p
+** Last update Mon May 30 18:57:55 2016 bougon_p
 */
 
 #include <stdbool.h>
@@ -16,12 +16,12 @@
 
 void	print_help()
 {
-  printf("echo : Usage : echo [OPTION] [STRINGS]\n\n");
-  printf("-n \tdo not output the trailing newline\n");
-  printf("-e \tenable interpretation of backslash escapes\n");
-  printf("-E \tdisable interpretation of backslash escapes (default)\n");
-  printf("--help \tdisplay this help and exit\n");
-  printf("--version \toutput version information and exit\n");
+  printf("\necho : Usage : echo [OPTION] [STRINGS]\n\n");
+  printf("-n \t\tDo not output the trailing newline\n");
+  printf("-e \t\tEnable interpretation of backslash escapes\n");
+  printf("-E \t\tDisable interpretation of backslash escapes (default)\n");
+  printf("--help \t\tDisplay this help and exit\n");
+  printf("--version \tOutput version information and exit\n");
 }
 
 void	invert(bool *waiting_d, bool *waiting_s, char c)
@@ -61,15 +61,22 @@ void	print_str_no_change(char *str)
   fflush(stdout);
 }
 
-void	convert_next_letter(char c, t_echo *opt)
+int	convert_next_letter(char c, t_echo *opt)
 {
   int	i;
 
   i = -1;
   while (++i < NB_SPE_ECHO && opt->sequence[i] != c);
   if (i >= NB_SPE_ECHO)
-    return ;
+    return (0);
   opt->ftab[i]();
+  if (i == 3)
+    return (2);
+  else if (i == 10)
+    return (3);
+  else if (i == 11)
+    return (4);
+  return (0);
 }
 
 void	init_tab(t_echo *opt)
@@ -86,6 +93,8 @@ void	init_tab(t_echo *opt)
   opt->ftab[9] = print_verttab;
   opt->ftab[10] = print_octal;
   opt->ftab[11] = print_hexa;
+  opt->ftab[12] = print_squote;
+  opt->ftab[13] = print_dquote;
   opt->sequence[0] = '\\';
   opt->sequence[1] = 'a';
   opt->sequence[2] = 'b';
@@ -98,6 +107,8 @@ void	init_tab(t_echo *opt)
   opt->sequence[9] = 'v';
   opt->sequence[10] = '0';
   opt->sequence[11] = 'x';
+  opt->sequence[12] = '\'';
+  opt->sequence[13] = '\"';
 }
 
 void	print_str_changed(char *str, t_echo *opt)
@@ -105,6 +116,7 @@ void	print_str_changed(char *str, t_echo *opt)
   int	i;
   bool	waiting_s;
   bool	waiting_d;
+  int	ret;
 
   i = -1;
   waiting_s = false;
@@ -115,7 +127,21 @@ void	print_str_changed(char *str, t_echo *opt)
       if (str[i] != '"' && str[i] != '\'' && str[i] != '\\')
         printf("%c", str[i]);
       else if (str[i] == '\\')
-        convert_next_letter(str[++i], opt);
+	{
+	  if ((ret = convert_next_letter(str[++i], opt)) == 2)
+	    {
+	      fflush(stdout);
+	      return ;
+	    }
+	  else if (ret == 3)
+	    {
+	      print_octal_char(&str[i]);
+	    }
+	  else if (ret == 4)
+	    {
+	      print_hexa_char(&str[i]);
+	    }
+	}
       else
         invert(&waiting_d, &waiting_s, str[i]);
     }

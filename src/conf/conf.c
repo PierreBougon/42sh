@@ -5,9 +5,8 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Sun May 22 15:16:00 2016 marel_m
+** Last update Mon May 30 11:15:52 2016 Poc
 */
-
 
 #include <unistd.h>
 #include <stdio.h>
@@ -30,7 +29,7 @@ int	prepare_fct_tab(t_conf_tab *tab)
   tab->dico[1] = "export";
   tab->dico[2] = NULL;
   tab->fp_conf[0] = create_alias;
-  tab->fp_conf[1] = joyeuse_fonction;
+  tab->fp_conf[1] = create_export;
   return (0);
 }
 
@@ -43,7 +42,7 @@ void	showlist(t_aliases *alias)
     }
 }
 
-int	get_conf_file(t_conf *conf, char **env)
+int	get_conf_file(t_conf *conf, char ***env)
 {
   int		fd;
   char		*str;
@@ -52,7 +51,7 @@ int	get_conf_file(t_conf *conf, char **env)
 
   conf->head = NULL;
   if ((fd = open(".42rc", O_RDONLY)) == -1)
-    return (write(1, "Unable to locale .42rc\n", 23) - 23);
+    return (write(2, "Unable to locale .42rc\n", 23) - 23);
   prepare_fct_tab(&tab);
   while ((str = get_next_line(fd)))
     {
@@ -65,6 +64,6 @@ int	get_conf_file(t_conf *conf, char **env)
 	}
       str = epur(str);
     }
-  /* showlist(conf->head); */
+  close(fd);
   return (0);
 }

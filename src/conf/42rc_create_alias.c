@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 13:22:30 2016 Poc
-** Last update Wed May 18 14:42:48 2016 Poc
+** Last update Fri May 27 21:16:04 2016 Poc
 */
 
 #include <string.h>
@@ -56,8 +56,8 @@ static char		*isolate_str(char *str)
   int			i;
 
   i = 0;
-  if ((cleaned_str = my_index(str, '=')) == NULL)
-      return (NULL);
+  if (!(cleaned_str = strdup(str)))
+    return (NULL);
   if (cleaned_str[0] == '\'' || cleaned_str[0] == '\"')
     {
       if ((str = strdup(cleaned_str + 1)) == NULL)
@@ -92,25 +92,33 @@ static char		*get_first_alias_part(char *str)
       new_chain = tmp;
     }
   while (new_chain[i] && new_chain[i] != '=' &&
-	 (new_chain[i] != '\'' || new_chain[i] == '\"'))
+	 new_chain[i] != '\'' && new_chain[i] != '\"')
     i++;
   new_chain[((i != 0 &&
-	      (str[i - 1] == '\'' || str[i - 1] == '\"')) ? i - 1 : i)] = 0;
+  	      (str[i - 1] == '\'' || str[i - 1] == '\"')) ? i - 1 : i)] = 0;
   return (new_chain);
 }
 
 int			create_alias(t_conf *conf,
-				     UNUSED char **env,
+				     UNUSED char ***env,
 				     char *str)
 {
+  char			*tmp;
   char			*first_part;
   char			*second_part;
+  int			i;
 
+  i = 0;
   if (!conf->head && (conf->head = create_alias_node()) == NULL)
     return (1);
-  if ((first_part = get_first_alias_part(str)) == NULL)
+  if ((tmp = strdup(str)) == NULL)
+    return (1);
+  while (tmp[i] && tmp[i] != '=')
+    i++;
+  tmp[i] = 0;
+  if ((first_part = get_first_alias_part(tmp)) == NULL)
     return (0);
-  if ((second_part = isolate_str(str)) == NULL)
+  if ((second_part = isolate_str(tmp + i + (str[i] == 0 ? 0 : 1))) == NULL)
     return (0);
   if (push_alias_string_back(conf->head, second_part, first_part))
     return (0);

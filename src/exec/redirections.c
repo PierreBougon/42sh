@@ -5,17 +5,43 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 20 13:59:36 2016 marel_m
-** Last update Fri May 20 15:24:39 2016 marel_m
+** Last update Mon May 30 14:21:24 2016 marel_m
 */
 
-int	redirection_right(t_sh *sh)
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include "42s.h"
+
+int	redirection_right(t_sh *sh, t_node *tree)
 {
-  if ((sh->exec->fd = open(sh->exec->exec,
-			   O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -&
-      || (pid = fork()) == -1)
+  sh->exec->type = tree->type;
+  if ((sh->exec->fd[0][1] = open(tree->arg,
+				 O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
     return (1);
-  if (pid == 0)
+  return (0);
+}
+
+int	redirection_left(t_sh *sh, t_node *tree)
+{
+  sh->exec->type = tree->type;
+  if ((sh->exec->fd[0][0] = open(tree->arg, O_RDONLY)) == -1)
     {
-      if (dup2(sh->exec->
+      write(2, tree->arg, strlen(tree->arg));
+      write(2, ": No such file or directory.\n", 29);
+      return (-1);
     }
+  return (0);
+}
+
+int	double_redirection_right(t_sh *sh, t_node *tree)
+{
+  sh->exec->type = tree->type;
+  if ((sh->exec->fd[0][1] = open(tree->arg, O_CREAT | O_WRONLY | O_APPEND, 0644))
+      == -1)
+    return (1);
+  return (0);
 }

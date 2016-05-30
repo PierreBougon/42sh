@@ -5,12 +5,15 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 30 17:10:20 2016 bougon_p
+## Last update Mon May 30 17:17:28 2016 bougon_p
 ##
 
 DEBUG=	no
 
+AUTO=	auto_completion/
+
 SRC=	main.c				\
+	print_tree.c			\
 	free_exec.c			\
 	ncurses.c			\
 	actions.c			\
@@ -18,11 +21,15 @@ SRC=	main.c				\
 	history.c			\
 	index.c				\
 	cursor.c			\
-	autocompletion.c		\
+	clear.c				\
+	$(AUTO)autocompletion.c		\
+	$(AUTO)auto_completion_find.c	\
+	$(AUTO)auto_completion_utility.c\
 	free_tab.c			\
 	conf/conf.c			\
 	conf/42rc_create_alias.c	\
 	conf/42rc_alias_checker.c	\
+	conf/42rc_create_export.c	\
 	lib/my_get_next_line.c		\
 	lib/my_str_to_word_tab.c	\
 	lib/my_strdup_bt.c		\
@@ -44,6 +51,7 @@ SRC=	main.c				\
 	exec/execute.c			\
 	exec/builtin_or_exec.c		\
 	exec/check_good_path.c		\
+	exec/redirections.c		\
 	builtins/check_builtins.c	\
 	builtins/check_cd.c		\
 	builtins/check_env.c		\
@@ -58,7 +66,10 @@ SRC=	main.c				\
 	builtins/print_spe_echo.c	\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\
-	suggest/suggest.c
+	suggest/suggest.c		\
+	glob/glob_dep.c			\
+	glob/glob_dep2.c		\
+	glob/globing.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
@@ -67,14 +78,14 @@ RM=	rm -f
 ifeq ($(DEBUG), yes)
 	CFLAGS=		-W -Wall -Wextra -g -D DEBUG -O0
 else
-	CFLAGS=		-W -Wall -Wextra
+	CFLAGS=		-W -Wall -Wextra -Werror
 endif
 
 NAME=	42sh
 
 HEAD=	-I inc/
 
-$(NAME):                $(OBJ)
+$(NAME):                ctags $(OBJ)
 ifeq ($(DEBUG), yes)
 	@tput setaf 1; tput bold
 	@echo " ____________________ ________________________   ____ ___._________________";
@@ -83,8 +94,6 @@ ifeq ($(DEBUG), yes)
 	@echo "/        \ |        \    \_\  \|     \/    |    \    |  /|    |___|    |";
 	@echo "/________//_________/\________/\_____/\____|____/______/ |________|____|";
 	@tput sgr0
-	rm -rf TAGS
-	find . -type f -iname "*.[chS]" | xargs etags -a
 endif
 	@ echo "CC = $(CC)"
 	@ echo "CFLAGS = $(CFLAGS)"
@@ -92,6 +101,12 @@ endif
 	@ echo -e "\033[1;31m \t \t \n \t ♩♪♫ $(NAME) Compiled\033[0;31m®\033[1;31m Created Sucesfully \033[0m"
 
 all:		$(NAME)
+
+ctags:
+ifeq ($(DEBUG), yes)
+		rm -rf TAGS
+		find . -type f -iname "*.[chS]" | xargs etags -a
+endif
 
 clean:
 		@ $(RM) $(OBJ)

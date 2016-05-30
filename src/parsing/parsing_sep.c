@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Mon May 23 18:58:57 2016 marel_m
+** Last update Mon May 30 11:43:48 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -52,6 +52,31 @@ char	*pars_redir_right(t_list_sh *elem, char *str)
   return (new);
 }
 
+char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
+{
+  char	*new;
+  char	*tmp;
+  int	j;
+
+  j = 0;
+  while (str[j] != '>' && str[j] != '|')
+    j++;
+  if ((new = strndup(str, i)) == NULL
+      || (tmp = my_strdup_bt(str, i, (i + 1))) == NULL
+      || (new = realloc(new, strlen(str))) == NULL
+      || (new = strcat(new, tmp)) == NULL)
+    return (NULL);
+  free(tmp);
+  if ((tmp = my_strdup_e(str, (j + 1))) == NULL
+      || (new = strcat(new, tmp)) == NULL)
+    return (NULL);
+  free(tmp);
+  if (insert_node(&elem->node, my_strdup_bt(str, i + 1, j), new,
+		  REDIR_LEFT) == NULL)
+    return (NULL);
+  return (new);
+}
+
 char	*pars_redir_left(t_list_sh *elem, char *str)
 {
   char	*new;
@@ -60,9 +85,15 @@ char	*pars_redir_left(t_list_sh *elem, char *str)
   i = my_strlen(str) - 1;
   while (str[i] != '<')
     i--;
-  if (insert_node(&elem->node, my_strdup_e(str, i + 1), strndup(str, i),
-		  REDIR_LEFT) == NULL || (new = strndup(str, i)) == NULL)
-    return (NULL);
+  if (check_prior(my_strdup_e(str, i + 1)) == 0)
+    {
+      if (insert_node(&elem->node, my_strdup_e(str, i + 1), strndup(str, i),
+		      REDIR_LEFT) == NULL || (new = strndup(str, i)) == NULL)
+	return (NULL);
+    }
+  else
+    if ((new = pars_redir_left_with_other(elem, str, i)) == NULL)
+      return (NULL);
   free(str);
   return (new);
 }

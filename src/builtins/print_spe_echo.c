@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Mon May 30 16:31:08 2016 bougon_p
-** Last update Mon May 30 16:52:21 2016 bougon_p
+** Last update Mon May 30 18:15:43 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -66,4 +66,14 @@ void	print_octal(void)
 
 void	print_hexa(void)
 {
+}
+
+void	print_squote(void)
+{
+  printf("\'");
+}
+
+void	print_dquote(void)
+{
+  printf("\"");
 }

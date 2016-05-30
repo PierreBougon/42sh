@@ -5,13 +5,29 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Sun May 29 17:04:21 2016 bougon_p
+** Last update Mon May 30 17:16:56 2016 bougon_p
 */
 
 #ifndef FPTRTAB_H_
 # define FPTRTAB_H_
 
 #include "42s.h"
+
+enum		act
+  {
+    REDIR_RR,
+    REDIR_R,
+    REDIR_L,
+    REDIR_LL,
+    PIPE_INF,
+    MAX_ACT
+  };
+
+typedef struct	s_act
+{
+  char		*act;
+  int		(*ft_act)(t_sh *, t_node *);
+}		t_act;
 
 enum		env
   {
@@ -67,7 +83,7 @@ enum		conf_tab
 
 typedef struct	s_conf_tab
 {
-  int		(*(fp_conf[2]))(t_conf *, char **, char *);
+  int		(*(fp_conf[2]))(t_conf *, char ***, char *);
   char		*(dico[5]);
 }		t_conf_tab;
 

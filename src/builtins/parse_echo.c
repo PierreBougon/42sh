@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 18:38:35 2016 bougon_p
-** Last update Sun May 29 18:39:16 2016 bougon_p
+** Last update Mon May 30 17:19:29 2016 bougon_p
 */
 
 #include <stdbool.h>
@@ -74,7 +74,6 @@ void	parse_opt(t_echo *opt, t_sh *sh)
   i = 0;
   while (args[++i])
     {
-      printf("%s\n", args[i]);
       if (args[i][0] == '-')
 	check_opt(&args[i][1], opt);
     }

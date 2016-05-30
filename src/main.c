@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu May 26 14:57:28 2016 bougon_p
+** Last update Mon May 30 15:29:50 2016 debrau_c
 */
 
 #include <sys/ioctl.h>
@@ -21,6 +21,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "42s.h"
+#include "my_glob.h"
 
 void	my_show_tab(char **str)
 {
@@ -34,26 +35,45 @@ void	my_show_tab(char **str)
     }
 }
 
-void		init_actions(t_key_act actions[9])
+int		init_actions_next(t_key_act actions[10])
 {
-  actions[0].key = strdup(tigetstr("kcub1"));
   actions[0].fct = &move_left;
-  actions[1].key = strdup(tigetstr("kcuf1"));
   actions[1].fct = &move_right;
-  actions[2].key = strdup(tigetstr("khome"));
   actions[2].fct = &debut;
-  actions[3].key = strdup(tigetstr("kend"));
   actions[3].fct = &end;
-  actions[4].key = strdup(tigetstr("kbs"));
   actions[4].fct = &backspace;
-  actions[5].key = strdup(tigetstr("cub1"));
   actions[5].fct = &backspace;
-  actions[6].key = strdup(tigetstr("kcuu1"));
   actions[6].fct = &history_up;
-  actions[7].key = strdup(tigetstr("kcud1"));
   actions[7].fct = &history_down;
-  actions[8].key = strdup("\t");
   actions[8].fct = &auto_complet;
+  actions[9].fct = &clear_scr;
+  return (0);
+}
+
+int		init_actions(t_key_act actions[10])
+{
+  char		*str;
+
+  if ((str = tigetstr("kcub1")) == (char *)-1 ||
+      !(actions[0].key = strdup(str)) ||
+      (str = tigetstr("kcuf1")) == (char *)-1 ||
+      !(actions[1].key = strdup(str)) ||
+      (str = tigetstr("khome")) == (char *)-1 ||
+      !(actions[2].key = strdup(str)) ||
+      (str = tigetstr("kend")) == (char *)-1 ||
+      !(actions[3].key = strdup(str)) ||
+      (str = tigetstr("kbs")) == (char *)-1 ||
+      !(actions[4].key = strdup(str)) ||
+      (str = tigetstr("cub1")) == (char *)-1 ||
+      !(actions[5].key = strdup(str)) ||
+      (str = tigetstr("kcuu1")) == (char *)-1 ||
+      !(actions[6].key = strdup(str)) ||
+      (str = tigetstr("kcud1")) == (char *)-1 ||
+      !(actions[7].key = strdup(str)) ||
+      !(actions[8].key = strdup("\t")) ||
+      !(actions[9].key = strdup("^L")))
+    return (-1);
+  return (init_actions_next(actions));
 }
 
 void            change_read_mode(int i, int time, int nb_char)
@@ -98,17 +118,17 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos)
   return (0);
 }
 
-int		do_action(t_key_act actions[9], char **str, t_head *history)
+int		do_action(t_key_act actions[10], char **str, t_head *history)
 {
   static int	cur_pos;
   static int	index_history;
-  char		buff[10];
+  char		buff[11];
   int		i;
 
   i = -1;
-  memset(buff, 0, 10);
+  memset(buff, 0, 11);
   read(0, buff, 10);
-  while (++i < 9)
+  while (++i < 10)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -130,11 +150,12 @@ int		do_action(t_key_act actions[9], char **str, t_head *history)
   return (0);
 }
 
-void		get_history(int fd_history, t_head *history)
+void		get_history(t_sh *sh, t_head *history)
 {
   char		*str;
 
-  while ((str = get_next_line(fd_history)))
+  history->path = sh->env->path;
+  while ((str = get_next_line(sh->fd_history)))
     {
       push_front_history(history, str);
       free(str);
@@ -144,38 +165,41 @@ void		get_history(int fd_history, t_head *history)
 char		*term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[9];
+  t_key_act	actions[10];
   int		a;
   t_head	history;
 
   history.first = NULL;
   history.last = NULL;
-  get_history(sh->fd_history, &history);
+  get_history(sh, &history);
   init_actions(actions);
   a = 3;
   if ((str = malloc(sizeof(char) * 10)) == NULL)
     return (NULL);
   str[0] = 0;
-  memset(str, 0, 10);
   write(1, "hey ->", 6);
+  memset(str, 0, 10);
   while (42)
     {
       a = do_action(actions, &str, &history);
       if (a == 3)
 	{
-	  push_front_history(&history, str);
+	  if (str && str[0])
+	    push_front_history(&history, str);
 	  if (sh->fd_history > 0)
 	    dprintf(sh->fd_history, "%s\n", str);
-	  check_alias(sh->conf.head, &str);
-	  parsing(sh, str);
-	  if (execute_each_act(sh))
-	    return (NULL);
-	  //	  free(str);
-	  write(1, "hey ->", 6);
+	  if (str && str[0])
+	    {
+	      check_alias(sh->conf.head, &str);
+	      if (globing(&str) || parsing(sh, str) || execute_each_act(sh))
+		return (NULL);
+	    }
+	  free(str);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
 	    return (NULL);
 	  str[0] = 0;
-	}
+	  write(1, "hey ->", 6);
+ 	}
     }
   return (str);
 }
@@ -193,12 +217,15 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
 
   if (check_env(&sh, env))
     return (-1);
-  get_conf_file(&sh.conf, sh.env->env);
-  setupterm(NULL, 0, NULL);
-  printf("%s\n", tigetstr("smkx"));
+  get_conf_file(&sh.conf, &sh.env->env);
+  if (setupterm(NULL, 0, NULL) < 0)
+    return (1);
+  printf("%s", tigetstr("smkx"));
+  fflush(stdout);
   create_history_file(&sh);
   change_read_mode(0, 100, 1);
   sh.history = NULL;
-  term(&sh);
+  if (term(&sh) == NULL)
+    return (-1);
   return (0);
 }
