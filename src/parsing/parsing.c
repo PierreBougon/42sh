@@ -5,10 +5,11 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Mon May 30 18:14:28 2016 marel_m
+** Last update Mon May 30 22:07:35 2016 marel_m
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "42s.h"
 
 int	check_prior(char *str)
@@ -52,6 +53,7 @@ int		pars_tree(t_list_sh *elem, char *str)
   if (check_prior(str) != 0)
     if (pars_tree(elem, str))
       return (1);
+  free(str);
   return (0);
 }
 
@@ -124,5 +126,6 @@ int	parsing(t_sh *sh, char *str)
   if (stock_elem(sh, str, j, i))
     return (1);
   sh->root->prev->type = 0;
+  free(str);
   return (0);
 }

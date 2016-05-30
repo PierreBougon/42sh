@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 30 21:32:13 2016 marel_m
+## Last update Mon May 30 22:02:49 2016 marel_m
 ##
 
 DEBUG=	no
@@ -61,6 +61,7 @@ SRC=	main.c				\
 	builtins/check_setenv.c		\
 	builtins/check_unsetenv.c	\
 	builtins/check_which_cd.c	\
+	free/free_fptrtab.c		\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\
 	suggest/suggest.c		\

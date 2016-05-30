@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 24 13:18:46 2016 marel_m
-** Last update Wed May 25 16:34:54 2016 marel_m
+** Last update Mon May 30 22:42:17 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -14,8 +14,12 @@
 void	free_exec(t_exec *exec)
 {
   free_tab(exec->arg);
+  free(exec->arg);
   free(exec->exec);
   free(exec->good_path);
+  free_tab_int(exec->fd);
+  free(exec->fd);
+  free(exec);
 }
 
 void		free_list(t_sh *sh)
@@ -26,7 +30,7 @@ void		free_list(t_sh *sh)
 
   i = 0;
   tmp2 = sh->root->next;
-  while (i < sh->lenght - 1)
+  while (i < sh->lenght - 2)
     {
       i++;
       tmp = tmp2;
@@ -34,6 +38,18 @@ void		free_list(t_sh *sh)
       /* free_tree(tmp->node); */
       free(tmp);
     }
+}
+
+void	free_env(t_env *env)
+{
+  free_tab(env->env);
+  free(env->env);
+  free_tab(env->path);
+  free(env->path);
+  free(env->pwd);
+  free(env->oldpwd);
+  free(env->home);
+  free(env);
 }
 
 void	free_struct(t_sh *sh)

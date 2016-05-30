@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:33:30 2016 marel_m
-** Last update Sun May 29 16:22:59 2016 bougon_p
+** Last update Mon May 30 22:30:35 2016 marel_m
 */
 
 #include <string.h>
@@ -67,6 +67,8 @@ int	check_good_path_normal_case(t_sh *sh)
       if (access(sh->exec->good_path, F_OK) == 0
 	  && access(sh->exec->good_path, X_OK) == 0)
 	return (-1);
+      if (sh->env->path[i + 1] != '\0' && sh->env->path)
+	free(sh->exec->good_path);
     }
   return (0);
 }

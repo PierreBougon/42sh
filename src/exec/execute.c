@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Mon May 30 20:46:31 2016 marel_m
+** Last update Mon May 30 22:43:52 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -17,13 +17,13 @@ t_act	*init_tab_act()
 {
   t_act	*tab;
 
-  if ((tab = malloc(sizeof(t_act) * MAX_ACT)) == NULL)
+  if ((tab = malloc(sizeof(t_act) * MAX_ACT)) == NULL
+      || (tab[REDIR_RR].act = strdup(">>")) == NULL
+      || (tab[REDIR_R].act = strdup(">")) == NULL
+      || (tab[REDIR_L].act = strdup("<")) == NULL)
     return (NULL);
-  tab[REDIR_RR].act = strdup(">>");
   tab[REDIR_RR].ft_act = &double_redirection_right;
-  tab[REDIR_R].act = strdup(">");
   tab[REDIR_R].ft_act = &redirection_right;
-  tab[REDIR_L].act = strdup("<");
   tab[REDIR_L].ft_act = &redirection_left;
   return (tab);
 }
@@ -46,9 +46,10 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
   sh->exec->type = tree->type;
   if ((sh->exec->arg = my_str_to_word_tab(tree->arg, ' ')) == NULL
       || sh->exec->arg[0] == NULL
-      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL
-      || builtin_or_exec(sh))
+      || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
     return (1);
+  if ((ret = builtin_or_exec(sh)) != 0)
+    return (ret);
   return (0);
 }
 
@@ -65,11 +66,11 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
     {
       sh->exec->stop = 0;
       if ((ret = act_for_each_sep(sh, tree, fptrtab)) != 0)
-	return (ret);
+	return (free_tab_act(fptrtab), ret);
       if (tree->right)
 	tree = tree->right;
     }
-  free(fptrtab);
+  free_tab_act(fptrtab);
   return (0);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 19:02:05 2016 marel_m
+** Last update Mon May 30 22:09:46 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -194,7 +194,7 @@ char		*term(t_sh *sh)
 	      if (globing(&str) || parsing(sh, str) || execute_each_act(sh))
 		return (NULL);
 	    }
-	  free(str);
+	  free_struct(sh);
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
 	    return (NULL);
 	  str[0] = 0;

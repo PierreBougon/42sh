@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Mon May 30 21:31:30 2016 marel_m
+** Last update Mon May 30 22:04:22 2016 marel_m
 */
 
 #ifndef FPTRTAB_H_
@@ -93,5 +93,6 @@ typedef struct	s_conf_tab
 }		t_conf_tab;
 
 t_arg_act	*init_tab_arg_sep();
+void		free_tab_act(t_act *);
 
 #endif /* !FPTRTAB_H_ */
