@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Wed May 18 12:37:44 2016 Poc
-** Last update Fri May 27 14:41:53 2016 Poc
+** Last update Fri May 27 21:15:45 2016 Poc
 */
 
 #include <string.h>
@@ -13,18 +13,22 @@
 #include <unistd.h>
 #include "42s.h"
 
-int	change_word(char **str, t_aliases *node, UNUSED int pos, UNUSED int end)
+int	change_word(char **str, t_aliases *node, int pos, int end)
 {
   char	*corrected_chain;
-  /* int	i; */
-  /* int	j; */
+  int	i;
 
-  /* j = 0; */
-  /* i = 0; */
-  /* printf("change word %s\npos = %d\nend %d\n", *str, pos, end); */
+  i = strlen(*str);
   if ((corrected_chain =
-       malloc(sizeof(char) * (strlen(*str) + strlen(node->original) + 1))) == NULL)
-    return (1);
+       malloc(sizeof(char) * (strlen(*str) + strlen(node->alias) + 1))) == NULL)
+     return (1);
+  (*str)[pos] = 0;
+  (*str)[end] = 0;
+  strcpy(corrected_chain, *str);
+  strcat(corrected_chain, node->alias);
+  strcat(corrected_chain, (*str) + end + (end == i ? 0 : 1));
+  free(*str);
+  *str = corrected_chain;
   return (0);
 }
 
@@ -38,13 +42,11 @@ int	check_alias(t_aliases *head, char **str)
       while ((*str)[i])
 	{
 	  if (i == 0 || (*str)[i] == ' ')
-	    if (strcmp((*str) + (i == 0 ? i : i + 1), head->original) == 0)
-	      {
-		/* printf("i zink i now this\n"); */
-		if (change_word(str, head,
-				(i == 0 ? i : i + 1), i + strlen(head->original)))
-		  return (1);
-	      }
+	    if (strncmp((*str) + (i == 0 ? i : i + 1),
+			head->original, strlen(head->original)) == 0)
+	      if (change_word(str, head,
+			      (i == 0 ? i : i + 1), i + strlen(head->original)))
+		return (1);
 	  i++;
 	}
       head = head->next;
