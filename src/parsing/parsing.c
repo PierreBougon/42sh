@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Mon May 30 17:33:29 2016 marel_m
+** Last update Mon May 30 18:14:28 2016 marel_m
 */
 
 #include <stdio.h>
@@ -110,7 +110,7 @@ int	parsing(t_sh *sh, char *str)
   int	j;
 
   if (str == NULL)
-    return (-1);
+    return (1);
   if (create_list(sh)
       || (str = epur(str)) == NULL)
     return (1);
