@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 13:46:22 2016 Poc
-** Last update Mon May 30 15:07:39 2016 Poc
+** Last update Mon May 30 18:22:23 2016 Poc
 */
 
 #include <string.h>
@@ -39,7 +39,6 @@ int	cpy_new_env(char ***env, char *nocpy)
     {
       if (strncmp(nocpy, (*env)[i], strlen(nocpy)) == 0)
 	{
-	  printf("%s\n", nocpy);
 	  j++;
 	  bonus++;
 	}
@@ -69,7 +68,6 @@ int	create_export(UNUSED t_conf *conf, char ***env, char *str)
   int	i;
 
   i = 0;
-  printf("%s\n", str);
   if ((index = my_index(str, ' ')) == NULL)
     return (1);
   if ((value = my_index(str, '=')) == NULL)
