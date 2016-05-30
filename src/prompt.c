@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 30 16:49:29 2016 Poc
-** Last update Mon May 30 18:19:49 2016 Poc
+** Last update Mon May 30 18:40:54 2016 Poc
 */
 
 #include <string.h>
@@ -30,20 +30,25 @@ char	*get_prompt_value(char **env)
 
 char	*prompt_from_env(char **env)
 {
-  char	*env_ptr;
+  char	*value;
   char	*new;
   char	localhost[_POSIX_HOST_NAME_MAX];
 
-  printf("%d\n", _POSIX_HOST_NAME_MAX);
-  if ((env_ptr = get_prompt_value(env)) == NULL)
+  if ((value = get_prompt_value(env)) == NULL)
     {
-      if ((env_ptr = strdup("?> ")) == NULL)
+      if ((value = strdup("?> ")) == NULL)
 	return (NULL);
-      return (env_ptr);
+      return (value);
     }
   if (gethostname(localhost, _POSIX_HOST_NAME_MAX) == -1)
+      return (NULL);
+  if ((new = malloc((strlen(localhost) + strlen(value) + 4) *
+		    sizeof(char))) == NULL)
     return (NULL);
-  printf("%s\n", localhost);
-  exit (1);
-  return (env_ptr);
+  strcpy(new, value);
+  strcat(new, "@");
+  strcat(new, localhost);
+  strcat(new, " >");
+  free(value);
+  return (new);
 }
