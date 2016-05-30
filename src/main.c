@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 11:28:47 2016 Mathieu Sauvau
+** Last update Mon May 30 11:54:18 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -149,11 +149,12 @@ int		do_action(t_key_act actions[10], char **str, t_head *history)
   return (0);
 }
 
-void		get_history(int fd_history, t_head *history)
+void		get_history(t_sh *sh, t_head *history)
 {
   char		*str;
 
-  while ((str = get_next_line(fd_history)))
+  history->path = sh->env->path;
+  while ((str = get_next_line(sh->fd_history)))
     {
       push_front_history(history, str);
       free(str);
@@ -169,7 +170,7 @@ char		*term(t_sh *sh)
 
   history.first = NULL;
   history.last = NULL;
-  get_history(sh->fd_history, &history);
+  get_history(sh, &history);
   init_actions(actions);
   a = 3;
   if ((str = malloc(sizeof(char) * 10)) == NULL)
