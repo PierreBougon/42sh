@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 11:18:53 2016 Mathieu Sauvau
+** Last update Mon May 30 11:27:08 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -138,7 +138,6 @@ int		do_action(t_key_act actions[10], char **str, t_head *history)
   i = -1;
   while (buff[++i])
     {
-      printf("%d\n", i);
       if (buff[i] == '\n')
 	{
 	  printf("\n");
