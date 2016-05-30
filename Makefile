@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 30 15:28:19 2016 debrau_c
+## Last update Mon May 30 17:11:11 2016 Poc
 ##
 
 DEBUG=	no
@@ -22,6 +22,7 @@ SRC=	main.c				\
 	index.c				\
 	cursor.c			\
 	clear.c				\
+	prompt.c			\
 	$(AUTO)autocompletion.c		\
 	$(AUTO)auto_completion_find.c	\
 	$(AUTO)auto_completion_utility.c\
