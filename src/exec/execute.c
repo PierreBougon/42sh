@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Sun May 29 20:47:22 2016 marel_m
+** Last update Mon May 30 10:21:46 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -31,13 +31,14 @@ t_act	*init_tab_act()
 int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
 {
   int	i;
+  int	ret;
 
   i = -1;
   while (++i < 3)
     if (strncmp(tree->arg, fptrtab[i].act, strlen(fptrtab[i].act)) == 0)
       {
-	if (fptrtab[i].ft_act(sh, tree->left))
-	  return (1);
+	if ((ret = fptrtab[i].ft_act(sh, tree->left)) != 0)
+	  return (ret);
 	return (0);
       }
   sh->exec->type = tree->type;
@@ -53,6 +54,7 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
 {
   t_act	*fptrtab;
   int	i;
+  int	ret;
 
   sh->exec->fd = 1;
   if ((fptrtab = init_tab_act()) == NULL)
@@ -61,8 +63,8 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
   while (++i < list->nb)
     {
       sh->exec->stop = 0;
-      if (act_for_each_sep(sh, tree, fptrtab))
-	return (1);
+      if ((ret = act_for_each_sep(sh, tree, fptrtab)) != 0)
+	return (ret);
       if (tree->right)
 	tree = tree->right;
     }
@@ -70,7 +72,7 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
   return (0);
 }
 
-int	loop_execute(t_sh *sh, t_list_sh **tmp, int *i)
+void	loop_execute(t_sh *sh, t_list_sh **tmp, int *i)
 {
   if (sh->exec->stop == 0 && (*tmp)->type == DOUBLE_PIPE)
     while ((*tmp)->type == DOUBLE_PIPE)
@@ -87,7 +89,6 @@ int	loop_execute(t_sh *sh, t_list_sh **tmp, int *i)
   else
     (*tmp) = (*tmp)->next;
   (*i)++;
-  return (0);
 }
 
 int		execute_each_act(t_sh *sh)
@@ -101,9 +102,9 @@ int		execute_each_act(t_sh *sh)
   tmp = sh->root->next;
   while (i < sh->lenght - 1)
     {
-      if (check_which_config(sh, tmp, tmp->node)
-	  || loop_execute(sh, &tmp, &i))
+      if (check_which_config(sh, tmp, tmp->node) == 1)
 	return (1);
+      loop_execute(sh, &tmp, &i);
     }
   free_struct(sh);
   return (0);

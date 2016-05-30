@@ -243,24 +243,16 @@ src/builtins/check_builtins.c,77
 t_blt	*init_tab_builtins(init_tab_builtins16,331
 int	check_builtin(35,765
 
-src/exec/old_exec.c,187
-int	no_separator(16,317
-t_act	*init_tab_act(init_tab_act25,578
-int	act_for_which_sep(42,1026
-int	check_which_config(69,1563
-int	loop_execute(86,1894
-int		execute_each_act(106,2306
-
 src/exec/builtin_or_exec.c,91
 int	action_redir(16,333
 int	action(32,676
-int	exec(61,1221
-int	builtin_or_exec(73,1387
+int	exec(62,1272
+int	builtin_or_exec(74,1438
 
 src/exec/redirections.c,96
-int	redirection_right(18,370
-int	redirection_left(27,570
-int	double_redirection_right(35,737
+int	redirection_right(19,390
+int	redirection_left(28,590
+int	double_redirection_right(40,872
 
 src/exec/check_good_path.c,152
 void	wrong_access(16,332
@@ -269,13 +261,12 @@ int	check_wrong_path(28,585
 int	check_good_path_normal_case(47,1023
 int	check_good_path(66,1530
 
-src/exec/execute.c,187
-int	no_separator(16,317
-t_act	*init_tab_act(init_tab_act25,578
-int	act_for_each_sep(62,1529
-int	check_which_config(84,2043
-int	loop_execute(106,2459
-int		execute_each_act(126,2871
+src/exec/execute.c,160
+t_act	*init_tab_act(init_tab_act16,317
+int	act_for_each_sep(31,692
+int	check_which_config(53,1221
+void	loop_execute(75,1630
+int		execute_each_act(94,2029
 
 src/actions.c,87
 void		move_left(18,343

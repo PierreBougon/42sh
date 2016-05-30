@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 20 13:59:36 2016 marel_m
-** Last update Sun May 29 20:40:55 2016 marel_m
+** Last update Mon May 30 10:22:46 2016 marel_m
 */
 
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -28,13 +29,16 @@ int	redirection_left(t_sh *sh, t_node *tree)
 {
   sh->exec->type = tree->type;
   if ((sh->exec->fd = open(tree->arg, O_RDONLY)) == -1)
-    return (1);
+    {
+      write(2, tree->arg, strlen(tree->arg));
+      write(2, ": No such file or directory.\n", 29);
+      return (-1);
+    }
   return (0);
 }
 
 int	double_redirection_right(t_sh *sh, t_node *tree)
 {
-  printf("toto\n");
   sh->exec->type = tree->type;
   if ((sh->exec->fd = open(tree->arg, O_CREAT | O_WRONLY | O_APPEND, 0644))
       == -1)
