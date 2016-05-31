@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 14:12:02 2016 marel_m
-** Last update Tue May 31 14:54:53 2016 marel_m
+** Last update Tue May 31 16:05:38 2016 marel_m
 */
 
 #include <string.h>
@@ -51,7 +51,7 @@ char	*path_find(char *str)
   char	*path;
 
   if ((path = getcwd(NULL, 0)) == NULL
-      || (path = realloc(path, strlen(path) + strlen(str) + 1)) == NULL
+      || (path = realloc(path, strlen(path) + strlen(str) + 3)) == NULL
       || (path = strcat(path, "/")) == NULL
       || (path = strcat(path, str)) == NULL)
     return (NULL);
