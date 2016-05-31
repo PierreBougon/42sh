@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 31 13:56:59 2016 Mathieu Sauvau
-** Last update Tue May 31 13:58:41 2016 Mathieu Sauvau
+** Last update Tue May 31 18:22:12 2016 Mathieu Sauvau
 */
 
 #include <string.h>

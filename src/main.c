@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 18:47:00 2016 bougon_p
+** Last update Tue May 31 19:00:16 2016 bougon_p
 */
 
 #include <sys/ioctl.h>
@@ -35,7 +35,7 @@ void	my_show_tab(char **str)
     }
 }
 
-int		init_actions_next(t_key_act actions[11])
+int		init_actions_next(t_key_act actions[12])
 {
   actions[0].fct = &move_left;
   actions[1].fct = &move_right;
@@ -47,17 +47,18 @@ int		init_actions_next(t_key_act actions[11])
   actions[7].fct = &history_down;
   actions[8].fct = &auto_complet;
   actions[9].fct = &clear_scr;
-  actions[10].fct = &backspace;
+  actions[10].fct = &del;
+  actions[11].fct = &backspace;
   return (0);
 }
 
-int		init_actions(t_key_act actions[11])
+int		init_actions(t_key_act actions[12])
 {
   char		*str;
-  char		del[2];
+  char		backs[2];
 
-  del[0] = 127;
-  del[1] = 0;
+  backs[0] = 127;
+  backs[1] = 0;
   if ((str = tigetstr("kcub1")) == (char *)-1 ||
       !(actions[0].key = strdup(str)) ||
       (str = tigetstr("kcuf1")) == (char *)-1 ||
@@ -76,7 +77,9 @@ int		init_actions(t_key_act actions[11])
       !(actions[7].key = strdup(str)) ||
       !(actions[8].key = strdup("\t")) ||
       !(actions[9].key = strdup("\f")) ||
-      !(actions[10].key = strdup(&del[0])))
+      (str = tigetstr("kdch1")) == (char *)-1 ||
+      !(actions[10].key = strdup(str)) ||
+      !(actions[11].key = strdup(&backs[0])))
     return (-1);
   return (init_actions_next(actions));
 }
@@ -126,7 +129,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   return (0);
 }
 
-int		do_action(t_key_act actions[11], char **str,
+int		do_action(t_key_act actions[12], char **str,
 			  t_head *history, char *prompt)
 {
   static int	cur_pos;
@@ -143,7 +146,7 @@ int		do_action(t_key_act actions[11], char **str,
   /* while (++j < 10) */
   /*   printf("\n%d\n", buff[j]); */
 
-  while (++i < 11)
+  while (++i < 12)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -186,7 +189,7 @@ int		pars_check_exec(t_sh *sh, char *str)
   return (0);
 }
 
-int		term_func_01(t_sh *sh, t_key_act actions[11],
+int		term_func_01(t_sh *sh, t_key_act actions[12],
 			     char **str, t_head *history)
 {
   init_actions(actions);
@@ -238,7 +241,7 @@ int		test(char **str, t_sh *sh, t_head *history, int *a)
 int		term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[11];
+  t_key_act	actions[12];
   int		a;
   t_head	history;
 
