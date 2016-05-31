@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 17:39:20 2016 Mathieu Sauvau
-** Last update Tue May 31 16:15:37 2016 Mathieu Sauvau
+** Last update Tue May 31 23:22:25 2016 marel_m
 */
 
 #include <unistd.h>
@@ -20,7 +20,7 @@ void		push_front_history(t_head *history, char *str)
 {
   t_history	*new;
 
-  if(!str || !str[0] ||
+  if (!str || !str[0] ||
      (new = malloc(sizeof(t_history))) == NULL)
     return ;
   new->str = strdup(str);
