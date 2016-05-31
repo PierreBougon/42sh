@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:00:59 2016 Mathieu Sauvau
-** Last update Tue May 31 11:14:04 2016 Mathieu Sauvau
+** Last update Tue May 31 13:57:15 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -42,38 +42,11 @@ int		find_in_(char *path, char *str, char **res, int in_env_path)
   return (i);
 }
 
-int		find_in_env_path(char **env_path, char *elem, char **res)
-{
-  int		i;
-  int		n;
-
-  i = -1;
-  n = 0;
-  while (env_path[++i])
-    {
-      n += find_in_(env_path[i], elem, res, 1);
-    }
-  return (n);
-}
-
-int		show_bin(t_autoc *autoc)
-{
-  if (autoc->i_elem == 1 || //autoc->i_elem % 2 == 0 ||
-      strcmp(autoc->tab_str[autoc->i_elem - 2], "|") == 0 ||
-      strcmp(autoc->tab_str[autoc->i_elem - 2], "||") == 0 ||
-      strcmp(autoc->tab_str[autoc->i_elem - 2], "&&") == 0 ||
-      strcmp(autoc->tab_str[autoc->i_elem - 2], ";") == 0)
-    return (1);
-  printf("no show bin\n");
-  return (0);
-}
-
 int		find_anywhere(char **env_path, char **res, t_autoc *autoc)
 {
   int		n;
 
   n = 0;
-  printf("%d\n", autoc->i_elem);
   if (autoc->i_elem >= 1)
     {
       if (show_bin(autoc))
@@ -84,32 +57,7 @@ int		find_anywhere(char **env_path, char **res, t_autoc *autoc)
   return (n);
 }
 
-int	nb_word_tab(char **tab)
-{
-  int	i;
-
-  if (!tab)
-    return (0);
-  i = -1;
-  while (tab[++i]);
-  return (i);
-}
-
-void	del_substring(char *str, char *to_rm)
-{
-  while ((str = strstr(str, to_rm)))
-    memmove(str, str + strlen(to_rm), 1 + strlen(str + strlen(to_rm)));
-}
-
-char	*get_new_str(char **str, char *path, char *elem, char *res)
-{
-  if (!(*str = realloc(*str, strlen(*str) + strlen(path) + strlen(res) + 1)))
-    return (NULL);
-  del_substring(*str, elem);
-  return (*str);
-}
-
-char		**find_routine(char **str, char **env_path, t_autoc *autoc)
+  char		**find_routine(char **str, char **env_path, t_autoc *autoc)
 {
   char		*res;
   char		**tab;
@@ -130,17 +78,17 @@ char		**find_routine(char **str, char **env_path, t_autoc *autoc)
   return (free(res), tab);
 }
 
-
-
-char		**find_match(char **env_path, char **str)
+char		**find_match(char **env_path, char **str, int pos)
 {
   t_autoc	autoc;
   char		**tab;
   char		*cur_str;
 
   cur_str = *str;
+  autoc.tab_str = NULL;
+  autoc.show = 1;
   autoc.i_elem = 0;
-  if (*str && *str[0])
+  if (*str && (*str)[0])
     {
       if ((autoc.tab_str = my_str_to_word_tab(*str, ' ')))
 	{
@@ -150,7 +98,7 @@ char		**find_match(char **env_path, char **str)
     }
   if (!(autoc.path = get_path(cur_str)))
     return (NULL);
-  if (*str && *str[0])
+  if (*str && (*str)[0])
     {
       if (!(autoc.elem = get_elem(cur_str)))
 	return (NULL);
@@ -160,12 +108,13 @@ char		**find_match(char **env_path, char **str)
       if (!(autoc.elem = strdup(cur_str)))
 	return (NULL);
     }
+  if (pos > 1 && (*str)[pos - 1] == ' ')
+    {
+      autoc.elem[0] = 0;
+      autoc.show = 0;
+    }
   tab = find_routine(str, env_path, &autoc);
   printf("\npath %s elem %s\n", autoc.path, autoc.elem);
-  /*
-FREE AUTOC TAB
-   */
-  free(autoc.path);
-  free(autoc.elem);
+  free_autoc(&autoc);
   return (tab);
 }

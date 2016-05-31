@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 15:27:20 2016 Mathieu Sauvau
-** Last update Mon May 30 16:02:12 2016 Mathieu Sauvau
+** Last update Tue May 31 12:53:45 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -84,10 +84,11 @@ void			auto_complet(char **str, int *pos,
   struct winsize	w;
 
   ioctl(0, TIOCGWINSZ, &w);
-  tab = find_match(history->path, str);
+  tab = find_match(history->path, str, *pos);
   print_word_tab(tab, w.ws_col);
   cursor_forward(strlen(*str));
   *pos = strlen(*str);
+  free_word_tab(tab);
   printf("\nhey ->%s", *str);
   fflush(stdout);
 }
