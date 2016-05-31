@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Tue May 31 14:14:06 2016 marel_m
+** Last update Tue May 31 15:00:06 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -160,6 +160,7 @@ int			arg_redir_l(char **);
 int			arg_redir_rr(char **);
 int			arg_redir_ll(char **);
 int			verif_good_synthax(char *);
+int			verif_good_synthax_string(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION
@@ -203,7 +204,6 @@ int			redirection_right(t_sh *, t_node *);
 int			redirection_left(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
-int			verif_good_synthax(char *);
 
 /*
 ** ENV

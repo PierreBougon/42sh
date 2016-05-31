@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 15:48:13 2016 marel_m
-** Last update Wed May 18 19:25:44 2016 marel_m
+** Last update Tue May 31 14:54:09 2016 marel_m
 */
 
 #include <unistd.h>
@@ -83,7 +83,10 @@ int	my_setenv(t_sh *sh)
 	return (1);
     }
   else if (sh->exec->arg[3] != '\0')
-    write(2, "setenv : Too many arguments.\n", 29);
+    {
+      write(2, "setenv : Too many arguments.\n", 29);
+      sh->exit = 1;
+    }
   if (sh->exec->arg[1] != '\0' && strcmp(sh->exec->arg[1], "PATH") == 0)
     {
       free_tab(sh->env->path);
