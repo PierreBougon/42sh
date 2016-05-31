@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 13:13:57 2016 Poc
+** Last update Tue May 31 16:38:54 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -100,10 +100,12 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   char		*start;
   char		*end;
 
-  start = strdup(*str);
+  if ((start = strdup(*str)) == NULL)
+    return (1);
   start[*curs_pos] = 0;
-  end = strdup(*str + *curs_pos);
-  *str = realloc(*str, strlen(*str) + strlen(buff) + 1);
+  if ((end = strdup(*str + *curs_pos)) == NULL ||
+      (*str = realloc(*str, strlen(*str) + strlen(buff) + 1)) == NULL)
+    return (1);
   strcpy(*str, start);
   strcat(*str, buff);
   strcat(*str, end);
@@ -174,61 +176,77 @@ int		pars_check_exec(t_sh *sh, char *str)
   return (0);
 }
 
+int		term_func_01(t_sh *sh, t_key_act actions[10],
+			     char **str, t_head *history)
+{
+  init_actions(actions);
+  history->first = NULL;
+  history->last = NULL;
+  get_history(sh, history);
+  if (((*str) = malloc(sizeof(char) * 10)) == NULL ||
+      (history->prompt = prompt_from_env(sh->env->env)) == NULL)
+    return (1);
+  write(1, history->prompt, strlen(history->prompt));
+  (*str)[0] = 0;
+  if (!memset((*str), 0, 10))
+    return (1);
+  return (0);
+}
+
+int		execution(char *str, t_head *history, t_sh *sh)
+{
+  if (str && str[0])
+    push_front_history(history, str);
+  if (sh->fd_history > 0)
+    dprintf(sh->fd_history, "%s\n", str);
+  check_alias(sh->conf.head, &str);
+  if (globing(&str) || pars_check_exec(sh, str))
+    return (1);
+  return (0);
+}
+
+int		test(char **str, t_sh *sh, t_head *history, int *a)
+{
+  if (*str && (*str)[0] && execution(*str, history, sh))
+    return (1);
+  /* free_struct(sh); */
+  if (isatty(0))
+    {
+      if ((*str = malloc(sizeof(char) * 10)) == NULL)
+	return (1);
+      (*str)[0] = 0;
+      write(1, history->prompt, strlen(history->prompt));
+    }
+  else
+    {
+      *a = *a;
+      *a = 0;
+    }
+  return (0);
+}
+
 int		term(t_sh *sh)
 {
   char		*str;
   t_key_act	actions[10];
   int		a;
   t_head	history;
-  char		*prompt;
 
-  if (isatty(0))
-    {
-      init_actions(actions);
-      history.first = NULL;
-      history.last = NULL;
-      get_history(sh, &history);
-      if ((str = malloc(sizeof(char) * 10)) == NULL ||
-	  (prompt = prompt_from_env(sh->env->env)) == NULL)
-	return (1);
-      write(1, prompt, strlen(prompt));
-      str[0] = 0;
-      memset(str, 0, 10);
-    }
+  if (isatty(0) && term_func_01(sh, actions, &str, &history))
+    return (1);
   a = 3;
   while (42)
     {
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
-      	    return 1;
+      	    return (1);
       	  a = 3;
       	}
       else
-	a = do_action(actions, &str, &history, prompt);
-      if (a == 3)
-	{
-	  if (str && str[0])
-	    {
-	      check_alias(sh->conf.head, &str);
-	      if (globing(&str) || pars_check_exec(sh, str))
-		return (1);
-	    }
-	  /* free_struct(sh); */
-	  if (isatty(0))
-	    {
-	      if (str && str[0])
-		push_front_history(&history, str);
-	      if (sh->fd_history > 0)
-		dprintf(sh->fd_history, "%s\n", str);
-	      if ((str = malloc(sizeof(char) * 10)) == NULL)
-		return (1);
-	      str[0] = 0;
-	      write(1, prompt, strlen(prompt));
-	    }
-	  else
-	    a = 0;
- 	}
+	a = do_action(actions, &str, &history, history.prompt);
+      if (a == 3 && test(&str, sh, &history, &a))
+	return (1);
     }
   return (0);
 }
