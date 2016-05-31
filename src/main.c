@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 21:30:43 2016 debrau_c
+** Last update Tue May 31 23:10:32 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -183,9 +183,13 @@ void		get_history(t_sh *sh, t_head *history)
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
-  if ((str = epur(str)) == NULL || verif_good_synthax_string(sh, str)
-      || parsing(sh, str) || execute_each_act(sh))
-      return (1);
+  if ((str = epur(str)) == NULL)
+    return (1);
+  if (verif_good_synthax_string(sh, str)
+      || verif_good_order_sep(sh, str))
+    return (0);
+  if (parsing(sh, str) || execute_each_act(sh))
+    return (1);
   /* free_struct(sh); */
   return (0);
 }
