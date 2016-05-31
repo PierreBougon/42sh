@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 12:13:59 2016 Poc
+** Last update Tue May 31 12:15:21 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -164,6 +164,15 @@ void		get_history(t_sh *sh, t_head *history)
     }
 }
 
+int		pars_check_exec(t_sh *sh, char *str)
+{
+  if (verif_good_synthax(str))
+    return (0);
+  if (parsing(sh, str) || execute_each_act(sh))
+    return (1);
+  return (0);
+}
+
 int		term(t_sh *sh)
 {
   char		*str;
@@ -201,7 +210,7 @@ int		term(t_sh *sh)
 	  if (str && str[0])
 	    {
 	      check_alias(sh->conf.head, &str);
-	      if (globing(&str) ||parsing(sh, str) || execute_each_act(sh))
+	      if (globing(&str) || pars_check_exec(sh, str))
 		return (1);
 	    }
 	  /* free_struct(sh); */

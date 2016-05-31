@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Mon May 30 22:07:35 2016 marel_m
+** Last update Tue May 31 11:28:32 2016 marel_m
 */
 
 #include <stdio.h>
@@ -81,7 +81,8 @@ int	which_separator(t_sh *sh, char *str, int *i, int *j)
 {
   if (str[(*i)] == ';')
     {
-      stock_elem(sh, str, *j, *i);
+      if (stock_elem(sh, str, *j, *i))
+	return (1);
       (*i)++;
       *j = *i;
       sh->root->prev->type = SEMICOLON;
@@ -89,7 +90,8 @@ int	which_separator(t_sh *sh, char *str, int *i, int *j)
     }
   else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
     {
-      stock_elem(sh, str, *j, *i);
+      if (stock_elem(sh, str, *j, *i))
+	return (1);
       *i += 2;
       *j = *i;
       sh->root->prev->type = DOUBLE_AND;
@@ -97,31 +99,34 @@ int	which_separator(t_sh *sh, char *str, int *i, int *j)
     }
   else if (str[(*i)] == '|' && str[(*i) + 1] == '|')
     {
-      stock_elem(sh, str, *j, *i);
+      if (stock_elem(sh, str, *j, *i))
+	return (1);
       *i += 2;
       *j = *i;
       sh->root->prev->type = DOUBLE_PIPE;
       return (0);
     }
-  return (1);
+  return (-1);
 }
 
 int	parsing(t_sh *sh, char *str)
 {
   int	i;
   int	j;
+  int	ret;
 
   if (str == NULL)
     return (1);
-  if (create_list(sh)
-      || (str = epur(str)) == NULL)
+  if (create_list(sh))
     return (1);
   i = 0;
   j = 0;
   while (str && str[i] != '\0')
     {
-      if (which_separator(sh, str, &i, &j))
+      if ((ret = which_separator(sh, str, &i, &j)) == -1)
 	i++;
+      else if (ret == 1)
+	return (1);
     }
   if (stock_elem(sh, str, j, i))
     return (1);
