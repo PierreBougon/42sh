@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 17:39:20 2016 Mathieu Sauvau
-** Last update Mon May 23 17:18:31 2016 Mathieu Sauvau
+** Last update Tue May 31 16:15:37 2016 Mathieu Sauvau
 */
 
 #include <unistd.h>
@@ -54,7 +54,7 @@ void		print_history(t_history *history)
 }
 
 char		*seek_prev_history(t_history *history, char *str,
-					   int *i_history)
+				   int *i_history)
 {
   int		i;
 
@@ -74,7 +74,7 @@ char		*seek_prev_history(t_history *history, char *str,
 }
 
 char		*seek_next_history(t_history *history, char *str,
-					   int *i_history)
+				   int *i_history)
 {
   int		i;
 
@@ -107,8 +107,8 @@ void		history_up(char **str, int *pos,
 	}
       *pos = strlen(*str);
       fflush(stdout);
-      write(1, "\rhey ->", 7);
-      write(1, *str, strlen(*str));
+      printf("\r%s%s", history->prompt, *str);
+      fflush(stdout);
     }
 }
 
@@ -129,7 +129,7 @@ void		history_down(char **str, int *pos,
 	}
       *pos = strlen(*str);
       fflush(stdout);
-      write(1, "\rhey ->", 7);
-      write(1, *str, strlen(*str));
+      printf("\r%s%s", history->prompt, *str);
+      fflush(stdout);
     }
 }
