@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:00:59 2016 Mathieu Sauvau
-** Last update Mon May 30 17:58:01 2016 Mathieu Sauvau
+** Last update Tue May 31 11:14:04 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -56,16 +56,31 @@ int		find_in_env_path(char **env_path, char *elem, char **res)
   return (n);
 }
 
+int		show_bin(t_autoc *autoc)
+{
+  if (autoc->i_elem == 1 || //autoc->i_elem % 2 == 0 ||
+      strcmp(autoc->tab_str[autoc->i_elem - 2], "|") == 0 ||
+      strcmp(autoc->tab_str[autoc->i_elem - 2], "||") == 0 ||
+      strcmp(autoc->tab_str[autoc->i_elem - 2], "&&") == 0 ||
+      strcmp(autoc->tab_str[autoc->i_elem - 2], ";") == 0)
+    return (1);
+  printf("no show bin\n");
+  return (0);
+}
+
 int		find_anywhere(char **env_path, char **res, t_autoc *autoc)
 {
   int		n;
 
   n = 0;
   printf("%d\n", autoc->i_elem);
-  if (autoc->i_elem == 0)
-    n += find_in_env_path(env_path, autoc->elem, res);
-  else
-    n += find_in_(autoc->path, autoc->elem, res, 0);
+  if (autoc->i_elem >= 1)
+    {
+      if (show_bin(autoc))
+	n += find_in_env_path(env_path, autoc->elem, res);
+      else
+	n += find_in_(autoc->path, autoc->elem, res, 0);
+    }
   return (n);
 }
 
@@ -77,23 +92,7 @@ int	nb_word_tab(char **tab)
     return (0);
   i = -1;
   while (tab[++i]);
-  return (i - 1);
-}
-
-int	add_path(char **env_path, char *path)
-{
-  int	i;
-
-  i = -1;
-  if (strcmp(path, ".") == 0 ||
-      strcmp(path, "/") == 0)
-    return (0);
-  while (env_path[++i])
-    {
-      if (strcmp(path, env_path[i]) == 0)
-	return (0);
-    }
-  return(1);
+  return (i);
 }
 
 void	del_substring(char *str, char *to_rm)
@@ -102,9 +101,9 @@ void	del_substring(char *str, char *to_rm)
     memmove(str, str + strlen(to_rm), 1 + strlen(str + strlen(to_rm)));
 }
 
-char	*get_new_str(char **str, char *path, char *elem)
+char	*get_new_str(char **str, char *path, char *elem, char *res)
 {
-  if (!(*str = realloc(*str, strlen(*str) + strlen(path) + 2)))
+  if (!(*str = realloc(*str, strlen(*str) + strlen(path) + strlen(res) + 1)))
     return (NULL);
   del_substring(*str, elem);
   return (*str);
@@ -121,11 +120,9 @@ char		**find_routine(char **str, char **env_path, t_autoc *autoc)
   res[0] = 0;
   if (find_anywhere(env_path, &res, autoc) == 1)
     {
-      if (!get_new_str(str, autoc->path, autoc->elem))
+      if (!get_new_str(str, autoc->path, autoc->elem, res))
 	return (NULL);
       res[strlen(res) - 1] = 0;
-      /* if (add_path(env_path,autoc->path)) */
-      /* 	strcat(*str, autoc->path); */
       strcat(*str, res);
     }
   else
@@ -148,7 +145,7 @@ char		**find_match(char **env_path, char **str)
       if ((autoc.tab_str = my_str_to_word_tab(*str, ' ')))
 	{
 	  autoc.i_elem = nb_word_tab(autoc.tab_str);
-	  cur_str = autoc.tab_str[autoc.i_elem];
+	  cur_str = autoc.tab_str[autoc.i_elem - 1];
 	}
     }
   if (!(autoc.path = get_path(cur_str)))
