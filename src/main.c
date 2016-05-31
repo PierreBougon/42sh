@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 16:43:45 2016 Poc
+** Last update Tue May 31 16:57:02 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -46,7 +46,7 @@ int		init_actions_next(t_key_act actions[10])
   actions[6].fct = &history_up;
   actions[7].fct = &history_down;
   actions[8].fct = &auto_complet;
-  actions[9].fct = &clear_scr;
+  actions[9].fct = &del;
   return (0);
 }
 
@@ -71,7 +71,8 @@ int		init_actions(t_key_act actions[10])
       (str = tigetstr("kcud1")) == (char *)-1 ||
       !(actions[7].key = strdup(str)) ||
       !(actions[8].key = strdup("\t")) ||
-      !(actions[9].key = strdup("^L")))
+      (str = tigetstr("kdch1")) == (char *)-1 ||
+      !(actions[9].key = strdup(str)))
     return (-1);
   return (init_actions_next(actions));
 }
