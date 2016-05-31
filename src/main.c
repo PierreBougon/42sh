@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 12:15:21 2016 Poc
+** Last update Tue May 31 13:13:57 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -130,6 +130,7 @@ int		do_action(t_key_act actions[10], char **str,
   i = -1;
   memset(buff, 0, 11);
   read(0, buff, 10);
+  history->prompt = prompt;
   while (++i < 10)
     {
       if (strcmp(buff, actions[i].key) == 0)
