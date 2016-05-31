@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:33:30 2016 marel_m
-** Last update Tue May 31 13:39:42 2016 marel_m
+** Last update Tue May 31 14:14:20 2016 marel_m
 */
 
 #include <string.h>
@@ -34,6 +34,7 @@ int	wrong_command(t_sh *sh)
 int	check_wrong_path(t_sh *sh)
 {
   sh->exec->stop = 1;
+  sh->exit = 1;
   if (sh->exec->good_path == '\0')
     {
       write(2, sh->exec->exec, strlen(sh->exec->exec));
@@ -95,6 +96,6 @@ int	check_good_path(t_sh *sh)
     if ((ret = check_good_path_normal_case(sh)) != 0)
       return (ret);
   if (check_wrong_path(sh))
-    return (1);
+    return (-1);
   return (0);
 }

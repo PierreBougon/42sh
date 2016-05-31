@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 13:46:39 2016 marel_m
+** Last update Tue May 31 14:14:52 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -196,12 +196,13 @@ int		term(t_sh *sh)
       memset(str, 0, 10);
     }
   a = 3;
+  sh->exit = 0;
   while (42)
     {
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
-      	    return (0);
+      	    return (sh->exit);
       	  a = 3;
       	}
       else
