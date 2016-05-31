@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Tue May 31 11:57:22 2016 marel_m
+** Last update Tue May 31 14:59:47 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -128,7 +128,7 @@ int	if_is_a_separator(char *str, int *i, int *j)
   return (-1);
 }
 
-int    verif_good_synthax(char *str)
+int    verif_good_synthax_string(t_sh *sh, char *str)
 {
   int	i;
   int	j;
@@ -141,9 +141,15 @@ int    verif_good_synthax(char *str)
       if ((ret = if_is_a_separator(str, &i, &j)) == -1)
 	i++;
       else if (ret == 1)
-	return (1);
+	{
+	  sh->exit = 1;
+	  return (1);
+	}
     }
   if (check_synthax(str, j, i))
-    return (1);
+    {
+      sh->exit = 1;
+      return (1);
+    }
   return (0);
 }

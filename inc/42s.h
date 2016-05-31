@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Tue May 31 12:22:35 2016 Poc
+// Last update Tue May 31 15:58:08 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -23,6 +23,15 @@ typedef struct		s_key_action
   char			*key;
   void			(*fct)(char **, int *, t_head *, int *);
 }			t_key_act;
+
+typedef struct		s_auto_completion
+{
+  char			**tab_str;
+  int			i_elem;
+  int			show;
+  char			*path;
+  char			*elem;
+}			t_autoc;
 
 typedef enum		e_type
   {
@@ -86,7 +95,6 @@ typedef struct		s_exec
   char			*exec;
   int			**fd;
   char			*good_path;
-  int			exit;
   int			stop;
   t_type		type;
 }			t_exec;
@@ -95,6 +103,7 @@ typedef struct		s_sh
 {
   t_list_sh		*root;
   int			lenght;
+  int			exit;
   t_node		*tree;
   t_env			*env;
   t_exec		*exec;
@@ -159,14 +168,16 @@ int			arg_redir_r(char **);
 int			arg_redir_l(char **);
 int			arg_redir_rr(char **);
 int			arg_redir_ll(char **);
+int			verif_good_synthax(char *);
+int			verif_good_synthax_string(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION
 */
-char			**find_match(char **);
-char			**find_routine(char **, char *, char *);
-int			find_in_(char *, char *, char **);
-char			*get_all_dir_path(char *, char *);
+char			**find_match(char **, char **, int);
+char			**find_routine(char **, char **, t_autoc *);
+int			find_in_(char *, char *, char **, int);
+char			*get_all_dir_path(char *, char *, int);
 int			get_max_len(char **);
 int			strlen_b_slash(char *);
 char			*revstr(char *);
@@ -174,6 +185,12 @@ void			print_word_tab(char **, int);
 char			**get_res(char **, char *, char *, struct stat *);
 char			*get_elem(char *);
 char			*get_path(char *);
+int			nb_word_tab(char **);
+void			del_substring(char *, char *);
+char			*get_new_str(char **, char *, char *, char *);
+int			show_bin(t_autoc *);
+int			find_in_env_path(char **, char *, char **);
+void			free_autoc(t_autoc *);
 
 /*
 **BUILTINS
@@ -202,7 +219,6 @@ int			redirection_right(t_sh *, t_node *);
 int			redirection_left(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
-int			verif_good_synthax(char *);
 
 /*
 ** ENV
@@ -231,6 +247,7 @@ char			*my_strcat(char *, char *);
 */
 void			free_exec(t_exec *);
 void			free_struct(t_sh *);
+void			free_word_tab(char **);
 void			print_tree(t_node *);
 void			free_env(t_env *);
 void			free_tab_int(int **);

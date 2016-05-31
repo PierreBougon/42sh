@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Mon May 30 22:42:37 2016 marel_m
+** Last update Tue May 31 14:56:02 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -47,7 +47,10 @@ int	action(t_sh *sh)
       if (wait(&status) == -1)
 	return (1);
       if (WIFSIGNALED(status))
-	write(2, "Segmentation fault\n", 19);
+	{
+	  write(2, "Segmentation fault\n", 19);
+	  sh->exit = 1;
+	}
     }
   if (sh->exec->fd[0][0] != 1)
     {

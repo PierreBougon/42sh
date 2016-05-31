@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 15:44:57 2016 marel_m
-** Last update Mon May 30 22:47:49 2016 marel_m
+** Last update Tue May 31 14:13:51 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -29,10 +29,10 @@ void		free_aliases(t_conf *conf)
 int		my_exit(t_sh *sh)
 {
   if (sh->exec->arg[1] != NULL)
-    sh->exec->exit = atoi(sh->exec->arg[1]);
+    sh->exit = atoi(sh->exec->arg[1]);
   else
-    sh->exec->exit = 0;
+    sh->exit = 0;
   free_env(sh->env);
   free_aliases(&sh->conf);
-  return (1);
+  exit(sh->exit);
 }

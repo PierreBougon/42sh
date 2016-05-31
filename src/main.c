@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 16:38:54 2016 Poc
+** Last update Tue May 31 16:43:45 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -169,10 +169,10 @@ void		get_history(t_sh *sh, t_head *history)
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
-  if (verif_good_synthax(str))
-    return (0);
-  if (parsing(sh, str) || execute_each_act(sh))
-    return (1);
+  if ((str = epur(str)) == NULL || verif_good_synthax_string(sh, str)
+      || parsing(sh, str) || execute_each_act(sh))
+      return (1);
+  /* free_struct(sh); */
   return (0);
 }
 
@@ -235,12 +235,13 @@ int		term(t_sh *sh)
   if (isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
   a = 3;
+  sh->exit = 0;
   while (42)
     {
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
-      	    return (1);
+	    return (sh->exit);
       	  a = 3;
       	}
       else
