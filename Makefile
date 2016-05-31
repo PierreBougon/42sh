@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 30 17:17:28 2016 bougon_p
+## Last update Tue May 31 17:51:44 2016 bougon_p
 ##
 
 DEBUG=	no
@@ -22,6 +22,7 @@ SRC=	main.c				\
 	index.c				\
 	cursor.c			\
 	clear.c				\
+	convert_base.c			\
 	$(AUTO)autocompletion.c		\
 	$(AUTO)auto_completion_find.c	\
 	$(AUTO)auto_completion_utility.c\
@@ -64,6 +65,9 @@ SRC=	main.c				\
 	builtins/display_echo.c		\
 	builtins/check_spe_opt.c	\
 	builtins/print_spe_echo.c	\
+	builtins/print_hexoct.c		\
+	builtins/print_str.c		\
+	builtins/init_echo.c		\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\
 	suggest/suggest.c		\

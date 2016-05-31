@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 30 18:15:26 2016 bougon_p
+** Last update Tue May 31 17:53:39 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -226,6 +226,12 @@ void			print_hexa(void);
 void			print_squote(void);
 void			print_dquote(void);
 bool			opt_exist(char *, t_echo *);
+int			print_octal_char(char *);
+int			print_hexa_char(char *);
+void			print_str_no_change(char *);
+void			print_str_changed(char *, t_echo *);
+void			invert(bool *, bool *, char);
+void			init_tab(t_echo *);
 
 /*
 **EXEC
@@ -271,6 +277,11 @@ void			print_tree(t_node *);
 /*
 ** Suggest algorithm
 */
-int	suggest(t_sh *, char *);
+int			suggest(t_sh *, char *);
+
+/*
+** Convert base
+*/
+unsigned int		my_getnbr_base_limit(char *, char *, unsigned int, int *);
 
 #endif /* _42s_H_ */

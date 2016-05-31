@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 16:23:51 2016 bougon_p
-** Last update Mon May 30 17:29:31 2016 bougon_p
+** Last update Tue May 31 17:04:32 2016 bougon_p
 */
 
 #include <stdbool.h>
@@ -31,54 +31,21 @@ int	init_opt(t_echo *opt)
   return (0);
 }
 
-void	debug_opt(t_echo *opt)
-{
-  printf("=== OPT ===\n");
-  if (opt->opt_e)
-    printf("e = True\n");
-  else
-    printf("e = False\n");
-  if (opt->opt_E)
-    printf("E = True\n");
-  else
-    printf("E = False\n");
-  if (opt->opt_n)
-    printf("n = True\n");
-  else
-    printf("n = False\n");
-  if (opt->opt_vers)
-    printf("vers = True\n");
-  else
-    printf("vers = False\n");
-  if (opt->opt_help)
-    printf("help = True\n");
-  else
-    printf("help = False\n");
-  printf("===     ===\n");
-}
-
 int		my_echo(t_sh *sh)
 {
   t_echo	opt;
 
-  init_opt(&opt);
+  if (init_opt(&opt) == 1)
+    return (1);
   parse_opt(&opt, sh);
   if (opt.opt_e)
     opt.opt_E = false;
-  debug_opt(&opt);
   if (opt.opt_vers)
-    {
-      printf("%s\n", ECHO_VERSION);
-      return (0);
-    }
+    printf("%s\n", ECHO_VERSION);
   else if (opt.opt_help)
-    {
-      print_help();
-      return (0);
-    }
+    print_help();
   else
-    {
-      print_echo(&opt, &sh->exec->arg[1]);
-    }
+    print_echo(&opt, &sh->exec->arg[1]);
+  free(opt.opt_tab);
   return (0);
 }
