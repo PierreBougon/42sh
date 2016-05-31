@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Tue May 31 14:59:47 2016 marel_m
+** Last update Tue May 31 17:14:31 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -111,18 +111,24 @@ int	if_is_a_separator(char *str, int *i, int *j)
     {
       if (check_synthax(str, *j, *i))
 	return (1);
+      (*i)++;
+      *j = *i;
       return (0);
     }
   else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
     {
       if (check_synthax(str, *j, *i))
 	return (1);
+      *i += 2;
+      *j = *i;
       return (0);
     }
   else if (str[(*i)] == '|' && str[(*i) + 1] == '|')
     {
       if (check_synthax(str, *j, *i))
 	return (1);
+      *i += 2;
+      *j = *i;
       return (0);
     }
   return (-1);
