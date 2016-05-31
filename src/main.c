@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 10:54:17 2016 marel_m
+** Last update Tue May 31 12:13:59 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -172,37 +172,52 @@ int		term(t_sh *sh)
   t_head	history;
   char		*prompt;
 
-  history.first = NULL;
-  history.last = NULL;
-  get_history(sh, &history);
-  init_actions(actions);
+  if (isatty(0))
+    {
+      init_actions(actions);
+      history.first = NULL;
+      history.last = NULL;
+      get_history(sh, &history);
+      if ((str = malloc(sizeof(char) * 10)) == NULL ||
+	  (prompt = prompt_from_env(sh->env->env)) == NULL)
+	return (1);
+      write(1, prompt, strlen(prompt));
+      str[0] = 0;
+      memset(str, 0, 10);
+    }
   a = 3;
-  if ((str = malloc(sizeof(char) * 10)) == NULL ||
-      (prompt = prompt_from_env(sh->env->env)) == NULL)
-    return (1);
-  str[0] = 0;
-  write(1, prompt, strlen(prompt));
-  memset(str, 0, 10);
   while (42)
     {
-      a = do_action(actions, &str, &history, prompt);
+      if (!isatty(0))
+      	{
+      	  if ((str = get_next_line(0)) == NULL)
+      	    return 1;
+      	  a = 3;
+      	}
+      else
+	a = do_action(actions, &str, &history, prompt);
       if (a == 3)
 	{
 	  if (str && str[0])
-	    push_front_history(&history, str);
-	  if (sh->fd_history > 0)
-	    dprintf(sh->fd_history, "%s\n", str);
-	  if (str && str[0])
 	    {
 	      check_alias(sh->conf.head, &str);
-	      if (globing(&str) || parsing(sh, str) || execute_each_act(sh))
+	      if (globing(&str) ||parsing(sh, str) || execute_each_act(sh))
 		return (1);
 	    }
 	  /* free_struct(sh); */
-	  if ((str = malloc(sizeof(char) * 10)) == NULL)
-	    return (1);
-	  str[0] = 0;
-	  write(1, prompt, strlen(prompt));
+	  if (isatty(0))
+	    {
+	      if (str && str[0])
+		push_front_history(&history, str);
+	      if (sh->fd_history > 0)
+		dprintf(sh->fd_history, "%s\n", str);
+	      if ((str = malloc(sizeof(char) * 10)) == NULL)
+		return (1);
+	      str[0] = 0;
+	      write(1, prompt, strlen(prompt));
+	    }
+	  else
+	    a = 0;
  	}
     }
   return (0);
@@ -222,13 +237,16 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
   if (check_env(&sh, env))
     return (1);
   get_conf_file(&sh.conf, &sh.env->env);
-  if (setupterm(NULL, 0, NULL) < 0)
-    return (1);
-  printf("%s", tigetstr("smkx"));
-  fflush(stdout);
-  create_history_file(&sh);
-  change_read_mode(0, 100, 1);
-  sh.history = NULL;
+  if (isatty(0))
+    {
+      if (setupterm(NULL, 0, NULL) < 0)
+	return (1);
+      printf("%s", tigetstr("smkx"));
+      fflush(stdout);
+      create_history_file(&sh);
+      change_read_mode(0, 100, 1);
+      sh.history = NULL;
+    }
   if (term(&sh))
     return (1);
   return (0);
