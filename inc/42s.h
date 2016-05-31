@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Mon May 30 22:49:01 2016 marel_m
+** Last update Tue May 31 12:24:18 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -159,6 +159,7 @@ int			arg_redir_r(char **);
 int			arg_redir_l(char **);
 int			arg_redir_rr(char **);
 int			arg_redir_ll(char **);
+int			verif_good_synthax(char *);
 
 /*
 ** AUTO-COMPLETION

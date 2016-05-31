@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 15:44:57 2016 marel_m
-** Last update Mon May 30 22:47:49 2016 marel_m
+** Last update Tue May 31 12:23:53 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -34,5 +34,5 @@ int		my_exit(t_sh *sh)
     sh->exec->exit = 0;
   free_env(sh->env);
   free_aliases(&sh->conf);
-  return (1);
+  exit(sh->exec->exit);
 }

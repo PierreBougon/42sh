@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 12:15:21 2016 Poc
+** Last update Tue May 31 13:20:23 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -169,7 +169,11 @@ int		pars_check_exec(t_sh *sh, char *str)
   if (verif_good_synthax(str))
     return (0);
   if (parsing(sh, str) || execute_each_act(sh))
-    return (1);
+    {
+      printf("toto\n");
+      return (1);
+    }
+  /* free_struct(sh); */
   return (0);
 }
 
@@ -200,7 +204,7 @@ int		term(t_sh *sh)
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
-      	    return 1;
+      	    return (0);
       	  a = 3;
       	}
       else
@@ -213,7 +217,6 @@ int		term(t_sh *sh)
 	      if (globing(&str) || pars_check_exec(sh, str))
 		return (1);
 	    }
-	  /* free_struct(sh); */
 	  if (isatty(0))
 	    {
 	      if (str && str[0])
