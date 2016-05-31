@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Mon May 30 20:02:09 2016 Poc
+** Last update Tue May 31 10:54:35 2016 marel_m
 */
 
 #include <unistd.h>
@@ -52,7 +52,7 @@ int	get_conf_file(t_conf *conf, char ***env)
 
   conf->head = NULL;
   if ((fd = open(".42rc", O_RDONLY)) == -1)
-    return (write(2, "Unable to locale .42rc\n", 23) - 23);
+    return (/* write(2, "Unable to locale .42rc\n", 23) -  */23);
   prepare_fct_tab(&tab);
   while ((str = get_next_line(fd)))
     {
