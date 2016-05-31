@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 15:27:20 2016 Mathieu Sauvau
-** Last update Mon May 23 18:46:02 2016 Mathieu Sauvau
+** Last update Tue May 31 13:20:11 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -85,6 +85,6 @@ void			auto_complet(char **str, int *pos,
   print_word_tab(tab, w.ws_col);
   cursor_forward(strlen(*str));
   *pos = strlen(*str);
-  printf("\nhey ->%s", *str);
+  printf("\n%s%s", history->prompt, *str);
   fflush(stdout);
 }

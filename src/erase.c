@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 12:31:02 2016 Mathieu Sauvau
-** Last update Mon May 23 17:34:08 2016 Mathieu Sauvau
+** Last update Tue May 31 13:18:45 2016 Poc
 */
 
 #include <unistd.h>
@@ -49,7 +49,8 @@ void		backspace(char **str, int *pos,
       cursor_erase(1);
       cursor_save();
       fflush(stdout);
-      write(1, "\rhey ->", 7);
+      write(1, "\r", 1);
+      write(1, history->prompt, strlen(history->prompt));
       write(1, *str, strlen(*str));
       cursor_restore();
       fflush(stdout);
