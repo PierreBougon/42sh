@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 15:27:20 2016 Mathieu Sauvau
-** Last update Mon May 23 18:46:02 2016 Mathieu Sauvau
+** Last update Tue May 31 15:57:30 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -55,6 +55,8 @@ char	*get_path(char *str)
   int	i;
   int	j;
 
+  if (!str)
+    return (NULL);
   i = strlen(str) + 1;
   if (!(path = malloc(i - strlen_b_slash(str) + 2)))
     return (NULL);
@@ -74,17 +76,18 @@ char	*get_path(char *str)
 }
 
 void			auto_complet(char **str, int *pos,
-				     UNUSED t_head *history,
+				     t_head *history,
 				     UNUSED int *i_history)
 {
   char			**tab;
   struct winsize	w;
 
   ioctl(0, TIOCGWINSZ, &w);
-  tab = find_match(str);
+  tab = find_match(history->path, str, *pos);
   print_word_tab(tab, w.ws_col);
   cursor_forward(strlen(*str));
   *pos = strlen(*str);
-  printf("\nhey ->%s", *str);
+  printf("\r%s%s", history->prompt, *str);
+  free_word_tab(tab);
   fflush(stdout);
 }

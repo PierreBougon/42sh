@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 31 17:51:44 2016 bougon_p
+## Last update Tue May 31 17:57:18 2016 bougon_p
 ##
 
 DEBUG=	no
@@ -23,9 +23,12 @@ SRC=	main.c				\
 	cursor.c			\
 	clear.c				\
 	convert_base.c			\
+	prompt.c			\
 	$(AUTO)autocompletion.c		\
 	$(AUTO)auto_completion_find.c	\
 	$(AUTO)auto_completion_utility.c\
+	$(AUTO)auto_completion_utility2.c\
+	$(AUTO)auto_completion_utility3.c\
 	free_tab.c			\
 	conf/conf.c			\
 	conf/42rc_create_alias.c	\
@@ -38,17 +41,21 @@ SRC=	main.c				\
 	lib/my_strlen.c			\
 	lib/my_strcat.c			\
 	lib/my_realloc_tab.c		\
+	lib/my_getnbr.c			\
 	env/check_home.c		\
 	env/check_oldpwd.c		\
 	env/check_path.c		\
 	env/check_pwd.c			\
 	env/env.c			\
 	env/verif_env.c			\
+	parsing/verif_good_synthax.c	\
 	parsing/epur.c			\
 	parsing/parsing.c		\
 	parsing/create_list.c		\
 	parsing/create_tree.c		\
 	parsing/parsing_sep.c		\
+	parsing/copy_arg_sep_node.c	\
+	parsing/fptrtab_sep_node.c	\
 	exec/execute.c			\
 	exec/builtin_or_exec.c		\
 	exec/check_good_path.c		\
@@ -68,6 +75,7 @@ SRC=	main.c				\
 	builtins/print_hexoct.c		\
 	builtins/print_str.c		\
 	builtins/init_echo.c		\
+	free/free_fptrtab.c		\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\
 	suggest/suggest.c		\

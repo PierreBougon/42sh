@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Tue May 31 17:53:39 2016 bougon_p
+** Last update Tue May 31 17:56:50 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -30,6 +30,15 @@ typedef struct		s_key_action
   char			*key;
   void			(*fct)(char **, int *, t_head *, int *);
 }			t_key_act;
+
+typedef struct		s_auto_completion
+{
+  char			**tab_str;
+  int			i_elem;
+  int			show;
+  char			*path;
+  char			*elem;
+}			t_autoc;
 
 typedef enum		e_type
   {
@@ -106,7 +115,6 @@ typedef struct		s_exec
   char			*exec;
   int			**fd;
   char			*good_path;
-  int			exit;
   int			stop;
   t_type		type;
 }			t_exec;
@@ -115,6 +123,7 @@ typedef struct		s_sh
 {
   t_list_sh		*root;
   int			lenght;
+  int			exit;
   t_node		*tree;
   t_env			*env;
   t_exec		*exec;
@@ -138,21 +147,21 @@ char			*epur(char  *);
 /*
 ** ACTION
 */
-void		move_left(char **, int *, t_head *, int *);
-void		move_right(char **, int *, t_head *, int *);
-void		debut(char **, int *, t_head *, int *);
-void		end(char **, int *, t_head *, int *);
-void		backspace(char **, int *, t_head *, int *);
-void		auto_complet(char **, int *, t_head *, int *);
-void		clear_scr(char **, int *, t_head *, int *);
+void			move_left(char **, int *, t_head *, int *);
+void			move_right(char **, int *, t_head *, int *);
+void			debut(char **, int *, t_head *, int *);
+void			end(char **, int *, t_head *, int *);
+void			backspace(char **, int *, t_head *, int *);
+void			auto_complet(char **, int *, t_head *, int *);
+void			clear_scr(char **, int *, t_head *, int *);
 
 /*
 ** 42RC
 */
-int	check_alias(t_aliases *, char **);
-int	get_conf_file(t_conf *, char ***);
-int	create_alias(t_conf *, char ***, char *);
-int	create_export(t_conf *, char ***, char *);
+int			check_alias(t_aliases *, char **);
+int			get_conf_file(t_conf *, char ***);
+int			create_alias(t_conf *, char ***, char *);
+int			create_export(t_conf *, char ***, char *);
 
 /*
 ** CURSOR
@@ -174,14 +183,21 @@ t_list_sh		*add_list_after(t_sh *);
 char			*pars_pipe(t_list_sh *, char *);
 char			*pars_redir(t_list_sh *, char *);
 int			check_prior(char *);
+int			arg_pipe(char **);
+int			arg_redir_r(char **);
+int			arg_redir_l(char **);
+int			arg_redir_rr(char **);
+int			arg_redir_ll(char **);
+int			verif_good_synthax(char *);
+int			verif_good_synthax_string(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION
 */
-char			**find_match(char **);
-char			**find_routine(char **, char *, char *);
-int			find_in_(char *, char *, char **);
-char			*get_all_dir_path(char *, char *);
+char			**find_match(char **, char **, int);
+char			**find_routine(char **, char **, t_autoc *);
+int			find_in_(char *, char *, char **, int);
+char			*get_all_dir_path(char *, char *, int);
 int			get_max_len(char **);
 int			strlen_b_slash(char *);
 char			*revstr(char *);
@@ -189,6 +205,12 @@ void			print_word_tab(char **, int);
 char			**get_res(char **, char *, char *, struct stat *);
 char			*get_elem(char *);
 char			*get_path(char *);
+int			nb_word_tab(char **);
+void			del_substring(char *, char *);
+char			*get_new_str(char **, char *, char *, char *);
+int			show_bin(t_autoc *);
+int			find_in_env_path(char **, char *, char **);
+void			free_autoc(t_autoc *);
 
 /*
 **BUILTINS
@@ -266,13 +288,23 @@ int			my_strlen(char *);
 char			**my_realloc_tab(char **, int);
 void			free_tab(char **);
 char			*my_strcat(char *, char *);
+int			my_getnbr(char *);
 
 /*
 ** FREE
 */
 void			free_exec(t_exec *);
 void			free_struct(t_sh *);
+void			free_word_tab(char **);
 void			print_tree(t_node *);
+void			free_env(t_env *);
+void			free_tab_int(int **);
+
+/*
+** PROMPT
+*/
+char			*prompt_from_env(char **);
+char			*get_prompt_value(char **);
 
 /*
 ** Suggest algorithm

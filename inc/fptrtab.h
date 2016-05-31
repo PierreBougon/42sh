@@ -5,13 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Mon May 30 17:16:56 2016 bougon_p
+** Last update Tue May 31 17:56:37 2016 bougon_p
 */
 
 #ifndef FPTRTAB_H_
 # define FPTRTAB_H_
 
-#include "42s.h"
+# include "42s.h"
 
 enum		act
   {
@@ -28,6 +28,12 @@ typedef struct	s_act
   char		*act;
   int		(*ft_act)(t_sh *, t_node *);
 }		t_act;
+
+typedef struct	s_arg_act
+{
+  t_type	arg_act;
+  int		(*ft_arg_act)(char **);
+}		t_arg_act;
 
 enum		env
   {
@@ -86,5 +92,8 @@ typedef struct	s_conf_tab
   int		(*(fp_conf[2]))(t_conf *, char ***, char *);
   char		*(dico[5]);
 }		t_conf_tab;
+
+t_arg_act	*init_tab_arg_sep();
+void		free_tab_act(t_act *);
 
 #endif /* !FPTRTAB_H_ */

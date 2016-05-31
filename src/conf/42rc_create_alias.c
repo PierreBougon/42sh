@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 13:22:30 2016 Poc
-** Last update Fri May 27 21:16:04 2016 Poc
+** Last update Mon May 30 19:59:08 2016 Poc
 */
 
 #include <string.h>
@@ -84,8 +84,7 @@ static char		*get_first_alias_part(char *str)
   if ((new_chain = my_index(str, ' ')) == NULL)
     return (NULL);
   if (((tmp = my_index(str, '\'')) == NULL))
-    if (((tmp = my_index(str, '\"')) == NULL))
-      {}
+    tmp = my_index(str, '\"');
   if (tmp)
     {
       free(new_chain);

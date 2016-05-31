@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 17:37:35 2016 Mathieu Sauvau
-// Last update Mon May 30 11:50:19 2016 Mathieu Sauvau
+** Last update Tue May 31 13:11:05 2016 Poc
 */
 
 #ifndef _HISTORY_H_
@@ -21,6 +21,7 @@ typedef struct		s_history
 typedef struct		s_head
 {
   char			**path;
+  char			*prompt;
   t_history		*first;
   t_history		*last;
 }			t_head;

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 20 13:59:36 2016 marel_m
-** Last update Mon May 30 14:21:24 2016 marel_m
+** Last update Tue May 31 14:56:14 2016 marel_m
 */
 
 #include <unistd.h>
@@ -32,6 +32,7 @@ int	redirection_left(t_sh *sh, t_node *tree)
     {
       write(2, tree->arg, strlen(tree->arg));
       write(2, ": No such file or directory.\n", 29);
+      sh->exit = 1;
       return (-1);
     }
   return (0);
