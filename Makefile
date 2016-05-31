@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 31 12:02:59 2016 marel_m
+## Last update Tue May 31 17:53:08 2016 marel_m
 ##
 
 DEBUG=	no
@@ -38,6 +38,7 @@ SRC=	main.c				\
 	lib/my_strlen.c			\
 	lib/my_strcat.c			\
 	lib/my_realloc_tab.c		\
+	lib/my_getnbr.c			\
 	env/check_home.c		\
 	env/check_oldpwd.c		\
 	env/check_path.c		\

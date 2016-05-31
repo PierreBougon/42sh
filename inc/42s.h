@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Tue May 31 14:14:06 2016 marel_m
+** Last update Tue May 31 17:53:28 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -226,6 +226,7 @@ int			my_strlen(char *);
 char			**my_realloc_tab(char **, int);
 void			free_tab(char **);
 char			*my_strcat(char *, char *);
+int			my_getnbr(char *);
 
 /*
 ** FREE
