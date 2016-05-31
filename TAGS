@@ -418,7 +418,15 @@ int	check_prior(15,295
 int		pars_tree(33,554
 int		stock_elem(60,1025
 int	which_separator(80,1474
-int	parsing(109,2087
+int	parsing(112,2139
+
+src/parsing/verif_good_synthax.c,203
+char	*rewrite_str(rewrite_str16,338
+int	verif_elem_redirect_first(40,827
+int	elem_good_position(61,1188
+int	check_synthax(86,2188
+int	if_is_a_separator(108,2688
+int    verif_good_synthax(131,3130
 
 src/parsing/copy_arg_sep_node.c,119
 int	arg_pipe(14,299
@@ -434,7 +442,7 @@ char	*epur(epur34,819
 src/free/free_fptrtab.c,26
 void	free_tab_act(14,290
 
-src/main.c,279
+src/main.c,310
 void	my_show_tab(26,509
 int		init_actions_next(38,647
 int		init_actions(53,1020
@@ -442,9 +450,10 @@ void            change_read_mode(79,1935
 int		cpy_to_pos(98,2344
 int		do_action(121,2825
 void		get_history(153,3358
-int		term(165,3573
-void		create_history_file(207,4439
-int		main(214,4616
+int		pars_check_exec(165,3573
+int		term(174,3745
+void		create_history_file(216,4595
+int		main(223,4772
 
 src/history.c,247
 void		push_front_history(19,374

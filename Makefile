@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Mon May 30 22:02:49 2016 marel_m
+## Last update Tue May 31 11:54:58 2016 marel_m
 ##
 
 DEBUG=	no
@@ -43,6 +43,7 @@ SRC=	main.c				\
 	env/check_pwd.c			\
 	env/env.c			\
 	env/verif_env.c			\
+	parsing/verif_good_synthax.c	\
 	parsing/epur.c			\
 	parsing/parsing.c		\
 	parsing/create_list.c		\
