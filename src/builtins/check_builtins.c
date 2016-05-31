@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Wed May 18 18:31:52 2016 marel_m
+** Last update Tue May 31 16:09:57 2016 marel_m
 */
 
 #include <string.h>
@@ -42,7 +42,8 @@ int	check_builtin(t_sh *sh)
   if ((fptrtab = init_tab_builtins()) == NULL)
     return (1);
   while (++i < MAX_BLT)
-    if (strncmp(sh->exec->arg[0], fptrtab[i].blt, strlen(fptrtab[i].blt)) == 0)
+    if (strlen(sh->exec->arg[0]) == strlen(fptrtab[i].blt)
+	&& strncmp(sh->exec->arg[0], fptrtab[i].blt, strlen(fptrtab[i].blt)) == 0)
       {
 	ret = fptrtab[i].ft_blt(sh);
 	return (free(fptrtab), ret);

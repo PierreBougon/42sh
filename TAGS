@@ -9,18 +9,19 @@ typedef struct		s_suggest14,268
 }			t_suggest;20,370
 typedef struct	s_sh	t_sh;22,386
 
-inc/history.h,329
-# define _HISTORY_H_12,259
-typedef struct		s_history14,281
-  char			*str;str16,309
-  struct s_history	*next;next17,324
-  struct s_history	*prev;prev18,350
-}			t_history;19,376
-typedef struct		s_head21,392
-  char			**path;path23,417
-  t_history		*first;first24,434
-  t_history		*last;last25,455
-}			t_head;26,475
+inc/history.h,361
+# define _HISTORY_H_12,248
+typedef struct		s_history14,270
+  char			*str;str16,298
+  struct s_history	*next;next17,313
+  struct s_history	*prev;prev18,339
+}			t_history;19,365
+typedef struct		s_head21,381
+  char			**path;path23,406
+  char			*prompt;prompt24,423
+  t_history		*first;first25,441
+  t_history		*last;last26,462
+}			t_head;27,482
 
 inc/get_next_line.h,61
 # define GET_NEXT_LINE_H_12,256
@@ -147,13 +148,13 @@ typedef struct		s_exec83,1309
   char			*exec;exec86,1350
   int			**fd;fd87,1366
   char			*good_path;good_path88,1380
-  int			exit;89,1401
-  int			stop;90,1415
-  t_type		type;91,1429
-}			t_exec;92,1445
-typedef struct		s_sh94,1458
-  t_list_sh		*root;root96,1481
-  int			lenght;97,1501
+  int			stop;89,1401
+  t_type		type;90,1415
+}			t_exec;91,1431
+typedef struct		s_sh93,1444
+  t_list_sh		*root;root95,1467
+  int			lenght;96,1487
+  int			exit;97,1503
   t_node		*tree;tree98,1517
   t_env			*env;env99,1534
   t_exec		*exec;exec100,1550
@@ -278,11 +279,12 @@ int	my_cd(65,1322
 src/builtins/check_env.c,19
 int	my_env(13,260
 
-src/builtins/check_which_cd.c,105
-int	check_cd_home(15,310
-int	check_cd_dash(32,693
-int	check_cd_good(42,874
-int	check_cd_else(58,1213
+src/builtins/check_which_cd.c,140
+int	check_cd_home(16,330
+int	check_cd_dash(39,781
+char	*path_find(path_find49,962
+int	check_cd_good(61,1245
+int	check_cd_else(90,1851
 
 src/builtins/check_builtins.c,77
 t_blt	*init_tab_builtins(init_tab_builtins16,331
@@ -291,20 +293,20 @@ int	check_builtin(35,765
 src/exec/builtin_or_exec.c,91
 int	action_redir(16,333
 int	action(31,581
-int	exec(67,1328
-int	builtin_or_exec(79,1494
+int	exec(70,1353
+int	builtin_or_exec(82,1519
 
 src/exec/redirections.c,96
 int	redirection_right(19,390
 int	redirection_left(28,595
-int	double_redirection_right(40,883
+int	double_redirection_right(41,903
 
 src/exec/check_good_path.c,150
 int	wrong_access(16,332
 int	wrong_command(25,526
 int	check_wrong_path(34,723
-int	check_good_path_normal_case(55,1218
-int	check_good_path(76,1810
+int	check_good_path_normal_case(64,1440
+int	check_good_path(85,2032
 
 src/exec/execute.c,160
 t_act	*init_tab_act(init_tab_act16,317
@@ -350,8 +352,8 @@ static char	*globing_do(globing_do66,1351
 int	globing(95,1896
 
 src/erase.c,47
-void		edit_str(19,372
-void		backspace(35,675
+void		edit_str(19,361
+void		backspace(35,664
 
 src/lib/my_strlen.c,22
 int	my_strlen(11,242
@@ -392,10 +394,10 @@ char    *revstr(revstr56,956
 void	print_word_tab(74,1192
 
 src/auto_completion/autocompletion.c,126
-char		**get_res(get_res19,387
-char	*get_elem(get_elem33,728
-char	*get_path(get_path52,1020
-void			auto_complet(76,1408
+char		**get_res(get_res19,376
+char	*get_elem(get_elem33,717
+char	*get_path(get_path52,1009
+void			auto_complet(76,1397
 
 src/parsing/create_list.c,74
 int		create_list(14,284
@@ -425,13 +427,13 @@ int		stock_elem(60,1025
 int	which_separator(80,1474
 int	parsing(112,2139
 
-src/parsing/verif_good_synthax.c,203
+src/parsing/verif_good_synthax.c,210
 char	*rewrite_str(rewrite_str16,338
 int	verif_elem_redirect_first(40,827
 int	elem_good_position(61,1188
 int	check_synthax(86,2188
 int	if_is_a_separator(108,2688
-int    verif_good_synthax(131,3130
+int    verif_good_synthax_string(131,3130
 
 src/parsing/copy_arg_sep_node.c,119
 int	arg_pipe(14,299
@@ -454,11 +456,11 @@ int		init_actions(53,1020
 void            change_read_mode(79,1935
 int		cpy_to_pos(98,2344
 int		do_action(122,2869
-void		get_history(155,3429
-int		pars_check_exec(167,3644
-int		term(176,3816
-void		create_history_file(235,5021
-int		main(242,5198
+void		get_history(156,3457
+int		pars_check_exec(168,3672
+int		term(177,3897
+void		create_history_file(236,5099
+int		main(243,5276
 
 src/history.c,247
 void		push_front_history(19,374

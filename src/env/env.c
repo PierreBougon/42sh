@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Apr 29 18:23:11 2016 marel_m
-** Last update Wed May 18 19:28:16 2016 marel_m
+** Last update Tue May 31 16:03:34 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -67,6 +67,10 @@ int     check_env(t_sh *sh, char **env)
 {
   if ((sh->env = malloc(sizeof(t_env))) == NULL)
     return (1);
+  sh->env->pst_oldpwd = 0;
+  sh->env->pst_pwd = 0;
+  sh->env->pst_path = 0;
+  sh->env->pst_home = 0;
   if (env[0] == NULL)
     {
       if (create_env(sh))

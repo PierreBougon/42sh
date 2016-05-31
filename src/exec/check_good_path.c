@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:33:30 2016 marel_m
-** Last update Tue May 31 15:51:09 2016 marel_m
+** Last update Tue May 31 16:07:32 2016 marel_m
 */
 
 #include <string.h>
@@ -108,7 +108,7 @@ int	check_good_path(t_sh *sh)
     {
       if ((path = strdup(sh->exec->exec)) == NULL
 	  || (sh->exec->exec = malloc(sizeof(char)
-				      * (strlen(path) + 3))) == NULL
+				      * (strlen(path) + 4))) == NULL
 	  || (pt_slash = strdup("./")) == NULL
 	  || (sh->exec->exec = strcat(pt_slash, path)) == NULL
 	  || (sh->exec->good_path = strdup(sh->exec->exec)) == NULL)
