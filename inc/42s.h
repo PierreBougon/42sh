@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Tue May 31 16:59:02 2016 Mathieu Sauvau
+// Last update Tue May 31 18:02:41 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -13,9 +13,16 @@
 
 # define UNUSED __attribute__((unused))
 
+# define ECHO_VERSION "echo 42.0.0\n\
+Copyright (C) 2016 Free Software Foundation, Inc.\n\
+This is free software; see the source for copying conditions.  There is NO\n\
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+# define NB_SPE_ECHO 14
+
 # include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
+# include <stdbool.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "history.h"
 
 typedef struct		s_key_action
@@ -65,6 +72,19 @@ typedef struct		s_conf
 {
   t_aliases		*head;
 }			t_conf;
+
+typedef	struct		s_echo
+{
+  bool			opt_e;
+  bool			opt_n;
+  bool			opt_E;
+  bool			opt_help;
+  bool			opt_vers;
+  int			nb_opt;
+  char			*opt_tab;
+  void			(*ftab[NB_SPE_ECHO])(void);
+  char			sequence[NB_SPE_ECHO];
+}			t_echo;
 
 typedef struct		s_list_sh
 {
@@ -208,6 +228,33 @@ int			check_cd_good(t_sh *);
 int			check_cd_else(t_sh *);
 int			cd_action(t_sh *);
 void			my_show_tab(char **);
+int			my_echo(t_sh *);
+void			parse_opt(t_echo *, t_sh *);
+void			print_help();
+void			print_echo(t_echo *, char **);
+bool			version(char *);
+bool			help(char *);
+void			print_backslash(void);
+void			print_alert(void);
+void			print_backspace(void);
+void			print_nomore(void);
+void			print_escape(void);
+void			print_formfeed(void);
+void			print_newline(void);
+void			print_carriageret(void);
+void			print_tab(void);
+void			print_verttab(void);
+void			print_octal(void);
+void			print_hexa(void);
+void			print_squote(void);
+void			print_dquote(void);
+bool			opt_exist(char *, t_echo *);
+int			print_octal_char(char *);
+int			print_hexa_char(char *);
+void			print_str_no_change(char *);
+void			print_str_changed(char *, t_echo *);
+void			invert(bool *, bool *, char);
+void			init_tab(t_echo *);
 
 /*
 **EXEC
@@ -242,6 +289,7 @@ int			my_strlen(char *);
 char			**my_realloc_tab(char **, int);
 void			free_tab(char **);
 char			*my_strcat(char *, char *);
+int			my_getnbr(char *);
 
 /*
 ** FREE
@@ -262,6 +310,11 @@ char			*get_prompt_value(char **);
 /*
 ** Suggest algorithm
 */
-int	suggest(t_sh *, char *);
+int			suggest(t_sh *, char *);
+
+/*
+** Convert base
+*/
+unsigned int		my_getnbr_base_limit(char *, char *, unsigned int, int *);
 
 #endif /* _42s_H_ */

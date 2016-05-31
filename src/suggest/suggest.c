@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Thu May 26 11:43:54 2016 bougon_p
-** Last update Thu May 26 13:22:05 2016 bougon_p
+** Last update Tue May 31 16:26:14 2016 bougon_p
 */
 
 #include <stdlib.h>
@@ -34,14 +34,20 @@ void	print_minimal_dist(t_suggest *sugg, int pass)
 {
   int	i;
   int	n;
+  bool	first;
 
+  first = true;
   i = -1;
   n = 0;
-  printf("I suggest you those results :\n");
   while (sugg->binaries[++i])
     {
       if (sugg->tab_dist[i] == sugg->dist_min)
 	{
+	  if (first)
+	    {
+	      printf("Did you mean ?\n");
+	      first = false;
+	    }
 	  printf("%s\n", sugg->binaries[i]);
 	  n++;
 	}
