@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 16:43:45 2016 Poc
+** Last update Tue May 31 18:47:00 2016 bougon_p
 */
 
 #include <sys/ioctl.h>
@@ -35,7 +35,7 @@ void	my_show_tab(char **str)
     }
 }
 
-int		init_actions_next(t_key_act actions[10])
+int		init_actions_next(t_key_act actions[11])
 {
   actions[0].fct = &move_left;
   actions[1].fct = &move_right;
@@ -47,13 +47,17 @@ int		init_actions_next(t_key_act actions[10])
   actions[7].fct = &history_down;
   actions[8].fct = &auto_complet;
   actions[9].fct = &clear_scr;
+  actions[10].fct = &backspace;
   return (0);
 }
 
-int		init_actions(t_key_act actions[10])
+int		init_actions(t_key_act actions[11])
 {
   char		*str;
+  char		del[2];
 
+  del[0] = 127;
+  del[1] = 0;
   if ((str = tigetstr("kcub1")) == (char *)-1 ||
       !(actions[0].key = strdup(str)) ||
       (str = tigetstr("kcuf1")) == (char *)-1 ||
@@ -71,7 +75,8 @@ int		init_actions(t_key_act actions[10])
       (str = tigetstr("kcud1")) == (char *)-1 ||
       !(actions[7].key = strdup(str)) ||
       !(actions[8].key = strdup("\t")) ||
-      !(actions[9].key = strdup("^L")))
+      !(actions[9].key = strdup("\f")) ||
+      !(actions[10].key = strdup(&del[0])))
     return (-1);
   return (init_actions_next(actions));
 }
@@ -121,7 +126,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   return (0);
 }
 
-int		do_action(t_key_act actions[10], char **str,
+int		do_action(t_key_act actions[11], char **str,
 			  t_head *history, char *prompt)
 {
   static int	cur_pos;
@@ -133,7 +138,12 @@ int		do_action(t_key_act actions[10], char **str,
   memset(buff, 0, 11);
   read(0, buff, 10);
   history->prompt = prompt;
-  while (++i < 10)
+
+  /* int j = -1; */
+  /* while (++j < 10) */
+  /*   printf("\n%d\n", buff[j]); */
+
+  while (++i < 11)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -176,7 +186,7 @@ int		pars_check_exec(t_sh *sh, char *str)
   return (0);
 }
 
-int		term_func_01(t_sh *sh, t_key_act actions[10],
+int		term_func_01(t_sh *sh, t_key_act actions[11],
 			     char **str, t_head *history)
 {
   init_actions(actions);
@@ -228,7 +238,7 @@ int		test(char **str, t_sh *sh, t_head *history, int *a)
 int		term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[10];
+  t_key_act	actions[11];
   int		a;
   t_head	history;
 

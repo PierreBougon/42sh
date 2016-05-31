@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Thu May 26 11:43:54 2016 bougon_p
-** Last update Tue May 31 16:26:14 2016 bougon_p
+** Last update Tue May 31 18:05:38 2016 bougon_p
 */
 
 #include <stdlib.h>
@@ -45,10 +45,10 @@ void	print_minimal_dist(t_suggest *sugg, int pass)
 	{
 	  if (first)
 	    {
-	      printf("Did you mean ?\n");
+	      dprintf(2, "Did you mean ?\n");
 	      first = false;
 	    }
-	  printf("%s\n", sugg->binaries[i]);
+	  dprintf(2, "%s\n", sugg->binaries[i]);
 	  n++;
 	}
     }
