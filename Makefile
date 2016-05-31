@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 31 12:02:59 2016 marel_m
+## Last update Tue May 31 16:07:36 2016 Mathieu Sauvau
 ##
 
 DEBUG=	no
@@ -26,6 +26,8 @@ SRC=	main.c				\
 	$(AUTO)autocompletion.c		\
 	$(AUTO)auto_completion_find.c	\
 	$(AUTO)auto_completion_utility.c\
+	$(AUTO)auto_completion_utility2.c\
+	$(AUTO)auto_completion_utility3.c\
 	free_tab.c			\
 	conf/conf.c			\
 	conf/42rc_create_alias.c	\

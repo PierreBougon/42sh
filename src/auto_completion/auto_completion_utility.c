@@ -5,14 +5,14 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:01:19 2016 Mathieu Sauvau
-** Last update Tue May 24 11:01:25 2016 Mathieu Sauvau
+** Last update Mon May 30 14:35:37 2016 Mathieu Sauvau
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"
 
-char	*get_all_dir_path(char *path, char *d_name)
+char	*get_all_dir_path(char *path, char *d_name, int in_env_path)
 {
   char	*all_dir_path;
 
@@ -20,7 +20,7 @@ char	*get_all_dir_path(char *path, char *d_name)
     return (NULL);
   all_dir_path[0] = 0;
   strcat(all_dir_path, path);
-  if (path[0] == '.')
+  if (path[0] == '.' || in_env_path)
     strcat(all_dir_path, "/");
   strcat(all_dir_path, d_name);
   return (all_dir_path);
