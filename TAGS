@@ -245,10 +245,10 @@ static char		*get_first_alias_part(get_first_alias_part77,1454
 int			create_alias(102,2022
 
 src/conf/conf.c,105
-int	joyeuse_fonction(20,362
-int	prepare_fct_tab(26,504
-void	showlist(36,705
-int	get_conf_file(45,875
+int	joyeuse_fonction(20,366
+int	prepare_fct_tab(26,508
+void	showlist(36,709
+int	get_conf_file(45,879
 
 src/index.c,66
 char	*my_index(my_index14,246
@@ -434,7 +434,7 @@ char	*epur(epur34,819
 src/free/free_fptrtab.c,26
 void	free_tab_act(14,290
 
-src/main.c,286
+src/main.c,279
 void	my_show_tab(26,509
 int		init_actions_next(38,647
 int		init_actions(53,1020
@@ -442,9 +442,9 @@ void            change_read_mode(79,1935
 int		cpy_to_pos(98,2344
 int		do_action(121,2825
 void		get_history(153,3358
-char		*term(term165,3573
-void		create_history_file(207,4446
-int		main(214,4623
+int		term(165,3573
+void		create_history_file(207,4439
+int		main(214,4616
 
 src/history.c,247
 void		push_front_history(19,374

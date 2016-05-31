@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Mon May 30 22:09:46 2016 marel_m
+** Last update Tue May 31 10:26:36 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -162,7 +162,7 @@ void		get_history(t_sh *sh, t_head *history)
     }
 }
 
-char		*term(t_sh *sh)
+int		term(t_sh *sh)
 {
   char		*str;
   t_key_act	actions[10];
@@ -175,7 +175,7 @@ char		*term(t_sh *sh)
   init_actions(actions);
   a = 3;
   if ((str = malloc(sizeof(char) * 10)) == NULL)
-    return (NULL);
+    return (1);
   str[0] = 0;
   write(1, "hey ->", 6);
   memset(str, 0, 10);
@@ -192,16 +192,16 @@ char		*term(t_sh *sh)
 	    {
 	      check_alias(sh->conf.head, &str);
 	      if (globing(&str) || parsing(sh, str) || execute_each_act(sh))
-		return (NULL);
+		return (1);
 	    }
-	  free_struct(sh);
+	  /* free_struct(sh); */
 	  if ((str = malloc(sizeof(char) * 10)) == NULL)
-	    return (NULL);
+	    return (1);
 	  str[0] = 0;
 	  write(1, "hey ->", 6);
  	}
     }
-  return (str);
+  return (0);
 }
 
 void		create_history_file(t_sh *sh)
@@ -216,7 +216,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
   t_sh		sh;
 
   if (check_env(&sh, env))
-    return (-1);
+    return (1);
   get_conf_file(&sh.conf, &sh.env->env);
   if (setupterm(NULL, 0, NULL) < 0)
     return (1);
@@ -225,7 +225,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
   create_history_file(&sh);
   change_read_mode(0, 100, 1);
   sh.history = NULL;
-  if (term(&sh) == NULL)
-    return (-1);
+  if (term(&sh))
+    return (1);
   return (0);
 }
