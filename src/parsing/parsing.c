@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Wed Jun  1 14:19:21 2016 marel_m
+** Last update Wed Jun  1 18:46:38 2016 marel_m
 */
 
 #include <stdio.h>
@@ -77,6 +77,7 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
     }
   if (pars_tree(elem, elem->arg))
     return (1);
+  print_tree(elem->node);
   return (0);
 }
 
