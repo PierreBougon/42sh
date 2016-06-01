@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Tue May 31 17:56:27 2016 bougon_p
+** Last update Wed Jun  1 15:26:50 2016 debrau_c
 */
 
 #include <string.h>
@@ -31,6 +31,8 @@ t_blt	*init_tab_builtins()
   tab[EXIT].ft_blt = &my_exit;
   tab[ECHO].blt = "echo";
   tab[ECHO].ft_blt = &my_echo;
+  tab[HISTORY].blt = "history";
+  tab[HISTORY].ft_blt = &blt_hist;
   return (tab);
 }
 
