@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Tue May 31 23:49:58 2016 marel_m
+** Last update Wed Jun  1 13:40:21 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -127,8 +127,8 @@ typedef struct		s_sh
   t_node		*tree;
   t_env			*env;
   t_exec		*exec;
-  t_history		*history;
   t_conf		conf;
+  t_head		*history;
   int			fd_history;
 }			t_sh;
 
