@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Tue May 31 23:48:41 2016 marel_m
+** Last update Wed Jun  1 11:30:26 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -70,7 +70,7 @@ int	check_synthax(char *str, int st, int end)
     return (free(tmp), 0);
   if ((ret = elem_good_position(tmp)) != 0)
     return (free(tmp), ret);
-  if (tmp[0] == '>' || (tmp[0] == '<' && tmp[1] != '<'))
+  if (tmp[0] == '>' || tmp[0] == '<')
     {
       if ((str = rewrite_str(tmp)) == NULL)
 	exit(1);
