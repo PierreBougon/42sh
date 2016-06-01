@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 15:23:05 2016 bougon_p
+** Last update Wed Jun  1 21:16:41 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -275,6 +275,7 @@ int			redirection_left(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
+int			double_redir_left(t_sh *, t_node *);
 
 /*
 ** ENV
