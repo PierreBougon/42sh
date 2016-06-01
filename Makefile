@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 31 23:49:04 2016 marel_m
+## Last update Wed Jun  1 12:20:52 2016 Poc
 ##
 
 DEBUG=	no
@@ -21,6 +21,7 @@ SRC=	main.c				\
 	history.c			\
 	index.c				\
 	cursor.c			\
+	bang.c				\
 	clear.c				\
 	convert_base.c			\
 	prompt.c			\

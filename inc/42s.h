@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 13:40:21 2016 marel_m
+** Last update Wed Jun  1 13:44:41 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -183,6 +183,7 @@ int			create_list(t_sh *);
 t_list_sh		*add_list_after(t_sh *);
 char			*pars_pipe(t_list_sh *, char *);
 char			*pars_redir(t_list_sh *, char *);
+int			bang(char **, t_head *);
 int			check_prior(char *);
 int			arg_pipe(char **);
 int			arg_redir_r(char **);

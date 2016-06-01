@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed Jun  1 13:42:26 2016 marel_m
+** Last update Wed Jun  1 13:44:20 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -211,26 +211,29 @@ int		term_func_01(t_sh *sh, t_key_act actions[12],
   return (0);
 }
 
-int		execution(char *str, t_head *history, t_sh *sh)
+int		execution(char **str, t_head *history, t_sh *sh)
 {
   if (str && str[0])
-    push_front_history(history, str);
+    {
+      if ((sh->exit = bang(str, history)))
+	return (0);
+      push_front_history(history, *str);
+    }
   if (sh->fd_history > 0)
-    dprintf(sh->fd_history, "%s\n", str);
-  check_alias(sh->conf.head, &str);
-  if (var_env_format(sh, &str, sh->env->env))
+    dprintf(sh->fd_history, "%s\n", *str);
+  check_alias(sh->conf.head, str);
+  if (var_env_format(sh, str, sh->env->env))
     return (0);
-  if (globing(&str)
-      || pars_check_exec(sh, str))
+  if (globing(str)
+      || pars_check_exec(sh, *str))
     return (1);
   return (0);
 }
 
 int		test(char **str, t_sh *sh, t_head *history, int *a)
 {
-  if (*str && (*str)[0] && execution(*str, history, sh))
+  if (*str && (*str)[0] && execution(str, history, sh))
     return (1);
-  /* free_struct(sh); */
   if (isatty(0))
     {
       if ((*str = malloc(sizeof(char) * 10)) == NULL)
