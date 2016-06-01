@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed Jun  1 12:20:52 2016 Poc
+## Last update Wed Jun  1 15:22:24 2016 debrau_c
 ##
 
 DEBUG=	no
@@ -79,6 +79,7 @@ SRC=	main.c				\
 	builtins/print_hexoct.c		\
 	builtins/print_str.c		\
 	builtins/init_echo.c		\
+	builtins/history.c		\
 	free/free_fptrtab.c		\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\

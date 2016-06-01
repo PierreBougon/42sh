@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Tue May 31 17:56:15 2016 bougon_p
+** Last update Wed Jun  1 13:15:13 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -77,7 +77,7 @@ int	check_which_config(t_sh *sh, t_list_sh *list, t_node *tree)
 void	loop_execute(t_sh *sh, t_list_sh **tmp, int *i)
 {
   if (sh->exec->stop == 0 && (*tmp)->type == DOUBLE_PIPE)
-    while ((*tmp)->type == DOUBLE_PIPE)
+    while ((*tmp)->type == DOUBLE_PIPE || (*tmp)->type == DOUBLE_AND)
       {
 	(*tmp) = (*tmp)->next;
 	(*i)++;

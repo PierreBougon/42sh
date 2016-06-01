@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 12:28:58 2016 Poc
+** Last update Wed Jun  1 15:46:28 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -127,8 +127,8 @@ typedef struct		s_sh
   t_node		*tree;
   t_env			*env;
   t_exec		*exec;
-  t_history		*history;
   t_conf		conf;
+  t_head		*history;
   int			fd_history;
 }			t_sh;
 
@@ -258,6 +258,7 @@ void			print_str_no_change(char *);
 void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
+int			blt_hist(t_sh *);
 
 /*
 **EXEC
