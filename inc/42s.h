@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 15:02:07 2016 marel_m
+** Last update Wed Jun  1 15:03:58 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -211,7 +211,7 @@ char			**get_res(char **, char *, char *, struct stat *);
 char			*get_elem(char *);
 char			*get_path(char *);
 int			nb_word_tab(char **);
-void			del_substring(char *, char *);
+int			get_commom_subtring(char **);
 char			*get_new_str(char **, char *, char *, char *);
 int			show_bin(t_autoc *);
 int			find_in_env_path(char **, char *, char **);
