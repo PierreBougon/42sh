@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:00:59 2016 Mathieu Sauvau
-** Last update Tue May 31 19:06:41 2016 Mathieu Sauvau
+** Last update Wed Jun  1 14:39:57 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -39,11 +39,6 @@ int		find_in_(char *path, char *str, char **res, int in_env_path)
   return (i);
 }
 
-/**
- ** COMPARE ALL IN RES IF START THE SAME
- ** CPY TO DIFF
- */
-
 int		find_anywhere(char **env_path, char **res, t_autoc *autoc)
 {
   int		n;
@@ -63,22 +58,28 @@ char		**find_routine(char **str, char **env_path, t_autoc *autoc)
 {
   char		*res;
   char		**tab;
+  int		i_sub;
+  int		r;
 
   tab = NULL;
-  if (!(res = malloc(1)))
+  if ((i_sub = 0) || !(res = malloc(1)))
     return (NULL);
   res[0] = 0;
-  if (find_anywhere(env_path, &res, autoc) == 1)
+  r = find_anywhere(env_path, &res, autoc);
+  if ((tab =  my_str_to_word_tab(res, ' ')))
+    if (autoc->elem[0] != 0)
+      i_sub = get_commom_subtring(tab);
+  if (r != 0)
     {
-      if (!get_new_str(str, autoc->path, autoc->elem, res))
+      if (!(*str = get_new_str(str, autoc->path, autoc->elem, res)))
 	return (NULL);
-      res[strlen(res) - 1] = 0;
-      strcat(*str, res);
+      strncat(*str, tab[0], i_sub);
+      if (r == 1)
+	{
+	  free_word_tab(tab);
+	  tab = NULL;
+	}
     }
-  /* do the word_tab before and compare - cf previous comment
-   */
-  else
-    tab =  my_str_to_word_tab(res, ' ');
   return (free(res), tab);
 }
 
@@ -99,7 +100,8 @@ int		separate_path_elem(t_autoc *autoc, char **str, char *cur_str, int pos)
   if ((autoc->i_elem == 1 && (*str)[0] == '.') ||
       (pos > 1 && (*str)[pos - 1] == ' '))
     {
-      autoc->elem[0] = 0;
+      if ((*str)[1] != '/')
+	autoc->elem[0] = 0;
       autoc->show = 0;
     }
   return (0);
@@ -125,7 +127,6 @@ char		**find_match(char **env_path, char **str, int pos)
     }
   if (separate_path_elem(&autoc, str, cur_str, pos) == -1)
     return (NULL);
-  printf("\n path %s elem %s\n", autoc.path, autoc.elem);
   tab = find_routine(str, env_path, &autoc);
   free_autoc(&autoc);
   return (tab);

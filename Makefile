@@ -5,16 +5,16 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 31 18:16:47 2016 Mathieu Sauvau
+## Last update Tue May 31 23:49:04 2016 marel_m
 ##
 
-DEBUG=	yes
+DEBUG=	no
 
 AUTO=	auto_completion/
 
 SRC=	main.c				\
 	print_tree.c			\
-	free_exec.c			\
+	free/free_exec.c		\
 	ncurses.c			\
 	actions.c			\
 	erase.c				\
@@ -29,7 +29,7 @@ SRC=	main.c				\
 	$(AUTO)auto_completion_utility.c\
 	$(AUTO)auto_completion_utility2.c\
 	$(AUTO)auto_completion_utility3.c\
-	free_tab.c			\
+	free/free_tab.c			\
 	conf/conf.c			\
 	conf/42rc_create_alias.c	\
 	conf/42rc_alias_checker.c	\
@@ -48,6 +48,7 @@ SRC=	main.c				\
 	env/check_pwd.c			\
 	env/env.c			\
 	env/verif_env.c			\
+	parsing/rewrite_str.c		\
 	parsing/verif_good_synthax.c	\
 	parsing/epur.c			\
 	parsing/parsing.c		\
@@ -56,10 +57,12 @@ SRC=	main.c				\
 	parsing/parsing_sep.c		\
 	parsing/copy_arg_sep_node.c	\
 	parsing/fptrtab_sep_node.c	\
+	parsing/verif_good_order_sep.c	\
 	exec/execute.c			\
 	exec/builtin_or_exec.c		\
 	exec/check_good_path.c		\
 	exec/redirections.c		\
+	exec/wrong_path.c		\
 	builtins/check_builtins.c	\
 	builtins/check_cd.c		\
 	builtins/check_env.c		\
@@ -81,7 +84,10 @@ SRC=	main.c				\
 	suggest/suggest.c		\
 	glob/glob_dep.c			\
 	glob/glob_dep2.c		\
-	glob/globing.c
+	glob/globing.c			\
+	dollars/var_env.c		\
+	dollars/var_env_str.c		\
+	dollars/var_env_dep.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 

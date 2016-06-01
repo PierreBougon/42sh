@@ -4,4 +4,4 @@ alias ll='ls -alF --color'
 alias la='ls -A --color'
 alias l='ls -CF --color'
 export HOME=bite
-export PS1=tous ami on s'encule <3
+export PS1=peauc_gradeD_info

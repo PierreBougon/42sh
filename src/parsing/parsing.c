@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Tue May 31 11:28:32 2016 marel_m
+** Last update Tue May 31 23:45:04 2016 marel_m
 */
 
 #include <stdio.h>
@@ -83,28 +83,22 @@ int	which_separator(t_sh *sh, char *str, int *i, int *j)
     {
       if (stock_elem(sh, str, *j, *i))
 	return (1);
-      (*i)++;
-      *j = *i;
       sh->root->prev->type = SEMICOLON;
-      return (0);
+      return ((*i)++, *j = *i, 0);
     }
   else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
     {
       if (stock_elem(sh, str, *j, *i))
 	return (1);
-      *i += 2;
-      *j = *i;
       sh->root->prev->type = DOUBLE_AND;
-      return (0);
+      return (*i += 2, *j = *i, 0);
     }
   else if (str[(*i)] == '|' && str[(*i) + 1] == '|')
     {
       if (stock_elem(sh, str, *j, *i))
 	return (1);
-      *i += 2;
-      *j = *i;
       sh->root->prev->type = DOUBLE_PIPE;
-      return (0);
+      return (*i += 2, *j = *i, 0);
     }
   return (-1);
 }

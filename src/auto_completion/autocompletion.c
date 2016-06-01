@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Mon May 16 15:27:20 2016 Mathieu Sauvau
-** Last update Tue May 31 15:57:30 2016 Mathieu Sauvau
+** Last update Wed Jun  1 14:36:31 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -15,6 +15,32 @@
 #include <stdio.h>
 #include <string.h>
 #include "42s.h"
+
+int		get_commom_subtring(char **tab)
+{
+  int		i;
+  int		j;
+  int		k;
+  int		i_sub;
+  int		i_sub_tmp;
+
+  i = -1;
+  i_sub = 0;
+  while (tab[++i])
+    {
+      k = 0;
+      while (tab[++k])
+	{
+	  j = -1;
+	  i_sub_tmp = 0;
+	  while (tab[i][++j] && tab[k][j] && tab[i][j] == tab[k][j])
+	    ++i_sub_tmp;
+	  if ((i_sub > i_sub_tmp || i == 0) && i_sub_tmp != 0)
+	    i_sub = i_sub_tmp;
+	}
+    }
+  return (i == 1 ? (int)strlen(tab[0]) : i_sub);
+}
 
 char		**get_res(char **res, char *all_dir_path,
 			  char *d_name, struct stat *st)

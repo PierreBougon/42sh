@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Tue May 31 18:02:41 2016 Mathieu Sauvau
+// Last update Wed Jun  1 14:36:59 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -191,6 +191,8 @@ int			arg_redir_rr(char **);
 int			arg_redir_ll(char **);
 int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
+int			verif_good_order_sep(t_sh *, char *);
+char			*rewrite_str(char *);
 
 /*
 ** AUTO-COMPLETION
@@ -207,7 +209,7 @@ char			**get_res(char **, char *, char *, struct stat *);
 char			*get_elem(char *);
 char			*get_path(char *);
 int			nb_word_tab(char **);
-void			del_substring(char *, char *);
+int			get_commom_subtring(char **);
 char			*get_new_str(char **, char *, char *, char *);
 int			show_bin(t_autoc *);
 int			find_in_env_path(char **, char *, char **);
@@ -267,6 +269,7 @@ int			redirection_right(t_sh *, t_node *);
 int			redirection_left(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
+int			check_wrong_path(t_sh *);
 
 /*
 ** ENV
