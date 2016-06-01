@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:00:59 2016 Mathieu Sauvau
-** Last update Wed Jun  1 12:55:59 2016 Mathieu Sauvau
+** Last update Wed Jun  1 14:36:03 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -39,38 +39,6 @@ int		find_in_(char *path, char *str, char **res, int in_env_path)
   return (i);
 }
 
-int		get_commmom_subtring(char **tab)
-{
-  int		i;
-  int		j;
-  int		k;
-  int		i_sub;
-  int		i_sub_tmp;
-  int		do_break;
-
-  i = -1;
-  i_sub = 0;
-  while (tab[++i])
-    {
-      k = 0;
-      while (tab[++k])
-	{
-	  j = -1;
-	  i_sub_tmp = 0;
-	  while (tab[i][++j] && tab[k][j])
-	    {
-	      if (tab[i][j] != tab[k][j])
-		break;
-	      ++i_sub_tmp;
-	    }
-	  if ((i_sub > i_sub_tmp || i_sub == 0) && i_sub_tmp != 0)
-	    i_sub = i_sub_tmp;
-	}
-    }
-  printf("index %d substring %s\n", i_sub, tab[0] + i_sub);
-  return (i_sub);
-}
-
 int		find_anywhere(char **env_path, char **res, t_autoc *autoc)
 {
   int		n;
@@ -91,20 +59,27 @@ char		**find_routine(char **str, char **env_path, t_autoc *autoc)
   char		*res;
   char		**tab;
   int		i_sub;
+  int		r;
 
   tab = NULL;
-  if (!(res = malloc(1)))
+  if ((i_sub = 0) || !(res = malloc(1)))
     return (NULL);
   res[0] = 0;
-  i_sub = 0;
-  find_anywhere(env_path, &res, autoc);
+  r = find_anywhere(env_path, &res, autoc);
   if ((tab =  my_str_to_word_tab(res, ' ')))
-    i_sub = get_commmom_subtring(tab);
-  if (!(*str = get_new_str(str, autoc->path, autoc->elem, res)))
-    return (NULL);
-  //  res[strlen(res) - 1] = 0;
-  //  strncpy(*str, *str, strlen(*str) - strlen(autoc->elem));
-  strncat(*str, tab[0], i_sub);
+    if (autoc->elem[0] != 0)
+      i_sub = get_commom_subtring(tab);
+  if (r != 0)
+    {
+      if (!(*str = get_new_str(str, autoc->path, autoc->elem, res)))
+	return (NULL);
+      strncat(*str, tab[0], i_sub);
+      if (r == 1)
+	{
+	  free_word_tab(tab);
+	  tab = NULL;
+	}
+    }
   return (free(res), tab);
 }
 
@@ -125,7 +100,8 @@ int		separate_path_elem(t_autoc *autoc, char **str, char *cur_str, int pos)
   if ((autoc->i_elem == 1 && (*str)[0] == '.') ||
       (pos > 1 && (*str)[pos - 1] == ' '))
     {
-      autoc->elem[0] = 0;
+      if ((*str)[1] != '/')
+	autoc->elem[0] = 0;
       autoc->show = 0;
     }
   return (0);
@@ -151,7 +127,7 @@ char		**find_match(char **env_path, char **str, int pos)
     }
   if (separate_path_elem(&autoc, str, cur_str, pos) == -1)
     return (NULL);
-  printf("\n path %s elem %s\n", autoc.path, autoc.elem);
+  //  printf("\n path %s elem %s\n", autoc.path, autoc.elem);
   tab = find_routine(str, env_path, &autoc);
   free_autoc(&autoc);
   return (tab);
