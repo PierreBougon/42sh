@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 15:23:05 2016 bougon_p
+** Last update Wed Jun  1 23:35:49 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -262,6 +262,7 @@ void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
 int			blt_hist(t_sh *);
+int			tetris(t_sh *);
 
 /*
 **EXEC

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jan  6 14:52:17 2016 maud marel
-** Last update Fri May 20 16:13:49 2016 marel_m
+** Last update Wed Jun  1 23:28:56 2016 bougon_p
 */
 
 #include <stdlib.h>
@@ -31,9 +31,9 @@ int	check_nb(char *str, char sign)
   return (nb);
 }
 
-int	check_first(t_tab *tab, char *str, char sign)
+static int	check_first(t_tab *tab, char *str, char sign)
 {
-  int	i;
+  int		i;
 
   tab->nb = check_nb(str, sign);
   tab->size = strlen(str);
