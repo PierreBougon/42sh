@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Wed Jun  1 13:36:29 2016 marel_m
+** Last update Wed Jun  1 14:50:44 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -20,7 +20,7 @@ int	action_redir(t_sh *sh)
       if (dup2(sh->exec->fd[0][1], 1) == -1)
 	return (1);
     }
-  if (sh->exec->fd[0][0] != 1)
+  if (sh->exec->fd[0][0] != 0)
     {
       if (dup2(sh->exec->fd[0][0], 0) == -1)
 	return (1);
@@ -42,7 +42,7 @@ int	action(t_sh *sh)
       if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
 	exit(1);
     }
-  else if (pid != 0 && sh->exec->fd[0][0] == 1 && sh->exec->fd[0][1] == 1)
+  else if (pid != 0 && sh->exec->fd[0][0] == 0 && sh->exec->fd[0][1] == 1)
     {
       if (wait(&status) == -1)
 	return (1);
@@ -53,7 +53,7 @@ int	action(t_sh *sh)
 	  sh->exec->stop = 1;
 	}
     }
-  if (sh->exec->fd[0][0] != 1)
+  if (sh->exec->fd[0][0] != 0)
     {
       if (close(sh->exec->fd[0][0]) == -1
   	  || waitpid(pid, &status, 0) == -1)

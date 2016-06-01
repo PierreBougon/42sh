@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 15:46:28 2016 debrau_c
+** Last update Wed Jun  1 15:02:07 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -194,6 +194,7 @@ int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*rewrite_str(char *);
+int			check_if_missing_name(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION
