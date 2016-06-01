@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:56:29 2016 debrau_c
-** Last update Mon May 30 15:16:21 2016 marel_m
+** Last update Wed Jun  1 15:00:41 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -78,7 +78,7 @@ void	glob_epur(char *str)
   i = 0;
   while (str && str[++i])
     if ((str[i - 1] == ' ' || str[i - 1] == '\t')
-	&& (str[i] == ' ' || str[i - 1] == '\t'))
+	&& (str[i] == ' ' || str[i] == '\t'))
       {
 	glob_suppr_char(str, i - 1);
 	i = 0;

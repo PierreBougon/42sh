@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed Jun  1 12:22:42 2016 Poc
+** Last update Wed Jun  1 15:02:47 2016 debrau_c
 */
 
 #include <sys/ioctl.h>
@@ -222,10 +222,10 @@ int		execution(char **str, t_head *history, t_sh *sh)
   if (sh->fd_history > 0)
     dprintf(sh->fd_history, "%s\n", *str);
   check_alias(sh->conf.head, str);
-  /* if (var_env_format(sh, &str, sh->env->env)) */
-  /*   return (0); */
-  /* if (globing(&str) */
-  /* || */if  (pars_check_exec(sh, *str))
+  if (var_env_format(sh, str, sh->env->env))
+    return (0);
+  if (globing(str)
+      || pars_check_exec(sh, *str))
     return (1);
   return (0);
 }
