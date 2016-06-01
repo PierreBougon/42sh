@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Wed Jun  1 13:15:13 2016 marel_m
+** Last update Wed Jun  1 21:04:56 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -19,12 +19,14 @@ t_act	*init_tab_act()
 
   if ((tab = malloc(sizeof(t_act) * MAX_ACT)) == NULL
       || (tab[REDIR_RR].act = strdup(">>")) == NULL
+      || (tab[REDIR_LL].act = strdup("<<")) == NULL
       || (tab[REDIR_R].act = strdup(">")) == NULL
       || (tab[REDIR_L].act = strdup("<")) == NULL)
     return (NULL);
   tab[REDIR_RR].ft_act = &double_redirection_right;
   tab[REDIR_R].ft_act = &redirection_right;
   tab[REDIR_L].ft_act = &redirection_left;
+  tab[REDIR_LL].ft_act = &double_redir_left;
   return (tab);
 }
 
