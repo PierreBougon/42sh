@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed Jun  1 15:02:47 2016 debrau_c
+** Last update Wed Jun  1 13:44:20 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -256,6 +256,7 @@ int		term(t_sh *sh)
   int		a;
   t_head	history;
 
+  sh->history = &history;
   if (isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
   a = 3;
