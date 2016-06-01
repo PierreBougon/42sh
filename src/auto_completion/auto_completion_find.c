@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:00:59 2016 Mathieu Sauvau
-** Last update Tue May 31 18:46:41 2016 Mathieu Sauvau
+** Last update Tue May 31 19:06:41 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -75,6 +75,8 @@ char		**find_routine(char **str, char **env_path, t_autoc *autoc)
       res[strlen(res) - 1] = 0;
       strcat(*str, res);
     }
+  /* do the word_tab before and compare - cf previous comment
+   */
   else
     tab =  my_str_to_word_tab(res, ' ');
   return (free(res), tab);
