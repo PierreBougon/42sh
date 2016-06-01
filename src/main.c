@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed Jun  1 11:50:00 2016 Poc
+** Last update Wed Jun  1 12:22:42 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -22,6 +22,7 @@
 #include <fcntl.h>
 #include "42s.h"
 #include "my_glob.h"
+#include "var_env.h"
 
 void	my_show_tab(char **str)
 {
@@ -35,7 +36,7 @@ void	my_show_tab(char **str)
     }
 }
 
-int		init_actions_next(t_key_act actions[10])
+int		init_actions_next(t_key_act actions[12])
 {
   actions[0].fct = &move_left;
   actions[1].fct = &move_right;
@@ -47,13 +48,18 @@ int		init_actions_next(t_key_act actions[10])
   actions[7].fct = &history_down;
   actions[8].fct = &auto_complet;
   actions[9].fct = &clear_scr;
+  actions[10].fct = &del;
+  actions[11].fct = &backspace;
   return (0);
 }
 
-int		init_actions(t_key_act actions[10])
+int		init_actions(t_key_act actions[12])
 {
   char		*str;
+  char		backs[2];
 
+  backs[0] = 127;
+  backs[1] = 0;
   if ((str = tigetstr("kcub1")) == (char *)-1 ||
       !(actions[0].key = strdup(str)) ||
       (str = tigetstr("kcuf1")) == (char *)-1 ||
@@ -71,7 +77,10 @@ int		init_actions(t_key_act actions[10])
       (str = tigetstr("kcud1")) == (char *)-1 ||
       !(actions[7].key = strdup(str)) ||
       !(actions[8].key = strdup("\t")) ||
-      !(actions[9].key = strdup("^L")))
+      !(actions[9].key = strdup("\f")) ||
+      (str = tigetstr("kdch1")) == (char *)-1 ||
+      !(actions[10].key = strdup(str)) ||
+      !(actions[11].key = strdup(&backs[0])))
     return (-1);
   return (init_actions_next(actions));
 }
@@ -121,7 +130,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   return (0);
 }
 
-int		do_action(t_key_act actions[10], char **str,
+int		do_action(t_key_act actions[12], char **str,
 			  t_head *history, char *prompt)
 {
   static int	cur_pos;
@@ -133,7 +142,12 @@ int		do_action(t_key_act actions[10], char **str,
   memset(buff, 0, 11);
   read(0, buff, 10);
   history->prompt = prompt;
-  while (++i < 10)
+
+  /* int j = -1; */
+  /* while (++j < 10) */
+  /*   printf("\n%d\n", buff[j]); */
+
+  while (++i < 12)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -169,14 +183,18 @@ void		get_history(t_sh *sh, t_head *history)
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
-  if ((str = epur(str)) == NULL || verif_good_synthax_string(sh, str)
-      || parsing(sh, str) || execute_each_act(sh))
-      return (1);
+  if ((str = epur(str)) == NULL)
+    return (1);
+  if (verif_good_synthax_string(sh, str)
+      || verif_good_order_sep(sh, str))
+    return (0);
+  if (parsing(sh, str) || execute_each_act(sh))
+    return (1);
   /* free_struct(sh); */
   return (0);
 }
 
-int		term_func_01(t_sh *sh, t_key_act actions[10],
+int		term_func_01(t_sh *sh, t_key_act actions[12],
 			     char **str, t_head *history)
 {
   init_actions(actions);
@@ -204,7 +222,10 @@ int		execution(char **str, t_head *history, t_sh *sh)
   if (sh->fd_history > 0)
     dprintf(sh->fd_history, "%s\n", *str);
   check_alias(sh->conf.head, str);
-  if (globing(str) || pars_check_exec(sh, *str))
+  /* if (var_env_format(sh, &str, sh->env->env)) */
+  /*   return (0); */
+  /* if (globing(&str) */
+  /* || */if  (pars_check_exec(sh, *str))
     return (1);
   return (0);
 }
@@ -213,7 +234,6 @@ int		test(char **str, t_sh *sh, t_head *history, int *a)
 {
   if (*str && (*str)[0] && execution(str, history, sh))
     return (1);
-  /* free_struct(sh); */
   if (isatty(0))
     {
       if ((*str = malloc(sizeof(char) * 10)) == NULL)
@@ -232,7 +252,7 @@ int		test(char **str, t_sh *sh, t_head *history, int *a)
 int		term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[10];
+  t_key_act	actions[12];
   int		a;
   t_head	history;
 

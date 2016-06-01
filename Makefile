@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Tue May 31 17:52:01 2016 Poc
+## Last update Wed Jun  1 12:20:52 2016 Poc
 ##
 
 DEBUG=	no
@@ -14,7 +14,7 @@ AUTO=	auto_completion/
 
 SRC=	main.c				\
 	print_tree.c			\
-	free_exec.c			\
+	free/free_exec.c		\
 	ncurses.c			\
 	actions.c			\
 	erase.c				\
@@ -23,13 +23,14 @@ SRC=	main.c				\
 	cursor.c			\
 	bang.c				\
 	clear.c				\
+	convert_base.c			\
 	prompt.c			\
 	$(AUTO)autocompletion.c		\
 	$(AUTO)auto_completion_find.c	\
 	$(AUTO)auto_completion_utility.c\
 	$(AUTO)auto_completion_utility2.c\
 	$(AUTO)auto_completion_utility3.c\
-	free_tab.c			\
+	free/free_tab.c			\
 	conf/conf.c			\
 	conf/42rc_create_alias.c	\
 	conf/42rc_alias_checker.c	\
@@ -41,12 +42,14 @@ SRC=	main.c				\
 	lib/my_strlen.c			\
 	lib/my_strcat.c			\
 	lib/my_realloc_tab.c		\
+	lib/my_getnbr.c			\
 	env/check_home.c		\
 	env/check_oldpwd.c		\
 	env/check_path.c		\
 	env/check_pwd.c			\
 	env/env.c			\
 	env/verif_env.c			\
+	parsing/rewrite_str.c		\
 	parsing/verif_good_synthax.c	\
 	parsing/epur.c			\
 	parsing/parsing.c		\
@@ -55,10 +58,12 @@ SRC=	main.c				\
 	parsing/parsing_sep.c		\
 	parsing/copy_arg_sep_node.c	\
 	parsing/fptrtab_sep_node.c	\
+	parsing/verif_good_order_sep.c	\
 	exec/execute.c			\
 	exec/builtin_or_exec.c		\
 	exec/check_good_path.c		\
 	exec/redirections.c		\
+	exec/wrong_path.c		\
 	builtins/check_builtins.c	\
 	builtins/check_cd.c		\
 	builtins/check_env.c		\
@@ -66,13 +71,24 @@ SRC=	main.c				\
 	builtins/check_setenv.c		\
 	builtins/check_unsetenv.c	\
 	builtins/check_which_cd.c	\
+	builtins/echo.c			\
+	builtins/parse_echo.c		\
+	builtins/display_echo.c		\
+	builtins/check_spe_opt.c	\
+	builtins/print_spe_echo.c	\
+	builtins/print_hexoct.c		\
+	builtins/print_str.c		\
+	builtins/init_echo.c		\
 	free/free_fptrtab.c		\
 	suggest/check_all_path.c	\
 	suggest/levenshtein.c		\
 	suggest/suggest.c		\
 	glob/glob_dep.c			\
 	glob/glob_dep2.c		\
-	glob/globing.c
+	glob/globing.c			\
+	dollars/var_env.c		\
+	dollars/var_env_str.c		\
+	dollars/var_env_dep.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 

@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:00:59 2016 Mathieu Sauvau
-** Last update Tue May 31 14:13:26 2016 Mathieu Sauvau
+** Last update Tue May 31 18:46:41 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -38,6 +38,11 @@ int		find_in_(char *path, char *str, char **res, int in_env_path)
   closedir(d);
   return (i);
 }
+
+/**
+ ** COMPARE ALL IN RES IF START THE SAME
+ ** CPY TO DIFF
+ */
 
 int		find_anywhere(char **env_path, char **res, t_autoc *autoc)
 {
@@ -89,7 +94,8 @@ int		separate_path_elem(t_autoc *autoc, char **str, char *cur_str, int pos)
       if (!(autoc->elem = strdup(cur_str)))
 	return (-1);
     }
-  if (pos > 1 && (*str)[pos - 1] == ' ')
+  if ((autoc->i_elem == 1 && (*str)[0] == '.') ||
+      (pos > 1 && (*str)[pos - 1] == ' '))
     {
       autoc->elem[0] = 0;
       autoc->show = 0;
@@ -117,6 +123,7 @@ char		**find_match(char **env_path, char **str, int pos)
     }
   if (separate_path_elem(&autoc, str, cur_str, pos) == -1)
     return (NULL);
+  printf("\n path %s elem %s\n", autoc.path, autoc.elem);
   tab = find_routine(str, env_path, &autoc);
   free_autoc(&autoc);
   return (tab);

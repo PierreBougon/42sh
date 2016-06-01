@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 31 12:07:06 2016 Mathieu Sauvau
-** Last update Tue May 31 16:06:28 2016 Mathieu Sauvau
+** Last update Tue May 31 23:23:14 2016 marel_m
 */
 
 #include <string.h>
@@ -25,7 +25,7 @@ int	nb_word_tab(char **tab)
 
 void	del_substring(char *str, char *to_rm)
 {
-  while((str = strstr(str, to_rm)))
+  while ((str = strstr(str, to_rm)))
     memmove(str, str + strlen(to_rm), 1 + strlen(str + strlen(to_rm)));
 }
 

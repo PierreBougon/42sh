@@ -1,2 +1,10 @@
 alias toto='titi'
+alias ls='ls --color'
+alias ll='ls -alF --color'
+alias la='ls -A --color'
+alias l='ls -CF --color'
 export HOME=bite
+<<<<<<< HEAD
+=======
+export PS1=peauc_gradeD_info
+>>>>>>> a3015c8f743bbb25dc30dc9ca7aa96e10e54f62e

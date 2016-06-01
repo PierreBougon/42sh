@@ -5,37 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Tue May 31 14:59:47 2016 marel_m
+** Last update Wed Jun  1 11:30:26 2016 marel_m
 */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 #include "42s.h"
-
-char	*rewrite_str(char *str)
-{
-  char	*tmp;
-  int	i;
-  int	j;
-
-  if ((tmp = malloc(sizeof(char) * (my_strlen(str) + 1))) == NULL)
-    return (NULL);
-  i = 0;
-  j = 0;
-  while (str[j] != '\0' && str && str[j] != ' ' && str[j] != '|')
-    j++;
-  if (str[j] == '\0' && str)
-    return (str);
-  j++;
-  while (str[j] != '\0' && str && str[j] != '|')
-    tmp[i++] = str[j++];
-  j = 0;
-  while (str[j] != '\0' && str && str[j] != ' ')
-    tmp[i++] = str[j++];
-  tmp[i] = '\0';
-  return (tmp);
-}
 
 int	verif_elem_redirect_first(char *tmp)
 {
@@ -94,7 +70,7 @@ int	check_synthax(char *str, int st, int end)
     return (free(tmp), 0);
   if ((ret = elem_good_position(tmp)) != 0)
     return (free(tmp), ret);
-  if (tmp[0] == '>' || (tmp[0] == '<' && tmp[1] != '<'))
+  if (tmp[0] == '>' || tmp[0] == '<')
     {
       if ((str = rewrite_str(tmp)) == NULL)
 	exit(1);
@@ -111,18 +87,24 @@ int	if_is_a_separator(char *str, int *i, int *j)
     {
       if (check_synthax(str, *j, *i))
 	return (1);
+      (*i)++;
+      *j = *i;
       return (0);
     }
   else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
     {
       if (check_synthax(str, *j, *i))
 	return (1);
+      *i += 2;
+      *j = *i;
       return (0);
     }
   else if (str[(*i)] == '|' && str[(*i) + 1] == '|')
     {
       if (check_synthax(str, *j, *i))
 	return (1);
+      *i += 2;
+      *j = *i;
       return (0);
     }
   return (-1);
