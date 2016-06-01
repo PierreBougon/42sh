@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Wed Jun  1 21:04:56 2016 debrau_c
+** Last update Wed Jun  1 21:18:42 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -114,7 +114,7 @@ int		execute_each_act(t_sh *sh)
 	{
 	  if ((sh->exec->fd[j] = malloc(sizeof(int) * 2)) == NULL)
 	    return (1);
-	  sh->exec->fd[j][0] = 1;
+	  sh->exec->fd[j][0] = 0;
 	  sh->exec->fd[j][1] = 1;
 	}
       if (check_which_config(sh, tmp, tmp->node) == 1)

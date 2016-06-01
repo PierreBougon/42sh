@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 21:06:35 2016 debrau_c
+** Last update Wed Jun  1 21:16:41 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -155,6 +155,8 @@ void			backspace(char **, int *, t_head *, int *);
 void			auto_complet(char **, int *, t_head *, int *);
 void			clear_scr(char **, int *, t_head *, int *);
 void			del(char **, int *, t_head *, int *);
+bool			check_exit(char *);
+void			do_shortcut_exit(t_sh *);
 
 /*
 ** 42RC
@@ -194,6 +196,7 @@ int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*rewrite_str(char *);
+int			check_if_missing_name(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION
@@ -210,7 +213,7 @@ char			**get_res(char **, char *, char *, struct stat *);
 char			*get_elem(char *);
 char			*get_path(char *);
 int			nb_word_tab(char **);
-void			del_substring(char *, char *);
+int			get_commom_subtring(char **);
 char			*get_new_str(char **, char *, char *, char *);
 int			show_bin(t_autoc *);
 int			find_in_env_path(char **, char *, char **);
