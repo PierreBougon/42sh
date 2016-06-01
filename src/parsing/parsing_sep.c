@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Mon May 30 20:45:50 2016 marel_m
+** Last update Wed Jun  1 19:11:13 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -87,14 +87,22 @@ char	*pars_redir_left(t_list_sh *elem, char *str)
     i--;
   if (check_prior(my_strdup_e(str, i + 1)) == 0)
     {
-      if (insert_node(&elem->node, my_strdup_e(str, i + 1),
-		      (new = strndup(str, i)), REDIR_LEFT) == NULL)
-	return (NULL);
+      if (str[i - 1] != '<')
+    	{
+    	  if (insert_node(&elem->node, my_strdup_e(str, i + 1),
+    			  (new = strndup(str, i)), REDIR_LEFT) == NULL)
+    	    return (NULL);
+    	}
+      else
+	if (insert_node(&elem->node, my_strdup_e(str, i + 1),
+			(new = strndup(str, i - 1)), DOUBLE_REDIR_LEFT) == NULL)
+	  return (NULL);
     }
   else
     if ((new = pars_redir_left_with_other(elem, str, i)) == NULL)
       return (NULL);
   free(str);
+  printf("%s\n", new);
   return (new);
 }
 
@@ -111,8 +119,3 @@ char	*pars_redir(t_list_sh *elem, char *str)
     }
   return (pars_redir_left(elem, str));
 }
-
-/* int	pars_double_redir_left(t_list_sh *elem, char *str, t_dir dir) */
-/* { */
-/*   return (0); */
-/* } */

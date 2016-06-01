@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed Jun  1 23:32:29 2016 bougon_p
+## Last update Wed Jun  1 23:54:13 2016 bougon_p
 ##
 
 DEBUG	=	no
@@ -99,7 +99,8 @@ SRC	=	main.c				\
 		glob/globing.c			\
 		dollars/var_env.c		\
 		dollars/var_env_str.c		\
-		dollars/var_env_dep.c
+		dollars/var_env_dep.c		\
+		double_left.c
 
 ARGS	=	actions_arg/
 
