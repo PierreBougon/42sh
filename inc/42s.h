@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Tue May 31 18:02:41 2016 Mathieu Sauvau
+** Last update Wed Jun  1 14:56:36 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -127,8 +127,8 @@ typedef struct		s_sh
   t_node		*tree;
   t_env			*env;
   t_exec		*exec;
-  t_history		*history;
   t_conf		conf;
+  t_head		*history;
   int			fd_history;
 }			t_sh;
 
@@ -155,6 +155,8 @@ void			backspace(char **, int *, t_head *, int *);
 void			auto_complet(char **, int *, t_head *, int *);
 void			clear_scr(char **, int *, t_head *, int *);
 void			del(char **, int *, t_head *, int *);
+bool			check_exit(char *);
+void			do_shortcut_exit(t_sh *);
 
 /*
 ** 42RC
@@ -183,6 +185,7 @@ int			create_list(t_sh *);
 t_list_sh		*add_list_after(t_sh *);
 char			*pars_pipe(t_list_sh *, char *);
 char			*pars_redir(t_list_sh *, char *);
+int			bang(char **, t_head *);
 int			check_prior(char *);
 int			arg_pipe(char **);
 int			arg_redir_r(char **);
@@ -191,6 +194,8 @@ int			arg_redir_rr(char **);
 int			arg_redir_ll(char **);
 int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
+int			verif_good_order_sep(t_sh *, char *);
+char			*rewrite_str(char *);
 
 /*
 ** AUTO-COMPLETION
@@ -255,6 +260,7 @@ void			print_str_no_change(char *);
 void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
+int			blt_hist(t_sh *);
 
 /*
 **EXEC
@@ -267,6 +273,7 @@ int			redirection_right(t_sh *, t_node *);
 int			redirection_left(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
+int			check_wrong_path(t_sh *);
 
 /*
 ** ENV

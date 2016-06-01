@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 21:30:43 2016 debrau_c
+** Last update Wed Jun  1 15:15:26 2016 bougon_p
 */
 
 #include <sys/ioctl.h>
@@ -131,13 +131,15 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
 }
 
 int		do_action(t_key_act actions[12], char **str,
-			  t_head *history, char *prompt)
+			  t_sh *sh, char *prompt)
 {
   static int	cur_pos;
   static int	index_history;
   char		buff[11];
   int		i;
+  t_head	*history;
 
+  history = sh->history;
   i = -1;
   memset(buff, 0, 11);
   read(0, buff, 10);
@@ -155,6 +157,8 @@ int		do_action(t_key_act actions[12], char **str,
 	  return (1);
 	}
     }
+  if (check_exit(buff))
+    do_shortcut_exit(sh);
   i = -1;
   while (buff[++i])
     {
@@ -183,9 +187,13 @@ void		get_history(t_sh *sh, t_head *history)
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
-  if ((str = epur(str)) == NULL || verif_good_synthax_string(sh, str)
-      || parsing(sh, str) || execute_each_act(sh))
-      return (1);
+  if ((str = epur(str)) == NULL)
+    return (1);
+  if (verif_good_synthax_string(sh, str)
+      || verif_good_order_sep(sh, str))
+    return (0);
+  if (parsing(sh, str) || execute_each_act(sh))
+    return (1);
   /* free_struct(sh); */
   return (0);
 }
@@ -207,27 +215,29 @@ int		term_func_01(t_sh *sh, t_key_act actions[12],
   return (0);
 }
 
-int		execution(char *str, t_head *history, t_sh *sh)
+int		execution(char **str, t_head *history, t_sh *sh)
 {
   if (str && str[0])
-    push_front_history(history, str);
+    {
+      if ((sh->exit = bang(str, history)))
+	return (0);
+      push_front_history(history, *str);
+    }
   if (sh->fd_history > 0)
-    dprintf(sh->fd_history, "%s\n", str);
-  check_alias(sh->conf.head, &str);
-
-  if (var_env_format(&str, sh->env->env))
+    dprintf(sh->fd_history, "%s\n", *str);
+  check_alias(sh->conf.head, str);
+  if (var_env_format(sh, str, sh->env->env))
     return (0);
-  if (globing(&str)
-      || pars_check_exec(sh, str))
+  if (globing(str)
+      || pars_check_exec(sh, *str))
     return (1);
   return (0);
 }
 
 int		test(char **str, t_sh *sh, t_head *history, int *a)
 {
-  if (*str && (*str)[0] && execution(*str, history, sh))
+  if (*str && (*str)[0] && execution(str, history, sh))
     return (1);
-  /* free_struct(sh); */
   if (isatty(0))
     {
       if ((*str = malloc(sizeof(char) * 10)) == NULL)
@@ -250,6 +260,7 @@ int		term(t_sh *sh)
   int		a;
   t_head	history;
 
+  sh->history = &history;
   if (isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
   a = 3;
@@ -263,7 +274,7 @@ int		term(t_sh *sh)
       	  a = 3;
       	}
       else
-	a = do_action(actions, &str, &history, history.prompt);
+	a = do_action(actions, &str, sh, history.prompt);
       if (a == 3 && test(&str, sh, &history, &a))
 	return (1);
     }

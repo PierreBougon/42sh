@@ -5,13 +5,14 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Mon May 30 15:55:18 2016 debrau_c
-** Last update Tue May 31 21:35:45 2016 debrau_c
+** Last update Wed Jun  1 10:39:39 2016 marel_m
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "var_env.h"
+#include "42s.h"
 
 int	var_env_copy_all_env(char *new, char *env, int j, int k)
 {
@@ -56,7 +57,7 @@ int	var_env_modify(char **str, char **env, int index, char *talon)
   return (1);
 }
 
-int	var_env_format(char **str, char **env)
+int	var_env_format(t_sh *sh, char **str, char **env)
 {
   int	i;
   char	*talon;
@@ -70,6 +71,7 @@ int	var_env_format(char **str, char **env)
 	    return (1);
 	  if (var_env_modify(str, env, i, talon))
 	    {
+	      sh->exit = 1;
 	      printf("%s: Undefined variable.\n", talon);
 	      return (1);
 	    }

@@ -1,7 +1,0 @@
-alias toto='titi'
-alias ls='ls --color'
-alias ll='ls -alF --color'
-alias la='ls -A --color'
-alias l='ls -CF --color'
-export HOME=bite
-export PS1=peauc_gradeD_info

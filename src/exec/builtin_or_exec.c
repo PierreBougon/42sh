@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Tue May 31 14:56:02 2016 marel_m
+** Last update Wed Jun  1 13:36:29 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -50,6 +50,7 @@ int	action(t_sh *sh)
 	{
 	  write(2, "Segmentation fault\n", 19);
 	  sh->exit = 1;
+	  sh->exec->stop = 1;
 	}
     }
   if (sh->exec->fd[0][0] != 1)
