@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Tue May 31 19:00:16 2016 bougon_p
+** Last update Tue May 31 21:30:43 2016 debrau_c
 */
 
 #include <sys/ioctl.h>
@@ -22,6 +22,7 @@
 #include <fcntl.h>
 #include "42s.h"
 #include "my_glob.h"
+#include "var_env.h"
 
 void	my_show_tab(char **str)
 {
@@ -213,7 +214,11 @@ int		execution(char *str, t_head *history, t_sh *sh)
   if (sh->fd_history > 0)
     dprintf(sh->fd_history, "%s\n", str);
   check_alias(sh->conf.head, &str);
-  if (globing(&str) || pars_check_exec(sh, str))
+
+  if (var_env_format(&str, sh->env->env))
+    return (0);
+  if (globing(&str)
+      || pars_check_exec(sh, str))
     return (1);
   return (0);
 }
