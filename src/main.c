@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed Jun  1 15:15:26 2016 bougon_p
+** Last update Wed Jun  1 15:22:12 2016 bougon_p
 */
 
 #include <sys/ioctl.h>
@@ -187,6 +187,8 @@ void		get_history(t_sh *sh, t_head *history)
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
+  if (check_if_missing_name(sh, str))
+    return (0);
   if ((str = epur(str)) == NULL)
     return (1);
   if (verif_good_synthax_string(sh, str)

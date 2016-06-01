@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 14:56:36 2016 bougon_p
+** Last update Wed Jun  1 15:23:05 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -196,6 +196,7 @@ int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*rewrite_str(char *);
+int			check_if_missing_name(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION
@@ -212,7 +213,7 @@ char			**get_res(char **, char *, char *, struct stat *);
 char			*get_elem(char *);
 char			*get_path(char *);
 int			nb_word_tab(char **);
-void			del_substring(char *, char *);
+int			get_commom_subtring(char **);
 char			*get_new_str(char **, char *, char *, char *);
 int			show_bin(t_autoc *);
 int			find_in_env_path(char **, char *, char **);
