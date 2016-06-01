@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Wed Jun  1 14:36:59 2016 Mathieu Sauvau
+// Last update Wed Jun  1 14:40:54 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -127,8 +127,8 @@ typedef struct		s_sh
   t_node		*tree;
   t_env			*env;
   t_exec		*exec;
-  t_history		*history;
   t_conf		conf;
+  t_head		*history;
   int			fd_history;
 }			t_sh;
 
@@ -183,6 +183,7 @@ int			create_list(t_sh *);
 t_list_sh		*add_list_after(t_sh *);
 char			*pars_pipe(t_list_sh *, char *);
 char			*pars_redir(t_list_sh *, char *);
+int			bang(char **, t_head *);
 int			check_prior(char *);
 int			arg_pipe(char **);
 int			arg_redir_r(char **);
@@ -257,6 +258,7 @@ void			print_str_no_change(char *);
 void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
+int			blt_hist(t_sh *);
 
 /*
 **EXEC

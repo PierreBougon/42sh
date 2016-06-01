@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Tue May 31 23:48:41 2016 marel_m
+** Last update Wed Jun  1 14:31:05 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -44,16 +44,18 @@ int	elem_good_position(char *tmp)
     return (write(2, "Missing name for redirect.\n", 27), 1);
   i = -1;
   while (tmp && tmp[++i] != '\0')
-    if (tmp && tmp[i + 1] != '\0' && tmp[i + 2] != '\0'
-	&& ((tmp[i] == '|' && tmp[i + 1] == '|' && tmp[i + 2] == '|')
-	    || (tmp[i] == '&' && tmp[i + 1] == '&' && tmp[i + 2] == '&')))
-      return (write(2, "Invalid null command.\n", 22), 1);
-    else if (tmp[i] != '\0' && tmp[i + 1] != '\0' && tmp[i + 2] != '\0'
-	     && ((tmp[i] == '>' && tmp[i + 1] == '>' && tmp[i + 2] == '>') ||
-		 (tmp[i] == '<' && tmp[i + 1] == '<' && tmp[i + 2] == '<') ||
-		 (tmp[i] == '>' && tmp[i + 1] == '<') ||
-		 (tmp[i] == '<' && tmp[i + 1] == '>')))
-      return (write(2, "Missing name for redirect.\n", 27), 1);
+    {
+      if (tmp[i] != '\0' && tmp[i + 1] != '\0' && tmp[i + 2] != '\0'
+	  && ((tmp[i] == '|' && tmp[i + 1] == '|' && tmp[i + 2] == '|')
+	      || (tmp[i] == '&' && tmp[i + 1] == '&' && tmp[i + 2] == '&')))
+	return (write(2, "Invalid null command.\n", 22), 1);
+      else if (tmp[i] != '\0' && tmp[i + 1] != '\0' && tmp[i + 2] != '\0'
+	       && ((tmp[i] == '>' && tmp[i + 1] == '>' && tmp[i + 2] == '>') ||
+		   (tmp[i] == '<' && tmp[i + 1] == '<' && tmp[i + 2] == '<') ||
+		   (tmp[i] == '>' && tmp[i + 1] == '<') ||
+		   (tmp[i] == '<' && tmp[i + 1] == '>')))
+	return (write(2, "Missing name for redirect.\n", 27), 1);
+    }
   if (verif_elem_redirect_first(tmp))
     return (1);
   return (0);
@@ -70,7 +72,7 @@ int	check_synthax(char *str, int st, int end)
     return (free(tmp), 0);
   if ((ret = elem_good_position(tmp)) != 0)
     return (free(tmp), ret);
-  if (tmp[0] == '>' || (tmp[0] == '<' && tmp[1] != '<'))
+  if (tmp[0] == '>' || tmp[0] == '<')
     {
       if ((str = rewrite_str(tmp)) == NULL)
 	exit(1);
@@ -87,15 +89,15 @@ int	if_is_a_separator(char *str, int *i, int *j)
     {
       if (check_synthax(str, *j, *i))
 	return (1);
-      (*i)++;
-      *j = *i;
-      return (0);
+      return ((*i)++, *j = *i, 0);
     }
   else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
     {
       if (check_synthax(str, *j, *i))
 	return (1);
       *i += 2;
+      if (str[(*i)] == '&')
+	return (write(2, "Invalid null command.\n", 22), 1);
       *j = *i;
       return (0);
     }
@@ -103,9 +105,7 @@ int	if_is_a_separator(char *str, int *i, int *j)
     {
       if (check_synthax(str, *j, *i))
 	return (1);
-      *i += 2;
-      *j = *i;
-      return (0);
+      return (*i += 2, *j = *i, 0);
     }
   return (-1);
 }

@@ -3,5 +3,5 @@ alias ls='ls --color'
 alias ll='ls -alF --color'
 alias la='ls -A --color'
 alias l='ls -CF --color'
-export HOME=bite
-export PS1=peauc_gradeD_info
+alias ls=ls
+alias re=make re DEBUG=yes -j4

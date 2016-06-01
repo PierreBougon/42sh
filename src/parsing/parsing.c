@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Tue May 31 23:45:04 2016 marel_m
+** Last update Wed Jun  1 14:19:21 2016 marel_m
 */
 
 #include <stdio.h>
@@ -66,6 +66,9 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
     return (1);
   elem->node = NULL;
   elem->nb = 1;
+  if (elem->arg[0] == '>' || elem->arg[0] == '<')
+    if ((elem->arg = rewrite_str(elem->arg)) == NULL)
+      exit(1);
   if (check_prior(elem->arg) == 0)
     {
       if (insert_node(&elem->node, elem->arg, elem->arg, NO_ONE) == NULL)
@@ -84,7 +87,9 @@ int	which_separator(t_sh *sh, char *str, int *i, int *j)
       if (stock_elem(sh, str, *j, *i))
 	return (1);
       sh->root->prev->type = SEMICOLON;
-      return ((*i)++, *j = *i, 0);
+      while (str[(*i)] == ';')
+	(*i)++;
+      return (*j = *i, 0);
     }
   else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
     {

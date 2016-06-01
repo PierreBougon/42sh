@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 22:23:41 2016 marel_m
-** Last update Tue May 31 23:07:11 2016 marel_m
+** Last update Wed Jun  1 11:09:59 2016 marel_m
 */
 
 #include <unistd.h>
@@ -32,12 +32,18 @@ int	loop_order(char *str, int redir_r, int redir_l, int pipe)
     {
       if (str[i] == '|')
 	pipe++;
-      else if ((str[i] == '>') || (str[i] == '>' && str[i + 1] != '\0'
-				   && str[++i] == '>'))
-	redir_r++;
-      else if ((str[i] == '<') || (str[i] == '<' && str[i + 1] != '\0'
-				   && str[++i] == '<'))
-	redir_l++;
+      else if (str[i] == '>')
+	{
+	  redir_r++;
+	  if (str[i + 1] != '\0' && str[i + 1] == '>')
+	    i++;
+	}
+      else if (str[i] == '<')
+	{
+	  redir_l++;
+	  if (str[i + 1] != '\0' && str[i + 1] == '<')
+	    i++;
+	}
       if (wrong_order(redir_r, redir_l, pipe))
 	return (1);
       i++;

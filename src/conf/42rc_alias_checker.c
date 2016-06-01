@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Wed May 18 12:37:44 2016 Poc
-** Last update Fri May 27 21:15:45 2016 Poc
+** Last update Wed Jun  1 14:23:00 2016 Poc
 */
 
 #include <string.h>
@@ -20,12 +20,15 @@ int	change_word(char **str, t_aliases *node, int pos, int end)
 
   i = strlen(*str);
   if ((corrected_chain =
-       malloc(sizeof(char) * (strlen(*str) + strlen(node->alias) + 1))) == NULL)
+       malloc(sizeof(char) * (strlen(*str) + strlen(node->alias) + 2))) == NULL)
      return (1);
   (*str)[pos] = 0;
   (*str)[end] = 0;
   strcpy(corrected_chain, *str);
   strcat(corrected_chain, node->alias);
+  if (strlen(corrected_chain) != 0 &&
+      corrected_chain[strlen(corrected_chain) - 1] != ' ')
+    strcat(corrected_chain, " ");
   strcat(corrected_chain, (*str) + end + (end == i ? 0 : 1));
   free(*str);
   *str = corrected_chain;
@@ -44,9 +47,12 @@ int	check_alias(t_aliases *head, char **str)
 	  if (i == 0 || (*str)[i] == ' ')
 	    if (strncmp((*str) + (i == 0 ? i : i + 1),
 			head->original, strlen(head->original)) == 0)
-	      if (change_word(str, head,
-			      (i == 0 ? i : i + 1), i + strlen(head->original)))
-		return (1);
+	      {
+		if (change_word(str, head,
+				(i == 0 ? i : i + 1), i + strlen(head->original)))
+		  return (1);
+		return (0);
+	      }
 	  i++;
 	}
       head = head->next;
