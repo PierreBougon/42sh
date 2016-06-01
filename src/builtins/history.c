@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Wed Jun  1 15:21:39 2016 debrau_c
-** Last update Wed Jun  1 15:44:33 2016 debrau_c
+** Last update Wed Jun  1 13:50:15 2016 marel_m
 */
 
 #include <stdio.h>
@@ -17,30 +17,12 @@ int		blt_hist(t_sh *sh)
   int		i;
 
   i = 1;
-  histo_list = sh->history;
+  histo_list = sh->history->first;
   while (histo_list)
     {
-      printf("\t%d\t%s\n", i, histo_list->str);
+      printf("  %d\t%s\n", i, histo_list->str);
       histo_list = histo_list->next;
       ++i;
     }
   return (0);
 }
-/*
-t_history	*history_init()
-{
-  t_history	*newer;
-  char		*str;
-
-  if ((fd = open(".4sh_history", O_RDONLY)) < 0)
-    return (NULL);
-  if ((newer = malloc(sizeof(t_history))) == NULL)
-    return (NULL);
-  newer->history->str = get_next_line(fd);
-  while ((str = get_next_line(fd)) != NULL)
-    {
-
-    }
-  return (newer);
-}
-*/
