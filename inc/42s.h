@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 15:03:58 2016 marel_m
+** Last update Wed Jun  1 21:16:41 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -155,6 +155,8 @@ void			backspace(char **, int *, t_head *, int *);
 void			auto_complet(char **, int *, t_head *, int *);
 void			clear_scr(char **, int *, t_head *, int *);
 void			del(char **, int *, t_head *, int *);
+bool			check_exit(char *);
+void			do_shortcut_exit(t_sh *);
 
 /*
 ** 42RC
@@ -273,6 +275,7 @@ int			redirection_left(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
+int			double_redir_left(t_sh *, t_node *);
 
 /*
 ** ENV

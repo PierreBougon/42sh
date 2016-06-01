@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Tue May 31 17:40:17 2016 Poc
-** Last update Wed Jun  1 12:01:00 2016 Poc
+** Last update Wed Jun  1 15:19:15 2016 bougon_p
 */
 
 #include <string.h>
@@ -53,7 +53,7 @@ int		bang(char **str, t_head *hist)
     go_down(hist->last, i, str);
   else
     {
-      write(2, "Event not found, dont input a NULL value\n", 41);
+      write(2, "Event not found, don't input a NULL value\n", 42);
       return (1);
     }
   return (0);

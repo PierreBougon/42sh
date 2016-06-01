@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 18:40:38 2016 bougon_p
-** Last update Tue May 31 17:48:33 2016 bougon_p
+** Last update Tue May 31 19:38:27 2016 bougon_p
 */
 
 #include <stdbool.h>
@@ -56,6 +56,8 @@ void	print_echo(t_echo *opt, char **arg)
 	    print_str_no_change(arg[i]);
           else if (opt->opt_e)
 	    print_str_changed(arg[i], opt);
+	  printf(" ");
+	  fflush(stdout);
         }
     }
   if (!opt->opt_n)

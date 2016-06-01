@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed Jun  1 15:01:19 2016 marel_m
+## Last update Wed Jun  1 21:16:55 2016 debrau_c
 ##
 
 DEBUG=	no
@@ -90,7 +90,8 @@ SRC=	main.c				\
 	glob/globing.c			\
 	dollars/var_env.c		\
 	dollars/var_env_str.c		\
-	dollars/var_env_dep.c
+	dollars/var_env_dep.c		\
+	double_left.c
 
 OBJ=	$(addprefix src/, $(SRC:.c=.o))
 
