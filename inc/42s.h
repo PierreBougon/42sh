@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 10:58:14 2016 Poc
+** Last update Thu Jun  2 11:06:13 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -143,6 +143,7 @@ int			check_oldpwd(t_sh *);
 char			*get_next_line(int);
 char			*my_index(char *, char);
 char			*epur(char  *);
+void			change_read_mode(int, int, int);
 
 /*
 ** ACTION
