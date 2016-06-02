@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Wed Jun  1 14:40:54 2016 Mathieu Sauvau
+// Last update Thu Jun  2 10:17:22 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -143,6 +143,7 @@ int			check_oldpwd(t_sh *);
 char			*get_next_line(int);
 char			*my_index(char *, char);
 char			*epur(char  *);
+void			change_read_mode(int, int, int);
 
 /*
 ** ACTION
@@ -155,6 +156,8 @@ void			backspace(char **, int *, t_head *, int *);
 void			auto_complet(char **, int *, t_head *, int *);
 void			clear_scr(char **, int *, t_head *, int *);
 void			del(char **, int *, t_head *, int *);
+bool			check_exit(char *);
+void			do_shortcut_exit(t_sh *);
 
 /*
 ** 42RC
@@ -194,6 +197,8 @@ int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*rewrite_str(char *);
+int			check_if_missing_name(t_sh *, char *);
+char			*pars_double_redirection_left(t_list_sh *, char *, int);
 
 /*
 ** AUTO-COMPLETION
@@ -259,6 +264,7 @@ void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
 int			blt_hist(t_sh *);
+int			tetris(t_sh *);
 
 /*
 **EXEC
@@ -272,6 +278,7 @@ int			redirection_left(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
+int			double_redir_left(t_sh *, t_node *);
 
 /*
 ** ENV

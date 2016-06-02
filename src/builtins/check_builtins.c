@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Wed Jun  1 15:26:50 2016 debrau_c
+** Last update Wed Jun  1 23:34:14 2016 bougon_p
 */
 
 #include <string.h>
@@ -33,6 +33,8 @@ t_blt	*init_tab_builtins()
   tab[ECHO].ft_blt = &my_echo;
   tab[HISTORY].blt = "history";
   tab[HISTORY].ft_blt = &blt_hist;
+  tab[TETRIS].blt = "tetris";
+  tab[TETRIS].ft_blt = &tetris;
   return (tab);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed Jun  1 15:34:50 2016 Mathieu Sauvau
+** Last update Thu Jun  2 10:10:55 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -148,13 +148,15 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
 }
 
 int		do_action(t_key_act actions[14], char **str,
-			  t_head *history, char *prompt)
+			  t_sh *sh, char *prompt)
 {
   static int	cur_pos;
   static int	index_history;
   char		buff[11];
   int		i;
+  t_head	*history;
 
+  history = sh->history;
   i = -1;
   memset(buff, 0, 11);
   read(0, buff, 10);
@@ -172,6 +174,8 @@ int		do_action(t_key_act actions[14], char **str,
 	  return (1);
 	}
     }
+  if (check_exit(buff))
+    do_shortcut_exit(sh);
   i = -1;
   while (buff[++i])
     {
@@ -200,6 +204,8 @@ void		get_history(t_sh *sh, t_head *history)
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
+  if (check_if_missing_name(sh, str))
+    return (0);
   if ((str = epur(str)) == NULL)
     return (1);
   if (verif_good_synthax_string(sh, str)
@@ -287,7 +293,7 @@ int		term(t_sh *sh)
       	  a = 3;
       	}
       else
-	a = do_action(actions, &str, &history, history.prompt);
+	a = do_action(actions, &str, sh, history.prompt);
       if (a == 3 && test(&str, sh, &history, &a))
 	return (1);
     }
