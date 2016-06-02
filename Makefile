@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Wed Jun  1 23:54:13 2016 bougon_p
+## Last update Thu Jun  2 08:21:52 2016 marel_m
 ##
 
 DEBUG	=	no
@@ -69,6 +69,7 @@ SRC	=	main.c				\
 		parsing/fptrtab_sep_node.c	\
 		parsing/verif_good_order_sep.c	\
 		parsing/check_if_missing_name.c	\
+		parsing/redirections_left_double.c	\
 		exec/execute.c			\
 		exec/builtin_or_exec.c		\
 		exec/check_good_path.c		\

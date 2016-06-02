@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Wed Jun  1 19:11:13 2016 marel_m
+** Last update Thu Jun  2 08:17:37 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -85,24 +85,24 @@ char	*pars_redir_left(t_list_sh *elem, char *str)
   i = my_strlen(str) - 1;
   while (str[i] != '<')
     i--;
-  if (check_prior(my_strdup_e(str, i + 1)) == 0)
+  if (str[i - 1] == '<')
     {
-      if (str[i - 1] != '<')
-    	{
-    	  if (insert_node(&elem->node, my_strdup_e(str, i + 1),
-    			  (new = strndup(str, i)), REDIR_LEFT) == NULL)
-    	    return (NULL);
-    	}
-      else
-	if (insert_node(&elem->node, my_strdup_e(str, i + 1),
-			(new = strndup(str, i - 1)), DOUBLE_REDIR_LEFT) == NULL)
-	  return (NULL);
+      if ((new = pars_double_redirection_left(elem, str, i)) == NULL)
+	return (NULL);
     }
   else
-    if ((new = pars_redir_left_with_other(elem, str, i)) == NULL)
-      return (NULL);
+    {
+      if (check_prior(my_strdup_e(str, i + 1)) == 0)
+	{
+	  if (insert_node(&elem->node, my_strdup_e(str, i + 1),
+			  (new = strndup(str, i)), REDIR_LEFT) == NULL)
+	    return (NULL);
+	}
+      else
+	if ((new = pars_redir_left_with_other(elem, str, i)) == NULL)
+	  return (NULL);
+    }
   free(str);
-  printf("%s\n", new);
   return (new);
 }
 

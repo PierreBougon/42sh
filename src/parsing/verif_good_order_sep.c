@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 22:23:41 2016 marel_m
-** Last update Wed Jun  1 11:09:59 2016 marel_m
+** Last update Thu Jun  2 00:17:45 2016 marel_m
 */
 
 #include <unistd.h>
@@ -16,8 +16,6 @@ int	wrong_order(int redir_r, int redir_l, int pipe)
 {
   if (redir_r > 1)
     return (write(2, "Ambiguous output redirect\n", 26), 1);
-  else if (pipe != 0 && redir_r != 0)
-    return (write(2, "Ambiguous output redirect\n", 26), 1);
   else if (redir_l > 1 || (redir_l > 1 && pipe != 0))
     return (write(2, "Ambiguous input redirect\n", 25), 1);
   return (0);
@@ -27,11 +25,15 @@ int	loop_order(char *str, int redir_r, int redir_l, int pipe)
 {
   int	i;
 
-  i = 0;
-  while (str && str[i] != '\0')
+  i = -1;
+  while (str && str[++i] != '\0')
     {
       if (str[i] == '|')
-	pipe++;
+	{
+	  if (redir_r != 0)
+	    return (write(2, "Ambiguous output redirect\n", 26), 1);
+	  pipe++;
+	}
       else if (str[i] == '>')
 	{
 	  redir_r++;
@@ -46,7 +48,6 @@ int	loop_order(char *str, int redir_r, int redir_l, int pipe)
 	}
       if (wrong_order(redir_r, redir_l, pipe))
 	return (1);
-      i++;
     }
   return (0);
 }

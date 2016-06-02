@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 23:52:48 2016 bougon_p
+// Last update Thu Jun  2 10:17:22 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -143,6 +143,7 @@ int			check_oldpwd(t_sh *);
 char			*get_next_line(int);
 char			*my_index(char *, char);
 char			*epur(char  *);
+void			change_read_mode(int, int, int);
 
 /*
 ** ACTION
@@ -197,6 +198,7 @@ int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*rewrite_str(char *);
 int			check_if_missing_name(t_sh *, char *);
+char			*pars_double_redirection_left(t_list_sh *, char *, int);
 
 /*
 ** AUTO-COMPLETION
