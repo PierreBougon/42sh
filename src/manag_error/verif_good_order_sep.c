@@ -5,21 +5,12 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 22:23:41 2016 marel_m
-** Last update Thu Jun  2 00:17:45 2016 marel_m
+** Last update Thu Jun  2 15:51:39 2016 marel_m
 */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "42s.h"
-
-int	wrong_order(int redir_r, int redir_l, int pipe)
-{
-  if (redir_r > 1)
-    return (write(2, "Ambiguous output redirect\n", 26), 1);
-  else if (redir_l > 1 || (redir_l > 1 && pipe != 0))
-    return (write(2, "Ambiguous input redirect\n", 25), 1);
-  return (0);
-}
 
 int	loop_order(char *str, int redir_r, int redir_l, int pipe)
 {
@@ -28,26 +19,30 @@ int	loop_order(char *str, int redir_r, int redir_l, int pipe)
   i = -1;
   while (str && str[++i] != '\0')
     {
-      if (str[i] == '|')
+      if (str[i] == '"')
+	while (str[++i] != '"' && str[i] != '\0');
+      else if (str[i] == '|')
 	{
 	  if (redir_r != 0)
-	    return (write(2, "Ambiguous output redirect\n", 26), 1);
+	    return (write(2, "Ambiguous output redirect.\n", 27), 1);
 	  pipe++;
 	}
       else if (str[i] == '>')
 	{
+	  if (redir_r != 0)
+	    return (write(2, "Ambiguous output redirect.\n", 27), 1);
 	  redir_r++;
 	  if (str[i + 1] != '\0' && str[i + 1] == '>')
 	    i++;
 	}
       else if (str[i] == '<')
 	{
+	  if (pipe != 0)
+	    return (write(2, "Ambiguous input redirect.\n", 26), 1);
 	  redir_l++;
 	  if (str[i + 1] != '\0' && str[i + 1] == '<')
 	    i++;
 	}
-      if (wrong_order(redir_r, redir_l, pipe))
-	return (1);
     }
   return (0);
 }

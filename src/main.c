@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 10:10:55 2016 Mathieu Sauvau
+** Last update Thu Jun  2 15:45:24 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -245,7 +245,8 @@ int		execution(char **str, t_head *history, t_sh *sh)
   if (sh->fd_history > 0)
     dprintf(sh->fd_history, "%s\n", *str);
   check_alias(sh->conf.head, str);
-  if (var_env_format(sh, str, sh->env->env))
+  if (var_env_format(sh, str, sh->env->env)
+      || check_good_double_quote(sh, *str))
     return (0);
   if (globing(str)
       || pars_check_exec(sh, *str))

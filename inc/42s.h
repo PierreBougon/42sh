@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 11:06:13 2016 Poc
+** Last update Thu Jun  2 15:13:21 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -184,8 +184,8 @@ int			parsing(t_sh *, char *);
 t_node			**insert_node(t_node **, char *, char *, t_type);
 int			create_list(t_sh *);
 t_list_sh		*add_list_after(t_sh *);
-char			*pars_pipe(t_list_sh *, char *);
-char			*pars_redir(t_list_sh *, char *);
+char			*pars_pipe(t_list_sh *, char *, int);
+char			*pars_redir(t_list_sh *, char *, int);
 int			bang(char **, t_head *);
 int			check_prior(char *);
 int			arg_pipe(char **);
@@ -193,12 +193,20 @@ int			arg_redir_r(char **);
 int			arg_redir_l(char **);
 int			arg_redir_rr(char **);
 int			arg_redir_ll(char **);
+char			*rewrite_str(char *);
+char			*pars_double_redirection_left(t_list_sh *, char *, int);
+int			check_quote(char *, char, char);
+int			pos_double_quote(char *, char);
+int			double_quote_redir(char *);
+
+/*
+** ERROR
+*/
+int			check_if_missing_name(t_sh *, char *);
 int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
-char			*rewrite_str(char *);
-int			check_if_missing_name(t_sh *, char *);
-char			*pars_double_redirection_left(t_list_sh *, char *, int);
+int			check_good_double_quote(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION

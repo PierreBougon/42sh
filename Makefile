@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 10:50:31 2016 Poc
+## Last update Thu Jun  2 15:06:38 2016 marel_m
 ##
 
 DEBUG	=	no
@@ -59,7 +59,6 @@ SRC	=	main.c				\
 		env/env.c			\
 		env/verif_env.c			\
 		parsing/rewrite_str.c		\
-		parsing/verif_good_synthax.c	\
 		parsing/epur.c			\
 		parsing/parsing.c		\
 		parsing/create_list.c		\
@@ -67,9 +66,12 @@ SRC	=	main.c				\
 		parsing/parsing_sep.c		\
 		parsing/copy_arg_sep_node.c	\
 		parsing/fptrtab_sep_node.c	\
-		parsing/verif_good_order_sep.c	\
-		parsing/check_if_missing_name.c	\
 		parsing/redirections_left_double.c	\
+		parsing/parsing_double_quote.c		\
+		manag_error/verif_good_order_sep.c	\
+		manag_error/check_if_missing_name.c	\
+		manag_error/verif_good_synthax.c	\
+		manag_error/check_good_double_quote.c	\
 		exec/execute.c			\
 		exec/builtin_or_exec.c		\
 		exec/check_good_path.c		\

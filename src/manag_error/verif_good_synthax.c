@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Thu Jun  2 00:08:52 2016 marel_m
+** Last update Thu Jun  2 15:40:50 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -26,7 +26,9 @@ int	verif_elem_redirect_first(char *tmp)
 	return (write(2, "Missing name for redirect.\n", 27), 1);
       while (tmp && tmp[i] != '\0')
 	{
-	  if (tmp[i] == '|')
+	  if (tmp[i] == '"')
+	    while (tmp[++i] != '"' && tmp[i] != '\0');
+	  else if (tmp[i] == '|')
 	    return (write(2, "Ambiguous output redirect.\n", 27), 1);
 	  i++;
 	}
@@ -45,7 +47,9 @@ int	elem_good_position(char *tmp)
   i = -1;
   while (tmp && tmp[++i] != '\0')
     {
-      if (tmp[i] != '\0' && tmp[i + 1] != '\0' && tmp[i + 2] != '\0'
+      if (tmp[i] == '"')
+	while (tmp[++i] != '"' && tmp[i] != '\0');
+      else if (tmp[i] != '\0' && tmp[i + 1] != '\0' && tmp[i + 2] != '\0'
 	  && ((tmp[i] == '|' && tmp[i + 1] == '|' && tmp[i + 2] == '|')
 	      || (tmp[i] == '&' && tmp[i + 1] == '&' && tmp[i + 2] == '&')))
 	return (write(2, "Invalid null command.\n", 22), 1);
@@ -120,7 +124,9 @@ int    verif_good_synthax_string(t_sh *sh, char *str)
   j = 0;
   while (str && str[i] != '\0')
     {
-      if ((ret = if_is_a_separator(str, &i, &j)) == -1)
+      if (str[i] == '"')
+	while (str[++i] != '"' && str[i] != '\0');
+      else if ((ret = if_is_a_separator(str, &i, &j)) == -1)
 	i++;
       else if (ret == 1)
 	{
