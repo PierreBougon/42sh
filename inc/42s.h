@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 11:05:52 2016 bougon_p
+** Last update Thu Jun  2 13:29:09 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -276,6 +276,7 @@ int			check_builtin(t_sh *);
 int			builtin_or_exec(t_sh *);
 int			redirection_right(t_sh *, t_node *);
 int			redirection_left(t_sh *, t_node *);
+int			pipes(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
