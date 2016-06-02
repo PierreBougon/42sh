@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Thu Jun  2 11:03:47 2016 Mathieu Sauvau
+// Last update Thu Jun  2 14:46:51 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -158,6 +158,8 @@ void			clear_scr(char **, int *, t_head *, int *);
 void			del(char **, int *, t_head *, int *);
 void			ctrl_left(char **, int *, t_head *, int *);
 void			ctrl_right(char **, int *, t_head *, int *);
+void			ctrl_k(char **, int *, t_head *, int *);
+void			ctrl_y(char **, int *, t_head *, int *);
 bool			check_exit(char *);
 void			do_shortcut_exit(t_sh *);
 
