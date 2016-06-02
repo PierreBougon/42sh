@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 16:47:23 2016 debrau_c
+** Last update Thu Jun  2 16:58:33 2016 debrau_c
 */
 
 #include <sys/ioctl.h>
@@ -36,7 +36,7 @@ void	my_show_tab(char **str)
     }
 }
 
-int		init_actions_next(t_key_act actions[12])
+int		init_actions_next(t_key_act actions[14])
 {
   actions[0].fct = &move_left;
   actions[1].fct = &move_right;
@@ -50,16 +50,34 @@ int		init_actions_next(t_key_act actions[12])
   actions[9].fct = &clear_scr;
   actions[10].fct = &del;
   actions[11].fct = &backspace;
+  actions[12].fct = &end;
+  actions[13].fct = &debut;
   return (0);
 }
 
-int		init_actions(t_key_act actions[12])
+int		init_actions2(t_key_act actions[14])
 {
-  char		*str;
+  char		end[2];
+  char		start[2];
   char		backs[2];
 
   backs[0] = 127;
   backs[1] = 0;
+  end[0] = 5;
+  end[1] = 0;
+  start[0] = 1;
+  start[1] = 0;
+  if ((!(actions[11].key = strdup(&backs[0])) ||
+       !(actions[12].key = strdup(end)) ||
+       !(actions[13].key = strdup(start))))
+    return (-1);
+  return (init_actions_next(actions));
+}
+
+int		init_actions(t_key_act actions[14])
+{
+  char		*str;
+
   if ((str = tigetstr("kcub1")) == (char *)-1 ||
       !(actions[0].key = strdup(str)) ||
       (str = tigetstr("kcuf1")) == (char *)-1 ||
@@ -79,10 +97,9 @@ int		init_actions(t_key_act actions[12])
       !(actions[8].key = strdup("\t")) ||
       !(actions[9].key = strdup("\f")) ||
       (str = tigetstr("kdch1")) == (char *)-1 ||
-      !(actions[10].key = strdup(str)) ||
-      !(actions[11].key = strdup(&backs[0])))
+      !(actions[10].key = strdup(str)))
     return (-1);
-  return (init_actions_next(actions));
+  return (init_actions2(actions));
 }
 
 void            change_read_mode(int i, int time, int nb_char)
@@ -130,7 +147,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   return (0);
 }
 
-int		do_action(t_key_act actions[12], char **str,
+int		do_action(t_key_act actions[14], char **str,
 			  t_sh *sh, char *prompt)
 {
   static int	cur_pos;
@@ -145,11 +162,17 @@ int		do_action(t_key_act actions[12], char **str,
   read(0, buff, 10);
   history->prompt = prompt;
 
+  if (sh->reset_curs)
+    {
+      cur_pos = 0;
+      *str[0] = 0;
+      sh->reset_curs = false;
+    }
   /* int j = -1; */
   /* while (++j < 10) */
-  /*   printf("\n%d\n", buff[j]); */
+  /*   printf("\n%d %c\n", buff[j], buff[j]); */
 
-  while (++i < 12)
+  while (++i < 14)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -200,7 +223,7 @@ int		pars_check_exec(t_sh *sh, char *str)
   return (0);
 }
 
-int		term_func_01(t_sh *sh, t_key_act actions[12],
+int		term_func_01(t_sh *sh, t_key_act actions[14],
 			     char **str, t_head *history)
 {
   init_actions(actions);
@@ -258,10 +281,11 @@ int		test(char **str, t_sh *sh, t_head *history, int *a)
 int		term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[12];
+  t_key_act	actions[14];
   int		a;
   t_head	history;
 
+  sh->reset_curs = false;
   sh->history = &history;
   if (isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);

@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 14:00:53 2016 debrau_c
+** Last update Thu Jun  2 16:59:26 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -130,6 +130,8 @@ typedef struct		s_sh
   t_conf		conf;
   t_head		*history;
   int			fd_history;
+  int			actual_pipe;
+  bool			reset_curs;
 }			t_sh;
 
 char			**my_str_to_word_tab(char *, char);
@@ -143,6 +145,7 @@ int			check_oldpwd(t_sh *);
 char			*get_next_line(int);
 char			*my_index(char *, char);
 char			*epur(char  *);
+void			change_read_mode(int, int, int);
 
 /*
 ** ACTION
@@ -197,6 +200,7 @@ int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*rewrite_str(char *);
 int			check_if_missing_name(t_sh *, char *);
+char			*pars_double_redirection_left(t_list_sh *, char *, int);
 
 /*
 ** AUTO-COMPLETION
@@ -262,6 +266,7 @@ void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
 int			blt_hist(t_sh *);
+int			tetris(t_sh *);
 
 /*
 **EXEC
@@ -272,6 +277,7 @@ int			check_builtin(t_sh *);
 int			builtin_or_exec(t_sh *);
 int			redirection_right(t_sh *, t_node *);
 int			redirection_left(t_sh *, t_node *);
+int			pipes(t_sh *, t_node *);
 int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);

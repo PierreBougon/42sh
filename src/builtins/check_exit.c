@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 15:44:57 2016 marel_m
-** Last update Wed Jun  1 15:14:35 2016 bougon_p
+** Last update Thu Jun  2 10:16:16 2016 Mathieu Sauvau
 */
 
 #include <stdbool.h>
@@ -36,6 +36,7 @@ int		my_exit(t_sh *sh)
     sh->exit = 0;
   free_env(sh->env);
   free_aliases(&sh->conf);
+  change_read_mode(1, 0, 0);
   exit(sh->exit);
 }
 

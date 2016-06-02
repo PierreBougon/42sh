@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Wed Jun  1 21:30:44 2016 debrau_c
+** Last update Thu Jun  2 16:59:13 2016 debrau_c
 */
 
 #ifndef FPTRTAB_H_
@@ -73,6 +73,7 @@ enum		blt
     EXIT,
     ECHO,
     HISTORY,
+    TETRIS,
     MAX_BLT
   };
 
