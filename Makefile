@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 16:35:33 2016 marel_m
+## Last update Fri Jun  3 00:57:30 2016 marel_m
 ##
 
 DEBUG	=	no
@@ -82,6 +82,7 @@ SRC	=	main.c				\
 		parsing/fptrtab_sep_node.c	\
 		parsing/redirections_left_double.c	\
 		parsing/parsing_double_quote.c		\
+		parsing/parsing_redirections_right.c	\
 		manag_error/verif_good_order_sep.c	\
 		manag_error/check_if_missing_name.c	\
 		manag_error/verif_good_synthax.c	\
@@ -97,6 +98,7 @@ SRC	=	main.c				\
 		builtins/check_env.c		\
 		builtins/check_exit.c		\
 		builtins/check_setenv.c		\
+		builtins/check_setenv_path.c	\
 		builtins/check_unsetenv.c	\
 		builtins/check_which_cd.c	\
 		builtins/echo.c			\

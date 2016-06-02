@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Thu Jun  2 00:23:37 2016 marel_m
+** Last update Fri Jun  3 01:15:46 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -95,9 +95,9 @@ t_node		**insert_node(t_node **tree, char *arg_l, char *arg_r,
       if ((new = new_node(arg_l, arg_r, type)) == NULL)
 	return (NULL);
       *tree = new;
-      return (tree);
+      return (free(arg_l), tree);
     }
   if ((insert_node(&(*tree)->right, arg_l, arg_r, type)) == NULL)
     return (NULL);
-  return (tree);
+  return (free(arg_l), tree);
 }

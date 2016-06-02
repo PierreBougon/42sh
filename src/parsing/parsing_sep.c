@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Thu Jun  2 14:39:45 2016 marel_m
+** Last update Fri Jun  3 01:19:06 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -37,40 +37,6 @@ char	*pars_pipe(t_list_sh *elem, char *str, int quote)
   return (new);
 }
 
-char	*pars_redir_right(t_list_sh *elem, char *str, int quote)
-{
-  int	i;
-  char	*new;
-  int	nb;
-
-  i = my_strlen(str) - 1;
-  if (quote != 0)
-    quote = pos_double_quote(str, '>');
-  nb = 0;
-  while (nb < quote)
-    {
-      if (str[i] == '"')
-	nb++;
-      i--;
-    }
-  while (str[i] != '>')
-    i--;
-  if (i == 0)
-    return (NULL);
-  if (str[i - 1] != '>')
-    {
-      if (insert_node(&elem->node, my_strdup_e(str, i + 1),
-		      (new = strndup(str, i)), REDIR_RIGHT) == NULL)
-	return (NULL);
-    }
-  else
-    if (insert_node(&elem->node, my_strdup_e(str, i + 1),
-		    (new = strndup(str, i - 1)), DOUBLE_REDIR_RIGHT) == NULL)
-      return (NULL);
-  free(str);
-  return (new);
-}
-
 char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
 {
   char	*new;
@@ -97,26 +63,30 @@ char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
   return (new);
 }
 
+void	init_pars_redir_l(char *str, int *i, int quote)
+{
+  int	nb;
+
+  *i = my_strlen(str) - 1;
+  if (quote != 0)
+    quote = pos_double_quote(str, '<');
+  nb = 0;
+  while (nb < quote)
+    {
+      if (str[*i] == '"')
+	nb++;
+      (*i)--;
+    }
+  while (str[*i] != '<')
+    (*i)--;
+}
+
 char	*pars_redir_left(t_list_sh *elem, char *str, int quote)
 {
   char	*new;
   int   i;
-  int	nb;
 
-  i = my_strlen(str) - 1;
-  printf("%d\n", quote);
-  if (quote != 0)
-    quote = pos_double_quote(str, '<');
-  nb = 0;
-  printf("%d\n", quote);
-  while (nb < quote)
-    {
-      if (str[i] == '"')
-	nb++;
-      i--;
-    }
-  while (str[i] != '<')
-    i--;
+  init_pars_redir_l(str, &i, quote);
   if (str[i - 1] == '<')
     {
       if ((new = pars_double_redirection_left(elem, str, i)) == NULL)

@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May  9 13:23:09 2016
-** Last update Thu Jun  2 17:05:46 2016 marel_m
+** Last update Thu Jun  2 23:33:54 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -31,6 +31,22 @@ char	*space_around_act(char *str, char *new, int *i, int *j)
   return (new);
 }
 
+char	*epur_with_quote(char *str, char *new_str, int *i, int *j)
+{
+  new_str[(*j)++] = '"';
+  while (str[++(*i)] != '"' && str[*i] != '\0')
+    new_str[(*j)++] = str[*i];
+  return (new_str);
+}
+
+char	*epur_without_quote(char *str, char *new_str, int *i, int *j)
+{
+  new_str = space_around_act(str, new_str, i, j);
+  if (str[*i] != '\0' && str)
+    new_str[(*j)++] = str[(*i)++];
+  return (new_str);
+}
+
 char	*epur(char *str)
 {
   int	i;
@@ -48,20 +64,10 @@ char	*epur(char *str)
   while (str[i] == ' ')
     i++;
   while (str[i] != '\0' && str)
-    {
-      if (str[i] == '"')
-	{
-	  new_str[j++] = '"';
-	  while (str[++i] != '"' && str[i] != '\0')
-	    new_str[j++] = str[i];
-	}
-      else
-      	{
-	  new_str = space_around_act(str, new_str, &i, &j);
-	  if (str[i] != '\0' && str)
-	    new_str[j++] = str[i++];
-	}
-    }
+    if (str[i] == '"')
+      new_str = epur_with_quote(str, new_str, &i, &j);
+    else
+      new_str = epur_without_quote(str, new_str, &i, &j);
   new_str[j] = 0;
   return (new_str);
 }

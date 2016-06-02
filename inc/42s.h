@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 16:34:56 2016 marel_m
+** Last update Fri Jun  3 01:04:02 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -204,6 +204,7 @@ char			*pars_double_redirection_left(t_list_sh *, char *, int);
 int			check_quote(char *, char, char);
 int			pos_double_quote(char *, char);
 int			double_quote_redir(char *);
+char			*pars_redir_right(t_list_sh *, char *, int);
 
 /*
 ** ERROR
@@ -239,6 +240,7 @@ void			free_autoc(t_autoc *);
 **BUILTINS
 */
 int			my_setenv(t_sh *);
+int			check_setenv_path(t_sh *);
 int			check_path_setenv(t_sh *);
 int			my_unsetenv(t_sh *);
 int			my_exit(t_sh *);
