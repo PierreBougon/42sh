@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Wed Jun  1 14:50:44 2016 marel_m
+** Last update Thu Jun  2 10:44:09 2016 Poc
 */
 
 #include <sys/wait.h>
@@ -84,6 +84,7 @@ int	builtin_or_exec(t_sh *sh)
 {
   int	ret;
 
+  printf("builtin -> %s\n", sh->exec->exec);
   if ((ret = check_builtin(sh)) == -3)
     {
       if ((ret = exec(sh)) != 0)
