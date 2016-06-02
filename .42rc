@@ -1,7 +1,0 @@
-alias toto='titi'
-alias ls='ls --color'
-alias ll='ls -alF --color'
-alias la='ls -A --color'
-alias l='ls -CF --color'
-alias ls=ls
-alias re=make re DEBUG=yes -j4
