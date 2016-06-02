@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 08:20:19 2016 marel_m
+## Last update Thu Jun  2 08:20:58 2016 marel_m
 ##
 
 DEBUG	=	no
@@ -162,7 +162,6 @@ SRC	+=	$(TETRSRC)
 OBJ	=	$(addprefix src/, $(SRC:.c=.o))
 
 RM	=	rm -f
->>>>>>> e3aa9051b1d715da591ae8e938a7c65432265da9
 
 ifeq ($(DEBUG), yes)
 	CFLAGS	=		-W -Wall -Wextra -g -D DEBUG -O0
