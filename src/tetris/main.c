@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat Feb 27 23:39:59 2016 maud marel
-** Last update Thu Jun  2 11:23:43 2016 bougon_p
+** Last update Thu Jun  2 15:48:53 2016 bougon_p
 */
 
 #include <time.h>
@@ -33,7 +33,7 @@ bool		launch_all(t_tetris *tetris)
   return (true);
 }
 
-int		tetris(UNUSED t_sh *sh)
+int		main()
 {
   t_tetris	tetris;
 
@@ -50,6 +50,5 @@ int		tetris(UNUSED t_sh *sh)
   keypad(stdscr, false);
   printf("%s", tigetstr("smkx"));
   fflush(stdout);
-  sh->reset_curs = true;
   return (0);
 }

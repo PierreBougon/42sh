@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 11:40:38 2016 bougon_p
+** Last update Thu Jun  2 14:40:18 2016 bougon_p
 */
 
 #include <sys/ioctl.h>
@@ -165,7 +165,6 @@ int		do_action(t_key_act actions[14], char **str,
   if (sh->reset_curs)
     {
       cur_pos = 0;
-      *str[0] = 0;
       sh->reset_curs = false;
     }
   /* int j = -1; */

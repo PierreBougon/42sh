@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 13:32:27 2016 Poc
+## Last update Thu Jun  2 15:50:16 2016 bougon_p
 ##
 
 DEBUG	=	no
@@ -49,23 +49,6 @@ SRC	=	main.c				\
 		conf/42rc_create_alias.c	\
 		conf/42rc_alias_checker.c	\
 		conf/42rc_create_export.c	\
-		lib/my_get_next_line.c		\
-		lib/my_str_to_word_tab.c	\
-		lib/my_strdup.c			\
-		lib/my_strcpy.c			\
-		lib/my_strdup_bt.c		\
-		lib/my_strdup_e.c		\
-		lib/my_strlen.c			\
-		lib/my_strcat.c			\
-		lib/my_realloc_tab.c		\
-		lib/my_getnbr.c			\
-		lib/my_put_nbr.c		\
-		lib/my_putstr.c			\
-		lib/my_putstr_error.c		\
-		lib/my_strcmp.c			\
-		lib/my_strncmp.c		\
-		lib/my_putchar.c		\
-		lib/my_putchar_error.c		\
 		env/check_home.c		\
 		env/check_oldpwd.c		\
 		env/check_path.c		\
@@ -106,6 +89,7 @@ SRC	=	main.c				\
 		builtins/print_str.c		\
 		builtins/init_echo.c		\
 		builtins/history.c		\
+		builtins/tetris.c		\
 		free/free_fptrtab.c		\
 		suggest/check_all_path.c	\
 		suggest/levenshtein.c		\
@@ -117,6 +101,8 @@ SRC	=	main.c				\
 		dollars/var_env_str.c		\
 		dollars/var_env_dep.c		\
 		double_left.c
+
+TETNAME	=	assets/tetris
 
 ARGS	=	actions_arg/
 
@@ -169,17 +155,49 @@ TETFILE	=	main.c \
 		$(TETRI)stock_tetrimino.c \
 		$(TETRI)check_empty.c \
 		$(FREE)free_options.c \
-		$(FREE)free_struct.c \
+		$(FREE)free_struct.c
 
-TETRSRC	=	$(addprefix tetris/, $(TETFILE))
-
-SRC	+=	$(TETRSRC)
+TETSRC	=	$(addprefix src/tetris/, $(TETFILE))
 
 
+
+# Library variables
+
+LIBPATH	=	lib/
+
+LIB	=	lib/libmy.a
+
+LIBFILE	=	my_get_next_line.c		\
+		my_str_to_word_tab.c		\
+		my_strdup.c			\
+		my_strcpy.c			\
+		my_strdup_bt.c			\
+		my_strdup_e.c			\
+		my_strlen.c			\
+		my_strcat.c			\
+		my_realloc_tab.c		\
+		my_getnbr.c			\
+		my_put_nbr.c			\
+		my_putstr.c			\
+		my_putstr_error.c		\
+		my_strcmp.c			\
+		my_strncmp.c			\
+		my_putchar.c			\
+		my_putchar_error.c
+
+SRCLIB	=	$(addprefix lib/my/, $(LIBFILE))
+
+LDFLAGS	=	-lmy -L$(LIBPATH)
+
+LDFLAGS	+=	-lncurses
+
+OBJLIB	=	$(SRCLIB:.c=.o)
 
 # Project variables
 
 OBJ	=	$(addprefix src/, $(SRC:.c=.o))
+
+OBJTET	=	$(TETSRC:.c=.o)
 
 RM	=	rm -f
 
@@ -193,14 +211,13 @@ NAME	=	42sh
 
 HEAD	=	-I inc/
 
-all:		$(NAME)
 
 #Project Rules
 
-$(NAME):		$(OBJ)
+$(NAME):		$(LIB) $(TETNAME) $(OBJ)
 			@make -s ctags
 ifeq ($(DEBUG), yes)
-			@tput setaf 5; tput bold;
+			@tput setaf 1; tput bold;
 			@echo " ____________________ ________________________   ____ ___._________________";
 			@echo "/   _____/\_   _____|/  _____/\_   _____/  _  \ |    |   \    | \__    ___/";
 			@echo "\_____  \  |    ___|/   \  ___ |    __)/  / \  \|    |   /    |   |    |";
@@ -211,22 +228,38 @@ endif
 			@echo -e "\n\n$(RED)Linking with :$(WHITE)\n"
 			@echo -e "$(RED)CC$(WHITE)     = $(CC)"
 			@echo -e "$(RED)CFLAGS$(WHITE) = $(CFLAGS)"
-			@$(CC) $(OBJ) -o $(NAME) -lncurses
-			@echo -e "$(BLUE) \t \t \n \t ♩♪♫ $(NAME) Compiled® Created Sucesfully $(WHITE)"
+			@$(CC) $(OBJ) -o $(NAME) $(LDFLAGS)
+			@echo -e "$(BLUE) \t \t \n \t ♩♪♫ $(NAME) Compiled® Created Sucesfully $(WHITE)\n"
 
+$(TETNAME):		$(OBJTET)
+			@echo -e "\n\n$(RED)Linking with :$(WHITE)\n"
+			@echo -e "$(RED)CC$(WHITE)     = $(CC)"
+			@echo -e "$(RED)CFLAGS$(WHITE) = $(CFLAGS)"
+			@$(CC) $(OBJTET) -o $(TETNAME) $(LDFLAGS)
+			@echo -e "$(BLUE) \t \t \n \t ♩♪♫ Tetris Compiled® Created Sucesfully $(WHITE)\n"
+
+$(LIB):			$(OBJLIB)
+			@ar rc $(LIB) $(OBJLIB)
+			@ranlib $(LIB)
+			@echo -e "$(BLUE) \t \t \n \t ♩♪♫ Library Compiled® Created Sucesfully $(WHITE)\n"
+
+all:
+			@make -s $(NAME)
 
 ctags:
 		rm -rf TAGS
 		find . -type f -iname "*.[chS]" | xargs etags -a
-all:			$(NAME)
-
 
 clean:
 			@$(RM) $(OBJ)
+			@$(RM) $(OBJTET)
+			@$(RM) $(OBJLIB)
 			@echo -e "[ $(RED)OK$(WHITE) ] clean sucessfull"
 
 fclean: 		clean
 			@$(RM) $(NAME)
+			@$(RM) $(TETNAME)
+			@$(RM) $(LIB)
 			@echo -e "[ $(RED)OK$(WHITE) ] fclean succesfull"
 
 re:			fclean all
