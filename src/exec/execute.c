@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Thu Jun  2 10:45:19 2016 Poc
+** Last update Thu Jun  2 13:28:03 2016 Poc
 */
 
 #include <stdlib.h>
@@ -40,7 +40,7 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
   i = -1;
   if (tree == NULL || tree->arg == NULL)
     return (1);
-  while (++i < 3)
+  while (++i < MAX_ACT)
     if (strncmp(tree->arg, fptrtab[i].act, strlen(fptrtab[i].act)) == 0)
       {
 	if ((ret = fptrtab[i].ft_act(sh, tree->left)) != 0)
@@ -52,6 +52,7 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
       || sh->exec->arg[0] == NULL
       || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
     return (1);
+  /* printf("savau\n"); */
   if ((ret = builtin_or_exec(sh)) != 0)
     return (ret);
   return (0);

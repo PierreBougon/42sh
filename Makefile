@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 10:50:31 2016 Poc
+## Last update Thu Jun  2 11:54:51 2016 Poc
 ##
 
 DEBUG	=	no
@@ -175,8 +175,11 @@ NAME	=	42sh
 
 HEAD	=	-I inc/
 
-$(NAME):                ctags $(OBJ)
+all:		$(NAME)
+
+$(NAME):                $(OBJ)
 ifeq ($(DEBUG), yes)
+	@make ctags
 	@tput setaf 1; tput bold
 	@echo " ____________________ ________________________   ____ ___._________________";
 	@echo "/   _____/\_   _____|/  _____/\_   _____/  _  \ |    |   \    | \__    ___/";
@@ -190,13 +193,10 @@ endif
 	@ $(CC) $(OBJ) -o $(NAME) -lncurses
 	@ echo -e "\033[1;31m \t \t \n \t ♩♪♫ $(NAME) Compiled\033[0;31m®\033[1;31m Created Sucesfully \033[0m"
 
-all:		$(NAME)
 
 ctags:
-ifeq ($(DEBUG), yes)
 		rm -rf TAGS
 		find . -type f -iname "*.[chS]" | xargs etags -a
-endif
 
 clean:
 		@ $(RM) $(OBJ)
