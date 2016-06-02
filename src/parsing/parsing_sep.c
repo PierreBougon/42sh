@@ -5,14 +5,14 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Thu Jun  2 08:17:37 2016 marel_m
+** Last update Thu Jun  2 11:00:49 2016 marel_m
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"
 
-char	*pars_pipe(t_list_sh *elem, char *str)
+char	*pars_pipe(t_list_sh *elem, char *str, int quote)
 {
   int	i;
   char	*new;

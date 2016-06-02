@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Thu Jun  2 08:17:55 2016 marel_m
+** Last update Thu Jun  2 11:00:39 2016 marel_m
 */
 
 #include <stdio.h>
@@ -33,21 +33,23 @@ int	check_prior(char *str)
 int		pars_tree(t_list_sh *elem, char *str)
 {
   int		prior;
+  int		quote;
 
   if (str == NULL)
     return (1);
   prior = check_prior(str);
+  quote = check_quote(str);
   elem->nb++;
   if (prior == 0)
     return (0);
   else if (prior == 1)
     {
-      if ((str = pars_pipe(elem, str)) == NULL)
+      if ((str = pars_pipe(elem, str, quote)) == NULL)
 	return (1);
     }
   else if (prior == 2)
     {
-      if ((str = pars_redir(elem, str)) == NULL)
+      if ((str = pars_redir(elem, str, quote)) == NULL)
 	return (1);
     }
   if (check_prior(str) != 0)
