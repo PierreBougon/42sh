@@ -5,10 +5,24 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 08:21:52 2016 marel_m
+## Last update Thu Jun  2 13:24:21 2016 bougon_p
 ##
 
 DEBUG	=	no
+
+
+
+# Color variables
+
+BLUE	=	\033[1;34m
+
+WHITE   =       \033[0m
+
+RED	=	\033[1;31m
+
+
+
+# Sources variables
 
 AUTO	=	auto_completion/
 
@@ -160,52 +174,63 @@ TETRSRC	=	$(addprefix tetris/, $(TETFILE))
 
 SRC	+=	$(TETRSRC)
 
+
+
+# Project variables
+
 OBJ	=	$(addprefix src/, $(SRC:.c=.o))
 
 RM	=	rm -f
 
 ifeq ($(DEBUG), yes)
-	CFLAGS	=		-W -Wall -Wextra -g -D DEBUG -O0
+CFLAGS	=	-W -Wall -Wextra -g -D DEBUG -O0
 else
-	CFLAGS	=		-W -Wall -Wextra -Werror
+CFLAGS	=	-W -Wall -Wextra -Werror
 endif
 
 NAME	=	42sh
 
 HEAD	=	-I inc/
 
-$(NAME):                ctags $(OBJ)
-ifeq ($(DEBUG), yes)
-	@tput setaf 1; tput bold
-	@echo " ____________________ ________________________   ____ ___._________________";
-	@echo "/   _____/\_   _____|/  _____/\_   _____/  _  \ |    |   \    | \__    ___/";
-	@echo "\_____  \  |    ___|/   \  ___ |    __)/  / \  \|    |   /    |   |    |";
-	@echo "/        \ |        \    \_\  \|     \/    |    \    |  /|    |___|    |";
-	@echo "/________//_________/\________/\_____/\____|____/______/ |________|____|";
-	@tput sgr0
-endif
-	@ echo "CC = $(CC)"
-	@ echo "CFLAGS = $(CFLAGS)"
-	@ $(CC) $(OBJ) -o $(NAME) -lncurses
-	@ echo -e "\033[1;31m \t \t \n \t ♩♪♫ $(NAME) Compiled\033[0;31m®\033[1;31m Created Sucesfully \033[0m"
 
-all:		$(NAME)
+
+#Project Rules
+
+$(NAME):		$(OBJ)
+			@make -s ctags
+ifeq ($(DEBUG), yes)
+			@tput setaf 5; tput bold;
+			@echo " ____________________ ________________________   ____ ___._________________";
+			@echo "/   _____/\_   _____|/  _____/\_   _____/  _  \ |    |   \    | \__    ___/";
+			@echo "\_____  \  |    ___|/   \  ___ |    __)/  / \  \|    |   /    |   |    |";
+			@echo "/        \ |        \    \_\  \|     \/    |    \    |  /|    |___|    |";
+			@echo "/________//_________/\________/\_____/\____|____/______/ |________|____|";
+			@tput sgr0
+endif
+			@echo -e "\n\n$(RED)Linking with :$(WHITE)\n"
+			@echo -e "$(RED)CC$(WHITE)     = $(CC)"
+			@echo -e "$(RED)CFLAGS$(WHITE) = $(CFLAGS)"
+			@$(CC) $(OBJ) -o $(NAME) -lncurses
+			@echo -e "$(BLUE) \t \t \n \t ♩♪♫ $(NAME) Compiled® Created Sucesfully $(WHITE)"
+
+all:			$(NAME)
 
 ctags:
 ifeq ($(DEBUG), yes)
-		rm -rf TAGS
-		find . -type f -iname "*.[chS]" | xargs etags -a
+			rm -rf TAGS
+			find . -type f -iname "*.[chS]" | xargs etags -a
 endif
 
 clean:
-		@ $(RM) $(OBJ)
-		@ echo "[ OK ] clean sucessfull"
-fclean: clean
-		@ $(RM) $(NAME)
-		@ echo "[ OK ] fclean succesfull"
+			@$(RM) $(OBJ)
+			@echo -e "[ $(RED)OK$(WHITE) ] clean sucessfull"
 
-re:	fclean all
+fclean: 		clean
+			@$(RM) $(NAME)
+			@echo -e "[ $(RED)OK$(WHITE) ] fclean succesfull"
+
+re:			fclean all
 
 %.o:                    %.c
-			@ echo "[ OK ] Compiling" $<
-			@ $(CC) -o $@ -c $< $(CFLAGS) $(HEAD)
+			@echo -e "[ $(BLUE)OK$(WHITE) ] Compiling" $<
+			@$(CC) -o $@ -c $< $(CFLAGS) $(HEAD)

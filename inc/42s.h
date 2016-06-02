@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-// Last update Thu Jun  2 10:17:22 2016 Mathieu Sauvau
+** Last update Thu Jun  2 11:05:52 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -130,6 +130,7 @@ typedef struct		s_sh
   t_conf		conf;
   t_head		*history;
   int			fd_history;
+  bool			reset_curs;
 }			t_sh;
 
 char			**my_str_to_word_tab(char *, char);
