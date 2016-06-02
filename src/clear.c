@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 27 17:10:04 2016 Mathieu Sauvau
-** Last update Thu Jun  2 16:10:38 2016 Mathieu Sauvau
+** Last update Fri Jun  3 01:22:26 2016 marel_m
 */
 
 #include <stdio.h>
@@ -109,7 +109,7 @@ void	ctrl_y(char **str, int *pos,
       printf("\r%s%s", history->prompt, *str);
       cursor_backward(strlen(end));
       *pos += strlen(history->cpy_buf);
-      if (*pos == strlen(*str))
+      if ((*pos) == (int)strlen(*str))
       	cursor_forward(1);
       fflush(stdout);
       free(start);
