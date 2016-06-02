@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat Feb 27 23:39:59 2016 maud marel
-** Last update Wed Jun  1 23:34:55 2016 bougon_p
+** Last update Thu Jun  2 10:20:06 2016 bougon_p
 */
 
 #include <time.h>
@@ -48,5 +48,6 @@ int		tetris(UNUSED t_sh *sh)
     return (1);
   endwin();
   tfree_struct(&tetris);
+  change_read_mode(0, 100, 1);
   return (0);
 }
