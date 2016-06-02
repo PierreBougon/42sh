@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Thu Jun  2 11:10:13 2016 Poc
+** Last update Thu Jun  2 17:34:34 2016 Poc
 */
 
 #include <sys/wait.h>
@@ -37,6 +37,8 @@ int	action(t_sh *sh)
     return (1);
   if (pid == 0)
     {
+      printf("%s\n%d\n", sh->exec->good_path, sh->actual_pipe);
+      dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if (action_redir(sh))
 	return (1);
       if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
@@ -53,6 +55,8 @@ int	action(t_sh *sh)
 	  sh->exec->stop = 1;
 	}
     }
+  wait;
+  close(sh->exec->fd[sh->actual_pipe][1]);
   if (sh->exec->fd[0][0] != 0)
     {
       if (close(sh->exec->fd[0][0]) == -1

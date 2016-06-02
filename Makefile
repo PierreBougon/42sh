@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 13:32:27 2016 Poc
+## Last update Thu Jun  2 13:38:46 2016 Poc
 ##
 
 DEBUG	=	no
@@ -128,109 +128,111 @@ TETRI	=	stock_check_tetriminos/
 
 FREE	=	free/
 
-TETFILE	=	main.c \
-		$(ARGS)check_arg.c \
-		$(ARGS)read_arg.c \
-		$(ARGS)init_options.c \
-		$(ARGS)verif_size_all.c \
-		$(DISP)display_help.c \
-		$(DISP)display_help_error.c \
-		$(DISP)display_debug.c \
-		$(DISP)display_debug_key.c \
-		$(DISP)display_board.c \
-		$(OPTS)change_key_drop.c \
-		$(OPTS)change_key_left.c \
-		$(OPTS)change_key_pause.c \
-		$(OPTS)change_key_quit.c \
-		$(OPTS)change_key_right.c \
-		$(OPTS)change_key_turn.c \
-		$(OPTS)change_level.c \
-		$(OPTS)change_map_size.c \
-		$(OPTS)hide_next.c \
-		$(OPTS)wrong_options.c \
-		ncurses/init.c \
-		ncurses/movement.c \
-		ncurses/collision.c \
-		ncurses/print_game.c \
-		ncurses/mechanic.c \
-		ncurses/main_loop.c \
-		ncurses/purge_tetri.c \
-		ncurses/key.c \
-		ncurses/key2.c \
-		ncurses/cpy_tetri.c \
-		ncurses/rotate.c \
-		ncurses/get_star.c \
-		ncurses/re_init.c \
-		ncurses/check_high_score.c \
-		ncurses/itoa.c \
-		$(TETRI)check_tetriminos.c \
-		$(TETRI)stock.c \
-		$(TETRI)put_in_list.c \
-		$(TETRI)stock_tetrimino.c \
-		$(TETRI)check_empty.c \
-		$(FREE)free_options.c \
-		$(FREE)free_struct.c \
+TETFILE	= main.c \
+	$(ARGS)check_arg.c \
+	$(ARGS)read_arg.c \
+	$(ARGS)init_options.c \
+	$(ARGS)verif_size_all.c \
+	$(DISP)display_help.c \
+	$(DISP)display_help_error.c \
+	$(DISP)display_debug.c \
+	$(DISP)display_debug_key.c \
+	$(DISP)display_board.c \
+	$(OPTS)change_key_drop.c \
+	$(OPTS)change_key_left.c \
+	$(OPTS)change_key_pause.c \
+	$(OPTS)change_key_quit.c \
+	$(OPTS)change_key_right.c \
+	$(OPTS)change_key_turn.c \
+	$(OPTS)change_level.c \
+	$(OPTS)change_map_size.c \
+	$(OPTS)hide_next.c \
+	$(OPTS)wrong_options.c \
+	ncurses/init.c \
+	ncurses/movement.c \
+	ncurses/collision.c \
+	ncurses/print_game.c \
+	ncurses/mechanic.c \
+	ncurses/main_loop.c \
+	ncurses/purge_tetri.c \
+	ncurses/key.c \
+	ncurses/key2.c \
+	ncurses/cpy_tetri.c \
+	ncurses/rotate.c \
+	ncurses/get_star.c \
+	ncurses/re_init.c \
+	ncurses/check_high_score.c \
+	ncurses/itoa.c \
+	$(TETRI)check_tetriminos.c \
+	$(TETRI)stock.c \
+	$(TETRI)put_in_list.c \
+	$(TETRI)stock_tetrimino.c \
+	$(TETRI)check_empty.c \
+	$(FREE)free_options.c \
+	$(FREE)free_struct.c \
 
-TETRSRC	=	$(addprefix tetris/, $(TETFILE))
+TETRSRC	= $(addprefix tetris/, $(TETFILE))
 
-SRC	+=	$(TETRSRC)
+SRC	+= $(TETRSRC)
 
 
 
 # Project variables
 
-OBJ	=	$(addprefix src/, $(SRC:.c=.o))
+OBJ	= $(addprefix src/, $(SRC:.c=.o))
 
-RM	=	rm -f
+RM	= rm -f
 
 ifeq ($(DEBUG), yes)
-CFLAGS	=	-W -Wall -Wextra -g -D DEBUG -O0
+CFLAGS	= -W -Wall -Wextra -g -D DEBUG -O0
 else
-CFLAGS	=	-W -Wall -Wextra -Werror
+CFLAGS	= -W -Wall -Wextra -Werror
 endif
 
-NAME	=	42sh
+NAME	= 42sh
 
-HEAD	=	-I inc/
+CC	= gcc
 
-all:		$(NAME)
+HEAD	= -I inc/
+
+all:	$(NAME)
 
 #Project Rules
 
-$(NAME):		$(OBJ)
-			@make -s ctags
+$(NAME):	$(OBJ)
+		@make -s ctags
 ifeq ($(DEBUG), yes)
-			@tput setaf 5; tput bold;
-			@echo " ____________________ ________________________   ____ ___._________________";
-			@echo "/   _____/\_   _____|/  _____/\_   _____/  _  \ |    |   \    | \__    ___/";
-			@echo "\_____  \  |    ___|/   \  ___ |    __)/  / \  \|    |   /    |   |    |";
-			@echo "/        \ |        \    \_\  \|     \/    |    \    |  /|    |___|    |";
-			@echo "/________//_________/\________/\_____/\____|____/______/ |________|____|";
-			@tput sgr0
+		@tput setaf 5; tput bold;
+		@echo " ____________________ ________________________   ____ ___._________________";
+		@echo "/   _____/\_   _____|/  _____/\_   _____/  _  \ |    |   \    | \__    ___/";
+		@echo "\_____  \  |    ___|/   \  ___ |    __)/  / \  \|    |   /    |   |    |";
+		@echo "/        \ |        \    \_\  \|     \/    |    \    |  /|    |___|    |";
+		@echo "/________//_________/\________/\_____/\____|____/______/ |________|____|";
+		@tput sgr0
 endif
-			@echo -e "\n\n$(RED)Linking with :$(WHITE)\n"
-			@echo -e "$(RED)CC$(WHITE)     = $(CC)"
-			@echo -e "$(RED)CFLAGS$(WHITE) = $(CFLAGS)"
-			@$(CC) $(OBJ) -o $(NAME) -lncurses
-			@echo -e "$(BLUE) \t \t \n \t ♩♪♫ $(NAME) Compiled® Created Sucesfully $(WHITE)"
+		@echo -e "\n\n$(RED)Linking with :$(WHITE)\n"
+		@echo -e "$(RED)CC$(WHITE)     = $(CC)"
+		@echo -e "$(RED)CFLAGS$(WHITE) = $(CFLAGS)"
+		@$(CC) $(OBJ) -o $(NAME) -lncurses
+		@echo -e "$(BLUE) \t \t \n \t ♩♪♫ $(NAME) Compiled® Created Sucesfully $(WHITE)"
 
 
 ctags:
-		rm -rf TAGS
-		find . -type f -iname "*.[chS]" | xargs etags -a
-all:			$(NAME)
+	rm -rf TAGS
+	find . -type f -iname "*.[chS]" | xargs etags -a
+all:		$(NAME)
 
 
 clean:
-			@$(RM) $(OBJ)
-			@echo -e "[ $(RED)OK$(WHITE) ] clean sucessfull"
+		@$(RM) $(OBJ)
+		@echo -e "[ $(RED)OK$(WHITE) ] clean sucessfull"
 
-fclean: 		clean
-			@$(RM) $(NAME)
-			@echo -e "[ $(RED)OK$(WHITE) ] fclean succesfull"
+fclean: 	clean
+		@$(RM) $(NAME)
+		@echo -e "[ $(RED)OK$(WHITE) ] fclean succesfull"
 
-re:			fclean all
+re:		fclean all
 
 %.o:                    %.c
-			@echo -e "[ $(BLUE)OK$(WHITE) ] Compiling" $<
-			@$(CC) -o $@ -c $< $(CFLAGS) $(HEAD)
+		@echo -e "[ $(BLUE)OK$(WHITE) ] Compiling" $<
+		@$(CC) -o $@ -c $< $(CFLAGS) $(HEAD)

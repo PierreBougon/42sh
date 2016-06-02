@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 11:40:38 2016 bougon_p
+** Last update Thu Jun  2 13:49:53 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -261,6 +261,7 @@ int		execution(char **str, t_head *history, t_sh *sh)
 
 int		test(char **str, t_sh *sh, t_head *history, int *a)
 {
+  sh->actual_pipe = 0;
   if (*str && (*str)[0] && execution(str, history, sh))
     return (1);
   if (isatty(0))
