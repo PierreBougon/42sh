@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 10:10:55 2016 Mathieu Sauvau
+** Last update Thu Jun  2 11:40:38 2016 bougon_p
 */
 
 #include <sys/ioctl.h>
@@ -162,6 +162,12 @@ int		do_action(t_key_act actions[14], char **str,
   read(0, buff, 10);
   history->prompt = prompt;
 
+  if (sh->reset_curs)
+    {
+      cur_pos = 0;
+      *str[0] = 0;
+      sh->reset_curs = false;
+    }
   /* int j = -1; */
   /* while (++j < 10) */
   /*   printf("\n%d %c\n", buff[j], buff[j]); */
@@ -279,6 +285,7 @@ int		term(t_sh *sh)
   int		a;
   t_head	history;
 
+  sh->reset_curs = false;
   sh->history = &history;
   if (isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
