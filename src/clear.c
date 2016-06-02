@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 27 17:10:04 2016 Mathieu Sauvau
-** Last update Tue May 31 18:53:06 2016 bougon_p
+** Last update Thu Jun  2 11:42:40 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -24,5 +24,43 @@ void	clear_scr(char **str, UNUSED int *pos,
   printf("%s%s", history->prompt, *str);
   cursor_backward(strlen(*str));
   cursor_forward(strlen(*str));
+  fflush(stdout);
+}
+
+void	ctrl_left(char **str, int *pos,
+		  UNUSED t_head *history, UNUSED int *i_history)
+{
+  int	i;
+
+  i = *pos;
+  while ((*str)[--i] && (*str)[i] == ' ')
+    {
+      cursor_backward(1);
+      --*pos;
+    }
+  while ((*str)[i] && (*str)[i--] != ' ')
+    {
+      cursor_backward(1);
+      --*pos;
+    }
+  fflush(stdout);
+}
+
+void	ctrl_right(char **str, int *pos,
+		   UNUSED t_head *history, UNUSED int *i_history)
+{
+  int	i;
+
+  i = *pos;
+  while ((*str)[++i] && (*str)[i] == ' ')
+    {
+      cursor_forward(1);
+      ++*pos;
+    }
+  while ((*str)[i] && (*str)[i++] != ' ')
+    {
+      cursor_forward(1);
+      ++*pos;
+    }
   fflush(stdout);
 }
