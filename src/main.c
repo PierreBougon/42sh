@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 15:45:24 2016 marel_m
+** Last update Thu Jun  2 16:34:50 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -36,7 +36,7 @@ void	my_show_tab(char **str)
     }
 }
 
-int		init_actions_next(t_key_act actions[14])
+int		init_actions_next(t_key_act actions[18])
 {
   actions[0].fct = &move_left;
   actions[1].fct = &move_right;
@@ -52,14 +52,44 @@ int		init_actions_next(t_key_act actions[14])
   actions[11].fct = &backspace;
   actions[12].fct = &end;
   actions[13].fct = &debut;
+  actions[14].fct = &ctrl_left;
+  actions[15].fct = &ctrl_right;
+  actions[16].fct = &ctrl_k;
+  actions[17].fct = &ctrl_y;
   return (0);
 }
 
-int		init_actions2(t_key_act actions[14])
+void		init_arr_buff(char ar_l[7], char ar_r[7], char k[2], char y[2])
+{
+  ar_l[0] = 27;
+  ar_r[0] = 27;
+  ar_l[1] = 91;
+  ar_r[1] = 91;
+  ar_l[2] = 49;
+  ar_r[2] = 49;
+  ar_l[3] = 59;
+  ar_r[3] = 59;
+  ar_l[4] = 53;
+  ar_r[4] = 53;
+  ar_l[5] = 68;
+  ar_r[5] = 67;
+  ar_l[6] = 0;
+  ar_r[6] = 0;
+  k[0] = 11;
+  k[1] = 0;
+  y[0] = 25;
+  y[1] = 0;
+}
+
+int		init_actions2(t_key_act actions[18])
 {
   char		end[2];
   char		start[2];
   char		backs[2];
+  char		ar_l[7];
+  char		ar_r[7];
+  char		k[2];
+  char		y[2];
 
   backs[0] = 127;
   backs[1] = 0;
@@ -67,14 +97,19 @@ int		init_actions2(t_key_act actions[14])
   end[1] = 0;
   start[0] = 1;
   start[1] = 0;
+  init_arr_buff(ar_l, ar_r, k, y);
   if ((!(actions[11].key = strdup(&backs[0])) ||
        !(actions[12].key = strdup(end)) ||
-       !(actions[13].key = strdup(start))))
+       !(actions[13].key = strdup(start)) ||
+       !(actions[14].key = strdup(ar_l)) ||
+       !(actions[15].key = strdup(ar_r)) ||
+       !(actions[16].key = strdup(k)) ||
+       !(actions[17].key = strdup(y))))
     return (-1);
   return (init_actions_next(actions));
 }
 
-int		init_actions(t_key_act actions[14])
+int		init_actions(t_key_act actions[18])
 {
   char		*str;
 
@@ -147,7 +182,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   return (0);
 }
 
-int		do_action(t_key_act actions[14], char **str,
+int		do_action(t_key_act actions[18], char **str,
 			  t_sh *sh, char *prompt)
 {
   static int	cur_pos;
@@ -162,11 +197,17 @@ int		do_action(t_key_act actions[14], char **str,
   read(0, buff, 10);
   history->prompt = prompt;
 
+  if (sh->reset_curs)
+    {
+      cur_pos = 0;
+      *str[0] = 0;
+      sh->reset_curs = false;
+    }
   /* int j = -1; */
   /* while (++j < 10) */
   /*   printf("\n%d %c\n", buff[j], buff[j]); */
 
-  while (++i < 14)
+  while (++i < 18)
     {
       if (strcmp(buff, actions[i].key) == 0)
 	{
@@ -217,7 +258,7 @@ int		pars_check_exec(t_sh *sh, char *str)
   return (0);
 }
 
-int		term_func_01(t_sh *sh, t_key_act actions[14],
+int		term_func_01(t_sh *sh, t_key_act actions[18],
 			     char **str, t_head *history)
 {
   init_actions(actions);
@@ -276,10 +317,12 @@ int		test(char **str, t_sh *sh, t_head *history, int *a)
 int		term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[14];
+  t_key_act	actions[18];
   int		a;
   t_head	history;
 
+  history.cpy_buf = NULL;
+  sh->reset_curs = false;
   sh->history = &history;
   if (isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
@@ -290,7 +333,7 @@ int		term(t_sh *sh)
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
-	    return (sh->exit);
+	    exit(sh->exit);
       	  a = 3;
       	}
       else
@@ -311,15 +354,17 @@ void		create_history_file(t_sh *sh)
 int		main(UNUSED int ac, UNUSED char **av, char **env)
 {
   t_sh		sh;
+  char		*str;
 
   if (check_env(&sh, env))
     return (1);
   get_conf_file(&sh.conf, &sh.env->env);
   if (isatty(0))
     {
-      if (setupterm(NULL, 0, NULL) < 0)
+      if (setupterm(NULL, 0, NULL) < 0 ||
+	  !(str = tigetstr("smkx")))
 	return (1);
-      printf("%s", tigetstr("smkx"));
+      printf("%s", str);
       fflush(stdout);
       create_history_file(&sh);
       change_read_mode(0, 100, 1);

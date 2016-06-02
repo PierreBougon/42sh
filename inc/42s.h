@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 15:13:21 2016 marel_m
+** Last update Thu Jun  2 16:34:56 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -130,6 +130,8 @@ typedef struct		s_sh
   t_conf		conf;
   t_head		*history;
   int			fd_history;
+  int			actual_pipe;
+  bool			reset_curs;
 }			t_sh;
 
 char			**my_str_to_word_tab(char *, char);
@@ -156,6 +158,10 @@ void			backspace(char **, int *, t_head *, int *);
 void			auto_complet(char **, int *, t_head *, int *);
 void			clear_scr(char **, int *, t_head *, int *);
 void			del(char **, int *, t_head *, int *);
+void			ctrl_left(char **, int *, t_head *, int *);
+void			ctrl_right(char **, int *, t_head *, int *);
+void			ctrl_k(char **, int *, t_head *, int *);
+void			ctrl_y(char **, int *, t_head *, int *);
 bool			check_exit(char *);
 void			do_shortcut_exit(t_sh *);
 
@@ -337,5 +343,5 @@ int			suggest(t_sh *, char *);
 ** Convert base
 */
 unsigned int		my_getnbr_base_limit(char *, char *, unsigned int, int *);
-
+void			change_read_mode(int, int, int);
 #endif /* _42s_H_ */
