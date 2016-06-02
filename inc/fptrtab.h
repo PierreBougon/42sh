@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Wed Jun  1 18:55:27 2016 marel_m
+** Last update Wed Jun  1 21:30:44 2016 debrau_c
 */
 
 #ifndef FPTRTAB_H_
@@ -17,9 +17,9 @@ enum		act
   {
     REDIR_RR,
     REDIR_R,
+    REDIR_LL,
     REDIR_L,
     PIPE_INF,
-    REDIR_LL,
     MAX_ACT
   };
 

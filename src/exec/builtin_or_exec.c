@@ -5,13 +5,48 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Wed Jun  1 14:50:44 2016 marel_m
+** Last update Thu Jun  2 16:42:39 2016 debrau_c
 */
 
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include "42s.h"
+
+void    signal_gest_init(char *ref[11])
+{
+  ref[0] = "Hangup";
+  ref[1] = "";
+  ref[2] = "Quit";
+  ref[3] = "Illegal instruction";
+  ref[4] = "Trace/breakpoint trap";
+  ref[5] = "Aborted";
+  ref[6] = "Bus Error";
+  ref[7] = "Floating point exception";
+  ref[8] = "";
+  ref[9] = "";
+  ref[10] = "Segmentation Fault";
+}
+
+
+int     signal_gest(int status)
+{
+  char  *ref[11];
+  int   index;
+
+  signal_gest_init(ref);
+  if (WIFSIGNALED(status))
+    {
+      index = (WTERMSIG(status) - 1);
+      index %= 11;
+      printf("%s", ref[index]);
+      if (WCOREDUMP(status))
+	printf(" Core Dumped\n");
+      return (1);
+    }
+  return (0);
+}
+
 
 int	action_redir(t_sh *sh)
 {
@@ -46,10 +81,9 @@ int	action(t_sh *sh)
     {
       if (wait(&status) == -1)
 	return (1);
-      if (WIFSIGNALED(status))
+      if (signal_gest(status))
 	{
-	  write(2, "Segmentation fault\n", 19);
-	  sh->exit = 1;
+	  sh->exit = status;
 	  sh->exec->stop = 1;
 	}
     }

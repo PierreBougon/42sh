@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Wed Jun  1 15:22:12 2016 bougon_p
+** Last update Thu Jun  2 16:47:23 2016 debrau_c
 */
 
 #include <sys/ioctl.h>
@@ -272,7 +272,7 @@ int		term(t_sh *sh)
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
-	    return (sh->exit);
+	    exit(sh->exit);
       	  a = 3;
       	}
       else

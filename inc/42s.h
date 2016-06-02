@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Wed Jun  1 21:16:41 2016 debrau_c
+** Last update Thu Jun  2 14:00:53 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -325,5 +325,5 @@ int			suggest(t_sh *, char *);
 ** Convert base
 */
 unsigned int		my_getnbr_base_limit(char *, char *, unsigned int, int *);
-
+void			change_read_mode(int, int, int);
 #endif /* _42s_H_ */
