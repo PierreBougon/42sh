@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Mon May 30 15:55:18 2016 debrau_c
-** Last update Wed Jun  1 10:39:39 2016 marel_m
+** Last update Fri Jun  3 23:17:59 2016 debrau_c
 */
 
 #include <stdio.h>
@@ -57,27 +57,39 @@ int	var_env_modify(char **str, char **env, int index, char *talon)
   return (1);
 }
 
+int	var_env_octopus(t_sh *sh, char **str, char **env, int *i)
+{
+  char	*talon;
+
+  if ((talon = var_env_strcdup(&str[0][*i + 1], ' ')) == NULL)
+    return (1);
+  if (var_env_modify(str, env, *i, talon))
+    {
+      sh->exit = 1;
+      printf("%s: Undefined variable.\n", talon);
+      return (1);
+    }
+  free(talon);
+  *i = - 1;
+  return (0);
+}
+
 int	var_env_format(t_sh *sh, char **str, char **env)
 {
   int	i;
-  char	*talon;
+  int	on_quotes;
 
   i = 0;
+  on_quotes = 0;
   while (str[0][i])
     {
-      if (str[0][i] == '$' && str[0][i + 1] != '\0')
-	{
-	  if ((talon = var_env_strcdup(&str[0][i + 1], ' ')) == NULL)
-	    return (1);
-	  if (var_env_modify(str, env, i, talon))
-	    {
-	      sh->exit = 1;
-	      printf("%s: Undefined variable.\n", talon);
-	      return (1);
-	    }
-	  free(talon);
-	  i = -1;
-	}
+      if (!on_quotes && str[0][i] == '\'')
+	on_quotes = 1;
+      else if (on_quotes && str[0][i] == '\'')
+	on_quotes = 0;
+      if (!on_quotes && str[0][i] == '$' && str[0][i + 1] != '\0')
+	if (var_env_octopus(sh, str, env, &i))
+	  return (1);
       i++;
     }
   return (0);

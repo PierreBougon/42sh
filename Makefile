@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 22:28:40 2016 debrau_c
+## Last update Fri Jun  3 23:18:46 2016 debrau_c
 ##
 
 DEBUG	=	no
@@ -110,7 +110,6 @@ SRC	=	main.c				\
 		dollars/var_env_dep.c		\
 		double_left.c
 
-
 # Tetris variables
 
 TETNAME	=	assets/tetris
@@ -194,7 +193,8 @@ LIBFILE	=	my_get_next_line.c		\
 		my_strcmp.c			\
 		my_strncmp.c			\
 		my_putchar.c			\
-		my_putchar_error.c
+		my_putchar_error.c		\
+		my_itoa.c
 
 SRCLIB	=	$(addprefix lib/my/, $(LIBFILE))
 

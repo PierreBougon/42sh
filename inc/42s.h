@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Fri Jun  3 18:45:21 2016 marel_m
+** Last update Fri Jun  3 23:11:19 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -145,6 +145,7 @@ char			*get_next_line(int);
 char			*my_index(char *, char);
 char			*epur(char  *);
 void			change_read_mode(int, int, int);
+char			*my_itoa(int nb);
 
 /*
 ** ACTION
