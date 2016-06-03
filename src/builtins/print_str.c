@@ -5,9 +5,10 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Tue May 31 17:48:01 2016 bougon_p
-** Last update Tue May 31 17:48:47 2016 bougon_p
+** Last update Fri Jun  3 18:47:57 2016 marel_m
 */
 
+#include <stdio.h>
 #include "42s.h"
 
 void	print_str_no_change(char *str)

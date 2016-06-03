@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Fri Jun  3 14:40:57 2016 marel_m
+** Last update Fri Jun  3 18:45:21 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -19,7 +19,6 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 # define NB_SPE_ECHO 14
 
-# include <stdio.h>
 # include <stdbool.h>
 # include <sys/types.h>
 # include <sys/stat.h>

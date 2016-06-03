@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Apr 19 11:03:29 2016 marel_m
-** Last update Thu May 19 10:06:07 2016 Mathieu Sauvau
+** Last update Fri Jun  3 18:57:08 2016 marel_m
 */
 
 #include <string.h>
@@ -73,12 +73,12 @@ char		*get_next_line(const int fd)
       while (buff[++i] && buff[i] != '\n')
 	str[++j] = buff[i];
     }
-  if (ret == 0)
-    {
-      memset(buff, 0, sizeof(buff));
-      i = -1;
-      ret = -1;
-    }
+  /* if (ret == 0) */
+  /*   { */
+  /*     memset(buff, 0, sizeof(buff)); */
+  /*     i = -1; */
+  /*     ret = -1; */
+  /*   } */
   if (size)
     return (str);
   return (free(str), NULL);

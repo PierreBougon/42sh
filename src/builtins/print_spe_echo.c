@@ -5,60 +5,11 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Mon May 30 16:31:08 2016 bougon_p
-** Last update Mon May 30 18:15:43 2016 bougon_p
+** Last update Fri Jun  3 19:05:28 2016 marel_m
 */
 
 #include <stdio.h>
 #include "42s.h"
-
-void	print_backslash(void)
-{
-  printf("\\");
-}
-
-void	print_alert(void)
-{
-  printf("\a");
-}
-
-void	print_backspace(void)
-{
-  printf("\b");
-}
-
-void	print_nomore(void)
-{
-}
-
-void	print_escape(void)
-{
-  printf("\e");
-}
-
-void	print_formfeed(void)
-{
-  printf("\f");
-}
-
-void	print_newline(void)
-{
-  printf("\n");
-}
-
-void	print_carriageret(void)
-{
-  printf("\r");
-}
-
-void	print_tab(void)
-{
-  printf("\t");
-}
-
-void	print_verttab(void)
-{
-  printf("\v");
-}
 
 void	print_octal(void)
 {

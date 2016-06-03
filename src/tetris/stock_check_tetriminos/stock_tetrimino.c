@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu Mar  3 14:33:13 2016 maud marel
-** Last update Wed Jun  1 21:18:50 2016 bougon_p
+** Last update Fri Jun  3 18:58:00 2016 marel_m
 */
 
 #include "tetris.h"
@@ -75,10 +75,6 @@ int	complete_form(t_list_tetri *tetris, int h)
   while (h < tetris->tetrimino->max)
     {
       i = -1;
-      /* if ((tetris->tetrimino->tetrimino[h] = malloc(sizeof(char) */
-      /* 						    * (tetris->tetrimino->max */
-      /* 						       + 1))) == NULL) */
-      /* 	return (-1); */
       while (++i < tetris->tetrimino->max)
 	tetris->tetrimino->tetrimino[h][i] = 0;
       h++;

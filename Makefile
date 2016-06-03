@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 18:04:05 2016 marel_m
+## Last update Fri Jun  3 19:05:55 2016 marel_m
 ##
 
 DEBUG	=	no
@@ -33,6 +33,7 @@ SRC	=	main.c				\
 		actions.c			\
 		erase.c				\
 		history.c			\
+		history_move.c			\
 		index.c				\
 		cursor.c			\
 		bang.c				\
@@ -89,6 +90,8 @@ SRC	=	main.c				\
 		builtins/display_echo.c		\
 		builtins/check_spe_opt.c	\
 		builtins/print_spe_echo.c	\
+		builtins/print_spe_echo2.c	\
+		builtins/print_spe_echo3.c	\
 		builtins/print_hexoct.c		\
 		builtins/print_str.c		\
 		builtins/init_echo.c		\

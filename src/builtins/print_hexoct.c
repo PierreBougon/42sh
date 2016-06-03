@@ -5,12 +5,11 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Tue May 31 14:27:01 2016 bougon_p
-** Last update Tue May 31 16:09:27 2016 bougon_p
+** Last update Fri Jun  3 18:47:39 2016 marel_m
 */
 
+#include <stdio.h>
 #include "42s.h"
-
-#include <unistd.h>
 
 int		print_hexa_char(char *str)
 {

@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Fri Jun  3 18:04:55 2016 marel_m
+** Last update Fri Jun  3 18:46:05 2016 marel_m
 */
 
+#include <stdio.h>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -41,7 +42,7 @@ int     signal_gest(int status)
       index %= 11;
       printf("%s", ref[index]);
       if (WCOREDUMP(status))
-	printf(" Core Dumped\n");
+	printf(" (core dumped)\n");
       return (1);
     }
   return (0);
@@ -104,10 +105,8 @@ int	action(t_sh *sh)
 
 int	exec(t_sh *sh)
 {
-  int	i;
-
   sh->exec->good_path = NULL;
-  if ((i = check_good_path(sh)) == 1)
+  if (check_good_path(sh) == 1)
     return (1);
   if (action(sh))
     return (1);
