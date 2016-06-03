@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 27 17:10:04 2016 Mathieu Sauvau
-** Last update Fri Jun  3 15:46:55 2016 bougon_p
+** Last update Fri Jun  3 20:06:49 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -33,18 +33,21 @@ void	ctrl_left(char **str, int *pos,
 {
   int	i;
 
-  i = *pos;
-  while ((*str)[--i] && (*str)[i] == ' ')
+  if (*str && str[0])
     {
-      cursor_backward(1);
-      --*pos;
+      i = *pos - 1;
+      while ((*str)[i] && (*str)[i--] == ' ')
+	{
+	  cursor_backward(1);
+	  --*pos;
+	}
+      while ((*str)[i] && (*str)[i--] != ' ')
+	{
+	  cursor_backward(1);
+	  --*pos;
+	}
+      fflush(stdout);
     }
-  while ((*str)[i] && (*str)[i--] != ' ')
-    {
-      cursor_backward(1);
-      --*pos;
-    }
-  fflush(stdout);
 }
 
 void	ctrl_right(char **str, int *pos,
@@ -52,18 +55,21 @@ void	ctrl_right(char **str, int *pos,
 {
   int	i;
 
-  i = *pos;
-  while ((*str)[++i] && (*str)[i] == ' ')
+  if (*str && str[0])
     {
-      cursor_forward(1);
-      ++*pos;
+      i = *pos;
+      while ((*str)[++i] && (*str)[i] == ' ')
+	  {
+	    cursor_forward(1);
+	    ++*pos;
+	  }
+	while ((*str)[i] && (*str)[i++] != ' ')
+	  {
+	    cursor_forward(1);
+	    ++*pos;
+	  }
+	fflush(stdout);
     }
-  while ((*str)[i] && (*str)[i++] != ' ')
-    {
-      cursor_forward(1);
-      ++*pos;
-    }
-  fflush(stdout);
 }
 
 void	ctrl_k(char **str, int *pos,

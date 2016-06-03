@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Fri Jun  3 15:46:25 2016 bougon_p
+** Last update Fri Jun  3 20:21:54 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -276,13 +276,17 @@ int		term_func_01(t_sh *sh, t_key_act actions[18],
 
 int		execution(char **str, t_head *history, t_sh *sh)
 {
+  int		tty;
+
+  tty = isatty(0);
   if (str && str[0])
     {
       if ((sh->exit = bang(str, history)))
 	return (0);
-      push_front_history(history, *str);
+      if (tty)
+	push_front_history(history, *str);
     }
-  if (sh->fd_history > 0)
+  if (tty && sh->fd_history > 0)
     dprintf(sh->fd_history, "%s\n", *str);
   check_alias(sh->conf.head, str);
   if (var_env_format(sh, str, sh->env->env)
