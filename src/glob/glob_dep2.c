@@ -5,10 +5,11 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 23:08:49 2016 debrau_c
-** Last update Fri Jun  3 14:00:37 2016 marel_m
+** Last update Fri Jun  3 22:27:36 2016 debrau_c
 */
 
 #include <stdlib.h>
+#include "my_glob.h"
 
 int	glob_strlen(char *str)
 {
@@ -76,4 +77,26 @@ void	glob_clean_tab(char **recup)
       i++;
     }
   free(recup);
+}
+
+char	**glob_str_tab(char *str)
+{
+  char		**newer;
+  int		nb;
+  int		i;
+  int		j;
+
+  nb = glob_count_occur(str, ' ');
+  if (!(newer = malloc(sizeof(char *) * (nb + 1))))
+    return (NULL);
+  i = -1;
+  j = 0;
+  while (++i < nb)
+    {
+      if ((newer[i] = glob_strcdup(&str[j], ' ')) == NULL)
+	return (NULL);
+      j += glob_strclen(&str[j], ' ') + 1;
+    }
+  newer[i] = NULL;
+  return (newer);
 }
