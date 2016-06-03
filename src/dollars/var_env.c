@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Mon May 30 15:55:18 2016 debrau_c
-** Last update Fri Jun  3 22:43:06 2016 marel_m
+** Last update Fri Jun  3 22:43:53 2016 marel_m
 */
 
 #include <stdio.h>
@@ -65,7 +65,6 @@ int	var_env_octopus(t_sh *sh, char **str, char **env, int *i)
 
   if ((talon = var_env_strcdup(&str[0][*i + 1], ' ')) == NULL)
     return (1);
-  printf("%s\n", talon);
   if (var_env_modify(str, env, *i, talon))
     {
       sh->exit = 1;
