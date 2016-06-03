@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 23:18:46 2016 debrau_c
+## Last update Fri Jun  3 23:20:09 2016 debrau_c
 ##
 
 DEBUG	=	no
@@ -27,20 +27,22 @@ RED	=	\033[1;31m
 AUTO	=	auto_completion/
 
 SRC	=	main.c				\
-		print_tree.c			\
-		free/free_exec.c		\
-		ncurses.c			\
-		actions.c			\
-		erase.c				\
-		history.c			\
-		history_move.c			\
-		index.c				\
-		cursor.c			\
-		bang.c				\
-		clear.c				\
 		convert_base.c			\
-		prompt.c			\
+		index.c				\
+		free/free_exec.c		\
+		ncurses/ncurses.c		\
+		ncurses/actions.c		\
+		ncurses/init_ncurses.c		\
+		ncurses/erase.c			\
+		ncurses/cursor.c		\
+		ncurses/clear.c			\
+		ncurses/prompt.c		\
+		ncurses/loop_ncurses.c		\
+		history/history.c		\
+		history/history_move.c		\
+		history/bang.c			\
 		$(AUTO)autocompletion.c		\
+		$(AUTO)check_quote.c		\
 		$(AUTO)auto_completion_find.c	\
 		$(AUTO)auto_completion_utility.c\
 		$(AUTO)auto_completion_utility2.c\
@@ -59,6 +61,7 @@ SRC	=	main.c				\
 		parsing/rewrite_str.c		\
 		parsing/epur.c			\
 		parsing/parsing.c		\
+		parsing/print_tree.c		\
 		parsing/create_list.c		\
 		parsing/create_tree.c		\
 		parsing/parsing_sep.c		\
@@ -77,6 +80,7 @@ SRC	=	main.c				\
 		exec/redirections.c		\
 		exec/wrong_path.c		\
 		exec/pipe.c			\
+		exec/double_left.c		\
 		builtins/check_builtins.c	\
 		builtins/check_cd.c		\
 		builtins/check_env.c		\
@@ -107,8 +111,7 @@ SRC	=	main.c				\
 		glob/glob_extend.c		\
 		dollars/var_env.c		\
 		dollars/var_env_str.c		\
-		dollars/var_env_dep.c		\
-		double_left.c
+		dollars/var_env_dep.c
 
 # Tetris variables
 
@@ -194,7 +197,8 @@ LIBFILE	=	my_get_next_line.c		\
 		my_strncmp.c			\
 		my_putchar.c			\
 		my_putchar_error.c		\
-		my_itoa.c
+		my_itoa.c			\
+		my_show_tab.c
 
 SRCLIB	=	$(addprefix lib/my/, $(LIBFILE))
 

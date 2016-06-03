@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 27 17:10:04 2016 Mathieu Sauvau
-** Last update Fri Jun  3 20:06:49 2016 Mathieu Sauvau
+** Last update Fri Jun  3 20:37:42 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -35,13 +35,13 @@ void	ctrl_left(char **str, int *pos,
 
   if (*str && str[0])
     {
-      i = *pos - 1;
-      while ((*str)[i] && (*str)[i--] == ' ')
+      i = *pos;
+      while (--i >= 0 && (*str)[i] && (*str)[i] == ' ')
 	{
 	  cursor_backward(1);
 	  --*pos;
 	}
-      while ((*str)[i] && (*str)[i--] != ' ')
+      while (i >= 0 && (*str)[i] && (*str)[i--] != ' ')
 	{
 	  cursor_backward(1);
 	  --*pos;
@@ -68,6 +68,8 @@ void	ctrl_right(char **str, int *pos,
 	    cursor_forward(1);
 	    ++*pos;
 	  }
+	cursor_forward(1);
+	++*pos;
 	fflush(stdout);
     }
 }
