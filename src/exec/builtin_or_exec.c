@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Fri Jun  3 23:11:03 2016 bougon_p
+** Last update Sat Jun  4 00:19:38 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -79,16 +79,20 @@ int	action(t_sh *sh)
     {
       if (action_redir(sh))
 	return (1);
+      printf("Fork done\n");
       pgid = getpgid(0);
       setpgid(0, pgid + 1);
       if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
-	exit(1);
+	{
+	  printf("Execve failed\n");
+	  exit(1);
+	}
     }
   else if (pid != 0 && sh->exec->fd[0][0] == 0 && sh->exec->fd[0][1] == 1)
     {
       need_check = true;
       if (waitpid(pid, &status, WUNTRACED) == -1)
-	return (1);
+      	return (1);
       need_check = false;
       if (signal_gest(status, sh, pid))
 	{

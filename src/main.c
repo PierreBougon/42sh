@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Fri Jun  3 23:10:45 2016 bougon_p
+** Last update Sat Jun  4 00:20:37 2016 bougon_p
 */
 
 #include <signal.h>
@@ -34,16 +34,18 @@ int	push_job_foreground(t_sh *sh)
     {
       job_list->prev->state = FG;
       kill(job_list->prev->pid, SIGCONT);
+      need_check = true;
+      if (waitpid(job_list->prev->pid, &status, WUNTRACED) == -1)
+  	return (1);
+      need_check = false;
+      if (signal_gest(status, sh, job_list->prev->pid))
+  	{
+  	  sh->exit = status;
+  	  sh->exec->stop = 1;
+  	}
     }
-  need_check = true;
-  if (waitpid(job_list->prev->pid, &status, WUNTRACED) == -1)
-    return (1);
-  need_check = false;
-  if (signal_gest(status, sh, job_list->prev->pid))
-    {
-      sh->exit = status;
-      sh->exec->stop = 1;
-    }
+  else
+    dprintf(2, "bg : no current job\n");
   return (0);
 }
 
