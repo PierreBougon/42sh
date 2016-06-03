@@ -5,10 +5,11 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:56:29 2016 debrau_c
-** Last update Fri Jun  3 12:38:54 2016 debrau_c
+** Last update Fri Jun  3 22:30:22 2016 debrau_c
 */
 
 #include <stdlib.h>
+#include "my_glob.h"
 
 int	glob_strclen(char *str, char c)
 {
@@ -75,8 +76,7 @@ void	glob_epur(char *str)
   i = -1;
   if (str == NULL)
     return ;
-  while (str[0] == '\t' || str[0] == ' ')
-    glob_suppr_char(str, 0);
+  glob_clean_str_first(str);
   i = 0;
   while (str && str[++i])
     {

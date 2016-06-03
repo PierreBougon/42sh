@@ -1,57 +1,17 @@
 /*
-** history.c for  in /home/sauvau_m/rendu/PSU_2015_42sh
+** history_move.c for history_move in /home/marel_m/Rendu/Semestre_2/PSU/PSU_2015_42sh
 **
-** Made by Mathieu Sauvau
-** Login   <sauvau_m@epitech.net>
+** Made by marel_m
+** Login   <marel_m@epitech.net>
 **
-** Started on  Fri May 13 17:39:20 2016 Mathieu Sauvau
-** Last update Tue May 31 23:22:25 2016 marel_m
+** Started on  Fri Jun  3 18:51:48 2016 marel_m
+** Last update Fri Jun  3 18:54:23 2016 marel_m
 */
 
-#include <unistd.h>
-#include <curses.h>
-#include <term.h>
-#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "42s.h"
-
-void		push_front_history(t_head *history, char *str)
-{
-  t_history	*new;
-
-  if (!str || !str[0] ||
-     (new = malloc(sizeof(t_history))) == NULL)
-    return ;
-  new->str = strdup(str);
-  new->prev = NULL;
-  new->next = history->first;
-  if (history->first)
-    history->first->prev = new;
-  else
-    history->last = new;
-  history->first = new;
-}
-
-void		free_history(t_history *history)
-{
-  if (history)
-    {
-      free_history(history->next);
-      free(history->str);
-      free(history);
-    }
-}
-
-void		print_history(t_history *history)
-{
-  if (history)
-    {
-      print_history(history->next);
-      printf("%s\n", history->str);
-    }
-  printf("\n");
-}
 
 char		*seek_prev_history(t_history *history, char *str,
 				   int *i_history)

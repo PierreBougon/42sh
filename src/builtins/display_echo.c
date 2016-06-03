@@ -5,9 +5,10 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 18:40:38 2016 bougon_p
-** Last update Tue May 31 19:38:27 2016 bougon_p
+** Last update Fri Jun  3 18:47:13 2016 marel_m
 */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>

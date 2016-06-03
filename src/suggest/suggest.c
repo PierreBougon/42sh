@@ -5,9 +5,10 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Thu May 26 11:43:54 2016 bougon_p
-** Last update Tue May 31 18:05:38 2016 bougon_p
+** Last update Fri Jun  3 18:48:18 2016 marel_m
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "42s.h"
 #include "suggest.h"

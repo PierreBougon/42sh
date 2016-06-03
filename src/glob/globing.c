@@ -5,35 +5,13 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:52:45 2016 debrau_c
-** Last update Fri Jun  3 17:39:54 2016 debrau_c
+** Last update Fri Jun  3 22:33:14 2016 debrau_c
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "my_glob.h"
-
-static char	**glob_str_tab(char *str)
-{
-  char		**newer;
-  int		nb;
-  int		i;
-  int		j;
-
-  nb = glob_count_occur(str, ' ');
-  if (!(newer = malloc(sizeof(char *) * (nb + 1))))
-    return (NULL);
-  i = -1;
-  j = 0;
-  while (++i < nb)
-    {
-      if ((newer[i] = glob_strcdup(&str[j], ' ')) == NULL)
-	return (NULL);
-      j += glob_strclen(&str[j], ' ') + 1;
-    }
-  newer[i] = NULL;
-  return (newer);
-}
 
 static char	*glob_new_str(char *past, glob_t *buf)
 {
@@ -84,10 +62,7 @@ static char	*globing_do(char **tab)
   buf = init_globing_do(&newer, &i, &on_quotes);
   while (tab && tab[++i] != NULL)
     {
-      if (!on_quotes && tab[i][0] == '"')
-	on_quotes = 1;
-      else if (on_quotes && tab[i][0] == '"')
-	on_quotes = 0;
+      on_quotes = glob_maj_quotes(on_quotes, tab[i][0]);
       if (!on_quotes)
 	{
 	  if ((rep = glob(tab[i], 0, NULL, buf)) == GLOB_NOMATCH
@@ -107,6 +82,7 @@ int	globing(char **str)
 {
   char	**recup;
 
+  glob_clean_str_first(*str);
   if ((recup = glob_str_tab(*str)) == NULL)
     return (1);
   free(*str);

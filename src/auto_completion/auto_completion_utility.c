@@ -5,9 +5,10 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:01:19 2016 Mathieu Sauvau
-** Last update Mon May 30 14:35:37 2016 Mathieu Sauvau
+** Last update Fri Jun  3 18:45:43 2016 marel_m
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"

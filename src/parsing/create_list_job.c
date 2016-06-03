@@ -5,9 +5,10 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Fri Jun  3 16:38:09 2016 bougon_p
-** Last update Fri Jun  3 22:36:17 2016 bougon_p
+** Last update Fri Jun  3 23:16:25 2016 bougon_p
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -20,7 +21,7 @@ int		print_list(UNUSED t_sh *sh)
   if (!job_list)
     {
       printf("bg : no current job\n");
-      return ;
+      return (1);
     }
   tmp = job_list;
   while(tmp->next != job_list)

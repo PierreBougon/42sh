@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu Jun  2 15:07:00 2016 marel_m
-** Last update Fri Jun  3 15:26:02 2016 marel_m
+** Last update Fri Jun  3 21:37:06 2016 marel_m
 */
 
 #include <string.h>
@@ -66,6 +66,7 @@ int	check_good_quote(t_sh *sh, char *str)
       else if (str[i] == '"')
 	quote_d++;
     }
+
   if (quote_d % 2 != 0 && quote_s % 2 != 0)
     return (sh->exit = 1, message_fail_quote(str, 0, 0, 0), 1);
   if (quote_s % 2 != 0)

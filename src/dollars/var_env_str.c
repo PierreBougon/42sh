@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Fri Apr 29 21:06:16 2016 debrau_c
-** Last update Tue May 31 21:16:03 2016 debrau_c
+** Last update Fri Jun  3 22:42:56 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -36,7 +36,7 @@ char	*var_env_strcdup(char *str, char c)
   i = 0;
   if (!(new = malloc(sizeof(char) * (var_env_strclen(str, c) + 1))))
       return (NULL);
-  while (str[i] && str[i] != c)
+  while (str[i] && str[i] != c && str[i] != '"')
     {
       new[i] = str[i];
       i++;

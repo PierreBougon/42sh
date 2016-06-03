@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Fri Jun  3 22:58:05 2016 bougon_p
+** Last update Fri Jun  3 23:15:43 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -19,7 +19,6 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 # define NB_SPE_ECHO 14
 
-# include <stdio.h>
 # include <stdbool.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -36,6 +35,7 @@ typedef struct		s_auto_completion
   char			**tab_str;
   int			i_elem;
   int			show;
+  int			show_all;
   char			*path;
   char			*elem;
 }			t_autoc;
@@ -155,19 +155,15 @@ typedef struct		s_sh
   t_job_list		*job_list;
 }			t_sh;
 
-void			init_data(t_sh *);
-char			**my_str_to_word_tab(char *, char);
-char			*my_strdup_e(char *, int);
-char			*epur_str(char *);
-int			check_env(t_sh *, char **);
-int			check_path(t_sh *);
-int			check_home(t_sh *);
-int			check_pwd(t_sh *);
-int			check_oldpwd(t_sh *);
-char			*get_next_line(int);
 char			*my_index(char *, char);
-char			*epur(char  *);
 void			change_read_mode(int, int, int);
+char			*my_itoa(int nb);
+
+/*
+** HISTORY
+*/
+void			get_history(t_sh *, t_head *);
+void			create_history_file(t_sh *);
 
 /*
 ** ACTION
@@ -186,6 +182,8 @@ void			ctrl_k(char **, int *, t_head *, int *);
 void			ctrl_y(char **, int *, t_head *, int *);
 bool			check_exit(char *);
 void			do_shortcut_exit(t_sh *);
+int			init_actions(t_key_act *);
+int			do_action(t_key_act *, char **, t_sh *, char *);
 
 /*
 ** 42RC
@@ -227,6 +225,7 @@ int			check_quote(char *, char, char);
 int			pos_double_quote(char *, char);
 int			double_quote_redir(char *);
 char			*pars_redir_right(t_list_sh *, char *, int);
+int			signal_gest(int, t_sh *, pid_t);
 
 /*
 ** ERROR
@@ -256,6 +255,7 @@ int			get_commom_subtring(char **);
 char			*get_new_str(char **, char *, char *, char *);
 int			show_bin(t_autoc *);
 int			find_in_env_path(char **, char *, char **);
+int			auto_check_quote(char *);
 void			free_autoc(t_autoc *);
 
 /*
@@ -359,12 +359,12 @@ char			*prompt_from_env(char **);
 char			*get_prompt_value(char **);
 
 /*
-** Suggest algorithm
+** SUGGEST
 */
 int			suggest(t_sh *, char *);
 
 /*
-** Convert base
+** CONVERT BASE
 */
 unsigned int		my_getnbr_base_limit(char *, char *, unsigned int, int *);
 void			change_read_mode(int, int, int);
