@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May  9 13:23:09 2016
-** Last update Fri Jun  3 18:42:54 2016 marel_m
+** Last update Fri Jun  3 20:50:08 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -30,16 +30,22 @@ char	*space_around_act(char *str, char *new, int *i, int *j)
 
 char	*epur_with_quote(char *str, char *new_str, int *i, int *j)
 {
-  new_str[(*j)++] = '"';
-  while (str[++(*i)] != '"' && str[*i] != '\0')
-    new_str[(*j)++] = str[*i];
+  new_str[*j] = '"';
+  (*j)++;
+  (*i)++;
+  while (str[*i] != '"' && str[*i] != '\0')
+    {
+      new_str[*j] = str[*i];
+      (*i)++;
+      (*j)++;
+    }
   return (new_str);
 }
 
 char	*epur_without_quote(char *str, char *new_str, int *i, int *j)
 {
   new_str = space_around_act(str, new_str, i, j);
-  if (str[*i] != '\0' && str)
+  if (str[*i] != '"' && str[*i] != '\0' && str)
     new_str[(*j)++] = str[(*i)++];
   return (new_str);
 }

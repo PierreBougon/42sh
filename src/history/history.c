@@ -5,9 +5,11 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 17:39:20 2016 Mathieu Sauvau
-** Last update Fri Jun  3 18:53:15 2016 marel_m
+** Last update Fri Jun  3 20:13:35 2016 marel_m
 */
 
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <curses.h>
 #include <term.h>
@@ -51,4 +53,23 @@ void		print_history(t_history *history)
       printf("%s\n", history->str);
     }
   printf("\n");
+}
+
+void            get_history(t_sh *sh, t_head *history)
+{
+  char          *str;
+
+  history->path = sh->env->path;
+  while ((str = get_next_line(sh->fd_history)))
+    {
+      push_front_history(history, str);
+      free(str);
+    }
+}
+
+void            create_history_file(t_sh *sh)
+{
+  sh->fd_history = open(".42sh_history", O_CREAT | O_RDWR | O_APPEND,
+			                        S_IRUSR | S_IWUSR | S_IRGRP |
+			S_IWGRP | S_IROTH | S_IWOTH);
 }
