@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 21:00:23 2016 marel_m
+## Last update Fri Jun  3 23:20:09 2016 debrau_c
 ##
 
 DEBUG	=	no
@@ -40,8 +40,9 @@ SRC	=	main.c				\
 		ncurses/loop_ncurses.c		\
 		history/history.c		\
 		history/history_move.c		\
-		history/bang.c				\
+		history/bang.c			\
 		$(AUTO)autocompletion.c		\
+		$(AUTO)check_quote.c		\
 		$(AUTO)auto_completion_find.c	\
 		$(AUTO)auto_completion_utility.c\
 		$(AUTO)auto_completion_utility2.c\
@@ -111,7 +112,6 @@ SRC	=	main.c				\
 		dollars/var_env.c		\
 		dollars/var_env_str.c		\
 		dollars/var_env_dep.c
-
 
 # Tetris variables
 
@@ -197,6 +197,7 @@ LIBFILE	=	my_get_next_line.c		\
 		my_strncmp.c			\
 		my_putchar.c			\
 		my_putchar_error.c		\
+		my_itoa.c			\
 		my_show_tab.c
 
 SRCLIB	=	$(addprefix lib/my/, $(LIBFILE))
