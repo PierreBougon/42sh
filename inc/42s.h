@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Fri Jun  3 18:45:21 2016 marel_m
+// Last update Fri Jun  3 21:03:09 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -35,6 +35,7 @@ typedef struct		s_auto_completion
   char			**tab_str;
   int			i_elem;
   int			show;
+  int			show_all;
   char			*path;
   char			*elem;
 }			t_autoc;
@@ -233,6 +234,7 @@ int			get_commom_subtring(char **);
 char			*get_new_str(char **, char *, char *, char *);
 int			show_bin(t_autoc *);
 int			find_in_env_path(char **, char *, char **);
+int			auto_check_quote(char *);
 void			free_autoc(t_autoc *);
 
 /*

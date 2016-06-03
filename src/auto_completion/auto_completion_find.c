@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:00:59 2016 Mathieu Sauvau
-** Last update Wed Jun  1 14:39:57 2016 Mathieu Sauvau
+** Last update Fri Jun  3 21:04:36 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -104,6 +104,7 @@ int		separate_path_elem(t_autoc *autoc, char **str, char *cur_str, int pos)
 	autoc->elem[0] = 0;
       autoc->show = 0;
     }
+  autoc->show_all = auto_check_quote(*str);
   return (0);
 }
 
@@ -117,6 +118,7 @@ char		**find_match(char **env_path, char **str, int pos)
   autoc.tab_str = NULL;
   autoc.show = 1;
   autoc.i_elem = 0;
+  tab = NULL;
   if (*str && (*str)[0])
     {
       if ((autoc.tab_str = my_str_to_word_tab(*str, ' ')))
@@ -127,7 +129,8 @@ char		**find_match(char **env_path, char **str, int pos)
     }
   if (separate_path_elem(&autoc, str, cur_str, pos) == -1)
     return (NULL);
-  tab = find_routine(str, env_path, &autoc);
+  if (autoc.show_all)
+    tab = find_routine(str, env_path, &autoc);
   free_autoc(&autoc);
   return (tab);
 }

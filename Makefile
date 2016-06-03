@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 19:05:55 2016 marel_m
+## Last update Fri Jun  3 20:57:31 2016 Mathieu Sauvau
 ##
 
 DEBUG	=	no
@@ -41,6 +41,7 @@ SRC	=	main.c				\
 		convert_base.c			\
 		prompt.c			\
 		$(AUTO)autocompletion.c		\
+		$(AUTO)check_quote.c		\
 		$(AUTO)auto_completion_find.c	\
 		$(AUTO)auto_completion_utility.c\
 		$(AUTO)auto_completion_utility2.c\
