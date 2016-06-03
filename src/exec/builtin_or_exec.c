@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Fri Jun  3 16:30:43 2016 Poc
+** Last update Fri Jun  3 16:52:14 2016 Poc
 */
 
 #include <sys/wait.h>
@@ -41,6 +41,7 @@ int	close_all(int **fd, int max)
       i++;
     }
   free(fd);
+  return (0);
 }
 
 int	action(t_sh *sh)
@@ -75,18 +76,19 @@ int	action(t_sh *sh)
 	  sh->exec->stop = 1;
 	}
     }
-  if (sh->exec->fd[0][0] != 0)
-    {
-      if (close(sh->exec->fd[0][0]) == -1
-  	  || waitpid(pid, &status, 0) == -1)
-	return (1);
-    }
-  else if (sh->exec->fd[0][1] != 1)
-    {
-      if (close(sh->exec->fd[0][1]) == -1
-  	  || waitpid(pid, &status, 0) == -1)
-	return (1);
-    }
+  /* if (sh->exec->fd[0][0] != 0) */
+  /*   { */
+  /*     if (close(sh->exec->fd[0][0]) == -1 */
+  /* 	  || waitpid(pid, &status, 0) == -1) */
+  /* 	return (1); */
+  /*   } */
+  /* else if (sh->exec->fd[0][1] != 1) */
+  /*   { */
+  /*     if (close(sh->exec->fd[0][1]) == -1 */
+  /* 	  || waitpid(pid, &status, 0) == -1) */
+  /* 	return (1); */
+  /*   } */
+  printf("closeall\n");
   close_all(sh->exec->fd, sh->actual_pipe);
   return (0);
 }

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Fri Jun  3 16:33:51 2016 Poc
+** Last update Fri Jun  3 16:45:34 2016 Poc
 */
 
 #include <stdlib.h>
@@ -56,9 +56,7 @@ int	pipes(t_sh *sh, t_node *node)
   sh->exec->arg = my_str_to_word_tab(node->arg, ' ');
   sh->exec->exec = strdup(sh->exec->arg[0]);
   check_good_path(sh);
-  {
-    printf("check_good_path\n");
-  }
+  printf("check_good_path\n");
   if ((chid = fork()) == -1)
     return (1);
   if (chid == 0)
