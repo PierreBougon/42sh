@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Fri Jun  3 16:23:53 2016 marel_m
+** Last update Fri Jun  3 18:04:55 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -104,8 +104,10 @@ int	action(t_sh *sh)
 
 int	exec(t_sh *sh)
 {
+  int	i;
+
   sh->exec->good_path = NULL;
-  if (check_good_path(sh))
+  if ((i = check_good_path(sh)) == 1)
     return (1);
   if (action(sh))
     return (1);

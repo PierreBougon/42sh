@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 16:03:31 2016 marel_m
+## Last update Fri Jun  3 18:04:05 2016 marel_m
 ##
 
 DEBUG	=	no
@@ -256,8 +256,10 @@ all:
 			@make -s $(NAME)
 
 ctags:
+ifeq ($(DEBUG), yes)
 			rm -rf TAGS
 			find . -type f -iname "*.[chS]" | xargs etags -a
+endif
 
 clean:
 			@$(RM) $(OBJ)
