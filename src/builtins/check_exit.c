@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 15:44:57 2016 marel_m
-** Last update Thu Jun  2 10:16:16 2016 Mathieu Sauvau
+** Last update Fri Jun  3 15:16:02 2016 marel_m
 */
 
 #include <stdbool.h>
@@ -47,6 +47,8 @@ void		do_shortcut_exit(t_sh *sh)
   if (!(sh->exec->arg = malloc(sizeof(char *) * 2)))
     exit(1);
   sh->exec->arg[1] = NULL;
+  /* free(sh->exec->exec); */
+  /* free(sh->exec); */
   printf("exit\n");
   my_exit(sh);
 }
