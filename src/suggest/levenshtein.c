@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Tue May 24 14:58:26 2016 bougon_p
-** Last update Thu May 26 12:30:21 2016 bougon_p
+** Last update Fri Jun  3 18:48:55 2016 bougon_p
 */
 
 #include <stdlib.h>
@@ -106,7 +106,6 @@ int	levenshtein(char *str1, char *str2)
 	  matrix[i][j] = minimum(matrix, i, j, cost);
 	}
     }
-  /* print_matrix(matrix, len2); */
   cost = matrix[len1][len2];
   free_matrix(matrix);
   return (cost);

@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Fri Jun  3 14:40:57 2016 marel_m
+** Last update Fri Jun  3 22:58:05 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -52,6 +52,26 @@ typedef enum		e_type
     DOUBLE_REDIR_LEFT,
     NO_ONE
   }			t_type;
+
+typedef enum		e_job_state
+  {
+    FG,
+    BG
+  }			t_job_state;
+
+typedef	struct		s_job_list
+{
+  int			num;
+  char			*cmd;
+  pid_t			pid;
+  t_job_state		state;
+  struct s_job_list	*next;
+  struct s_job_list	*prev;
+}			t_job_list;
+
+t_job_list		*job_list;
+bool			zsig;
+bool			need_check;
 
 typedef struct		s_node
 {
@@ -132,8 +152,10 @@ typedef struct		s_sh
   int			fd_history;
   int			actual_pipe;
   bool			reset_curs;
+  t_job_list		*job_list;
 }			t_sh;
 
+void			init_data(t_sh *);
 char			**my_str_to_word_tab(char *, char);
 char			*my_strdup_e(char *, int);
 char			*epur_str(char *);
@@ -346,4 +368,13 @@ int			suggest(t_sh *, char *);
 */
 unsigned int		my_getnbr_base_limit(char *, char *, unsigned int, int *);
 void			change_read_mode(int, int, int);
+
+/*
+** Job list
+*/
+t_job_list	*update_job_list(t_job_list *, char *, pid_t);
+t_job_list	*erase_job(t_job_list *, t_job_list *);
+int		push_job_foreground(t_sh *);
+int		print_list(t_sh *);
+
 #endif /* _42s_H_ */

@@ -1,0 +1,119 @@
+/*
+** create_list_job.c for list in /home/bougon_p/rendu/PSU_2015_42sh
+**
+** Made by bougon_p
+** Login   <bougon_p@epitech.net>
+**
+** Started on  Fri Jun  3 16:38:09 2016 bougon_p
+** Last update Fri Jun  3 22:36:17 2016 bougon_p
+*/
+
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include "42s.h"
+
+int		print_list(UNUSED t_sh *sh)
+{
+  t_job_list	*tmp;
+
+  if (!job_list)
+    {
+      printf("bg : no current job\n");
+      return ;
+    }
+  tmp = job_list;
+  while(tmp->next != job_list)
+    {
+      printf("[%d] -> %s\n", tmp->num, tmp->cmd);
+      tmp = tmp->next;
+    }
+  printf("[%d] -> %s\n", tmp->num, tmp->cmd);
+  return (0);
+}
+
+static void	clean_elem(t_job_list *elem)
+{
+  if (elem->cmd)
+    free(elem->cmd);
+  free(elem);
+}
+
+/*
+** Use this function to erase an elem of your list
+** Return null if your list is now empty
+** Else return root of the list
+*/
+t_job_list		*erase_job(t_job_list *to_erase, t_job_list *root)
+{
+  t_job_list		*next;
+
+  if (to_erase->next == to_erase)
+    {
+      clean_elem(to_erase);
+      return (NULL);
+    }
+  else
+    {
+      next = to_erase->next;
+      if (to_erase == root)
+	root = next;
+      to_erase->next->prev = to_erase->prev;
+      to_erase->prev->next = to_erase->next;
+      clean_elem(to_erase);
+    }
+  return (root);
+}
+
+static t_job_list	*create_list_job(char *cmd,
+					 pid_t pid)
+{
+  t_job_list		*new;
+
+  if (!(new = malloc(sizeof(t_job_list))))
+    exit(1);
+  new->next = new;
+  new->prev = new;
+  new->num = 1;
+  new->state = BG;
+  if (!(new->cmd = strdup(cmd)))
+      exit(1);
+  new->pid = pid;
+  return (new);
+}
+
+static t_job_list	*push_back_job(t_job_list *root,
+				       char *cmd, pid_t pid)
+{
+  t_job_list		*new;
+
+  if (!(new = malloc(sizeof(t_job_list))))
+    exit(1);
+  new->next = root;
+  new->prev = root->prev;
+  root->prev->next = new;
+  root->prev = new;
+  new->num = new->prev->num + 1;
+  new->state = BG;
+  if (!(new->cmd = strdup(cmd)))
+      exit(1);
+  new->pid = pid;
+  return (new);
+}
+
+
+/*
+** Use this function to update the list
+** Need the comand line and the pid of the
+** Process you just launched
+** Return pointer on root
+*/
+t_job_list	*update_job_list(t_job_list *root,
+				 char *cmd, pid_t pid)
+{
+  if (!root)
+    root = create_list_job(cmd, pid);
+  else
+    push_back_job(root, cmd, pid);
+  return (root);
+}
