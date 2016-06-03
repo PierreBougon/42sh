@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Mon May 30 15:55:18 2016 debrau_c
-** Last update Fri Jun  3 22:43:53 2016 marel_m
+** Last update Sat Jun  4 01:22:58 2016 debrau_c
 */
 
 #include <stdio.h>
@@ -75,6 +75,25 @@ int	var_env_octopus(t_sh *sh, char **str, char **env, int *i)
   return (0);
 }
 
+int	ve_catch_intterog(t_sh *sh, char **str, int i)
+{
+  char	*tmp[2];
+  char	*nb;
+
+  if ((nb = my_itoa(sh->exit)) == NULL)
+    return (1);
+  if ((*str = realloc(*str, strlen(*str) + strlen(nb) + 1)) == NULL)
+    return (1);
+  if ((tmp[0] = ve_strcdup(*str, '$')) == NULL
+      || (tmp[1] = ve_strcdup(*str + i + 2, '\0')) == NULL)
+    return (1);
+  *str[0] = '\0';
+  strcat(*str, tmp[0]);
+  strcat(*str, nb);
+  strcat(*str, tmp[1]);
+  return (0);
+}
+
 int	var_env_format(t_sh *sh, char **str, char **env)
 {
   int	i;
@@ -88,10 +107,13 @@ int	var_env_format(t_sh *sh, char **str, char **env)
 	on_quotes = 1;
       else if (on_quotes && str[0][i] == '\'')
 	on_quotes = 0;
-      if (!on_quotes && str[0][i] == '$' && str[0][i + 1] != '\0')
+      if (!on_quotes && str[0][i] == '$' && str[0][i + 1] == '?')
+	ve_catch_intterog(sh, str, i);
+      else if (!on_quotes && str[0][i] == '$' && str[0][i + 1] != '\0')
 	if (var_env_octopus(sh, str, env, &i))
 	  return (1);
       i++;
     }
+  sh->exit = 0;
   return (0);
 }
