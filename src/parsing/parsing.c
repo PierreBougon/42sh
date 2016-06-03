@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Fri Jun  3 09:24:24 2016 marel_m
+** Last update Fri Jun  3 13:35:44 2016 marel_m
 */
 
 #include <stdio.h>
@@ -60,7 +60,7 @@ int		pars_tree(t_list_sh *elem, char *str)
   if (check_prior(str) != 0)
     if (pars_tree(elem, str))
       return (1);
-  /* free(str); */
+  free(str);
   return (0);
 }
 

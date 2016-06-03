@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Wed Jun  1 20:57:19 2016 debrau_c
-** Last update Thu Jun  2 16:12:42 2016 debrau_c
+** Last update Fri Jun  3 13:53:38 2016 marel_m
 */
 
 #include <unistd.h>
@@ -46,6 +46,7 @@ int	double_redir_left(UNUSED t_sh *sh, t_node *node)
       fflush(stdout);
       free(str);
     }
+  free(str);
   change_read_mode(0, 0, 1);
   free(fin);
   return (0);

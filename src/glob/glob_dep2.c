@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 23:08:49 2016 debrau_c
-** Last update Mon May 30 15:17:14 2016 marel_m
+** Last update Fri Jun  3 14:00:37 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -17,7 +17,7 @@ int	glob_strlen(char *str)
   if (str == NULL)
     return (0);
   i = 0;
-  while (str[i])
+  while (str && str[i])
     i++;
   return (i);
 }

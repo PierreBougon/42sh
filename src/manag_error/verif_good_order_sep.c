@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 22:23:41 2016 marel_m
-** Last update Fri Jun  3 00:02:26 2016 marel_m
+** Last update Fri Jun  3 11:20:41 2016 marel_m
 */
 
 #include <unistd.h>
@@ -15,7 +15,7 @@
 int	loop_order_else(int *redir_r, int *pipe, int *i, char *str)
 {
   if (str[*i] == '"')
-    while (str[++(*i)] != '"' && str[*i] != '\0');
+    while (str[(*i) + 1] != '\0' && str[++(*i)] != '"');
   else if (str[*i] == '|')
     {
       if (*redir_r != 0)
@@ -40,8 +40,8 @@ int	loop_order(char *str, int redir_r, int redir_l, int pipe)
   int	i;
   int	ret;
 
-  i = -1;
-  while (str && str[++i] != '\0')
+  i = 0;
+  while (str && str[i] != '\0')
     {
       if ((ret = loop_order_else(&redir_r, &pipe, &i, str)) == 1)
 	return (1);
@@ -54,6 +54,7 @@ int	loop_order(char *str, int redir_r, int redir_l, int pipe)
 	    if (str[i + 1] != '\0' && str[i + 1] == '<')
 	      i++;
 	  }
+      i++;
     }
   return (0);
 }

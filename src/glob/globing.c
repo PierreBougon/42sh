@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:52:45 2016 debrau_c
-** Last update Fri Jun  3 12:39:23 2016 debrau_c
+** Last update Fri Jun  3 17:39:54 2016 debrau_c
 */
 
 #include <stdio.h>
@@ -100,8 +100,7 @@ static char	*globing_do(char **tab)
       else
 	glob_no_match_recup(&newer, tab, i);
     }
-  free(buf);
-  return (newer);
+  return (free(buf), newer);
 }
 
 int	globing(char **str)

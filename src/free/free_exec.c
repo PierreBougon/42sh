@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 24 13:18:46 2016 marel_m
-** Last update Mon May 30 22:42:17 2016 marel_m
+** Last update Fri Jun  3 13:26:59 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -17,7 +17,7 @@ void	free_exec(t_exec *exec)
   free(exec->arg);
   free(exec->exec);
   free(exec->good_path);
-  free_tab_int(exec->fd);
+  /* free_tab_int(exec->fd); */
   free(exec->fd);
   free(exec);
 }
