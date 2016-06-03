@@ -5,13 +5,14 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Tue May 31 14:24:01 2016 debrau_c
-** Last update Tue May 31 21:16:10 2016 debrau_c
+** Last update Sat Jun  4 00:34:11 2016 debrau_c
 */
 
 int	var_env_copy_fin(char *new, char **str, int j, int m)
 {
-  while (str[0][j] != '\0' && str[0][j] != ' ')
+  while (str[0][j] != ' ' && str[0][j] != '"')
     j++;
+  j++;
   while (str[0][j] != '\0')
     {
       new[m] = str[0][j];
