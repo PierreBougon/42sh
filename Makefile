@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 19:05:55 2016 marel_m
+## Last update Fri Jun  3 22:28:40 2016 debrau_c
 ##
 
 DEBUG	=	no
@@ -104,6 +104,7 @@ SRC	=	main.c				\
 		glob/glob_dep.c			\
 		glob/glob_dep2.c		\
 		glob/globing.c			\
+		glob/glob_extend.c		\
 		dollars/var_env.c		\
 		dollars/var_env_str.c		\
 		dollars/var_env_dep.c		\
