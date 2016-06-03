@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jun  1 14:34:32 2016 marel_m
-** Last update Wed Jun  1 15:02:36 2016 marel_m
+** Last update Thu Jun  2 15:21:31 2016 marel_m
 */
 
 #include <unistd.h>
@@ -18,7 +18,9 @@ int	check_if_missing_name(t_sh *sh, char *str)
   i = 0;
   while (str && str[i] != '\0')
     {
-      if ((str[i] != '\0' && str[i + 1] != '\0' && str[i + 2] != '\0')
+      if (str[i] == '"')
+	while (str[++i] != '"');
+      else if ((str[i] != '\0' && str[i + 1] != '\0' && str[i + 2] != '\0')
 	  && ((str[i] == '<' && str[i + 1] == ' ' && str[i + 2] == '<')
 	      || (str[i] == '>' && str[i + 1] == ' ' && str[i + 2] == '>')))
 	{

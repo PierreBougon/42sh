@@ -5,10 +5,11 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar 29 15:21:39 2016 marel_m
-** Last update Wed May 18 19:25:46 2016 marel_m
+** Last update Fri Jun  3 15:44:07 2016 bougon_p
 */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include "42s.h"
 
@@ -16,6 +17,7 @@ int	check_path(t_sh *sh)
 {
   int	l;
   char	*path;
+  char	*buf;
 
   l = 0;
   while (sh->env->env && sh->env->env[l] != NULL
@@ -28,6 +30,16 @@ int	check_path(t_sh *sh)
 	  == NULL)
 	return (1);
     }
+  buf = NULL;
+  if (!(buf = getcwd(buf, 0)) ||
+      !(buf = realloc(buf, strlen(buf) + strlen("/assets") + 1)))
+    exit(1);
+  strcat(buf, "/assets");
+  if (!(sh->env->env[l] = realloc(sh->env->env[l],
+				  strlen(sh->env->env[l]) + strlen(buf) + 2)))
+    exit(1);
+  strcat(sh->env->env[l], ":");
+  strcat(sh->env->env[l], buf);
   if ((path = my_strdup_e(sh->env->env[l], 5)) == NULL
       || (sh->env->path = my_str_to_word_tab(path, ':')) == NULL)
     return (1);

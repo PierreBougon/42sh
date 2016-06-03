@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 15:50:16 2016 bougon_p
+## Last update Thu Jun  2 21:01:38 2016 bougon_p
 ##
 
 DEBUG	=	no
@@ -56,7 +56,6 @@ SRC	=	main.c				\
 		env/env.c			\
 		env/verif_env.c			\
 		parsing/rewrite_str.c		\
-		parsing/verif_good_synthax.c	\
 		parsing/epur.c			\
 		parsing/parsing.c		\
 		parsing/create_list.c		\
@@ -64,9 +63,12 @@ SRC	=	main.c				\
 		parsing/parsing_sep.c		\
 		parsing/copy_arg_sep_node.c	\
 		parsing/fptrtab_sep_node.c	\
-		parsing/verif_good_order_sep.c	\
-		parsing/check_if_missing_name.c	\
 		parsing/redirections_left_double.c	\
+		parsing/parsing_double_quote.c		\
+		manag_error/verif_good_order_sep.c	\
+		manag_error/check_if_missing_name.c	\
+		manag_error/verif_good_synthax.c	\
+		manag_error/check_good_double_quote.c	\
 		exec/execute.c			\
 		exec/builtin_or_exec.c		\
 		exec/check_good_path.c		\
@@ -101,6 +103,9 @@ SRC	=	main.c				\
 		dollars/var_env_str.c		\
 		dollars/var_env_dep.c		\
 		double_left.c
+
+
+# Tetris variables
 
 TETNAME	=	assets/tetris
 
@@ -193,6 +198,8 @@ LDFLAGS	+=	-lncurses
 
 OBJLIB	=	$(SRCLIB:.c=.o)
 
+
+
 # Project variables
 
 OBJ	=	$(addprefix src/, $(SRC:.c=.o))
@@ -247,8 +254,8 @@ all:
 			@make -s $(NAME)
 
 ctags:
-		rm -rf TAGS
-		find . -type f -iname "*.[chS]" | xargs etags -a
+			rm -rf TAGS
+			find . -type f -iname "*.[chS]" | xargs etags -a
 
 clean:
 			@$(RM) $(OBJ)
