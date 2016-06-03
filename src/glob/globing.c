@@ -5,9 +5,10 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:52:45 2016 debrau_c
-** Last update Thu Jun  2 14:51:59 2016 marel_m
+** Last update Fri Jun  3 17:39:54 2016 debrau_c
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "my_glob.h"
@@ -63,33 +64,43 @@ static int	glob_no_match_recup(char **newer, char **tab, int i)
   strcat(*newer, tab[i]);
   return (0);
 }
+
+glob_t 		*init_globing_do(char **newer, int *i, int *on_quotes)
+{
+  *newer = NULL;
+  *i = -1;
+  *on_quotes = 0;
+  return (malloc(sizeof(glob_t)));
+}
+
 static char	*globing_do(char **tab)
 {
   int		i;
+  int		on_quotes;
   char		*newer;
   glob_t	*buf;
   int		rep;
 
-  newer = NULL;
-  i = -1;
-  if ((buf = malloc(sizeof(glob_t))) == NULL)
-    return (NULL);
+  buf = init_globing_do(&newer, &i, &on_quotes);
   while (tab && tab[++i] != NULL)
     {
-      rep = glob(tab[i], 0, NULL, buf);
-      if (rep == GLOB_NOMATCH)
+      if (!on_quotes && tab[i][0] == '"')
+	on_quotes = 1;
+      else if (on_quotes && tab[i][0] == '"')
+	on_quotes = 0;
+      if (!on_quotes)
 	{
-	  if (glob_no_match_recup(&newer, tab, i))
+	  if ((rep = glob(tab[i], 0, NULL, buf)) == GLOB_NOMATCH
+	      && (glob_no_match_recup(&newer, tab, i)))
 	    return (NULL);
+	  else if (buf->gl_pathc > 0 && (newer = glob_new_str(newer, buf)) == NULL)
+	    return (NULL);
+	  globfree(buf);
 	}
-      else if (rep == 0)
-	if (buf->gl_pathc > 0)
-	  if ((newer = glob_new_str(newer, buf)) == NULL)
-	    return (NULL);
-      globfree(buf);
+      else
+	glob_no_match_recup(&newer, tab, i);
     }
-  free(buf);
-  return (newer);
+  return (free(buf), newer);
 }
 
 int	globing(char **str)

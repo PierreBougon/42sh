@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Thu Jun  2 16:58:54 2016 debrau_c
+** Last update Fri Jun  3 13:22:15 2016 marel_m
 */
 
 #include <sys/wait.h>
@@ -125,5 +125,6 @@ int	builtin_or_exec(t_sh *sh)
     }
   else
     return (ret);
+  free(sh->exec->good_path);
   return (0);
 }

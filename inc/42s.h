@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 16:34:56 2016 marel_m
+** Last update Fri Jun  3 14:40:57 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -204,6 +204,7 @@ char			*pars_double_redirection_left(t_list_sh *, char *, int);
 int			check_quote(char *, char, char);
 int			pos_double_quote(char *, char);
 int			double_quote_redir(char *);
+char			*pars_redir_right(t_list_sh *, char *, int);
 
 /*
 ** ERROR
@@ -212,7 +213,7 @@ int			check_if_missing_name(t_sh *, char *);
 int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
-int			check_good_double_quote(t_sh *, char *);
+char			*check_good_quote_replace_quote(t_sh *, char *);
 
 /*
 ** AUTO-COMPLETION
@@ -239,6 +240,7 @@ void			free_autoc(t_autoc *);
 **BUILTINS
 */
 int			my_setenv(t_sh *);
+int			check_setenv_path(t_sh *);
 int			check_path_setenv(t_sh *);
 int			my_unsetenv(t_sh *);
 int			my_exit(t_sh *);
@@ -326,7 +328,7 @@ void			free_struct(t_sh *);
 void			free_word_tab(char **);
 void			print_tree(t_node *);
 void			free_env(t_env *);
-void			free_tab_int(int **);
+void			free_tab_int(int **, int);
 
 /*
 ** PROMPT

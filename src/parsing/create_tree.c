@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Thu Jun  2 00:23:37 2016 marel_m
+** Last update Fri Jun  3 13:33:57 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -52,10 +52,10 @@ int		check_good_node_arg(t_node *new, t_type type)
     if (type == fptrtab[i].arg_act)
       {
 	if (fptrtab[i].ft_arg_act(&new->arg))
-	  return (1);
-	return (0);
+	  return (free(fptrtab), 1);
+	return (free(fptrtab), 0);
       }
-  return (0);
+  return (free(fptrtab), 0);
 }
 
 t_node		*new_node(char *arg_l, char *arg_r, t_type type)
@@ -95,7 +95,7 @@ t_node		**insert_node(t_node **tree, char *arg_l, char *arg_r,
       if ((new = new_node(arg_l, arg_r, type)) == NULL)
 	return (NULL);
       *tree = new;
-      return (tree);
+      return (free(arg_l), tree);
     }
   if ((insert_node(&(*tree)->right, arg_l, arg_r, type)) == NULL)
     return (NULL);

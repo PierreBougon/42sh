@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 18:23:14 2016 bougon_p
+** Last update Fri Jun  3 15:46:25 2016 bougon_p
 */
 
 #include <sys/ioctl.h>
@@ -179,6 +179,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   write(1, *str, strlen(*str));
   cursor_restore();
   fflush(stdout);
+  free(end);
   return (0);
 }
 
@@ -253,7 +254,6 @@ int		pars_check_exec(t_sh *sh, char *str)
     return (0);
   if (parsing(sh, str) || execute_each_act(sh))
     return (1);
-  /* free_struct(sh); */
   return (0);
 }
 
@@ -286,7 +286,7 @@ int		execution(char **str, t_head *history, t_sh *sh)
     dprintf(sh->fd_history, "%s\n", *str);
   check_alias(sh->conf.head, str);
   if (var_env_format(sh, str, sh->env->env)
-      || check_good_double_quote(sh, *str))
+      || (*str = check_good_quote_replace_quote(sh, *str)) == NULL)
     return (0);
   if (globing(str)
       || pars_check_exec(sh, *str))

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Thu Jun  2 13:28:03 2016 Poc
+** Last update Fri Jun  3 13:29:57 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -52,7 +52,6 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
       || sh->exec->arg[0] == NULL
       || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
     return (1);
-  /* printf("savau\n"); */
   if ((ret = builtin_or_exec(sh)) != 0)
     return (ret);
   return (0);
@@ -124,5 +123,8 @@ int		execute_each_act(t_sh *sh)
 	return (1);
        loop_execute(sh, &tmp, &i);
     }
+  free(sh->exec->exec);
+  free_tab(sh->exec->arg);
+  free(sh->exec);
   return (free_struct(sh), 0);
 }

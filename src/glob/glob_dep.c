@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:56:29 2016 debrau_c
-** Last update Thu Jun  2 14:53:07 2016 marel_m
+** Last update Fri Jun  3 12:38:54 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -69,7 +69,9 @@ void	glob_suppr_char(char *str, int index)
 void	glob_epur(char *str)
 {
   int	i;
+  int	on_quotes;
 
+  on_quotes = 0;
   i = -1;
   if (str == NULL)
     return ;
@@ -78,14 +80,16 @@ void	glob_epur(char *str)
   i = 0;
   while (str && str[++i])
     {
-      if ((str[i - 1] == ' ' || str[i - 1] == '\t')
-	  && (str[i] == ' ' || str[i] == '\t'))
-	{
-	  glob_suppr_char(str, i - 1);
-	  i = 0;
-	}
-      else if (str[i] == '"')
-	while (str[i] != '"')
-	  i++;
+      if (!on_quotes && str[i] == '"')
+	on_quotes = 1;
+      else if (on_quotes && str[i] == '"')
+	on_quotes = 0;
+      if (!on_quotes)
+	if ((str[i - 1] == ' ' || str[i - 1] == '\t')
+	    && (str[i] == ' ' || str[i] == '\t'))
+	  {
+	    glob_suppr_char(str, i - 1);
+	    i = 0;
+	  }
     }
 }

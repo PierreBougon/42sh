@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 30 22:00:34 2016 marel_m
-** Last update Mon May 30 22:02:14 2016 marel_m
+** Last update Fri Jun  3 13:18:11 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -16,7 +16,7 @@ void	free_tab_act(t_act *fptrtab)
   int	i;
 
   i = -1;
-  while (++i < 3)
+  while (++i < MAX_ACT)
     free(fptrtab[i].act);
   free(fptrtab);
 }

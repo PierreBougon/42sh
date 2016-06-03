@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jun  1 22:10:30 2016 marel_m
-** Last update Wed Jun  1 23:55:24 2016 marel_m
+** Last update Fri Jun  3 13:45:18 2016 marel_m
 */
 
 #include <string.h>
@@ -21,17 +21,19 @@ char	*pars_double_redirection_left(t_list_sh *elem, char *str, int i)
   j = i;
   while (str && str[j] != '\0' && str[j] != ' ' && str[j] != '|')
     j++;
-  new = strndup(str, i - 1);
-  tmp = my_strdup_e(str, j);
+  if ((new = strndup(str, i - 1)) == NULL
+      || ((tmp = my_strdup_e(str, j))) == NULL)
+    return (NULL);
   if (strlen(tmp) != 0)
     {
-      new = realloc(new, strlen(new) + strlen(tmp) + 2);
+      if ((new = realloc(new, strlen(new) + strlen(tmp) + 2)) == NULL)
+	return (NULL);
       new = strcat(new, tmp);
     }
-  printf("%s %s\n", my_strdup_bt(str, i + 1, j), new);
-  if (insert_node(&elem->node, my_strdup_bt(str, i + 1, j),
+  free(tmp);
+  if ((tmp = my_strdup_bt(str, i + 1, j)) == NULL
+      || insert_node(&elem->node, tmp,
 		  new, DOUBLE_REDIR_LEFT) == NULL)
     return (NULL);
-  free(tmp);
   return (new);
 }
