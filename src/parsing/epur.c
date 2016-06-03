@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May  9 13:23:09 2016
-** Last update Thu Jun  2 23:33:54 2016 marel_m
+** Last update Fri Jun  3 15:55:32 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -24,9 +24,6 @@ char	*space_around_act(char *str, char *new, int *i, int *j)
 	  && str[(*i) + 1] != '&')
 	new[(*j)++] = ' ';
       (*i)++;
-      while (str[(*i)] != '\0' && str
-      	     && str[(*i)] == ' ')
-      	(*i)++;
     }
   return (new);
 }
@@ -55,19 +52,17 @@ char	*epur(char *str)
 
   if ((new_str = malloc(sizeof(char) * (strlen(str) + 1))) == NULL)
     return (NULL);
-  i = -1;
-  while (str[++i])
-    if (str[i] == '\t')
-      str[i] = ' ';
   i = 0;
   j = 0;
   while (str[i] == ' ')
     i++;
   while (str[i] != '\0' && str)
-    if (str[i] == '"')
-      new_str = epur_with_quote(str, new_str, &i, &j);
-    else
-      new_str = epur_without_quote(str, new_str, &i, &j);
+    {
+      if (str[i] == '"')
+	new_str = epur_with_quote(str, new_str, &i, &j);
+      else
+	new_str = epur_without_quote(str, new_str, &i, &j);
+    }
   new_str[j] = 0;
   return (new_str);
 }
