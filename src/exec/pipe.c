@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Fri Jun  3 16:45:34 2016 Poc
+** Last update Fri Jun  3 17:36:31 2016 Poc
 */
 
 #include <stdlib.h>
@@ -61,10 +61,18 @@ int	pipes(t_sh *sh, t_node *node)
     return (1);
   if (chid == 0)
     {
-      if (!sh->actual_pipe && execute_first_pipe(sh))
-	exit (1);
-      else if (execute_in_son(sh))
-	exit (1);
+      if (!sh->actual_pipe)
+	{
+	  if (execute_first_pipe(sh))
+	    exit (1);
+	  close(sh->exec->fd[1][0]);
+	}
+      else
+	{
+	  if (execute_in_son(sh))
+	    exit (1);
+	  close(sh->exec->fd[sh->actual_pipe][0]);
+	}
       exit (1);
     }
   /* show_pipe(sh->exec->fd[0]); */

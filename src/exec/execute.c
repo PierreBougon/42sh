@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Fri Jun  3 16:29:59 2016 Poc
+** Last update Fri Jun  3 16:54:12 2016 Poc
 */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"

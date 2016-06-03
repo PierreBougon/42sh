@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Fri Jun  3 16:52:14 2016 Poc
+** Last update Fri Jun  3 17:20:54 2016 Poc
 */
 
 #include <sys/wait.h>
@@ -60,6 +60,7 @@ int	action(t_sh *sh)
   if (pid == 0)
     {
       printf("fd[%d][1] = %d\n", sh->actual_pipe, sh->exec->fd[sh->actual_pipe][1]);
+      close(sh->exec->fd[sh->actual_pipe][0]);
       dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if (action_redir(sh))
 	return (1);
@@ -88,7 +89,6 @@ int	action(t_sh *sh)
   /* 	  || waitpid(pid, &status, 0) == -1) */
   /* 	return (1); */
   /*   } */
-  printf("closeall\n");
   close_all(sh->exec->fd, sh->actual_pipe);
   return (0);
 }
