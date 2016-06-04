@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Fri Jun  3 21:12:49 2016 marel_m
+** Last update Sat Jun  4 16:58:06 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -28,7 +28,9 @@ char	*pars_pipe(t_list_sh *elem, char *str, int quote)
 	nb++;
       i--;
     }
-  while (str[i] != '|')
+  if (i <= 0)
+    return (NULL);
+  while (i >= 0 && str[i] != '|')
     i--;
   if (insert_node(&elem->node, my_strdup_e(str, i + 1),
 		  (new = strndup(str, i)), PIPE) == NULL)
@@ -44,7 +46,7 @@ char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
   int	j;
 
   j = 0;
-  while (str[j] != '>' && str[j] != '|')
+  while (str && str[j] != '\0' && str[j] != '>' && str[j] != '|')
     j++;
   if ((new = strndup(str, i)) == NULL
       || (tmp = my_strdup_bt(str, i, (i + 1))) == NULL
@@ -63,7 +65,7 @@ char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
   return (new);
 }
 
-void	init_pars_redir_l(char *str, int *i, int quote)
+int	init_pars_redir_l(char *str, int *i, int quote)
 {
   int	nb;
 
@@ -77,8 +79,13 @@ void	init_pars_redir_l(char *str, int *i, int quote)
 	nb++;
       (*i)--;
     }
-  while (str[*i] != '<')
+  if (*i <= 0)
+    return (1);
+  while (*i >= 0 && str[*i] != '<')
     (*i)--;
+  if ((*i) - 1 <= 0)
+    return (1);
+  return (0);
 }
 
 char	*pars_redir_left(t_list_sh *elem, char *str, int quote)
@@ -87,7 +94,8 @@ char	*pars_redir_left(t_list_sh *elem, char *str, int quote)
   char	*tmp;
   int   i;
 
-  init_pars_redir_l(str, &i, quote);
+  if (init_pars_redir_l(str, &i, quote))
+    return (NULL);
   if (str[i - 1] == '<')
     {
       if ((new = pars_double_redirection_left(elem, str, i)) == NULL)

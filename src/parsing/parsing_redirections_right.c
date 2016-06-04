@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 00:34:52 2016 marel_m
-** Last update Sat Jun  4 11:58:32 2016 marel_m
+** Last update Sat Jun  4 16:30:46 2016 marel_m
 */
 
 #include <string.h>
@@ -73,9 +73,9 @@ int	init_pars_redir_r(char *str, int quote, int *i, int *j)
 	nb++;
       (*i)--;
     }
-  while (str[*i] != '>')
+  while (*i >= 0 && str[*i] != '>')
     (*i)--;
-  if (*i == 0)
+  if (*i <= 0)
     return (1);
   *j = *i;
   while (str && str[*j] != '\0' && str[*j] != ' ')

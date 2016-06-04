@@ -5,9 +5,10 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:56:29 2016 debrau_c
-** Last update Sat Jun  4 18:00:23 2016 debrau_c
+** Last update Sat Jun  4 17:09:17 2016 marel_m
 */
 
+#include <string.h>
 #include <stdlib.h>
 #include "my_glob.h"
 
