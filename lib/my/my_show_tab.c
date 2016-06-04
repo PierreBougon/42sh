@@ -5,14 +5,14 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:42:35 2016 marel_m
-** Last update Fri Jun  3 19:42:49 2016 marel_m
+** Last update Sat Jun  4 20:29:34 2016 debrau_c
 */
 
 #include <stdio.h>
 
-void    my_show_tab(char **str)
+void	my_show_tab(char **str)
 {
-  int   i;
+  int	i;
 
   i = 0;
   while (str && str[i] != '\0')

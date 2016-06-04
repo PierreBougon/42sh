@@ -1,11 +1,11 @@
 /*
-** history.h for  in /home/sauvau_m/rendu/PSU_2015_42sh
+** history.h for ad in /home/debrau_c/Documents/cours/PSU/PSU_2015_42sh
 **
-** Made by Mathieu Sauvau
-** Login   <sauvau_m@epitech.net>
+** Made by debrau_c
+** Login   <debrau_c@epitech.net>
 **
-** Started on  Fri May 13 17:37:35 2016 Mathieu Sauvau
-// Last update Thu Jun  2 14:51:24 2016 Mathieu Sauvau
+** Started on  Sat Jun  4 20:35:09 2016 debrau_c
+** Last update Sat Jun  4 20:35:10 2016 debrau_c
 */
 
 #ifndef _HISTORY_H_
