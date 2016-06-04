@@ -5,9 +5,10 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:56:29 2016 debrau_c
-** Last update Fri Jun  3 22:30:22 2016 debrau_c
+** Last update Sat Jun  4 17:09:17 2016 marel_m
 */
 
+#include <string.h>
 #include <stdlib.h>
 #include "my_glob.h"
 
@@ -92,4 +93,6 @@ void	glob_epur(char *str)
 	    i = 0;
 	  }
     }
+  while (str[strlen(str) - 1] == ' ')
+    str[strlen(str) - 1] = '\0';
 }

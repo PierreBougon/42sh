@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Fri Jun  3 21:13:04 2016 marel_m
+** Last update Sat Jun  4 12:04:20 2016 marel_m
 */
 
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "42s.h"
@@ -68,7 +69,8 @@ int		stock_elem(t_sh *sh, char *str, int st, int end)
   t_list_sh	*elem;
 
   if ((elem = add_list_after(sh)) == NULL
-      || (elem->arg = my_strdup_bt(str, st, end)) == NULL)
+      || (st != end && ((elem->arg = my_strdup_bt(str, st, end)) == NULL))
+      || (st == end && ((elem->arg = strdup(str)) == NULL)))
     return (1);
   elem->node = NULL;
   elem->nb = 1;

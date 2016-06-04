@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sat Jun  4 16:58:54 2016 Mathieu Sauvau
+** Last update Sat Jun  4 17:29:28 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -29,13 +29,16 @@ void    signal_gest_init(char *ref[11])
   ref[10] = "Segmentation Fault";
 }
 
-int     signal_gest(int status, t_sh *sh, pid_t pid)
+int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
 {
   char  *ref[11];
   int   index;
 
-  if (zsig)
+  if (zsig && !WIFEXITED(status) && stock)
     job_list = update_job_list(job_list, sh->exec->exec, pid);
+  else if (job_list && job_list->prev->state == FG
+	   && last_fg && !zsig)
+    job_list = erase_job(job_list->prev, job_list);
   zsig = false;
   signal_gest_init(ref);
   if (WIFSIGNALED(status))
@@ -69,7 +72,6 @@ int	action_redir(t_sh *sh)
 int	action(t_sh *sh)
 {
   pid_t	pid;
-  pid_t	pgid;
   int	status;
 
   if ((pid = fork()) == -1)
@@ -78,8 +80,6 @@ int	action(t_sh *sh)
     {
       if (action_redir(sh))
 	return (1);
-      pgid = getpgid(0);
-      setpgid(0, pgid + 1);
       if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
 	exit(1);
     }
@@ -87,13 +87,13 @@ int	action(t_sh *sh)
     {
       need_check = true;
       if (waitpid(pid, &status, WUNTRACED) == -1)
-	return (1);
+      	return (1);
       need_check = false;
-      if (signal_gest(status, sh, pid))
-	{
-	  sh->exit = status;
-	  sh->exec->stop = 1;
-	}
+      if (signal_gest(status, sh, pid, true))
+      	{
+      	  sh->exit = status;
+      	  sh->exec->stop = 1;
+      	}
     }
   if (sh->exec->fd[0][0] != 0)
     {

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 17:00:41 2016 Mathieu Sauvau
+** Last update Sat Jun  4 17:28:28 2016 Mathieu Sauvau
 */
 
 #include <signal.h>
@@ -32,27 +32,33 @@ int	push_job_foreground(t_sh *sh)
 
   if (job_list)
     {
+      last_fg = true;
       job_list->prev->state = FG;
       kill(job_list->prev->pid, SIGCONT);
+      need_check = true;
+      if (waitpid(job_list->prev->pid, &status, WUNTRACED) == -1)
+  	return (1);
+      need_check = false;
+      if (signal_gest(status, sh, job_list->prev->pid, false))
+  	{
+  	  sh->exit = status;
+  	  sh->exec->stop = 1;
+  	}
+      last_fg = false;
     }
-  need_check = true;
-  if (waitpid(job_list->prev->pid, &status, WUNTRACED) == -1)
-    return (1);
-  need_check = false;
-  if (signal_gest(status, sh, job_list->prev->pid))
-    {
-      sh->exit = status;
-      sh->exec->stop = 1;
-    }
+  else
+    dprintf(2, "bg : no current job\n");
   return (0);
 }
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
+  printf("|%s|\n", str);
   if (check_if_missing_name(sh, str))
     return (0);
   if ((str = epur(str)) == NULL)
     return (1);
+  printf("|%s|\n", str);
   if (verif_good_synthax_string(sh, str)
       || verif_good_order_sep(sh, str))
     return (0);
@@ -137,6 +143,7 @@ int		term(t_sh *sh)
   sh->exit = 0;
   while (42)
     {
+      /*      change_read_mode(0, 100, 1);*/
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
@@ -158,15 +165,21 @@ void		catch_ctrlz()
   need_check = false;
 }
 
+void		catch_ctrlc()
+{
+}
+
 void		init_data(UNUSED t_sh *sh)
 {
   #ifndef DEBUG
-  signal(SIGINT, SIG_IGN);
+  /* signal(SIGINT, SIG_IGN); */
+  signal(SIGINT, catch_ctrlc);
   #endif
   signal(SIGTSTP, catch_ctrlz);
   job_list = NULL;
   zsig = false;
   need_check = false;
+  last_fg = false;
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)

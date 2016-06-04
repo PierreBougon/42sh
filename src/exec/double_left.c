@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Wed Jun  1 20:57:19 2016 debrau_c
-** Last update Fri Jun  3 13:53:38 2016 marel_m
+** Last update Sat Jun  4 17:43:53 2016 debrau_c
 */
 
 #include <unistd.h>
@@ -32,7 +32,7 @@ int	double_redir_left(UNUSED t_sh *sh, t_node *node)
   char	*str;
   char	*fin;
 
-  write(1, "heredoc> ", strlen("heredoc> "));
+  write(1, "? ", strlen("? "));
   fin = NULL;
   change_read_mode(1, 0, 1);
   while ((str = get_next_line(0)) != NULL
@@ -42,7 +42,7 @@ int	double_redir_left(UNUSED t_sh *sh, t_node *node)
 	return (1);
       else if ((fin = manage_fin(fin, str)) == NULL)
 	return (1);
-      write(1, "heredoc> ", strlen("\nheredoc> "));
+      write(1, "? ", strlen("\n? "));
       fflush(stdout);
       free(str);
     }

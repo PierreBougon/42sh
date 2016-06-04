@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 18:40:38 2016 bougon_p
-** Last update Fri Jun  3 18:47:13 2016 marel_m
+** Last update Sat Jun  4 16:07:21 2016 marel_m
 */
 
 #include <stdio.h>
@@ -57,7 +57,7 @@ void	print_echo(t_echo *opt, char **arg)
 	    print_str_no_change(arg[i]);
           else if (opt->opt_e)
 	    print_str_changed(arg[i], opt);
-	  printf(" ");
+	  /* printf(" "); */
 	  fflush(stdout);
         }
     }
