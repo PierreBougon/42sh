@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:55:04 2016 marel_m
-** Last update Sat Jun  4 15:48:26 2016 Mathieu Sauvau
+** Last update Sat Jun  4 18:08:10 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -59,6 +59,7 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   write(1, *str, strlen(*str));
   cursor_restore();
   fflush(stdout);
+  free(start);
   free(end);
   return (0);
 }
