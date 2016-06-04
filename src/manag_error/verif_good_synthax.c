@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Sat Jun  4 19:49:23 2016 debrau_c
+** Last update Sat Jun  4 20:06:46 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -90,43 +90,7 @@ int	check_synthax(char *str, int st, int end)
   free(tmp);
   return (0);
 }
-/*
-int	if_is_a_separator(char *str, int *i, int *j)
-{
-  if (str[(*i)] == ';')
-    {
-      if (check_synthax(str, *j, *i))
-	return (1);
-      while (str[(*i)] != '\0' && str[(*i)] == ';')
-	(*i)++;
-      if (str && str[(*i)] != '\0')
-	(*i)++;
-      *j = *i;
-      return ( 0);
-    }
-  else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
-    {
-      if (check_synthax(str, *j, *i))
-	return (1);
-      if (str && str[(*i)] != '\0' && str[(*i) + 1] != '\0')
-	(*i) += 2;
-      if (str[(*i)] == '&')
-	return (write(2, "Invalid null command.\n", 22), 1);
-      *j = *i;
-      return (0);
-    }
-  else if (str[(*i)] == '|' && str[(*i) + 1] == '|')
-    {
-      if (check_synthax(str, *j, *i))
-	return (1);
-      if (str && str[(*i)] != '\0' && str[(*i) + 1] != '\0')
-	(*i) += 2;
-      *j = *i;
-      return (0);
-    }
-  return (-1);
-}
-*/
+
 int    verif_good_synthax_string(t_sh *sh, char *str)
 {
   int	i;

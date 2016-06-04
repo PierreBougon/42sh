@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 00:34:52 2016 marel_m
-** Last update Sat Jun  4 16:30:46 2016 marel_m
+** Last update Sat Jun  4 17:49:49 2016 marel_m
 */
 
 #include <string.h>
@@ -99,15 +99,13 @@ char	*pars_redir_right(t_list_sh *elem, char *str, int quote)
   if (str[i - 1] != '>')
     {
       if ((new = cut_redir_r(str, i, j)) == NULL
-	  || insert_node(&elem->node, tmp,
-			 new, REDIR_RIGHT) == NULL)
+	  || insert_node(&elem->node, tmp, new, REDIR_RIGHT) == NULL)
 	return (NULL);
     }
   else
     {
       if ((new = cut_redir_rr(str, i, j)) == NULL
-	  || insert_node(&elem->node, tmp,
-			 new, DOUBLE_REDIR_RIGHT) == NULL)
+	  || insert_node(&elem->node, tmp, new, DOUBLE_REDIR_RIGHT) == NULL)
 	return (NULL);
     }
   free(tmp);
