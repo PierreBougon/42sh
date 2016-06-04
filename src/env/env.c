@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Apr 29 18:23:11 2016 marel_m
-** Last update Tue May 31 16:03:34 2016 marel_m
+** Last update Sat Jun  4 20:29:05 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -34,9 +34,9 @@ int	create_env(t_sh *sh)
   return (0);
 }
 
-int     nb_line(char **env)
+int	nb_line(char **env)
 {
-  int   i;
+  int	i;
 
   i = 0;
   while (env[i] != NULL && env)
@@ -44,10 +44,10 @@ int     nb_line(char **env)
   return (i);
 }
 
-int     copy_env(t_sh *sh, char **env)
+int	copy_env(t_sh *sh, char **env)
 {
-  int   l;
-  int   nb_l;
+  int	l;
+  int	nb_l;
 
   l = 0;
   nb_l = nb_line(env);
@@ -63,7 +63,7 @@ int     copy_env(t_sh *sh, char **env)
   return (0);
 }
 
-int     check_env(t_sh *sh, char **env)
+int	check_env(t_sh *sh, char **env)
 {
   if ((sh->env = malloc(sizeof(t_env))) == NULL)
     return (1);

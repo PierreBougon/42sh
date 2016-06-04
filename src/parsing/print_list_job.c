@@ -5,15 +5,15 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat Jun  4 17:50:42 2016 marel_m
-** Last update Sat Jun  4 17:51:19 2016 marel_m
+** Last update Sat Jun  4 20:30:33 2016 debrau_c
 */
 
 #include <stdio.h>
 #include "42s.h"
 
-int             print_list(UNUSED t_sh *sh)
+int		print_list(UNUSED t_sh *sh)
 {
-  t_job_list    *tmp;
+  t_job_list	*tmp;
 
   if (!job_list)
     {

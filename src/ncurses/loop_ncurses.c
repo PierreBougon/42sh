@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:55:04 2016 marel_m
-** Last update Sat Jun  4 18:19:02 2016 Mathieu Sauvau
+** Last update Sat Jun  4 20:32:43 2016 debrau_c
 */
 
 #include <sys/ioctl.h>
@@ -17,10 +17,10 @@
 #include <unistd.h>
 #include "42s.h"
 
-void            change_read_mode(int i, int time, int nb_char)
+void			change_read_mode(int i, int time, int nb_char)
 {
-  static struct termios old;
-  static struct termios new;
+  static struct termios	old;
+  static struct termios	new;
 
   if (i == 0)
     {

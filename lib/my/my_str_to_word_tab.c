@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jan  6 14:52:17 2016 maud marel
-** Last update Sat Jun  4 20:23:16 2016 debrau_c
+** Last update Sat Jun  4 20:35:50 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -80,8 +80,6 @@ char	**my_str_to_word_tab(char *str, char sign)
 	my_strccpy(tab[l], str, '"', &i);
       else
 	my_strccpy(tab[l], str, sign, &i);
-      /* if (str[i]) */
-      /* 	i++; */
       l++;
     }
   tab[l] = NULL;
