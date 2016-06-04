@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 20 13:59:36 2016 marel_m
-** Last update Tue May 31 14:56:14 2016 marel_m
+** Last update Sat Jun  4 20:30:10 2016 debrau_c
 */
 
 #include <unistd.h>
@@ -41,8 +41,8 @@ int	redirection_left(t_sh *sh, t_node *tree)
 int	double_redirection_right(t_sh *sh, t_node *tree)
 {
   sh->exec->type = tree->type;
-  if ((sh->exec->fd[0][1] = open(tree->arg, O_CREAT | O_WRONLY | O_APPEND, 0644))
-      == -1)
+  if ((sh->exec->fd[0][1] =
+       open(tree->arg, O_CREAT | O_WRONLY | O_APPEND, 0644)) == -1)
     return (1);
   return (0);
 }

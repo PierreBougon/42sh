@@ -5,14 +5,14 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar 29 15:24:04 2016 marel_m
-** Last update Mon May  9 14:19:07 2016 marel_m
+** Last update Sat Jun  4 20:33:49 2016 debrau_c
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"
 
-int     check_oldpwd(t_sh *sh)
+int	check_oldpwd(t_sh *sh)
 {
   int   l;
 
