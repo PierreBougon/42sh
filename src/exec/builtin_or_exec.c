@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Fri Jun  3 18:46:05 2016 marel_m
+** Last update Sat Jun  4 15:08:42 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -30,11 +30,17 @@ void    signal_gest_init(char *ref[11])
 }
 
 
-int     signal_gest(int status)
+int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
 {
   char  *ref[11];
   int   index;
 
+  if (zsig && !WIFEXITED(status) && stock)
+    job_list = update_job_list(job_list, sh->exec->exec, pid);
+  else if (job_list && job_list->prev->state == FG
+	   && last_fg && !zsig)
+    job_list = erase_job(job_list->prev, job_list);
+  zsig = false;
   signal_gest_init(ref);
   if (WIFSIGNALED(status))
     {
@@ -80,13 +86,15 @@ int	action(t_sh *sh)
     }
   else if (pid != 0 && sh->exec->fd[0][0] == 0 && sh->exec->fd[0][1] == 1)
     {
-      if (wait(&status) == -1)
-	return (1);
-      if (signal_gest(status))
-	{
-	  sh->exit = status;
-	  sh->exec->stop = 1;
-	}
+      need_check = true;
+      if (waitpid(pid, &status, WUNTRACED) == -1)
+      	return (1);
+      need_check = false;
+      if (signal_gest(status, sh, pid, true))
+      	{
+      	  sh->exit = status;
+      	  sh->exec->stop = 1;
+      	}
     }
   if (sh->exec->fd[0][0] != 0)
     {
