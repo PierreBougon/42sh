@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Sat Jun  4 16:23:51 2016 marel_m
+** Last update Sat Jun  4 18:09:48 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -36,16 +36,21 @@ int	verif_elem_redirect_first(char *tmp)
   return (0);
 }
 
-int	elem_good_position(char *tmp)
+int	if_pipe_start_redir_end(char *tmp)
 {
-  int	i;
-
   if (tmp == NULL)
     return (1);
   if (tmp[0] == '|' || tmp[strlen(tmp) - 1] == '|')
     return (write(2, "Invalid null command.\n", 22), 1);
   if (tmp[strlen(tmp) - 1] == '>' || tmp[strlen(tmp) - 1] == '<')
     return (write(2, "Missing name for redirect.\n", 27), 1);
+  return (0);
+}
+
+int	elem_good_position(char *tmp)
+{
+  int	i;
+
   i = 0;
   while (tmp && tmp[i] != '\0')
     {
@@ -78,8 +83,9 @@ int	check_synthax(char *str, int st, int end)
     exit(1);
   if (strlen(tmp) == 0)
     return (free(tmp), 0);
-  if ((ret = elem_good_position(tmp)) != 0)
-    return (free(tmp), ret);
+  if (if_pipe_start_redir_end(tmp)
+      || elem_good_position(tmp))
+    return (free(tmp), 1);
   if (tmp[0] == '>' || tmp[0] == '<')
     {
       if ((str = rewrite_str(tmp)) == NULL)
@@ -89,40 +95,6 @@ int	check_synthax(char *str, int st, int end)
     }
   free(tmp);
   return (0);
-}
-
-int	if_is_a_separator(char *str, int *i, int *j)
-{
-  if (str[(*i)] == ';')
-    {
-      if (check_synthax(str, *j, *i))
-	return (1);
-      while (str[(*i)] != '\0' && str[(*i)] == ';')
-	(*i)++;
-      if (str && str[(*i)] != '\0')
-	(*i)++;
-      return (*j = *i, 0);
-    }
-  else if (str[(*i)] == '&' && str[(*i) + 1] == '&')
-    {
-      if (check_synthax(str, *j, *i))
-	return (1);
-      if (str && str[(*i)] != '\0' && str[(*i) + 1] != '\0')
-	(*i) += 2;
-      if (str[(*i)] == '&')
-	return (write(2, "Invalid null command.\n", 22), 1);
-      *j = *i;
-      return (0);
-    }
-  else if (str[(*i)] == '|' && str[(*i) + 1] == '|')
-    {
-      if (check_synthax(str, *j, *i))
-	return (1);
-      if (str && str[(*i)] != '\0' && str[(*i) + 1] != '\0')
-	(*i) += 2;
-      return (*j = *i, 0);
-    }
-  return (-1);
 }
 
 int    verif_good_synthax_string(t_sh *sh, char *str)
@@ -143,10 +115,7 @@ int    verif_good_synthax_string(t_sh *sh, char *str)
 	    i++;
 	}
       else if (ret == 1)
-	{
-	  sh->exit = 1;
-	  return (1);
-	}
+	return (sh->exit = 1, 1);
     }
   if (check_synthax(str, j, i))
     {

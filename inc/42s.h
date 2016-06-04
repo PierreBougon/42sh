@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sat Jun  4 15:00:56 2016 bougon_p
+** Last update Sat Jun  4 20:00:48 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -94,6 +94,8 @@ typedef struct		s_conf
   t_aliases		*head;
 }			t_conf;
 
+typedef struct	s_echo	t_echo;
+
 typedef	struct		s_echo
 {
   bool			opt_e;
@@ -103,8 +105,9 @@ typedef	struct		s_echo
   bool			opt_vers;
   int			nb_opt;
   char			*opt_tab;
-  void			(*ftab[NB_SPE_ECHO])(void);
+  void			(*ftab[NB_SPE_ECHO])(t_echo *);
   char			sequence[NB_SPE_ECHO];
+  int			fd;
 }			t_echo;
 
 typedef struct		s_list_sh
@@ -236,6 +239,8 @@ int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*check_good_quote_replace_quote(t_sh *, char *);
+int			if_is_a_separator(char *, int *, int *);
+int			check_synthax(char *, int, int);
 
 /*
 ** AUTO-COMPLETION
@@ -281,24 +286,24 @@ void			print_help();
 void			print_echo(t_echo *, char **);
 bool			version(char *);
 bool			help(char *);
-void			print_backslash(void);
-void			print_alert(void);
-void			print_backspace(void);
-void			print_nomore(void);
-void			print_escape(void);
-void			print_formfeed(void);
-void			print_newline(void);
-void			print_carriageret(void);
-void			print_tab(void);
-void			print_verttab(void);
-void			print_octal(void);
-void			print_hexa(void);
-void			print_squote(void);
-void			print_dquote(void);
+void			print_backslash(t_echo *);
+void			print_alert(t_echo *);
+void			print_backspace(t_echo *);
+void			print_nomore(t_echo *);
+void			print_escape(t_echo *);
+void			print_formfeed(t_echo *);
+void			print_newline(t_echo *);
+void			print_carriageret(t_echo *);
+void			print_tab(t_echo *);
+void			print_verttab(t_echo *);
+void			print_octal(t_echo *);
+void			print_hexa(t_echo *);
+void			print_squote(t_echo *);
+void			print_dquote(t_echo *);
 bool			opt_exist(char *, t_echo *);
-int			print_octal_char(char *);
-int			print_hexa_char(char *);
-void			print_str_no_change(char *);
+int			print_octal_char(char *, t_echo *);
+int			print_hexa_char(char *, t_echo *);
+void			print_str_no_change(char *, t_echo *);
 void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);

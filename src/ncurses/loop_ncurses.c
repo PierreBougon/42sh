@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:55:04 2016 marel_m
-** Last update Sat Jun  4 18:08:10 2016 Mathieu Sauvau
+** Last update Sat Jun  4 18:19:02 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -24,16 +24,19 @@ void            change_read_mode(int i, int time, int nb_char)
 
   if (i == 0)
     {
-      ioctl(0, TCGETS, &old);
-      ioctl(0, TCGETS, &new);
-      new.c_lflag &= ~(ICANON);
-      new.c_lflag &= ~(ECHO);
       new.c_cc[VMIN] = nb_char;
       new.c_cc[VTIME] = time;
       ioctl(0, TCSETS, &new);
     }
-  if (i == 1)
+  else if (i == 1)
     ioctl(0, TCSETS, &old);
+  else if (i == 2)
+    {
+      ioctl(0, TCGETS, &old);
+      ioctl(0, TCGETS, &new);
+      new.c_lflag &= ~(ICANON);
+      new.c_lflag &= ~(ECHO);
+    }
 }
 
 int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
@@ -63,7 +66,6 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   free(end);
   return (0);
 }
-
 
 int		check_bn(t_sh *sh, char buff[11], int *pos)
 {

@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Fri Jun  3 16:38:09 2016 bougon_p
-** Last update Sat Jun  4 17:28:13 2016 Mathieu Sauvau
+** Last update Sat Jun  4 17:51:14 2016 marel_m
 */
 
 #include <stdio.h>
@@ -13,25 +13,6 @@
 #include <string.h>
 #include <sys/types.h>
 #include "42s.h"
-
-int		print_list(UNUSED t_sh *sh)
-{
-  t_job_list	*tmp;
-
-  if (!job_list)
-    {
-      dprintf(2, "bg : no current job\n");
-      return (0);
-    }
-  tmp = job_list;
-  while (tmp->next != job_list)
-    {
-      printf("[%d] -> %s\n", tmp->num, tmp->cmd);
-      tmp = tmp->next;
-    }
-  printf("[%d] -> %s\n", tmp->num, tmp->cmd);
-  return (0);
-}
 
 static void	clean_elem(t_job_list *elem)
 {
@@ -49,7 +30,6 @@ t_job_list		*erase_job(t_job_list *to_erase, t_job_list *root)
 {
   t_job_list		*next;
 
-  printf("Erase function\n");
   if (to_erase->next == to_erase)
     {
       clean_elem(to_erase);

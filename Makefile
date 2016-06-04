@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Fri Jun  3 23:20:21 2016 bougon_p
+## Last update Sat Jun  4 20:06:53 2016 debrau_c
 ##
 
 DEBUG	=	no
@@ -71,9 +71,11 @@ SRC	=	main.c					\
 		parsing/parsing_double_quote.c		\
 		parsing/parsing_redirections_right.c	\
 		parsing/create_list_job.c		\
+		parsing/print_list_job.c		\
 		manag_error/verif_good_order_sep.c	\
 		manag_error/check_if_missing_name.c	\
 		manag_error/verif_good_synthax.c	\
+		manag_error/verif_good_syn_dep.c	\
 		manag_error/check_good_double_quote.c	\
 		exec/execute.c				\
 		exec/builtin_or_exec.c			\
