@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 15:12:21 2016 bougon_p
+** Last update Sat Jun  4 17:43:32 2016 debrau_c
 */
 
 #include <signal.h>
@@ -142,7 +142,7 @@ int		term(t_sh *sh)
   sh->exit = 0;
   while (42)
     {
-      change_read_mode(0, 100, 1);
+      /*      change_read_mode(0, 100, 1);*/
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
