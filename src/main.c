@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 23:53:56 2016 Mathieu Sauvau
+** Last update Sun Jun  5 00:06:20 2016 Mathieu Sauvau
 */
 
 #include <signal.h>
@@ -167,6 +167,7 @@ void		catch_ctrlz()
 void		catch_ctrlc()
 {
   printf("\n%s", g_prompt);
+  ctrlc = true;
   fflush(stdout);
 }
 
