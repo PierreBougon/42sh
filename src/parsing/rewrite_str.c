@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 23:47:51 2016 marel_m
-** Last update Sun Jun  5 01:36:09 2016 marel_m
+** Last update Sun Jun  5 01:55:27 2016 Mathieu Sauvau
 */
 
 #include <string.h>
@@ -27,6 +27,30 @@ int	init_rewrite(char *str, int *i)
   while (str && str[j] != '\0' && str[j] != '|' && str[j] != '>')
     j++;
   return (j);
+}
+
+/* char	*do_some(char *str, char **tmp, char **tmp2, char **tmp3) */
+/* { */
+/*   int	j; */
+
+/*   j = 0; */
+/*   while (str && str[j] != '\0' && str[j] != ' ') */
+/*     j++; */
+/*   if ((*tmp2 = strndup(str, j)) == NULL) */
+/*     return (NULL); */
+/*   if (*tmp3 == NULL) */
+/*     { */
+/*       if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + 1)) == NULL) */
+/* 	return (NULL); */
+/*     } */
+/*   else if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + strlen(*tmp3) */
+/* 			  + 1)) == NULL) */
+/*     return (NULL); */
+/*   return */
+/* } */
+int	do_some(char *str)
+{
+
 }
 
 char	*rewrite_str(char *str)
@@ -64,6 +88,7 @@ char	*rewrite_str(char *str)
       tmp = strcat(tmp, tmp3);
       my_free((void **)&tmp3);
     }
+  printf("tmp %s\n", tmp);
   my_free((void **)&tmp2);
   return (tmp);
 }
