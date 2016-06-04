@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon Nov 23 11:36:14 2015 maud marel
-** Last update Mon May 30 22:37:51 2016 marel_m
+** Last update Sat Jun  4 22:35:23 2016 marel_m
 */
 
 #include <string.h>
@@ -25,7 +25,7 @@ char	**my_realloc_tab(char **old, int size)
       free(old[l]);
       l++;
     }
-  free(old[l]);
+  new[l] = NULL;
   free(old);
   return (new);
 }

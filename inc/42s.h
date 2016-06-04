@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sat Jun  4 20:07:47 2016 marel_m
+** Last update Sat Jun  4 22:05:28 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -358,6 +358,7 @@ void			print_tree(t_node *);
 void			free_env(t_env *);
 void			free_tab_int(int **, int);
 void			my_free(void **);
+void			free_list(t_sh *);
 
 /*
 ** PROMPT

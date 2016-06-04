@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Sat Jun  4 15:03:10 2016 marel_m
+** Last update Sat Jun  4 22:27:47 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -109,6 +109,7 @@ int		execute_each_act(t_sh *sh)
   tmp = sh->root->next;
   while (i < sh->lenght - 1)
     {
+      sh->exec->good_path = NULL;
       if ((sh->exec->fd = malloc(sizeof(int *) * (tmp->nb))) == NULL)
 	return (1);
       j = -1;
@@ -121,7 +122,11 @@ int		execute_each_act(t_sh *sh)
 	}
       if (check_which_config(sh, tmp, tmp->node) == 1)
 	return (1);
-       loop_execute(sh, &tmp, &i);
+      loop_execute(sh, &tmp, &i);
+      free_exec(sh->exec);
     }
+  free_list(sh);
+  my_free((void **)&(sh)->root);
+  my_free((void **)&(sh->exec));
   return (0);
 }

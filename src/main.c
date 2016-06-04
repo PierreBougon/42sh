@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 19:37:25 2016 marel_m
+** Last update Sat Jun  4 21:44:49 2016 marel_m
 */
 
 #include <signal.h>
@@ -62,7 +62,7 @@ int		pars_check_exec(t_sh *sh, char *str)
     return (0);
   if (parsing(sh, str) || execute_each_act(sh))
     return (1);
-  free_struct(sh);
+  my_free((void **)&str);
   return (0);
 }
 
