@@ -5,33 +5,33 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:04:37 2016 marel_m
-** Last update Fri Jun  3 19:05:22 2016 marel_m
+** Last update Sat Jun  4 17:30:08 2016 bougon_p
 */
 
 #include <stdio.h>
 #include "42s.h"
 
-void    print_formfeed(void)
+void    print_formfeed(t_echo *opt)
 {
-  printf("\f");
+  dprintf(opt->fd, "\f");
 }
 
-void    print_newline(void)
+void    print_newline(t_echo *opt)
 {
-  printf("\n");
+  dprintf(opt->fd, "\n");
 }
 
-void    print_carriageret(void)
+void    print_carriageret(t_echo *opt)
 {
-  printf("\r");
+  dprintf(opt->fd, "\r");
 }
 
-void    print_tab(void)
+void    print_tab(t_echo *opt)
 {
-  printf("\t");
+  dprintf(opt->fd, "\t");
 }
 
-void    print_verttab(void)
+void    print_verttab(t_echo *opt)
 {
-  printf("\v");
+  dprintf(opt->fd, "\v");
 }

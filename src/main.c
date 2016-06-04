@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 15:12:21 2016 bougon_p
+** Last update Sat Jun  4 17:21:05 2016 bougon_p
 */
 
 #include <signal.h>
@@ -166,12 +166,12 @@ void		catch_ctrlz()
 
 void		catch_ctrlc()
 {
+  printf("\n");
 }
 
 void		init_data(UNUSED t_sh *sh)
 {
   #ifndef DEBUG
-  /* signal(SIGINT, SIG_IGN); */
   signal(SIGINT, catch_ctrlc);
   #endif
   signal(SIGTSTP, catch_ctrlz);
@@ -198,6 +198,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
       printf("%s", str);
       fflush(stdout);
       create_history_file(&sh);
+      change_read_mode(2, 100, 1);
       change_read_mode(0, 100, 1);
       sh.history = NULL;
     }

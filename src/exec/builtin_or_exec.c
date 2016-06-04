@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sat Jun  4 15:08:42 2016 bougon_p
+** Last update Sat Jun  4 15:39:29 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -35,10 +35,11 @@ int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
   char  *ref[11];
   int   index;
 
+  change_read_mode(0, 100, 1);
   if (zsig && !WIFEXITED(status) && stock)
     job_list = update_job_list(job_list, sh->exec->exec, pid);
   else if (job_list && job_list->prev->state == FG
-	   && last_fg && !zsig)
+  	   && last_fg && !zsig)
     job_list = erase_job(job_list->prev, job_list);
   zsig = false;
   signal_gest_init(ref);
