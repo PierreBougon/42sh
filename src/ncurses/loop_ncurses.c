@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:55:04 2016 marel_m
-** Last update Fri Jun  3 20:01:30 2016 marel_m
+** Last update Sat Jun  4 15:48:26 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -63,6 +63,35 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   return (0);
 }
 
+
+int		check_bn(t_sh *sh, char buff[11], int *pos)
+{
+  int		i;
+
+  if (check_exit(buff))
+    do_shortcut_exit(sh);
+  i = -1;
+  while (buff[++i])
+    {
+      if (buff[i] == '\n')
+	{
+	  printf("\n");
+	  *pos = 0;
+	  return (3);
+	}
+    }
+  return (0);
+}
+
+void		init_action_loop(t_sh *sh, char buff[11],
+				 t_head **history, char *prompt)
+{
+  *history = sh->history;
+  (*history)->prompt = prompt;
+  memset(buff, 0, 11);
+  read(0, buff, 10);
+}
+
 int		do_action(t_key_act actions[18], char **str,
 			  t_sh *sh, char *prompt)
 {
@@ -72,21 +101,13 @@ int		do_action(t_key_act actions[18], char **str,
   int		i;
   t_head	*history;
 
-  history = sh->history;
-  i = -1;
-  memset(buff, 0, 11);
-  read(0, buff, 10);
-  history->prompt = prompt;
-
-  if (sh->reset_curs)
+  history = NULL;
+  init_action_loop(sh, buff, &history, prompt);
+  if (!(i = -1) && sh->reset_curs)
     {
       cur_pos = 0;
       sh->reset_curs = false;
     }
-  /* int j = -1; */
-  /* while (++j < 10) */
-  /*   printf("\n%d %c\n", buff[j], buff[j]); */
-
   while (++i < 18)
     {
       if (strcmp(buff, actions[i].key) == 0)
@@ -95,18 +116,8 @@ int		do_action(t_key_act actions[18], char **str,
 	  return (1);
 	}
     }
-  if (check_exit(buff))
-    do_shortcut_exit(sh);
-  i = -1;
-  while (buff[++i])
-    {
-      if (buff[i] == '\n')
-	{
-	  printf("\n");
-	  cur_pos = 0;
-	  return (3);
-	}
-    }
+  if (check_bn(sh, buff, &cur_pos) == 3)
+    return (3);
   cpy_to_pos(str, buff, &cur_pos, prompt);
   return (0);
 }

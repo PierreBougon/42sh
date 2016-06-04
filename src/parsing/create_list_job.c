@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Fri Jun  3 16:38:09 2016 bougon_p
-** Last update Fri Jun  3 23:16:25 2016 bougon_p
+** Last update Sat Jun  4 16:59:49 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -24,7 +24,7 @@ int		print_list(UNUSED t_sh *sh)
       return (1);
     }
   tmp = job_list;
-  while(tmp->next != job_list)
+  while (tmp->next != job_list)
     {
       printf("[%d] -> %s\n", tmp->num, tmp->cmd);
       tmp = tmp->next;
@@ -101,7 +101,6 @@ static t_job_list	*push_back_job(t_job_list *root,
   new->pid = pid;
   return (new);
 }
-
 
 /*
 ** Use this function to update the list

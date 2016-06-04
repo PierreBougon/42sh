@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 01:27:18 2016 debrau_c
+** Last update Sat Jun  4 17:00:41 2016 Mathieu Sauvau
 */
 
 #include <signal.h>
@@ -132,9 +132,8 @@ int		term(t_sh *sh)
   history.cpy_buf = NULL;
   sh->reset_curs = false;
   sh->history = &history;
-  if (isatty(0) && term_func_01(sh, actions, &str, &history))
+  if ((a = 3) && isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
-  a = 3;
   sh->exit = 0;
   while (42)
     {
