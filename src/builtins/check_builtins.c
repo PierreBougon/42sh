@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Wed Jun  1 23:34:14 2016 bougon_p
+** Last update Fri Jun  3 22:37:17 2016 bougon_p
 */
 
 #include <string.h>
@@ -35,6 +35,10 @@ t_blt	*init_tab_builtins()
   tab[HISTORY].ft_blt = &blt_hist;
   tab[TETRIS].blt = "tetris";
   tab[TETRIS].ft_blt = &tetris;
+  tab[F_FG].blt = "fg";
+  tab[F_FG].ft_blt = &push_job_foreground;
+  tab[F_BG].blt = "bg";
+  tab[F_BG].ft_blt = &print_list;
   return (tab);
 }
 

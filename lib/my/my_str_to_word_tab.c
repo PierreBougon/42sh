@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jan  6 14:52:17 2016 maud marel
-** Last update Fri Jun  3 20:53:19 2016 marel_m
+** Last update Fri Jun  3 22:46:53 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -63,11 +63,11 @@ char	**my_str_to_word_tab(char *str, char sign)
       if ((tab[l] = malloc(sizeof(char) * (tb.size + 2))) == NULL)
 	return (NULL);
       if (str[i] == '"')
-	{
-	  i++;
-	  while (str[i] != '"')
-	    tab[l][j++] = str[i++];
-	}
+      	{
+      	  i++;
+      	  while (str && str[i] != '\0' && str[i] != '"')
+      	    tab[l][j++] = str[i++];
+      	}
       else
 	while (str[i] != sign && str[i] != '\0' && str[i])
 	  tab[l][j++] = str[i++];

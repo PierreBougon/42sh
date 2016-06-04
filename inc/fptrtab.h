@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat May  7 17:14:02 2016 marel_m
-** Last update Thu Jun  2 16:59:13 2016 debrau_c
+** Last update Fri Jun  3 22:36:57 2016 bougon_p
 */
 
 #ifndef FPTRTAB_H_
@@ -74,6 +74,8 @@ enum		blt
     ECHO,
     HISTORY,
     TETRIS,
+    F_FG,
+    F_BG,
     MAX_BLT
   };
 

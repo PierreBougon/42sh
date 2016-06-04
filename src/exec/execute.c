@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Fri Jun  3 13:29:57 2016 marel_m
+** Last update Fri Jun  3 21:05:34 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -123,8 +123,5 @@ int		execute_each_act(t_sh *sh)
 	return (1);
        loop_execute(sh, &tmp, &i);
     }
-  free(sh->exec->exec);
-  free_tab(sh->exec->arg);
-  free(sh->exec);
-  return (free_struct(sh), 0);
+  return (0);
 }

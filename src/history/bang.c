@@ -5,9 +5,10 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Tue May 31 17:40:17 2016 Poc
-** Last update Wed Jun  1 15:19:15 2016 bougon_p
+** Last update Sat Jun  4 01:21:07 2016 debrau_c
 */
 
+#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>

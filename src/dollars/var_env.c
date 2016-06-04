@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Mon May 30 15:55:18 2016 debrau_c
-** Last update Wed Jun  1 10:39:39 2016 marel_m
+** Last update Sat Jun  4 01:22:58 2016 debrau_c
 */
 
 #include <stdio.h>
@@ -25,7 +25,8 @@ int	var_env_copy_all_env(char *new, char *env, int j, int k)
       ++k;
       ++m;
     }
-  return (m);
+  new[m] = '\0';
+  return (0);
 }
 
 int	var_env_modify(char **str, char **env, int index, char *talon)
@@ -33,7 +34,6 @@ int	var_env_modify(char **str, char **env, int index, char *talon)
   int	i;
   int	j;
   int	k;
-  int	m;
   char	*new;
 
   i = 0;
@@ -46,8 +46,10 @@ int	var_env_modify(char **str, char **env, int index, char *talon)
 	  j = var_env_place_j(new, *str, index);
 	  if ((k = var_env_place_k(env[i])) < 0)
 	    return (1);
-	  m = var_env_copy_all_env(new, env[i], j, k);
-	  var_env_copy_fin(new, str, j, m);
+	  var_env_copy_all_env(new, env[i], j, k);
+	  while (str[0][j] != '\0' && str[0][j] != ' ' && str[0][j] != '"')
+	    j++;
+	  strcat(new, &str[0][j]);
 	  free(*str);
 	  *str = new;
 	  return (0);
@@ -57,28 +59,61 @@ int	var_env_modify(char **str, char **env, int index, char *talon)
   return (1);
 }
 
+int	var_env_octopus(t_sh *sh, char **str, char **env, int *i)
+{
+  char	*talon;
+
+  if ((talon = var_env_strcdup(&str[0][*i + 1], ' ')) == NULL)
+    return (1);
+  if (var_env_modify(str, env, *i, talon))
+    {
+      sh->exit = 1;
+      printf("%s: Undefined variable.\n", talon);
+      return (1);
+    }
+  free(talon);
+  return (0);
+}
+
+int	ve_catch_intterog(t_sh *sh, char **str, int i)
+{
+  char	*tmp[2];
+  char	*nb;
+
+  if ((nb = my_itoa(sh->exit)) == NULL)
+    return (1);
+  if ((*str = realloc(*str, strlen(*str) + strlen(nb) + 1)) == NULL)
+    return (1);
+  if ((tmp[0] = ve_strcdup(*str, '$')) == NULL
+      || (tmp[1] = ve_strcdup(*str + i + 2, '\0')) == NULL)
+    return (1);
+  *str[0] = '\0';
+  strcat(*str, tmp[0]);
+  strcat(*str, nb);
+  strcat(*str, tmp[1]);
+  return (0);
+}
+
 int	var_env_format(t_sh *sh, char **str, char **env)
 {
   int	i;
-  char	*talon;
+  int	on_quotes;
 
   i = 0;
+  on_quotes = 0;
   while (str[0][i])
     {
-      if (str[0][i] == '$' && str[0][i + 1] != '\0')
-	{
-	  if ((talon = var_env_strcdup(&str[0][i + 1], ' ')) == NULL)
-	    return (1);
-	  if (var_env_modify(str, env, i, talon))
-	    {
-	      sh->exit = 1;
-	      printf("%s: Undefined variable.\n", talon);
-	      return (1);
-	    }
-	  free(talon);
-	  i = -1;
-	}
+      if (!on_quotes && str[0][i] == '\'')
+	on_quotes = 1;
+      else if (on_quotes && str[0][i] == '\'')
+	on_quotes = 0;
+      if (!on_quotes && str[0][i] == '$' && str[0][i + 1] == '?')
+	ve_catch_intterog(sh, str, i);
+      else if (!on_quotes && str[0][i] == '$' && str[0][i + 1] != '\0')
+	if (var_env_octopus(sh, str, env, &i))
+	  return (1);
       i++;
     }
+  sh->exit = 0;
   return (0);
 }

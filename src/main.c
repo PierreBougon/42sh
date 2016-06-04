@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Fri Jun  3 21:00:03 2016 marel_m
+** Last update Sat Jun  4 01:27:18 2016 debrau_c
 */
 
+#include <signal.h>
 #include <sys/ioctl.h>
 #include <ncurses.h>
 #include <termios.h>
@@ -18,11 +19,33 @@
 #include <stdbool.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "42s.h"
 #include "my_glob.h"
 #include "var_env.h"
+
+int	push_job_foreground(t_sh *sh)
+{
+  int	status;
+
+  if (job_list)
+    {
+      job_list->prev->state = FG;
+      kill(job_list->prev->pid, SIGCONT);
+    }
+  need_check = true;
+  if (waitpid(job_list->prev->pid, &status, WUNTRACED) == -1)
+    return (1);
+  need_check = false;
+  if (signal_gest(status, sh, job_list->prev->pid))
+    {
+      sh->exit = status;
+      sh->exec->stop = 1;
+    }
+  return (0);
+}
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
@@ -62,8 +85,9 @@ int		execution(char **str, t_head *history, t_sh *sh)
   tty = isatty(0);
   if (str && str[0])
     {
-      if ((sh->exit = bang(str, history)))
-	return (0);
+      bang(str, history);
+      /*      if ((sh->exit = ))
+	      return (0);*/
       if (tty)
 	push_front_history(history, *str);
     }
@@ -128,6 +152,24 @@ int		term(t_sh *sh)
   return (0);
 }
 
+void		catch_ctrlz()
+{
+  if (need_check)
+    zsig = true;
+  need_check = false;
+}
+
+void		init_data(UNUSED t_sh *sh)
+{
+  #ifndef DEBUG
+  signal(SIGINT, SIG_IGN);
+  #endif
+  signal(SIGTSTP, catch_ctrlz);
+  job_list = NULL;
+  zsig = false;
+  need_check = false;
+}
+
 int		main(UNUSED int ac, UNUSED char **av, char **env)
 {
   t_sh		sh;
@@ -136,6 +178,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
   if (check_env(&sh, env))
     return (1);
   get_conf_file(&sh.conf, &sh.env->env);
+  init_data(&sh);
   if (isatty(0))
     {
       if (setupterm(NULL, 0, NULL) < 0 ||
