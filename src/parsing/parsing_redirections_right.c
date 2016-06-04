@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 00:34:52 2016 marel_m
-** Last update Fri Jun  3 01:10:39 2016 marel_m
+** Last update Sat Jun  4 11:58:32 2016 marel_m
 */
 
 #include <string.h>
@@ -87,27 +87,29 @@ char	*pars_redir_right(t_list_sh *elem, char *str, int quote)
 {
   int	i;
   char	*new;
+  char	*tmp;
   int	j;
 
   i = my_strlen(str) - 1;
   if (quote != 0)
     quote = pos_double_quote(str, '>');
-  if (init_pars_redir_r(str, quote, &i, &j))
+  if (init_pars_redir_r(str, quote, &i, &j)
+      || (tmp = my_strdup_bt(str, i + 1, j)) == NULL)
     return (NULL);
   if (str[i - 1] != '>')
     {
       if ((new = cut_redir_r(str, i, j)) == NULL
-	  || insert_node(&elem->node, my_strdup_bt(str, i + 1, j),
+	  || insert_node(&elem->node, tmp,
 			 new, REDIR_RIGHT) == NULL)
 	return (NULL);
     }
   else
     {
       if ((new = cut_redir_rr(str, i, j)) == NULL
-	  || insert_node(&elem->node, my_strdup_bt(str, i + 1, j),
+	  || insert_node(&elem->node, tmp,
 			 new, DOUBLE_REDIR_RIGHT) == NULL)
 	return (NULL);
     }
-  free(str);
+  free(tmp);
   return (new);
 }
