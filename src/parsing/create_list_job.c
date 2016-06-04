@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Fri Jun  3 16:38:09 2016 bougon_p
-** Last update Sat Jun  4 14:42:51 2016 bougon_p
+** Last update Sat Jun  4 17:42:30 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -24,7 +24,7 @@ int		print_list(UNUSED t_sh *sh)
       return (0);
     }
   tmp = job_list;
-  while(tmp->next != job_list)
+  while (tmp->next != job_list)
     {
       printf("[%d] -> %s\n", tmp->num, tmp->cmd);
       tmp = tmp->next;
@@ -49,7 +49,6 @@ t_job_list		*erase_job(t_job_list *to_erase, t_job_list *root)
 {
   t_job_list		*next;
 
-  printf("Erase function\n");
   if (to_erase->next == to_erase)
     {
       clean_elem(to_erase);
@@ -102,7 +101,6 @@ static t_job_list	*push_back_job(t_job_list *root,
   new->pid = pid;
   return (new);
 }
-
 
 /*
 ** Use this function to update the list

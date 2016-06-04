@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Apr 19 11:03:29 2016 marel_m
-** Last update Thu May 19 10:06:07 2016 Mathieu Sauvau
+** Last update Sat Jun  4 14:42:02 2016 Mathieu Sauvau
 */
 
 #include <string.h>
@@ -48,6 +48,16 @@ char	*last_buff(char *buff, int *ret, int *i, int *j)
   return (str);
 }
 
+void		reset(int *ret, char buff[READ_SIZE + 1], int *i)
+{
+  if (*ret == 0)
+    {
+      memset(buff, 0, READ_SIZE + 1);
+      *i = -1;
+      *ret = -1;
+    }
+}
+
 char		*get_next_line(const int fd)
 {
   static char	buff[READ_SIZE + 1];
@@ -57,9 +67,7 @@ char		*get_next_line(const int fd)
   int		size;
   int		j;
 
-  str = NULL;
-  j = -1;
-  if ((fd < 0) || READ_SIZE < 1 ||
+  if ((str = NULL) || !(j = -1) || (fd < 0) || READ_SIZE < 1 ||
       (str = last_buff(buff, &ret, &i, &j)) == NULL || buff[i] == '\n')
     return (str);
   size = j + 1;
@@ -73,12 +81,7 @@ char		*get_next_line(const int fd)
       while (buff[++i] && buff[i] != '\n')
 	str[++j] = buff[i];
     }
-  if (ret == 0)
-    {
-      memset(buff, 0, sizeof(buff));
-      i = -1;
-      ret = -1;
-    }
+  reset(&ret, buff, &i);
   if (size)
     return (str);
   return (free(str), NULL);

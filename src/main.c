@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 17:43:32 2016 debrau_c
+** Last update Sat Jun  4 17:43:27 2016 bougon_p
 */
 
 #include <signal.h>
@@ -53,10 +53,12 @@ int	push_job_foreground(t_sh *sh)
 
 int		pars_check_exec(t_sh *sh, char *str)
 {
+  printf("|%s|\n", str);
   if (check_if_missing_name(sh, str))
     return (0);
   if ((str = epur(str)) == NULL)
     return (1);
+  printf("|%s|\n", str);
   if (verif_good_synthax_string(sh, str)
       || verif_good_order_sep(sh, str))
     return (0);
@@ -136,13 +138,11 @@ int		term(t_sh *sh)
   history.cpy_buf = NULL;
   sh->reset_curs = false;
   sh->history = &history;
-  if (isatty(0) && term_func_01(sh, actions, &str, &history))
+  if ((a = 3) && isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
-  a = 3;
   sh->exit = 0;
   while (42)
     {
-      /*      change_read_mode(0, 100, 1);*/
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
@@ -166,12 +166,12 @@ void		catch_ctrlz()
 
 void		catch_ctrlc()
 {
+  printf("\n");
 }
 
 void		init_data(UNUSED t_sh *sh)
 {
   #ifndef DEBUG
-  /* signal(SIGINT, SIG_IGN); */
   signal(SIGINT, catch_ctrlc);
   #endif
   signal(SIGTSTP, catch_ctrlz);
@@ -198,6 +198,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
       printf("%s", str);
       fflush(stdout);
       create_history_file(&sh);
+      change_read_mode(2, 100, 1);
       change_read_mode(0, 100, 1);
       sh.history = NULL;
     }
