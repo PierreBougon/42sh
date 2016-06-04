@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 21:44:49 2016 marel_m
+** Last update Sat Jun  4 23:53:56 2016 Mathieu Sauvau
 */
 
 #include <signal.h>
@@ -78,6 +78,7 @@ int		term_func_01(t_sh *sh, t_key_act actions[18],
     return (1);
   write(1, history->prompt, strlen(history->prompt));
   (*str)[0] = 0;
+  g_prompt = history->prompt;
   if (!memset((*str), 0, 10))
     return (1);
   return (0);
@@ -165,7 +166,8 @@ void		catch_ctrlz()
 
 void		catch_ctrlc()
 {
-  printf("\n");
+  printf("\n%s", g_prompt);
+  fflush(stdout);
 }
 
 void		init_data(UNUSED t_sh *sh)
@@ -178,6 +180,7 @@ void		init_data(UNUSED t_sh *sh)
   zsig = false;
   need_check = false;
   last_fg = false;
+  ctrlc = false;
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)
