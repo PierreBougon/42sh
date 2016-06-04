@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 10:35:56 2016 Poc
-** Last update Sat Jun  4 20:34:11 2016 debrau_c
+** Last update Sat Jun  4 21:53:24 2016 bougon_p
 */
 
 #include <unistd.h>
@@ -58,7 +58,6 @@ int	get_conf_file(t_conf *conf, char ***env)
     {
       i = 0;
       new_str = epur(str);
-      free(str);
       while (tab.dico[i])
 	{
 	  if (strncmp(tab.dico[i], new_str, strlen(tab.dico[i])) == 0)
