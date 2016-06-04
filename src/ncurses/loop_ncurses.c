@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:55:04 2016 marel_m
-** Last update Sat Jun  4 17:42:59 2016 bougon_p
+** Last update Sat Jun  4 17:48:02 2016 marel_m
 */
 
 #include <sys/ioctl.h>
@@ -65,7 +65,6 @@ int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
   free(end);
   return (0);
 }
-
 
 int		check_bn(t_sh *sh, char buff[11], int *pos)
 {
