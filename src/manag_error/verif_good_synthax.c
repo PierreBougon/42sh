@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Sat Jun  4 18:09:48 2016 marel_m
+** Last update Sat Jun  4 18:25:34 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -76,7 +76,6 @@ int	elem_good_position(char *tmp)
 
 int	check_synthax(char *str, int st, int end)
 {
-  int	ret;
   char	*tmp;
 
   if ((tmp = my_strdup_bt(str, st, end)) == NULL)
