@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sat Jun  4 15:39:29 2016 bougon_p
+** Last update Sat Jun  4 17:43:43 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -28,7 +28,6 @@ void    signal_gest_init(char *ref[11])
   ref[9] = "";
   ref[10] = "Segmentation Fault";
 }
-
 
 int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
 {
