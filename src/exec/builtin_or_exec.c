@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sat Jun  4 23:42:02 2016 Poc
+** Last update Sun Jun  5 01:53:52 2016 Poc
 */
 
+#include <errno.h>
 #include <stdio.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -54,18 +55,22 @@ int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
   return (0);
 }
 
-
-int	action_redir(t_sh *sh)
+int	action_redir(t_sh *sh, int pipe_nb)
 {
-  if (sh->exec->fd[0][1] != 1)
+  if (sh->exec->fd[0][1] != -1 && !pipe_nb)
     {
       if (dup2(sh->exec->fd[0][1], 1) == -1)
-  	return (1);
+      	return (1);
     }
-  if (sh->exec->fd[0][0] != 0)
+  if (sh->exec->fd[0][0] != -1)
     {
-      if (dup2(sh->exec->fd[0][0], 0) == -1)
-  	return (1);
+      if (pipe_nb)
+	{
+	  dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][1]);
+	  exit(1);
+	}
+      else if (dup2(sh->exec->fd[0][0], 0) == -1)
+	return (1);
     }
   return (0);
 }
@@ -134,15 +139,20 @@ int	action(t_sh *sh)
     }
   if (pid == 0)
     {
-      close(sh->exec->fd[sh->actual_pipe][0]);
-      dup2(sh->exec->fd[sh->actual_pipe][1], 1);
-      if (action_redir(sh))
-	return (1);
+      /* if (sh->exec->fd[sh->actual_pipe][0] > 0) */
+      /* 	close(sh->exec->fd[sh->actual_pipe][0]); */
+      if (action_redir(sh, sh->actual_pipe))
+	{
+	  printf("action redit fucked up\n");
+	  return (1);
+	}
+      if (sh->actual_pipe)
+	dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
 	exit(1);
       exit(1);
     }
-  else if (pid == 0 && sh->exec->fd[0][0] == 0 && sh->exec->fd[0][1] == 1)
+  else if (pid == 0 && sh->exec->fd[0][0] == -1 && sh->exec->fd[0][1] == -1)
     {
       need_check = true;
       if (waitpid(pid, &status, WUNTRACED) == -1)
@@ -154,18 +164,6 @@ int	action(t_sh *sh)
       	  sh->exec->stop = 1;
       	}
     }
-  /* if (sh->exec->fd[0][0] != 0) */
-  /*   { */
-  /*     if (close(sh->exec->fd[0][0]) == -1 */
-  /* 	  || waitpid(pid, &status, 0) == -1) */
-  /* 	return (1); */
-  /*   } */
-  /* else if (sh->exec->fd[0][1] != 1) */
-  /*   { */
-  /*     if (close(sh->exec->fd[0][1]) == -1 */
-  /* 	  || waitpid(pid, &status, 0) == -1) */
-  /* 	return (1); */
-  /*   } */
   return (0);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 00:01:27 2016 Poc
+** Last update Sun Jun  5 01:49:09 2016 Poc
 */
 
 #include <stdlib.h>
@@ -33,6 +33,8 @@ void	execute_first_pipe(t_sh *sh)
 {
   close(sh->exec->fd[1][1]);
   close_all_first_pipe(sh->exec->fd, 1);
+  if (sh->exec->fd[0][1] != -1)
+    dup2(sh->exec->fd[0][1], 1);
   dup2(sh->exec->fd[1][0], 0);
   execve(sh->exec->good_path, sh->exec->arg, sh->env->env);
   exit(1);
