@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sat Jun  4 17:28:30 2016 bougon_p
+** Last update Sat Jun  4 20:00:48 2016 debrau_c
 */
 
 #ifndef _42s_H_
@@ -239,6 +239,8 @@ int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
 char			*check_good_quote_replace_quote(t_sh *, char *);
+int			if_is_a_separator(char *, int *, int *);
+int			check_synthax(char *, int, int);
 
 /*
 ** AUTO-COMPLETION

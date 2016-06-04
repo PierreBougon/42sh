@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Mon May 30 15:55:18 2016 debrau_c
-** Last update Sat Jun  4 01:22:58 2016 debrau_c
+** Last update Sat Jun  4 20:04:54 2016 debrau_c
 */
 
 #include <stdio.h>
@@ -36,8 +36,8 @@ int	var_env_modify(char **str, char **env, int index, char *talon)
   int	k;
   char	*new;
 
-  i = 0;
-  while (env[i] != NULL)
+  i = -1;
+  while (env[++i] != NULL)
     {
       if (strncmp(env[i], talon, var_env_strclen(env[i], '=')) == 0)
 	{
@@ -54,7 +54,6 @@ int	var_env_modify(char **str, char **env, int index, char *talon)
 	  *str = new;
 	  return (0);
 	}
-      i++;
     }
   return (1);
 }
