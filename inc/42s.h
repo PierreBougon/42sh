@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sat Jun  4 20:00:48 2016 debrau_c
+** Last update Sat Jun  4 20:07:47 2016 marel_m
 */
 
 #ifndef _42s_H_
@@ -74,14 +74,6 @@ bool			zsig;
 bool			need_check;
 bool			last_fg;
 
-typedef struct		s_node
-{
-  char			*arg;
-  t_type		type;
-  struct s_node		*left;
-  struct s_node		*right;
-}			t_node;
-
 typedef struct		s_aliases
 {
   char			*alias;
@@ -109,6 +101,14 @@ typedef	struct		s_echo
   char			sequence[NB_SPE_ECHO];
   int			fd;
 }			t_echo;
+
+typedef struct		s_node
+{
+  char			*arg;
+  t_type		type;
+  struct s_node		*left;
+  struct s_node		*right;
+}			t_node;
 
 typedef struct		s_list_sh
 {
@@ -357,6 +357,7 @@ void			free_word_tab(char **);
 void			print_tree(t_node *);
 void			free_env(t_env *);
 void			free_tab_int(int **, int);
+void			my_free(void **);
 
 /*
 ** PROMPT

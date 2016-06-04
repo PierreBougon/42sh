@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sat Jun  4 17:43:43 2016 bougon_p
+** Last update Sat Jun  4 19:32:03 2016 marel_m
 */
 
 #include <stdio.h>
@@ -132,6 +132,5 @@ int	builtin_or_exec(t_sh *sh)
     }
   else
     return (ret);
-  free(sh->exec->good_path);
   return (0);
 }

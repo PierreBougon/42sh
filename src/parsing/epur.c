@@ -5,11 +5,12 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May  9 13:23:09 2016
-** Last update Fri Jun  3 20:50:08 2016 marel_m
+** Last update Sat Jun  4 20:14:15 2016 marel_m
 */
 
 #include <stdlib.h>
 #include <string.h>
+#include "42s.h"
 
 char	*space_around_act(char *str, char *new, int *i, int *j)
 {
@@ -70,5 +71,6 @@ char	*epur(char *str)
 	new_str = epur_without_quote(str, new_str, &i, &j);
     }
   new_str[j] = 0;
+  my_free((void **)&str);
   return (new_str);
 }

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 22:23:41 2016 marel_m
-** Last update Sat Jun  4 11:36:45 2016 marel_m
+** Last update Sat Jun  4 20:14:46 2016 marel_m
 */
 
 #include <unistd.h>
@@ -72,7 +72,8 @@ int	check_order(char *str, int st, int end)
   redir_l = 0;
   pipe = 0;
   if (loop_order(tmp, redir_r, redir_l, pipe))
-    return (free(tmp), 1);
+    return (my_free((void **)&tmp), 1);
+  my_free((void **)&tmp);
   return (0);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 00:34:52 2016 marel_m
-** Last update Sat Jun  4 17:49:49 2016 marel_m
+** Last update Sat Jun  4 20:33:19 2016 marel_m
 */
 
 #include <string.h>
@@ -28,12 +28,12 @@ char	*cut_redir_r(char *str, int i, int j)
 	return (NULL);
       new = strcpy(new, tmp);
       new = strcat(new, tmp2);
-      free(tmp2);
+      my_free((void **)&tmp2);
     }
   else
     if ((new = strdup(tmp)) == NULL)
       return (NULL);
-  free(tmp);
+  my_free((void **)&tmp);
   return (new);
 }
 
@@ -53,12 +53,12 @@ char	*cut_redir_rr(char *str, int i, int j)
 	return (NULL);
       new = strcpy(new, tmp);
       new = strcat(new, tmp2);
-      free(tmp2);
+      my_free((void **)&tmp2);
     }
   else
     if ((new = strdup(tmp)) == NULL)
       return (NULL);
-  free(tmp);
+  my_free((void **)&tmp);
   return (new);
 }
 
@@ -108,6 +108,6 @@ char	*pars_redir_right(t_list_sh *elem, char *str, int quote)
 	  || insert_node(&elem->node, tmp, new, DOUBLE_REDIR_RIGHT) == NULL)
 	return (NULL);
     }
-  free(tmp);
+  my_free((void **)&tmp);
   return (new);
 }

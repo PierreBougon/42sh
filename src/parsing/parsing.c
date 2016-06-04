@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Sat Jun  4 12:04:20 2016 marel_m
+** Last update Sat Jun  4 20:36:06 2016 marel_m
 */
 
 #include <string.h>
@@ -45,7 +45,7 @@ int		pars_tree(t_list_sh *elem, char *str)
   prior = check_prior(str);
   elem->nb++;
   if (prior == 0)
-    return (0);
+    return (my_free((void **)&str), 0);
   else if (prior == 1)
     {
       quote = check_quote(str, '|', '|');
@@ -61,6 +61,7 @@ int		pars_tree(t_list_sh *elem, char *str)
   if (check_prior(str) != 0)
     if (pars_tree(elem, str))
       return (1);
+  my_free((void **)&str);
   return (0);
 }
 
@@ -140,6 +141,5 @@ int	parsing(t_sh *sh, char *str)
   if (stock_elem(sh, str, j, i))
     return (1);
   sh->root->prev->type = 0;
-  free(str);
   return (0);
 }
