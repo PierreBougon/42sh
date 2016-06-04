@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 27 17:10:04 2016 Mathieu Sauvau
-** Last update Fri Jun  3 20:37:42 2016 Mathieu Sauvau
+** Last update Sat Jun  4 19:47:15 2016 Mathieu Sauvau
 */
 
 #include <stdio.h>
@@ -58,15 +58,18 @@ void	ctrl_right(char **str, int *pos,
   if (*str && str[0])
     {
       i = *pos;
+      if (i == strlen(*str))
+	return ;
       while ((*str)[++i] && (*str)[i] == ' ')
 	  {
 	    cursor_forward(1);
 	    ++*pos;
 	  }
-	while ((*str)[i] && (*str)[i++] != ' ')
+	while ((*str)[i] && (*str)[i] != ' ')
 	  {
 	    cursor_forward(1);
 	    ++*pos;
+	    ++i;
 	  }
 	cursor_forward(1);
 	++*pos;
