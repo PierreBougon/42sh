@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sat Jun  4 22:05:28 2016 marel_m
+// Last update Sat Jun  4 23:52:36 2016 Mathieu Sauvau
 */
 
 #ifndef _42s_H_
@@ -73,6 +73,8 @@ t_job_list		*job_list;
 bool			zsig;
 bool			need_check;
 bool			last_fg;
+bool			ctrlc;
+char			*g_prompt;
 
 typedef struct		s_aliases
 {
