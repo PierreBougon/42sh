@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 13:22:30 2016 Poc
-** Last update Wed Jun  1 14:06:47 2016 Poc
+** Last update Sat Jun  4 20:07:24 2016 Mathieu Sauvau
 */
 
 #include <string.h>
@@ -71,6 +71,7 @@ static char		*isolate_str(char *str)
     }
   else if ((str = strdup(cleaned_str)) == NULL)
     return (NULL);
+  free(cleaned_str);
   return (str);
 }
 
@@ -121,5 +122,6 @@ int			create_alias(t_conf *conf,
     return (0);
   if (push_alias_string_back(conf->head, second_part, first_part))
     return (0);
+  free(tmp);
   return (0);
 }
