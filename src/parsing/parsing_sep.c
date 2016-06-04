@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Sat Jun  4 16:58:06 2016 marel_m
+** Last update Sat Jun  4 18:11:56 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -88,11 +88,10 @@ int	init_pars_redir_l(char *str, int *i, int quote)
   return (0);
 }
 
-char	*pars_redir_left(t_list_sh *elem, char *str, int quote)
+char	*pars_redir_left(t_list_sh *elem, char *str, int quote, int i)
 {
   char	*new;
   char	*tmp;
-  int   i;
 
   if (init_pars_redir_l(str, &i, quote))
     return (NULL);
@@ -137,5 +136,5 @@ char	*pars_redir(t_list_sh *elem, char *str, int quote)
 	return (pars_redir_right(elem, str, quote));
       i++;
     }
-  return (pars_redir_left(elem, str, quote));
+  return (pars_redir_left(elem, str, quote, 0));
 }
