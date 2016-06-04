@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jan  6 14:52:17 2016 maud marel
-** Last update Fri Jun  3 22:46:53 2016 marel_m
+** Last update Sat Jun  4 20:23:16 2016 debrau_c
 */
 
 #include <stdlib.h>
@@ -45,10 +45,25 @@ static int	check_first(t_tab *tab, char *str, char sign)
   return (i);
 }
 
+void	my_strccpy(char *dest, char *src, char c, int *i)
+{
+  int	j;
+
+  j = 0;
+  while (src && src[*i] != '\0' && src[*i] != c)
+    {
+      dest[j] = src[*i];
+      j++;
+      (*i)++;
+    }
+  while (src[(*i)] && src[(*i)] == c)
+    (*i)++;
+  dest[j] = '\0';
+}
+
 char	**my_str_to_word_tab(char *str, char sign)
 {
   int	i;
-  int	j;
   int	l;
   char	**tab;
   t_tab	tb;
@@ -59,23 +74,15 @@ char	**my_str_to_word_tab(char *str, char sign)
   l = 0;
   while (str[i] != '\0' && str[i])
     {
-      j = 0;
       if ((tab[l] = malloc(sizeof(char) * (tb.size + 2))) == NULL)
 	return (NULL);
-      if (str[i] == '"')
-      	{
-      	  i++;
-      	  while (str && str[i] != '\0' && str[i] != '"')
-      	    tab[l][j++] = str[i++];
-      	}
+      if (str[i] == '"' && ++i)
+	my_strccpy(tab[l], str, '"', &i);
       else
-	while (str[i] != sign && str[i] != '\0' && str[i])
-	  tab[l][j++] = str[i++];
-      if (str[i])
-	i++;
-      while (str[i] == sign)
-	i++;
-      tab[l++][j] = '\0';
+	my_strccpy(tab[l], str, sign, &i);
+      /* if (str[i]) */
+      /* 	i++; */
+      l++;
     }
   tab[l] = NULL;
   return (tab);
