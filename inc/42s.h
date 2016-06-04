@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Fri Jun  3 23:15:43 2016 bougon_p
+** Last update Sat Jun  4 15:00:56 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -72,6 +72,7 @@ typedef	struct		s_job_list
 t_job_list		*job_list;
 bool			zsig;
 bool			need_check;
+bool			last_fg;
 
 typedef struct		s_node
 {
@@ -225,7 +226,7 @@ int			check_quote(char *, char, char);
 int			pos_double_quote(char *, char);
 int			double_quote_redir(char *);
 char			*pars_redir_right(t_list_sh *, char *, int);
-int			signal_gest(int, t_sh *, pid_t);
+int			signal_gest(int, t_sh *, pid_t, bool);
 
 /*
 ** ERROR
