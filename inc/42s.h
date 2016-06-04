@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Thu Jun  2 13:31:46 2016 Poc
+** Last update Sat Jun  4 17:18:40 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -119,6 +119,12 @@ typedef struct		s_exec
   t_type		type;
 }			t_exec;
 
+typedef struct		s_pid
+{
+  int	pid;
+  struct s_pid		*next;
+}			t_pid;
+
 typedef struct		s_sh
 {
   t_list_sh		*root;
@@ -132,6 +138,7 @@ typedef struct		s_sh
   int			fd_history;
   int			actual_pipe;
   bool			reset_curs;
+  t_pid			*list;
 }			t_sh;
 
 char			**my_str_to_word_tab(char *, char);

@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Thu Jun  2 13:38:46 2016 Poc
+## Last update Sat Jun  4 17:05:07 2016 Poc
 ##
 
 DEBUG	=	no
@@ -90,6 +90,7 @@ SRC	=	main.c				\
 		exec/redirections.c		\
 		exec/wrong_path.c		\
 		exec/pipe.c			\
+		exec/pid_list.c			\
 		builtins/check_builtins.c	\
 		builtins/check_cd.c		\
 		builtins/check_env.c		\

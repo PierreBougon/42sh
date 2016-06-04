@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Thu Jun  2 13:49:53 2016 Poc
+** Last update Sat Jun  4 21:00:29 2016 Poc
 */
 
 #include <sys/ioctl.h>
@@ -319,6 +319,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
 {
   t_sh		sh;
 
+  sh.list = NULL;
   if (check_env(&sh, env))
     return (1);
   get_conf_file(&sh.conf, &sh.env->env);

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Fri Jun  3 16:54:12 2016 Poc
+** Last update Sat Jun  4 23:26:16 2016 Poc
 */
 
 #include <unistd.h>
@@ -53,7 +53,6 @@ int	act_for_each_sep(t_sh *sh, t_node *tree, t_act *fptrtab)
       || sh->exec->arg[0] == NULL
       || (sh->exec->exec = strdup(sh->exec->arg[0])) == NULL)
     return (1);
-  /* printf("savau\n"); */
   if ((ret = builtin_or_exec(sh)) != 0)
     return (ret);
   return (0);
@@ -111,7 +110,7 @@ int		execute_each_act(t_sh *sh)
   tmp = sh->root->next;
   while (i < sh->lenght - 1)
     {
-      if ((sh->exec->fd = malloc(sizeof(int *) * (tmp->nb))) == NULL)
+      if ((sh->exec->fd = malloc(sizeof(int *) * (tmp->nb + 1))) == NULL)
 	return (1);
       j = -1;
       while (++j < tmp->nb)
@@ -125,8 +124,8 @@ int		execute_each_act(t_sh *sh)
 	      sh->exec->fd[j][0] = 0;
 	      sh->exec->fd[j][1] = 1;
 	    }
-	  printf("fd[%d][0] = %d\nfd[%d][1] = %d\n", j, sh->exec->fd[j][0], j, sh->exec->fd[j][1]);
 	}
+      sh->exec->fd[j] = NULL;
       if (check_which_config(sh, tmp, tmp->node) == 1)
 	return (1);
        loop_execute(sh, &tmp, &i);
