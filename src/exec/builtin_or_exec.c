@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 01:42:23 2016 Poc
+** Last update Sun Jun  5 01:53:52 2016 Poc
 */
 
 #include <errno.h>
@@ -57,27 +57,20 @@ int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
 
 int	action_redir(t_sh *sh, int pipe_nb)
 {
-  /* printf("Pipe_nb  %d\n", pipe_nb); */
   if (sh->exec->fd[0][1] != -1 && !pipe_nb)
     {
-      printf("Redir right\n");
       if (dup2(sh->exec->fd[0][1], 1) == -1)
       	return (1);
     }
   if (sh->exec->fd[0][0] != -1)
     {
-      printf("Redir left\n");
       if (pipe_nb)
 	{
-	  printf("Toto\n");
 	  dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][1]);
 	  exit(1);
 	}
       else if (dup2(sh->exec->fd[0][0], 0) == -1)
-	{
-	  printf("Redit left failed %d\n", sh->exec->fd[0][0]);
-	  return (1);
-	}
+	return (1);
     }
   return (0);
 }
