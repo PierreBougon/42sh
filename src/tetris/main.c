@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat Feb 27 23:39:59 2016 maud marel
-** Last update Sun Jun  5 14:30:39 2016 bougon_p
+** Last update Sun Jun  5 19:40:51 2016 Poc
 */
 
 #include <time.h>
@@ -73,6 +73,8 @@ int		main(UNUSED int ac, char **av)
 {
   t_tetris	tetris;
 
+  if (!av[1])
+    exit(1);
   if (!(tetris.path = strdup(av[1])))
     exit(1);
   tetris.tetri_file = concat_tetri(&tetris);
