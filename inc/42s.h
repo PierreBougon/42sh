@@ -6,7 +6,7 @@
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
 <<<<<<< HEAD
-** Last update Sun Jun  5 11:04:53 2016 Poc
+** Last update Sun Jun  5 11:34:34 2016 Poc
 =======
 ** Last update Sun Jun  5 10:48:59 2016 bougon_p
 >>>>>>> 9326e4d40ed97e31d821eb724a5ac7266dece59e
@@ -338,6 +338,7 @@ int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
 int			double_redir_left(t_sh *, t_node *);
+int			close_all(int **);
 void			add_to_back(t_pid **, int);
 
 /*
