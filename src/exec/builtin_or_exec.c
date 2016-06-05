@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sat Jun  4 19:32:03 2016 marel_m
+** Last update Sat Jun  4 23:42:02 2016 Poc
 */
 
 #include <stdio.h>
@@ -60,12 +60,58 @@ int	action_redir(t_sh *sh)
   if (sh->exec->fd[0][1] != 1)
     {
       if (dup2(sh->exec->fd[0][1], 1) == -1)
-	return (1);
+  	return (1);
     }
   if (sh->exec->fd[0][0] != 0)
     {
       if (dup2(sh->exec->fd[0][0], 0) == -1)
-	return (1);
+  	return (1);
+    }
+  return (0);
+}
+
+int	close_all(int **fd)
+{
+  int	i;
+
+  i = 1;
+  while (fd[i])
+    {
+      close(fd[i][0]);
+      close(fd[i][1]);
+      free(fd[i]);
+      i++;
+    }
+  free(fd);
+  return (0);
+}
+
+int	wait_func(t_pid *pid)
+{
+  int	status;
+
+  status = 0;
+  while (pid)
+    {
+      waitpid(pid->pid, &status, 0);
+      pid = pid->next;
+    }
+  return (0);
+}
+
+int	close_all_last_pipe(int **pipe, int pos)
+{
+  int	i;
+
+  i = 1;
+  while (pipe[i])
+    {
+      if (i != pos)
+	{
+	  close(pipe[pos][0]);
+	  close(pipe[pos][1]);
+	}
+      i++;
     }
   return (0);
 }
@@ -77,14 +123,26 @@ int	action(t_sh *sh)
 
   if ((pid = fork()) == -1)
     return (1);
+  if (pid != 0)
+    {
+      close_all(sh->exec->fd);
+      if (waitpid(pid, &status, 0) == -1)
+	return (1);
+      wait_func(sh->list);
+      clear_list(sh->list);
+      sh->list = NULL;
+    }
   if (pid == 0)
     {
+      close(sh->exec->fd[sh->actual_pipe][0]);
+      dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if (action_redir(sh))
 	return (1);
       if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
 	exit(1);
+      exit(1);
     }
-  else if (pid != 0 && sh->exec->fd[0][0] == 0 && sh->exec->fd[0][1] == 1)
+  else if (pid == 0 && sh->exec->fd[0][0] == 0 && sh->exec->fd[0][1] == 1)
     {
       need_check = true;
       if (waitpid(pid, &status, WUNTRACED) == -1)
@@ -96,18 +154,18 @@ int	action(t_sh *sh)
       	  sh->exec->stop = 1;
       	}
     }
-  if (sh->exec->fd[0][0] != 0)
-    {
-      if (close(sh->exec->fd[0][0]) == -1
-  	  || waitpid(pid, &status, 0) == -1)
-	return (1);
-    }
-  else if (sh->exec->fd[0][1] != 1)
-    {
-      if (close(sh->exec->fd[0][1]) == -1
-  	  || waitpid(pid, &status, 0) == -1)
-	return (1);
-    }
+  /* if (sh->exec->fd[0][0] != 0) */
+  /*   { */
+  /*     if (close(sh->exec->fd[0][0]) == -1 */
+  /* 	  || waitpid(pid, &status, 0) == -1) */
+  /* 	return (1); */
+  /*   } */
+  /* else if (sh->exec->fd[0][1] != 1) */
+  /*   { */
+  /*     if (close(sh->exec->fd[0][1]) == -1 */
+  /* 	  || waitpid(pid, &status, 0) == -1) */
+  /* 	return (1); */
+  /*   } */
   return (0);
 }
 

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 23:53:56 2016 Mathieu Sauvau
+** Last update Sun Jun  5 00:05:33 2016 Poc
 */
 
 #include <signal.h>
@@ -111,6 +111,7 @@ int		execution(char **str, t_head *history, t_sh *sh)
 
 int		test(char **str, t_sh *sh, t_head *history, int *a)
 {
+  sh->actual_pipe = 0;
   if (*str && (*str)[0] && execution(str, history, sh))
     return (1);
   if (isatty(0))
@@ -188,6 +189,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
   t_sh		sh;
   char		*str;
 
+  sh.list = NULL;
   if (check_env(&sh, env))
     return (1);
   get_conf_file(&sh.conf, &sh.env->env);
