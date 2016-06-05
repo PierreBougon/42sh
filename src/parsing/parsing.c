@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Sun Jun  5 11:39:45 2016 marel_m
+** Last update Sun Jun  5 14:11:52 2016 marel_m
 */
 
 #include <string.h>
@@ -133,7 +133,7 @@ int	parsing(t_sh *sh, char *str)
   while (str && str[i] != '\0')
     {
       if (str[i] == '"')
-	while (str[++i] != '"' && str[i] != '\0');
+	while (str[++i] != '\0' && str[i] != '"');
       else if ((ret = which_separator(sh, str, &i, &j)) == -1)
 	i++;
       else if (ret == 1)
