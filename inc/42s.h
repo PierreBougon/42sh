@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 14:35:01 2016 bougon_p
+** Last update Sun Jun  5 15:07:57 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -207,6 +207,7 @@ int			check_alias(t_aliases *, char **);
 int			get_conf_file(t_conf *, char ***);
 int			create_alias(t_conf *, char ***, char *);
 int			create_export(t_conf *, char ***, char *);
+int			aliascmp(char *, char *);
 
 /*
 ** CURSOR
