@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Sun Jun  5 11:56:06 2016 Poc
+** Last update Sun Jun  5 11:59:30 2016 Poc
 */
 
 #include <unistd.h>
@@ -45,7 +45,7 @@ t_blt	*init_tab_builtins()
 
 int	determine_fd(t_sh *sh)
 {
-  if (sh->is_pipe && sh->actual_pipe[sh->actual_pipe])
+  if (sh->is_pipe && sh->actual_pipe && sh->exec->fd[sh->actual_pipe])
     {
       sh->exec->fd[0][1] = sh->exec->fd[sh->actual_pipe][1];
       close(sh->exec->fd[sh->actual_pipe][0]);
