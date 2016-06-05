@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 15:30:41 2016 Mathieu Sauvau
+## Last update Sun Jun  5 15:57:34 2016 Poc
 ##
 
 DEBUG	= no
@@ -83,7 +83,10 @@ SRC	= main.c				\
 	manag_error/verif_good_synthax.c	\
 	manag_error/verif_good_syn_dep.c	\
 	manag_error/check_good_double_quote.c	\
+	exec/builtin_or_exec_next.c		\
+	exec/signal.c				\
 	exec/execute.c				\
+	exec/execute_next.c			\
 	exec/builtin_or_exec.c			\
 	exec/check_good_path.c			\
 	exec/redirections.c			\
@@ -91,6 +94,7 @@ SRC	= main.c				\
 	exec/pipe.c				\
 	exec/double_left.c			\
 	exec/pid_list.c				\
+	exec/pipe_next.c			\
 	builtins/check_builtins.c		\
 	builtins/check_cd.c			\
 	builtins/check_env.c			\

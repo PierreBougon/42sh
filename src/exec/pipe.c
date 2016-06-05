@@ -5,29 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 14:29:49 2016 Poc
+** Last update Sun Jun  5 15:06:33 2016 Poc
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include "42s.h"
-
-void	close_all_first_pipe(int **fd, int target)
-{
-  int	i;
-
-  i = 1;
-  while (fd[i])
-    {
-      if (i != target)
-	{
-	  close(fd[i][1]);
-	  close(fd[i][0]);
-	}
-      i++;
-    }
-}
 
 void	execute_first_pipe(t_sh *sh)
 {
@@ -75,6 +59,27 @@ int	execute_in_son(t_sh *sh)
   exit(1);
 }
 
+int	in_fork(t_sh *sh)
+{
+  if (sh->actual_pipe == 0)
+    {
+      execute_first_pipe(sh);
+      close(sh->exec->fd[1][0]);
+      exit (1);
+    }
+  else
+    {
+      execute_in_son(sh);
+      if ((sh->exec->fd[sh->actual_pipe + 1]))
+	{
+	  close(sh->exec->fd[sh->actual_pipe + 1][0]);
+	  close(sh->exec->fd[sh->actual_pipe + 1][1]);
+	}
+      exit (1);
+    }
+  exit (1);
+}
+
 int	pipes(t_sh *sh, t_node *node)
 {
   int		chid;
@@ -87,25 +92,7 @@ int	pipes(t_sh *sh, t_node *node)
   if ((chid = fork()) == -1)
     return (1);
   if (!chid)
-    {
-      if (sh->actual_pipe == 0)
-	{
-	  execute_first_pipe(sh);
-	  close(sh->exec->fd[1][0]);
-	  exit (1);
-	}
-      else
-	{
-	  execute_in_son(sh);
-	  if ((sh->exec->fd[sh->actual_pipe + 1]))
-	    {
-	      close(sh->exec->fd[sh->actual_pipe + 1][0]);
-	      close(sh->exec->fd[sh->actual_pipe + 1][1]);
-	    }
-	  exit (1);
-	}
-      exit (1);
-    }
+    in_fork(sh);
   add_to_back(&sh->list, chid);
   sh->actual_pipe++;
   return (0);
