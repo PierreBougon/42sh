@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 23:47:51 2016 marel_m
-** Last update Sun Jun  5 01:55:27 2016 Mathieu Sauvau
+** Last update Sun Jun  5 01:59:15 2016 Mathieu Sauvau
 */
 
 #include <string.h>
@@ -29,29 +29,26 @@ int	init_rewrite(char *str, int *i)
   return (j);
 }
 
-/* char	*do_some(char *str, char **tmp, char **tmp2, char **tmp3) */
-/* { */
-/*   int	j; */
-
-/*   j = 0; */
-/*   while (str && str[j] != '\0' && str[j] != ' ') */
-/*     j++; */
-/*   if ((*tmp2 = strndup(str, j)) == NULL) */
-/*     return (NULL); */
-/*   if (*tmp3 == NULL) */
-/*     { */
-/*       if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + 1)) == NULL) */
-/* 	return (NULL); */
-/*     } */
-/*   else if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + strlen(*tmp3) */
-/* 			  + 1)) == NULL) */
-/*     return (NULL); */
-/*   return */
-/* } */
-int	do_some(char *str)
+int	do_some(char *str, char **tmp, char **tmp2, char **tmp3)
 {
+  int	j;
 
+  j = 0;
+  while (str && str[j] != '\0' && str[j] != ' ')
+    j++;
+  if ((*tmp2 = strndup(str, j)) == NULL)
+    return (0);
+  if (*tmp3 == NULL)
+    {
+      if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + 1)) == NULL)
+	return (0);
+    }
+  else if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + strlen(*tmp3)
+			  + 1)) == NULL)
+    return (0);
+  return (1);
 }
+
 
 char	*rewrite_str(char *str)
 {
@@ -69,19 +66,8 @@ char	*rewrite_str(char *str)
   if (str[j] != '\0')
     if ((tmp3 = my_strdup_e(str, j)) == NULL)
       return (NULL);
-  j = 0;
-  while (str && str[j] != '\0' && str[j] != ' ')
-    j++;
-  if ((tmp2 = strndup(str, j)) == NULL)
-    return (NULL);
-  if (tmp3 == NULL)
-    {
-      if ((tmp = realloc(tmp, strlen(tmp) + strlen(tmp2) + 1)) == NULL)
-	return (NULL);
-    }
-  else if ((tmp = realloc(tmp, strlen(tmp) + strlen(tmp2) + strlen(tmp3)
-			  + 1)) == NULL)
-    return (NULL);
+  if (!do_some(str, &tmp, &tmp2, &tmp3))
+      return (NULL);
   tmp = strcat(tmp, tmp2);
   if (tmp3)
     {
