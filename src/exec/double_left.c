@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Wed Jun  1 20:57:19 2016 debrau_c
-** Last update Sat Jun  4 17:43:53 2016 debrau_c
+** Last update Sun Jun  5 19:00:10 2016 debrau_c
 */
 
 #include <unistd.h>
@@ -16,38 +16,46 @@
 
 char	*manage_fin(char *fin, char *str)
 {
-  int	size;
   char	*new;
 
   if (!(new = realloc(fin, strlen(fin) + strlen(str) + 2)))
     return (NULL);
-  new[(size = strlen(new))] = '\n';
-  new[size + 1] = '\0';
+  strcat(new, "\n");
   strcat(new, str);
   return (new);
+}
+
+int	prepare_dble_left(t_sh *sh, int new_fd[2], char **fin)
+{
+  pipe(new_fd);
+  sh->exec->fd[0][0] = new_fd[0];
+  *fin = NULL;
+  write(1, "? ", strlen("? "));
+  return (0);
 }
 
 int	double_redir_left(UNUSED t_sh *sh, t_node *node)
 {
   char	*str;
   char	*fin;
+  int	new_fd[2];
 
-  write(1, "? ", strlen("? "));
-  fin = NULL;
+  prepare_dble_left(sh, new_fd, &fin);
   change_read_mode(1, 0, 1);
-  while ((str = get_next_line(0)) != NULL
-	 && strcmp(str, node->arg) != 0)
+  while ((str = get_next_line(0)) != NULL && strcmp(str, node->arg) != 0)
     {
       if (fin == NULL && (fin = strdup(str)) == NULL)
 	return (1);
       else if ((fin = manage_fin(fin, str)) == NULL)
 	return (1);
+      write(new_fd[1], fin, strlen(fin));
       write(1, "? ", strlen("\n? "));
       fflush(stdout);
       free(str);
     }
   free(str);
   change_read_mode(0, 0, 1);
+  close(new_fd[1]);
   free(fin);
   return (0);
 }

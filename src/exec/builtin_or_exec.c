@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 14:30:56 2016 Poc
+** Last update Sun Jun  5 17:27:32 2016 debrau_c
 */
 
 #include <errno.h>
@@ -49,8 +49,6 @@ int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
       index = (WTERMSIG(status) - 1);
       index %= 11;
       printf("%s", ref[index]);
-      if (WCOREDUMP(status))
-	printf(" (core dumped)\n");
       return (1);
     }
   return (0);
