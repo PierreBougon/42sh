@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Sun Jun  5 11:33:29 2016 Poc
+** Last update Sun Jun  5 11:35:37 2016 Poc
 */
 
 #include <unistd.h>
@@ -69,6 +69,7 @@ int	check_builtin(t_sh *sh)
 	determine_fd(sh);
 	ret = fptrtab[i].ft_blt(sh);
 	close_all(sh->exec->fd);
+	wait_func(sh->list, sh);
 	return (free(fptrtab), ret);
       }
   free(fptrtab);
