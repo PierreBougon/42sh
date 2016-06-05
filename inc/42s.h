@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 14:35:01 2016 bougon_p
+** Last update Sun Jun  5 15:08:11 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -339,6 +339,7 @@ int			double_redir_left(t_sh *, t_node *);
 int			close_all(int **);
 int			wait_func(t_pid *, t_sh *);
 void			add_to_back(t_pid **, int);
+void			close_all_first_pipe(int **, int);
 
 /*
 ** ENV

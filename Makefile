@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 12:05:38 2016 marel_m
+## Last update Sun Jun  5 15:07:05 2016 Poc
 ##
 
 DEBUG	= no
@@ -88,6 +88,7 @@ SRC	= main.c				\
 	exec/pipe.c				\
 	exec/double_left.c			\
 	exec/pid_list.c				\
+	exec/pipe_next.c			\
 	builtins/check_builtins.c		\
 	builtins/check_cd.c			\
 	builtins/check_env.c			\
