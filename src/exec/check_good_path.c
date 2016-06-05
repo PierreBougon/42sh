@@ -5,12 +5,14 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:33:30 2016 marel_m
-** Last update Tue May 31 23:40:26 2016 marel_m
+** Last update Sun Jun  5 13:12:49 2016 marel_m
 */
 
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "42s.h"
 
 int	check_good_path_normal_case(t_sh *sh)
@@ -34,11 +36,53 @@ int	check_good_path_normal_case(t_sh *sh)
   return (0);
 }
 
+int	is_regular_file(const char *path)
+{
+  struct stat	path_stat;
+
+  stat(path, &path_stat);
+  return S_ISREG(path_stat.st_mode);
+}
+
+char	*get_dir(char *str)
+{
+  int	i;
+  int	j;
+  char	*new;
+
+  i = strlen(str) - 1;
+  if ((new = malloc(sizeof(char) * (strlen(str) + 1))) == NULL)
+    return (NULL);
+  while (i >= 0 && str[i] != '/')
+    i--;
+  if (i < 0)
+    i = strlen(str);
+  j = 0;
+  while (j < i)
+    {
+      new[j] = str[j];
+      j++;
+    }
+  new[j] = '\0';
+  return (new);
+}
+
 int	check_if_exec_in_current_place(t_sh *sh)
 {
   char	*path;
   char	*pt_slash;
 
+  if ((path = getcwd(NULL, 0)) == NULL
+      || (pt_slash = get_dir(sh->exec->exec)) == NULL
+      || (path = realloc(path, strlen(path)
+			 + strlen(pt_slash) + 3)) == NULL
+      || (path = strcat(path, "/")) == NULL
+      || (path = strcat(path, pt_slash)) == NULL)
+    return (1);
+  if (is_regular_file(path))
+    return (my_free((void **)&path), my_free((void **)&pt_slash), 0);
+  my_free((void **)&path);
+  my_free((void **)&pt_slash);
   if ((path = strdup(sh->exec->exec)) == NULL
       || (sh->exec->exec = malloc(sizeof(char)
 				  * (strlen(path) + 4))) == NULL
