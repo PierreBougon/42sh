@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 04:13:42 2016 Poc
+** Last update Sun Jun  5 04:46:53 2016 bougon_p
 */
 
 #include <errno.h>
@@ -36,12 +36,12 @@ int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
   int   index;
 
   change_read_mode(0, 100, 1);
-  if (zsig && !WIFEXITED(status) && stock)
-    job_list = update_job_list(job_list, sh->exec->exec, pid);
-  else if (job_list && job_list->prev->state == FG
-  	   && last_fg && !zsig)
-    job_list = erase_job(job_list->prev, job_list);
-  zsig = false;
+  if (g_zsig && !WIFEXITED(status) && stock)
+    g_job_list = update_job_list(g_job_list, sh->exec->exec, pid);
+  else if (g_job_list && g_job_list->prev->state == FG
+  	   && g_last_fg && !g_zsig)
+    g_job_list = erase_job(g_job_list->prev, g_job_list);
+  g_zsig = false;
   signal_gest_init(ref);
   if (WIFSIGNALED(status))
     {
@@ -127,10 +127,10 @@ int	father_action(t_sh *sh, int pid)
   int	status;
 
   close_all(sh->exec->fd);
-  need_check = true;
+  g_need_check = true;
   if (waitpid(pid, &status, WUNTRACED) == -1)
     return (1);
-  need_check = false;
+  g_need_check = false;
   if (signal_gest(status, sh, pid, true))
     {
       sh->exit = status;
@@ -142,10 +142,25 @@ int	father_action(t_sh *sh, int pid)
   return (0);
 }
 
+int	last_action(t_sh *sh, int pid)
+{
+  int	status;
+
+  g_need_check = true;
+  if (waitpid(pid, &status, WUNTRACED) == -1)
+    return (1);
+  g_need_check = false;
+  if (signal_gest(status, sh, pid, true))
+    {
+      sh->exit = status;
+      sh->exec->stop = 1;
+    }
+  return (0);
+}
+
 int	action(t_sh *sh)
 {
   pid_t	pid;
-  int	status;
 
   if ((pid = fork()) == -1)
     return (1);
@@ -154,10 +169,7 @@ int	action(t_sh *sh)
   if (pid == 0)
     {
       if (action_redir(sh, sh->actual_pipe))
-	{
-	  printf("action redit fucked up\n");
 	  return (1);
-	}
       if (sh->actual_pipe)
 	dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if ((check_builtin(sh)) == -3)
@@ -166,17 +178,8 @@ int	action(t_sh *sh)
       exit(1);
     }
   else if (pid == 0 && sh->exec->fd[0][0] == -1 && sh->exec->fd[0][1] == -1)
-    {
-      need_check = true;
-      if (waitpid(pid, &status, WUNTRACED) == -1)
-      	return (1);
-      need_check = false;
-      if (signal_gest(status, sh, pid, true))
-      	{
-      	  sh->exit = status;
-      	  sh->exec->stop = 1;
-      	}
-    }
+    if (last_action(sh, pid))
+      return (1);
   return (0);
 }
 

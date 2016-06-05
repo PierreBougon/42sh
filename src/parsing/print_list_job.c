@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat Jun  4 17:50:42 2016 marel_m
-** Last update Sat Jun  4 20:30:33 2016 debrau_c
+** Last update Sun Jun  5 04:33:17 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -15,13 +15,13 @@ int		print_list(UNUSED t_sh *sh)
 {
   t_job_list	*tmp;
 
-  if (!job_list)
+  if (!g_job_list)
     {
       dprintf(2, "bg : no current job\n");
       return (0);
     }
-  tmp = job_list;
-  while (tmp->next != job_list)
+  tmp = g_job_list;
+  while (tmp->next != g_job_list)
     {
       printf("[%d] -> %s\n", tmp->num, tmp->cmd);
       tmp = tmp->next;
