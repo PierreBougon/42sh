@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 03:14:39 2016 Poc
+** Last update Sun Jun  5 04:13:42 2016 Poc
 */
 
 #include <errno.h>
@@ -122,6 +122,26 @@ int	close_all_last_pipe(int **pipe, int pos)
   return (0);
 }
 
+int	father_action(t_sh *sh, int pid)
+{
+  int	status;
+
+  close_all(sh->exec->fd);
+  need_check = true;
+  if (waitpid(pid, &status, WUNTRACED) == -1)
+    return (1);
+  need_check = false;
+  if (signal_gest(status, sh, pid, true))
+    {
+      sh->exit = status;
+      sh->exec->stop = 1;
+    }
+  wait_func(sh->list, sh);
+  clear_list(sh->list);
+  sh->list = NULL;
+  return (0);
+}
+
 int	action(t_sh *sh)
 {
   pid_t	pid;
@@ -129,22 +149,8 @@ int	action(t_sh *sh)
 
   if ((pid = fork()) == -1)
     return (1);
-  if (pid != 0)
-    {
-      close_all(sh->exec->fd);
-      need_check = true;
-      if (waitpid(pid, &status, WUNTRACED) == -1)
-      	return (1);
-      need_check = false;
-      if (signal_gest(status, sh, pid, true))
-	{
-	  sh->exit = status;
-	  sh->exec->stop;
-	}
-      wait_func(sh->list, sh);
-      clear_list(sh->list);
-      sh->list = NULL;
-    }
+  if (pid != 0 && father_action(sh, pid))
+    return (1);
   if (pid == 0)
     {
       if (action_redir(sh, sh->actual_pipe))
