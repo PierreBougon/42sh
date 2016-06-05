@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Sun Jun  5 01:09:46 2016 marel_m
+** Last update Sun Jun  5 02:00:24 2016 marel_m
 */
 
 #include <string.h>
@@ -40,7 +40,6 @@ int		pars_tree(t_list_sh *elem, char *str)
   int		prior;
   int		quote;
 
-  printf("%s\n", str);
   if (str == NULL)
     return (1);
   prior = check_prior(str);
@@ -62,7 +61,6 @@ int		pars_tree(t_list_sh *elem, char *str)
   if (check_prior(str) != 0)
     if (pars_tree(elem, str))
       return (1);
-  printf("%s\n", str);
   my_free((void **)&str);
   return (0);
 }

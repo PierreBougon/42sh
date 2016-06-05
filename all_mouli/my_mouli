@@ -1,0 +1,41 @@
+#!/bin/bash
+## test.sh for azd in /home/debrau_c/Documents/cours/PSU/PSU_2015_42sh
+## 
+## Made by debrau_c
+## Login   <debrau_c@epitech.net>
+## 
+## Started on  Sat Jun  4 23:23:11 2016 debrau_c
+## Last update Sun Jun  5 03:25:12 2016 debrau_c
+##
+
+SETP="setenv PATH"
+test_str[0]="aaa || s || l || l || && ls || azdazdazdazdazd zdazd || zdazd"
+test_str[1]="|| ls ||"
+test_str[2]="|| && ||"
+test_str[3]=""
+test_str[4]="azdazd || azdazd || azdazdazd || azdazda || && ls || ls || ls"
+test_str[5]="echo salut | ls > salut ; cat salut ; rm salut"
+test_str[6]="ls ; ls | exit"
+test_str[7]="ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l"
+i=0
+nb=8
+doss="test_result"
+
+mkdir -p $doss
+
+while [ $i -lt $nb ]
+do
+    echo "test : ${test_str[$i]}"
+    echo ${test_str[$i]} | ./42sh > test_result/mysh$i.out
+    echo ${test_str[$i]} | tcsh > test_result/tcsh$i.out
+    diff test_result/mysh$i.out test_result/tcsh$i.out
+    if [ $? -eq 0 ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    let i=i+1
+done
+
+rm -rf $doss
