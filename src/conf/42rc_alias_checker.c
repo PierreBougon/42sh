@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Wed May 18 12:37:44 2016 Poc
-** Last update Sun Jun  5 02:08:25 2016 bougon_p
+** Last update Sun Jun  5 02:54:19 2016 bougon_p
 */
 
 #include <string.h>
@@ -101,8 +101,7 @@ int		check_alias(t_aliases *head, char **str)
 
   if (!(new = malloc(1)))
     exit(1);
-  new[0] = 0;
-  n = 0, i = n;
+  new[0] = 0, n = 0, i = n;
   while ((i = jump_next_word(*str, i)) != -1)
     {
       alias = head;
