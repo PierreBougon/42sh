@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Wed Jun  1 20:57:19 2016 debrau_c
-** Last update Sun Jun  5 19:00:10 2016 debrau_c
+** Last update Sun Jun  5 21:49:11 2016 DEBRAUWERE Carl
 */
 
 #include <unistd.h>
@@ -27,7 +27,8 @@ char	*manage_fin(char *fin, char *str)
 
 int	prepare_dble_left(t_sh *sh, int new_fd[2], char **fin)
 {
-  pipe(new_fd);
+  if (pipe(new_fd) < 0)
+    exit(1);
   sh->exec->fd[0][0] = new_fd[0];
   *fin = NULL;
   write(1, "? ", strlen("? "));
