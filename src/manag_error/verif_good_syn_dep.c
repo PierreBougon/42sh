@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Sat Jun  4 19:49:10 2016 debrau_c
-** Last update Sat Jun  4 20:01:10 2016 debrau_c
+** Last update Sun Jun  5 02:53:21 2016 marel_m
 */
 
 #include <unistd.h>
@@ -29,7 +29,7 @@ static int	separ_esperluette_find(char *str, int *i, int *j)
     return (1);
   if (str && str[(*i)] != '\0' && str[(*i) + 1] != '\0')
     (*i) += 2;
-  if (str[(*i)] == '&')
+  if (str[(*i)] == '&' || str[(*i)] == '|')
     return (write(2, "Invalid null command.\n", 22), 1);
   *j = *i;
   return (0);

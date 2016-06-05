@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Sat Jun  4 20:37:47 2016 debrau_c
+** Last update Sun Jun  5 02:55:30 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -78,6 +78,8 @@ int	check_synthax(char *str, int st, int end)
 {
   char	*tmp;
 
+  if (str[st + 1] == '&')
+    return (write(2, "Invalid null command.\n", 22), 1);
   if ((tmp = my_strdup_bt(str, st, end)) == NULL)
     exit(1);
   if (strlen(tmp) == 0)
