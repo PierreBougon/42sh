@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 16:23:51 2016 bougon_p
-** Last update Sat Jun  4 16:57:32 2016 bougon_p
+** Last update Sun Jun  5 02:39:05 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -36,7 +36,8 @@ int		my_echo(t_sh *sh)
 {
   t_echo	opt;
 
-  opt.fd = sh->exec->fd[0][1];
+  if ((opt.fd = sh->exec->fd[0][1]) == -1)
+    opt.fd = 1;
   if (init_opt(&opt) == 1)
     return (1);
   parse_opt(&opt, sh);
