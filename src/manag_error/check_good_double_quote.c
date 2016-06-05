@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu Jun  2 15:07:00 2016 marel_m
-** Last update Sun Jun  5 15:51:04 2016 marel_m
+** Last update Sun Jun  5 15:57:07 2016 marel_m
 */
 
 #include <string.h>
@@ -106,8 +106,11 @@ char	*replace_single_quote(char *str)
 
 char	*check_good_quote_replace_quote(t_sh *sh, char *str)
 {
-  if (str[0] == '"' && str[1] == '"')
+  if (str[0] == '"' && str[1] == '"' && str[2] == '\0')
     return (write(2, ": Command not found.\n", 21), NULL);
+  else if (str[0] == '"' && str[1] == '"' && str[2] != '\0')
+    if ((str = my_strdup_e(str, 2)) == NULL)
+      return (NULL);
   if (str == NULL
       || check_good_quote(sh, str)
       || (str = replace_single_quote(str)) == NULL)
