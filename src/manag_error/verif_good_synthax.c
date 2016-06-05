@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 11:03:03 2016 marel_m
-** Last update Sun Jun  5 10:53:29 2016 marel_m
+** Last update Sun Jun  5 18:26:18 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -20,17 +20,18 @@ int	verif_elem_redirect_first(char *tmp)
   if (tmp[0] == '>')
     {
       i = 0;
-      while (tmp[i] == '>')
+      while (tmp && tmp[i] != '\0' && tmp[i] == '>')
 	i++;
       if (i > 2)
 	return (write(2, "Missing name for redirect.\n", 27), 1);
       while (tmp && tmp[i] != '\0')
 	{
-	  if (tmp[i] == '"')
-	    while (tmp[++i] != '"' && tmp[i] != '\0');
+	  if (tmp && tmp[i] != '\0' && tmp[i] == '"')
+	    while (tmp && tmp[++i] != '\0' && tmp[i] != '\"');
 	  else if (tmp[i] == '|')
 	    return (write(2, "Ambiguous output redirect.\n", 27), 1);
-	  i++;
+	  if (tmp && tmp[i] != '\0')
+	    i++;
 	}
     }
   return (0);
