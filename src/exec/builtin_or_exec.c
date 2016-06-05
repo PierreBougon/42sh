@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 01:53:52 2016 Poc
+** Last update Sun Jun  5 04:35:33 2016 bougon_p
 */
 
 #include <errno.h>
@@ -36,12 +36,12 @@ int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
   int   index;
 
   change_read_mode(0, 100, 1);
-  if (zsig && !WIFEXITED(status) && stock)
-    job_list = update_job_list(job_list, sh->exec->exec, pid);
-  else if (job_list && job_list->prev->state == FG
-  	   && last_fg && !zsig)
-    job_list = erase_job(job_list->prev, job_list);
-  zsig = false;
+  if (g_zsig && !WIFEXITED(status) && stock)
+    g_job_list = update_job_list(g_job_list, sh->exec->exec, pid);
+  else if (g_job_list && g_job_list->prev->state == FG
+  	   && g_last_fg && !g_zsig)
+    g_job_list = erase_job(g_job_list->prev, g_job_list);
+  g_zsig = false;
   signal_gest_init(ref);
   if (WIFSIGNALED(status))
     {
@@ -91,14 +91,15 @@ int	close_all(int **fd)
   return (0);
 }
 
-int	wait_func(t_pid *pid)
+int	wait_func(t_pid *pid, t_sh *sh)
 {
   int	status;
 
   status = 0;
   while (pid)
     {
-      waitpid(pid->pid, &status, 0);
+      waitpid(pid->pid, &status, WUNTRACED);
+      signal_gest(status, sh, pid->pid, 0);
       pid = pid->next;
     }
   return (0);
@@ -121,6 +122,26 @@ int	close_all_last_pipe(int **pipe, int pos)
   return (0);
 }
 
+int	father_action(t_sh *sh, int pid)
+{
+  int	status;
+
+  close_all(sh->exec->fd);
+  g_need_check = true;
+  if (waitpid(pid, &status, WUNTRACED) == -1)
+    return (1);
+  g_need_check = false;
+  if (signal_gest(status, sh, pid, true))
+    {
+      sh->exit = status;
+      sh->exec->stop = 1;
+    }
+  wait_func(sh->list, sh);
+  clear_list(sh->list);
+  sh->list = NULL;
+  return (0);
+}
+
 int	action(t_sh *sh)
 {
   pid_t	pid;
@@ -128,19 +149,10 @@ int	action(t_sh *sh)
 
   if ((pid = fork()) == -1)
     return (1);
-  if (pid != 0)
-    {
-      close_all(sh->exec->fd);
-      if (waitpid(pid, &status, 0) == -1)
-	return (1);
-      wait_func(sh->list);
-      clear_list(sh->list);
-      sh->list = NULL;
-    }
+  if (pid != 0 && father_action(sh, pid))
+    return (1);
   if (pid == 0)
     {
-      /* if (sh->exec->fd[sh->actual_pipe][0] > 0) */
-      /* 	close(sh->exec->fd[sh->actual_pipe][0]); */
       if (action_redir(sh, sh->actual_pipe))
 	{
 	  printf("action redit fucked up\n");
@@ -148,16 +160,17 @@ int	action(t_sh *sh)
 	}
       if (sh->actual_pipe)
 	dup2(sh->exec->fd[sh->actual_pipe][1], 1);
-      if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
-	exit(1);
+      if ((check_builtin(sh)) == -3)
+	if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
+	  exit(1);
       exit(1);
     }
   else if (pid == 0 && sh->exec->fd[0][0] == -1 && sh->exec->fd[0][1] == -1)
     {
-      need_check = true;
+      g_need_check = true;
       if (waitpid(pid, &status, WUNTRACED) == -1)
       	return (1);
-      need_check = false;
+      g_need_check = false;
       if (signal_gest(status, sh, pid, true))
       	{
       	  sh->exit = status;

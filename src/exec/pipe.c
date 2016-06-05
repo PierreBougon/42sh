@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 01:49:09 2016 Poc
+** Last update Sun Jun  5 03:27:08 2016 Poc
 */
 
 #include <stdlib.h>
@@ -36,7 +36,8 @@ void	execute_first_pipe(t_sh *sh)
   if (sh->exec->fd[0][1] != -1)
     dup2(sh->exec->fd[0][1], 1);
   dup2(sh->exec->fd[1][0], 0);
-  execve(sh->exec->good_path, sh->exec->arg, sh->env->env);
+  if ((check_builtin(sh)) == -3)
+    execve(sh->exec->good_path, sh->exec->arg, sh->env->env);
   exit(1);
 }
 
@@ -67,7 +68,8 @@ int	execute_in_son(t_sh *sh)
   close(sh->exec->fd[sh->actual_pipe][0]);
   dup2(sh->exec->fd[sh->actual_pipe + 1][0], 0);
   dup2(sh->exec->fd[sh->actual_pipe][1], 1);
-  execve(sh->exec->good_path, sh->exec->arg, sh->env->env);
+  if ((check_builtin(sh)) == -3)
+    execve(sh->exec->good_path, sh->exec->arg, sh->env->env);
   exit(1);
 }
 
@@ -75,6 +77,7 @@ int	pipes(t_sh *sh, t_node *node)
 {
   int		chid;
 
+  sh->is_pipe = true;
   sh->exec->type = node->type;
   sh->exec->arg = my_str_to_word_tab(node->arg, ' ');
   sh->exec->exec = strdup(sh->exec->arg[0]);

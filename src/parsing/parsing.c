@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Sun Jun  5 02:00:24 2016 marel_m
+** Last update Sun Jun  5 03:18:01 2016 marel_m
 */
 
 #include <string.h>
@@ -96,7 +96,7 @@ int	which_separator(t_sh *sh, char *str, int *i, int *j)
       if (stock_elem(sh, str, *j, *i))
 	return (1);
       sh->root->prev->type = SEMICOLON;
-      while (str[(*i)] == ';')
+      while (str[(*i)] == ';' || str[(*i)] == '&')
 	(*i)++;
       return (*j = *i, 0);
     }
@@ -138,8 +138,9 @@ int	parsing(t_sh *sh, char *str)
       else if (ret == 1)
 	return (1);
     }
-  if (stock_elem(sh, str, j, i))
-    return (1);
+  if (j != i)
+    if (stock_elem(sh, str, j, i))
+      return (1);
   sh->root->prev->type = 0;
   return (0);
 }

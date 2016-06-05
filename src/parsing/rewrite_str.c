@@ -5,10 +5,8 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 23:47:51 2016 marel_m
-** Last update Sun Jun  5 02:08:40 2016 Mathieu Sauvau
+** Last update Sun Jun  5 03:03:26 2016 marel_m
 */
-
-#include <stdio.h>
 
 #include <string.h>
 #include <stdlib.h>
@@ -52,7 +50,7 @@ int	do_some(char *str, char **tmp, char **tmp2, char **tmp3)
 }
 
 
-char	*rewrite_str(char *str)
+char	*rewrite_str_redir_l(char *str)
 {
   char	*tmp;
   char	*tmp2;
@@ -78,4 +76,35 @@ char	*rewrite_str(char *str)
     }
   my_free((void **)&tmp2);
   return (tmp);
+}
+
+char	*rewrite_str_redir_r(char *str)
+{
+  char	*tmp;
+  char	*tmp2;
+  int	j;
+  int	i;
+
+  i = 0;
+  j = 0;
+  while (str[j] != '\0' && str[j] != ' ' && str[j] != '|')
+    j++;
+  if (str[j] == '\0')
+    return (str);
+  if ((tmp = my_strdup_bt(str, i, j)) == NULL)
+    return (NULL);
+  if ((tmp2 = my_strdup_e(str, j + 1)) == NULL
+      || (tmp2 = realloc(tmp2, strlen(tmp) + strlen(tmp2) + 1)) == NULL)
+    return (NULL);
+  tmp2 = strcat(tmp2, tmp);
+  my_free((void **)&tmp);
+  return (tmp2);
+}
+
+char	*rewrite_str(char *str)
+{
+  if (str[0] == '<')
+    return (rewrite_str_redir_l(str));
+  else
+    return (rewrite_str_redir_r(str));
 }

@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 04:12:13 2016 bougon_p
+** Last update Sun Jun  5 04:30:55 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -69,11 +69,11 @@ typedef	struct		s_job_list
   struct s_job_list	*prev;
 }			t_job_list;
 
-t_job_list		*job_list;
-bool			zsig;
-bool			need_check;
-bool			last_fg;
-bool			ctrlc;
+t_job_list		*g_job_list;
+bool			g_zsig;
+bool			g_need_check;
+bool			g_last_fg;
+bool			g_ctrlc;
 char			*g_prompt;
 
 typedef struct		s_aliases
@@ -164,6 +164,7 @@ typedef struct		s_sh
   int			fd_history;
   int			actual_pipe;
   bool			reset_curs;
+  bool			is_pipe;
   t_pid			*list;
   t_job_list		*job_list;
 }			t_sh;
