@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Sun Jun  5 15:24:48 2016 Mathieu Sauvau
-** Last update Sun Jun  5 16:15:35 2016 Mathieu Sauvau
+** Last update Sun Jun  5 18:07:06 2016 Poc
 */
 
 #include <unistd.h>
@@ -21,7 +21,7 @@ int		term(t_sh *sh)
 
   history.cpy_buf = NULL;
   sh->reset_curs = false, sh->history = &history;
-  if ((a = 3) && isatty(0) && term_func_01(sh, actions, &str, &history))
+  if ((a = 3) && isatty(0) && init_func(sh, actions, &str, &history))
     return (1);
   sh->exit = 0;
   while (42)
@@ -35,7 +35,7 @@ int		term(t_sh *sh)
       	}
       else
 	a = do_action(actions, &str, sh, history.prompt);
-      if (a == 3 && test(&str, sh, &history, &a))
+      if (a == 3 && exec_func(&str, sh, &history, &a))
 	return (1);
     }
   return (free(str), 0);

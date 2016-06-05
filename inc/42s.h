@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 19:04:46 2016 debrau_c
+** Last update Sun Jun  5 18:09:14 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -415,7 +415,7 @@ void			catch_ctrlc();
 ** MAIN LOOP
 */
 int			term(t_sh *);
-int			term_func_01(t_sh *, t_key_act *, char **, t_head *);
-int			test(char **, t_sh *, t_head *, int *);
+int			init_func(t_sh *, t_key_act *, char **, t_head *);
+int			exec_func(char **, t_sh *, t_head *, int *);
 
 #endif /* _42s_H_ */
