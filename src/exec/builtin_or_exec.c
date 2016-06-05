@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 04:46:53 2016 bougon_p
+** Last update Sun Jun  5 04:54:53 2016 Poc
 */
 
 #include <errno.h>
@@ -170,7 +170,7 @@ int	action(t_sh *sh)
     {
       if (action_redir(sh, sh->actual_pipe))
 	  return (1);
-      if (sh->actual_pipe)
+      if (sh->actual_pipe && sh->exec->fd[sh->actual_pipe])
 	dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if ((check_builtin(sh)) == -3)
 	if (execve(sh->exec->good_path, sh->exec->arg, sh->env->env) == -1)
