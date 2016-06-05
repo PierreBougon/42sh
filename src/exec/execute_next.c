@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Sun Jun  5 16:34:06 2016 Mathieu Sauvau
+** Last update Sun Jun  5 17:12:22 2016 marel_m
 */
 
 #include <unistd.h>
@@ -53,10 +53,7 @@ int		execute_each_act(t_sh *sh)
       if (check_which_config(sh, tmp, tmp->node) == 1)
 	return (1);
       loop_execute(sh, &tmp, &i);
-      free(sh->exec->exec);
-      free_tab(sh->exec->arg);
       free(sh->exec->good_path);
-      free(sh->exec->arg);
     }
   free_list(sh);
   my_free((void **)&(sh)->root);

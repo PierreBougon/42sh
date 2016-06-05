@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 18:51:48 2016 marel_m
-** Last update Fri Jun  3 18:54:23 2016 marel_m
+** Last update Sun Jun  5 17:06:34 2016 marel_m
 */
 
 #include <string.h>
@@ -63,7 +63,8 @@ void		history_up(char **str, int *pos,
       if ((h = seek_prev_history(history->first, *str, i_history)))
 	{
 	  free(*str);
-	  *str = strdup(h);
+	  if ((*str = strdup(h)) == NULL)
+	    exit(1);
 	}
       *pos = strlen(*str);
       fflush(stdout);
@@ -85,7 +86,8 @@ void		history_down(char **str, int *pos,
       if ((h = seek_next_history(history->first, *str, i_history)))
 	{
 	  free(*str);
-	  *str = strdup(h);
+	  if ((*str = strdup(h)) == NULL)
+	    exit(1);
 	}
       *pos = strlen(*str);
       fflush(stdout);
