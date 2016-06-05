@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sun Jun  5 10:42:10 2016 marel_m
-** Last update Sun Jun  5 11:00:26 2016 marel_m
+** Last update Sun Jun  5 14:25:45 2016 marel_m
 */
 
 #include <string.h>
@@ -30,10 +30,11 @@ char	*change_str_redir_r_redir_l(char *str)
     j--;
   if ((tmp = my_strdup_bt(str, j, strlen(str))) == NULL
       || (tmp2 = my_strdup_bt(str, i, j)) == NULL
-      || (new = realloc(new, strlen(new) + strlen(tmp) + strlen(tmp2))) == NULL)
+      || (new = realloc(new, strlen(new) + strlen(tmp)
+			+ strlen(tmp2) + 1)) == NULL)
     return (NULL);
-  new = strcat(new, tmp);
-  new = strcat(new, tmp2);
+  strcat(new, tmp);
+  strcat(new, tmp2);
   my_free((void **)&str);
   my_free((void **)&tmp);
   my_free((void **)&tmp2);
