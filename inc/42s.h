@@ -5,7 +5,11 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
+<<<<<<< HEAD
 ** Last update Sun Jun  5 11:04:53 2016 Poc
+=======
+** Last update Sun Jun  5 10:48:59 2016 bougon_p
+>>>>>>> 9326e4d40ed97e31d821eb724a5ac7266dece59e
 */
 
 #ifndef _42s_H_
@@ -396,6 +400,6 @@ t_job_list		*update_job_list(t_job_list *, char *, pid_t);
 t_job_list		*erase_job(t_job_list *, t_job_list *);
 int			push_job_foreground(t_sh *);
 int			print_list(t_sh *);
-void			kill_list_job(t_job_list *);
+void			kill_list_job(void);
 
 #endif /* _42s_H_ */

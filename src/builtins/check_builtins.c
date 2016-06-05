@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Sun Jun  5 11:28:39 2016 Poc
+** Last update Sun Jun  5 11:31:54 2016 Poc
 */
 
 #include <string.h>
@@ -47,7 +47,6 @@ int	determine_fd(t_sh *sh)
   if (sh->is_pipe && sh->actual_pipe)
     {
       sh->exec->fd[0][1] = sh->exec->fd[sh->actual_pipe][1];
-      printf("actual_fd fd[%d][1]\n", sh->actual_pipe);
       close(sh->exec->fd[sh->actual_pipe][0]);
     }
   return (0);

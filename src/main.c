@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun Jun  5 04:32:26 2016 bougon_p
+** Last update Sun Jun  5 10:51:33 2016 bougon_p
 */
 
 #include <signal.h>
@@ -189,6 +189,7 @@ void		init_data(UNUSED t_sh *sh)
   g_need_check = false;
   g_last_fg = false;
   g_ctrlc = false;
+  atexit(kill_list_job);
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)
@@ -215,6 +216,5 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
     }
   if (term(&sh))
     return (1);
-  kill_list_job(g_job_list);
   return (0);
 }
