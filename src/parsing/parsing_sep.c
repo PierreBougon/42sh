@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Sun Jun  5 00:18:08 2016 Poc
+** Last update Sun Jun  5 04:49:04 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -33,6 +33,8 @@ char	*pars_pipe(t_list_sh *elem, char *str, int quote)
     return (NULL);
   while (i >= 0 && str[i] != '|')
     i--;
+  if (i + 1 > (int)strlen(str))
+    return (NULL);
   if (insert_node(&elem->node, (tmp = my_strdup_e(str, i + 1)),
 		  (new = strndup(str, i)), PIPE) == NULL)
     return (NULL);
@@ -50,12 +52,7 @@ char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
   while (str && str[j] != '\0' && str[j] != '>' && str[j] != '|')
     j++;
   if ((new = strndup(str, i)) == NULL
-      || (tmp = my_strdup_bt(str, i, (i + 1))) == NULL
-      || (new = realloc(new, (strlen(new) + strlen(tmp) + 1))) == NULL
-      || (new = strcat(new, tmp)) == NULL)
-    return (NULL);
-  my_free((void **)&tmp);
-  if ((tmp = my_strdup_e(str, (j + 1))) == NULL
+      || (tmp = my_strdup_e(str, j)) == NULL
       || (new = realloc(new, (strlen(tmp) + strlen(new) + 1))) == NULL
       || (new = strcat(new, tmp)) == NULL)
     return (NULL);
@@ -102,7 +99,7 @@ char	*pars_redir_left(t_list_sh *elem, char *str, int quote, int i)
     }
   else
     {
-      if ((tmp = my_strdup_e(str, i + 1)) == NULL)
+      if (i + 1 > (int)strlen(str) || (tmp = my_strdup_e(str, i + 1)) == NULL)
 	return (NULL);
       if (check_prior(tmp) == 0)
 	{

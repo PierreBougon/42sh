@@ -5,7 +5,7 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Fri Jun  3 18:15:08 2016 debrau_c
-** Last update Fri Jun  3 22:26:47 2016 debrau_c
+** Last update Sun Jun  5 04:25:59 2016 marel_m
 */
 
 #include <string.h>
@@ -27,9 +27,9 @@ void	glob_clean_str_first(char *str)
   while (str[0] == '\t' || str[0] == ' ')
     glob_suppr_char(str, 0);
   i = -1;
-  while (str[++i])
+  while (str && str[++i])
     if (str[i] == '\t')
       str[i] = ' ';
-  while (str[strlen(str) - 1] == ' ')
+  while (str[i] && str[((strlen(str) == 0 ? 1 : strlen(str))) - 1] == ' ')
     str[strlen(str) - 1] = '\0';
 }

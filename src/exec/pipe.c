@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 02:33:58 2016 Poc
+** Last update Sun Jun  5 04:34:38 2016 Poc
 */
 
 #include <stdlib.h>
@@ -63,6 +63,8 @@ void	close_all_execute_in_son(int **fd, int target, int next_target)
 
 int	execute_in_son(t_sh *sh)
 {
+  if (!sh->exec->fd[sh->actual_pipe + 1])
+    return (1);
   close_all_execute_in_son(sh->exec->fd, sh->actual_pipe, sh->actual_pipe + 1);
   close(sh->exec->fd[sh->actual_pipe + 1][1]);
   close(sh->exec->fd[sh->actual_pipe][0]);
@@ -77,6 +79,7 @@ int	pipes(t_sh *sh, t_node *node)
 {
   int		chid;
 
+  sh->is_pipe = true;
   sh->exec->type = node->type;
   sh->exec->arg = my_str_to_word_tab(node->arg, ' ');
   sh->exec->exec = strdup(sh->exec->arg[0]);

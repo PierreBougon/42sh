@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun Jun  5 00:13:47 2016 Poc
+** Last update Sun Jun  5 04:32:26 2016 bougon_p
 */
 
 #include <signal.h>
@@ -30,21 +30,26 @@ int	push_job_foreground(t_sh *sh)
 {
   int	status;
 
-  if (job_list)
+  if (sh->is_pipe)
     {
-      last_fg = true;
-      job_list->prev->state = FG;
-      kill(job_list->prev->pid, SIGCONT);
-      need_check = true;
-      if (waitpid(job_list->prev->pid, &status, WUNTRACED) == -1)
+      dprintf(2, "You can't resume a job in a pipe ;)\n");
+      return (1);
+    }
+  if (g_job_list)
+    {
+      g_last_fg = true;
+      g_job_list->prev->state = FG;
+      kill(g_job_list->prev->pid, SIGCONT);
+      g_need_check = true;
+      if (waitpid(g_job_list->prev->pid, &status, WUNTRACED) == -1)
   	return (1);
-      need_check = false;
-      if (signal_gest(status, sh, job_list->prev->pid, false))
+      g_need_check = false;
+      if (signal_gest(status, sh, g_job_list->prev->pid, false))
   	{
   	  sh->exit = status;
   	  sh->exec->stop = 1;
   	}
-      last_fg = false;
+      g_last_fg = false;
     }
   else
     dprintf(2, "bg : no current job\n");
@@ -144,6 +149,7 @@ int		term(t_sh *sh)
   sh->exit = 0;
   while (42)
     {
+      sh->is_pipe = false;
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
@@ -160,15 +166,15 @@ int		term(t_sh *sh)
 
 void		catch_ctrlz()
 {
-  if (need_check)
-    zsig = true;
-  need_check = false;
+  if (g_need_check)
+    g_zsig = true;
+  g_need_check = false;
 }
 
 void		catch_ctrlc()
 {
   printf("\n%s", g_prompt);
-  ctrlc = true;
+  g_ctrlc = true;
   fflush(stdout);
 }
 
@@ -178,11 +184,11 @@ void		init_data(UNUSED t_sh *sh)
   signal(SIGINT, catch_ctrlc);
   #endif
   signal(SIGTSTP, catch_ctrlz);
-  job_list = NULL;
-  zsig = false;
-  need_check = false;
-  last_fg = false;
-  ctrlc = false;
+  g_job_list = NULL;
+  g_zsig = false;
+  g_need_check = false;
+  g_last_fg = false;
+  g_ctrlc = false;
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)
@@ -209,5 +215,6 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
     }
   if (term(&sh))
     return (1);
+  kill_list_job(g_job_list);
   return (0);
 }
