@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 04:32:40 2016 Poc
+** Last update Sun Jun  5 04:34:12 2016 Poc
 */
 
 #include <errno.h>
@@ -161,7 +161,6 @@ int	last_action(t_sh *sh, int pid)
 int	action(t_sh *sh)
 {
   pid_t	pid;
-  int	status;
 
   if ((pid = fork()) == -1)
     return (1);
@@ -170,10 +169,7 @@ int	action(t_sh *sh)
   if (pid == 0)
     {
       if (action_redir(sh, sh->actual_pipe))
-	{
-	  printf("action redit fucked up\n");
 	  return (1);
-	}
       if (sh->actual_pipe)
 	dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if ((check_builtin(sh)) == -3)
@@ -183,6 +179,7 @@ int	action(t_sh *sh)
     }
   else if (pid == 0 && sh->exec->fd[0][0] == -1 && sh->exec->fd[0][1] == -1)
     if (last_action(sh, pid))
+      return (1);
   return (0);
 }
 
