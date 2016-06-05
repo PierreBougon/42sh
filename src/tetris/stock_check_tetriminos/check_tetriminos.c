@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Feb 23 15:11:43 2016 maud marel
-** Last update Wed Jun  1 23:42:36 2016 bougon_p
+** Last update Sun Jun  5 14:30:11 2016 bougon_p
 */
 
 #include <unistd.h>
@@ -13,6 +13,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <string.h>
+#include <unistd.h>
 #include "tetris.h"
 
 int		stock_tetriminos(char *str, t_tetris *tetris)
@@ -21,8 +22,10 @@ int		stock_tetriminos(char *str, t_tetris *tetris)
   char		*file;
   char		*way;
 
-  if ((way = my_strdup("assets/tetriminos/")) == NULL
-      || (way = my_realloc(way, strlen(way) + strlen(str) + 1)) == NULL)
+  if (!(way = strdup(tetris->tetri_file)) ||
+      !(way = my_realloc(way,
+			 strlen(way) +
+			 strlen(str) + 1)))
     return (-1);
   strcat(way, str);
   if ((fd = open(way, O_RDONLY)) == -1)
@@ -83,7 +86,7 @@ int		check_tetriminos(t_tetris *tetris)
   DIR		*dirp;
   struct dirent	*entry;
 
-  if ((dirp = opendir("assets/tetriminos")) == NULL)
+  if ((dirp = opendir(tetris->tetri_file)) == NULL)
     {
       my_putstr_error("Not existing directory tetriminos\n");
       return (-1);

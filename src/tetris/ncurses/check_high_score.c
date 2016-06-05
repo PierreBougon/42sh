@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu Mar 17 11:16:54 2016
-** Last update Wed Jun  1 22:13:36 2016 bougon_p
+** Last update Sun Jun  5 13:11:58 2016 bougon_p
 */
 
 #include <sys/types.h>
@@ -19,7 +19,7 @@ int	check_high_score(t_tetris *data)
   int	fd;
   char	*nb;
 
-  if ((fd = open("assets/high_score", O_RDONLY)) == -1)
+  if ((fd = open(data->high_path, O_RDONLY)) == -1)
     {
       data->high_score = 0;
       return (0);
@@ -58,16 +58,16 @@ int	recup_high_score(t_tetris *data)
   if ((h_s = malloc(sizeof(char) * (count_nb(data->score) + 1))) == NULL)
     return (-1);
   h_s = itoa(data->score, h_s, 10);
-  if ((fd = open("assets/high_score", O_RDONLY)) == -1)
+  if ((fd = open(data->high_path, O_RDONLY)) == -1)
     {
-      fd = open("assets/high_score", O_CREAT | O_RDWR, 0644);
+      fd = open(data->high_path, O_CREAT | O_RDWR, 0644);
       write(fd, h_s, my_strlen(h_s));
       return (0);
     }
   nb = get_next_line(fd);
   if (nb == NULL || data->score > my_getnbr(nb))
     {
-      fd = open("assets/high_score", O_TRUNC | O_RDWR, 0644);
+      fd = open(data->high_path, O_TRUNC | O_RDWR, 0644);
       write(fd, h_s, my_strlen(h_s));
       free(nb);
       return (0);

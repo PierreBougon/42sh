@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun Jun  5 10:51:33 2016 bougon_p
+** Last update Sun Jun  5 14:02:27 2016 bougon_p
 */
 
 #include <signal.h>
@@ -178,7 +178,7 @@ void		catch_ctrlc()
   fflush(stdout);
 }
 
-void		init_data(UNUSED t_sh *sh)
+void		init_data(t_sh *sh)
 {
   #ifndef DEBUG
   signal(SIGINT, catch_ctrlc);
@@ -190,6 +190,9 @@ void		init_data(UNUSED t_sh *sh)
   g_last_fg = false;
   g_ctrlc = false;
   atexit(kill_list_job);
+  sh->cwd = NULL;
+  if (!(sh->cwd = getcwd(sh->cwd, 0)))
+    exit(1);
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)

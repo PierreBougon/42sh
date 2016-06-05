@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 10:48:59 2016 bougon_p
+** Last update Sun Jun  5 14:01:13 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -167,6 +167,7 @@ typedef struct		s_sh
   bool			is_pipe;
   t_pid			*list;
   t_job_list		*job_list;
+  char			*cwd;
 }			t_sh;
 
 char			*my_index(char *, char);
