@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 04:54:53 2016 Poc
+** Last update Sun Jun  5 11:15:29 2016 Poc
 */
 
 #include <errno.h>
@@ -127,14 +127,17 @@ int	father_action(t_sh *sh, int pid)
   int	status;
 
   close_all(sh->exec->fd);
-  g_need_check = true;
-  if (waitpid(pid, &status, WUNTRACED) == -1)
-    return (1);
-  g_need_check = false;
-  if (signal_gest(status, sh, pid, true))
+  if (pid != 0)
     {
-      sh->exit = status;
-      sh->exec->stop = 1;
+      g_need_check = true;
+      if (waitpid(pid, &status, WUNTRACED) == -1)
+	return (1);
+      g_need_check = false;
+      if (signal_gest(status, sh, pid, true))
+	{
+	  sh->exit = status;
+	  sh->exec->stop = 1;
+	}
     }
   wait_func(sh->list, sh);
   clear_list(sh->list);
