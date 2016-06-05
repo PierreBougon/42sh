@@ -5,7 +5,8 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 10:57:55 2016 marel_m
+** Last update Sun Jun  5 11:47:22 2016 marel_m
+** Last update Sun Jun  5 10:48:59 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -335,6 +336,8 @@ int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
 int			double_redir_left(t_sh *, t_node *);
+int			close_all(int **);
+int			wait_func(t_pid *, t_sh *);
 void			add_to_back(t_pid **, int);
 
 /*
@@ -397,6 +400,6 @@ t_job_list		*update_job_list(t_job_list *, char *, pid_t);
 t_job_list		*erase_job(t_job_list *, t_job_list *);
 int			push_job_foreground(t_sh *);
 int			print_list(t_sh *);
-void			kill_list_job(t_job_list *);
+void			kill_list_job(void);
 
 #endif /* _42s_H_ */
