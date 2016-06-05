@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Thu May 26 11:43:54 2016 bougon_p
-** Last update Fri Jun  3 18:48:18 2016 marel_m
+** Last update Sun Jun  5 16:22:38 2016 bougon_p
 */
 
 #include <stdio.h>
@@ -31,7 +31,7 @@ void	calc_all_distances(t_suggest *sugg, char *cmd)
     }
 }
 
-void	print_minimal_dist(t_suggest *sugg, int pass)
+void	print_minimal_dist(t_suggest *sugg, int pass, int nb)
 {
   int	i;
   int	n;
@@ -40,11 +40,12 @@ void	print_minimal_dist(t_suggest *sugg, int pass)
   first = true;
   i = -1;
   n = 0;
-  while (sugg->binaries[++i])
+  while (sugg->binaries[++i] && nb < 10)
     {
       if (sugg->tab_dist[i] == sugg->dist_min)
 	{
-	  if (first)
+	  nb++;
+	  if (first && pass == 0)
 	    {
 	      dprintf(2, "Did you mean ?\n");
 	      first = false;
@@ -56,7 +57,7 @@ void	print_minimal_dist(t_suggest *sugg, int pass)
   if (n <= 1 && pass == 0)
     {
       sugg->dist_min += 1;
-      print_minimal_dist(sugg, 1);
+      print_minimal_dist(sugg, 1, nb);
     }
 }
 
@@ -89,7 +90,7 @@ int		suggest(t_sh *sh, char *cmd)
   if (!(sugg.tab_dist = malloc(sizeof(int) * sugg.nb_bin)))
     return (1);
   calc_all_distances(&sugg, cmd);
-  print_minimal_dist(&sugg, 0);
+  print_minimal_dist(&sugg, 0, 0);
   free_datas(&sugg);
   return (0);
 }
