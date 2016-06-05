@@ -5,7 +5,7 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun Jun  5 03:58:14 2016 bougon_p
-** Last update Sun Jun  5 10:52:36 2016 bougon_p
+** Last update Sun Jun  5 11:20:16 2016 bougon_p
 */
 
 #include <stdlib.h>
@@ -19,7 +19,6 @@ void		kill_list_job()
   t_job_list	*tmp;
   t_job_list	*to_free;
 
-  printf("Wallah on kill tout\n");
   root = g_job_list;
   if (!g_job_list)
     return ;
