@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 19:37:25 2016 marel_m
+** Last update Sun Jun  5 00:13:47 2016 Poc
 */
 
 #include <signal.h>
@@ -62,7 +62,7 @@ int		pars_check_exec(t_sh *sh, char *str)
     return (0);
   if (parsing(sh, str) || execute_each_act(sh))
     return (1);
-  free_struct(sh);
+  my_free((void **)&str);
   return (0);
 }
 
@@ -78,6 +78,7 @@ int		term_func_01(t_sh *sh, t_key_act actions[18],
     return (1);
   write(1, history->prompt, strlen(history->prompt));
   (*str)[0] = 0;
+  g_prompt = history->prompt;
   if (!memset((*str), 0, 10))
     return (1);
   return (0);
@@ -110,6 +111,7 @@ int		execution(char **str, t_head *history, t_sh *sh)
 
 int		test(char **str, t_sh *sh, t_head *history, int *a)
 {
+  sh->actual_pipe = 0;
   if (*str && (*str)[0] && execution(str, history, sh))
     return (1);
   if (isatty(0))
@@ -165,7 +167,9 @@ void		catch_ctrlz()
 
 void		catch_ctrlc()
 {
-  printf("\n");
+  printf("\n%s", g_prompt);
+  ctrlc = true;
+  fflush(stdout);
 }
 
 void		init_data(UNUSED t_sh *sh)
@@ -178,6 +182,7 @@ void		init_data(UNUSED t_sh *sh)
   zsig = false;
   need_check = false;
   last_fg = false;
+  ctrlc = false;
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)
@@ -185,6 +190,7 @@ int		main(UNUSED int ac, UNUSED char **av, char **env)
   t_sh		sh;
   char		*str;
 
+  sh.list = NULL;
   if (check_env(&sh, env))
     return (1);
   get_conf_file(&sh.conf, &sh.env->env);

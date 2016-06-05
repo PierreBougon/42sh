@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Sat Jun  4 15:03:10 2016 marel_m
+** Last update Sun Jun  5 00:56:42 2016 Poc
 */
 
+#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"
@@ -109,19 +110,30 @@ int		execute_each_act(t_sh *sh)
   tmp = sh->root->next;
   while (i < sh->lenght - 1)
     {
-      if ((sh->exec->fd = malloc(sizeof(int *) * (tmp->nb))) == NULL)
+      sh->exec->good_path = NULL;
+      if ((sh->exec->fd = malloc(sizeof(int *) * (tmp->nb + 1))) == NULL)
 	return (1);
       j = -1;
       while (++j < tmp->nb)
 	{
 	  if ((sh->exec->fd[j] = malloc(sizeof(int) * 2)) == NULL)
 	    return (1);
-	  sh->exec->fd[j][0] = 0;
-	  sh->exec->fd[j][1] = 1;
+	  if (j > 0)
+	    pipe(sh->exec->fd[j]);
+	  else
+	    {
+	      sh->exec->fd[j][0] = -1;
+	      sh->exec->fd[j][1] = -1;
+	    }
 	}
+      sh->exec->fd[j] = NULL;
       if (check_which_config(sh, tmp, tmp->node) == 1)
 	return (1);
-       loop_execute(sh, &tmp, &i);
+      loop_execute(sh, &tmp, &i);
+      /* free_exec(sh->exec); */
     }
+  free_list(sh);
+  my_free((void **)&(sh)->root);
+  my_free((void **)&(sh->exec));
   return (0);
 }

@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 12:31:02 2016 Mathieu Sauvau
-** Last update Fri Jun  3 13:57:20 2016 marel_m
+** Last update Sat Jun  4 20:41:10 2016 marel_m
 */
 
 #include <unistd.h>
@@ -39,6 +39,7 @@ void	edit_str(char **str, int *pos, int del)
     exit(1);
   *str = strcpy(*str, start);
   strcat(*str, end);
+  free(start);
   free(end);
 }
 

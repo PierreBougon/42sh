@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 14:12:02 2016 marel_m
-** Last update Tue May 31 16:05:38 2016 marel_m
+** Last update Sat Jun  4 23:45:23 2016 marel_m
 */
 
 #include <string.h>
@@ -75,8 +75,8 @@ int	check_cd_good(t_sh *sh)
 	}
       else
 	{
-	  write(2, "cd: no such file or directory: ", 31);
 	  write(2, sh->exec->arg[1], strlen(sh->exec->arg[1]));
+	  write(2, ": No such file or directory.", 28);
 	}
       sh->exit = 1;
       write(2, "\n", 1);

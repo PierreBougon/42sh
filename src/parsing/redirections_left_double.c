@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Jun  1 22:10:30 2016 marel_m
-** Last update Fri Jun  3 13:45:18 2016 marel_m
+** Last update Sat Jun  4 21:10:06 2016 marel_m
 */
 
 #include <string.h>
@@ -30,10 +30,11 @@ char	*pars_double_redirection_left(t_list_sh *elem, char *str, int i)
 	return (NULL);
       new = strcat(new, tmp);
     }
-  free(tmp);
+  my_free((void **)&tmp);
   if ((tmp = my_strdup_bt(str, i + 1, j)) == NULL
       || insert_node(&elem->node, tmp,
 		  new, DOUBLE_REDIR_LEFT) == NULL)
     return (NULL);
+  my_free((void **)&tmp);
   return (new);
 }
