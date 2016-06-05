@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 12:05:38 2016 marel_m
+## Last update Sun Jun  5 15:25:58 2016 Mathieu Sauvau
 ##
 
 DEBUG	= no
@@ -29,6 +29,8 @@ AUTO	= auto_completion/
 SRC	= main.c				\
 	convert_base.c				\
 	index.c					\
+	jobs.c					\
+	main_loop.c				\
 	free/free_exec.c			\
 	ncurses/ncurses.c			\
 	ncurses/actions.c			\
