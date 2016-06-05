@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Sun Jun  5 15:24:48 2016 Mathieu Sauvau
-** Last update Sun Jun  5 15:28:13 2016 Mathieu Sauvau
+** Last update Sun Jun  5 16:05:30 2016 Mathieu Sauvau
 */
 
 #include <unistd.h>
@@ -38,5 +38,5 @@ int		term(t_sh *sh)
       if (a == 3 && test(&str, sh, &history, &a))
 	return (1);
     }
-  return (0);
+  return (free(str), 0);
 }
