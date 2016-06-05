@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sat Jun  4 17:18:40 2016 Poc
+** Last update Sat Jun  4 23:47:08 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -19,7 +19,6 @@ This is free software; see the source for copying conditions.  There is NO\n\
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 # define NB_SPE_ECHO 14
 
-# include <stdio.h>
 # include <stdbool.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -36,6 +35,7 @@ typedef struct		s_auto_completion
   char			**tab_str;
   int			i_elem;
   int			show;
+  int			show_all;
   char			*path;
   char			*elem;
 }			t_autoc;
@@ -53,13 +53,26 @@ typedef enum		e_type
     NO_ONE
   }			t_type;
 
-typedef struct		s_node
+typedef enum		e_job_state
+  {
+    FG,
+    BG
+  }			t_job_state;
+
+typedef	struct		s_job_list
 {
-  char			*arg;
-  t_type		type;
-  struct s_node		*left;
-  struct s_node		*right;
-}			t_node;
+  int			num;
+  char			*cmd;
+  pid_t			pid;
+  t_job_state		state;
+  struct s_job_list	*next;
+  struct s_job_list	*prev;
+}			t_job_list;
+
+t_job_list		*job_list;
+bool			zsig;
+bool			need_check;
+bool			last_fg;
 
 typedef struct		s_aliases
 {
@@ -73,6 +86,8 @@ typedef struct		s_conf
   t_aliases		*head;
 }			t_conf;
 
+typedef struct	s_echo	t_echo;
+
 typedef	struct		s_echo
 {
   bool			opt_e;
@@ -82,9 +97,18 @@ typedef	struct		s_echo
   bool			opt_vers;
   int			nb_opt;
   char			*opt_tab;
-  void			(*ftab[NB_SPE_ECHO])(void);
+  void			(*ftab[NB_SPE_ECHO])(t_echo *);
   char			sequence[NB_SPE_ECHO];
+  int			fd;
 }			t_echo;
+
+typedef struct		s_node
+{
+  char			*arg;
+  t_type		type;
+  struct s_node		*left;
+  struct s_node		*right;
+}			t_node;
 
 typedef struct		s_list_sh
 {
@@ -139,20 +163,18 @@ typedef struct		s_sh
   int			actual_pipe;
   bool			reset_curs;
   t_pid			*list;
+  t_job_list		*job_list;
 }			t_sh;
 
-char			**my_str_to_word_tab(char *, char);
-char			*my_strdup_e(char *, int);
-char			*epur_str(char *);
-int			check_env(t_sh *, char **);
-int			check_path(t_sh *);
-int			check_home(t_sh *);
-int			check_pwd(t_sh *);
-int			check_oldpwd(t_sh *);
-char			*get_next_line(int);
 char			*my_index(char *, char);
-char			*epur(char  *);
 void			change_read_mode(int, int, int);
+char			*my_itoa(int nb);
+
+/*
+** HISTORY
+*/
+void			get_history(t_sh *, t_head *);
+void			create_history_file(t_sh *);
 
 /*
 ** ACTION
@@ -165,8 +187,14 @@ void			backspace(char **, int *, t_head *, int *);
 void			auto_complet(char **, int *, t_head *, int *);
 void			clear_scr(char **, int *, t_head *, int *);
 void			del(char **, int *, t_head *, int *);
+void			ctrl_left(char **, int *, t_head *, int *);
+void			ctrl_right(char **, int *, t_head *, int *);
+void			ctrl_k(char **, int *, t_head *, int *);
+void			ctrl_y(char **, int *, t_head *, int *);
 bool			check_exit(char *);
 void			do_shortcut_exit(t_sh *);
+int			init_actions(t_key_act *);
+int			do_action(t_key_act *, char **, t_sh *, char *);
 
 /*
 ** 42RC
@@ -193,8 +221,8 @@ int			parsing(t_sh *, char *);
 t_node			**insert_node(t_node **, char *, char *, t_type);
 int			create_list(t_sh *);
 t_list_sh		*add_list_after(t_sh *);
-char			*pars_pipe(t_list_sh *, char *);
-char			*pars_redir(t_list_sh *, char *);
+char			*pars_pipe(t_list_sh *, char *, int);
+char			*pars_redir(t_list_sh *, char *, int);
 int			bang(char **, t_head *);
 int			check_prior(char *);
 int			arg_pipe(char **);
@@ -202,12 +230,24 @@ int			arg_redir_r(char **);
 int			arg_redir_l(char **);
 int			arg_redir_rr(char **);
 int			arg_redir_ll(char **);
+char			*rewrite_str(char *);
+char			*pars_double_redirection_left(t_list_sh *, char *, int);
+int			check_quote(char *, char, char);
+int			pos_double_quote(char *, char);
+int			double_quote_redir(char *);
+char			*pars_redir_right(t_list_sh *, char *, int);
+int			signal_gest(int, t_sh *, pid_t, bool);
+
+/*
+** ERROR
+*/
+int			check_if_missing_name(t_sh *, char *);
 int			verif_good_synthax(char *);
 int			verif_good_synthax_string(t_sh *, char *);
 int			verif_good_order_sep(t_sh *, char *);
-char			*rewrite_str(char *);
-int			check_if_missing_name(t_sh *, char *);
-char			*pars_double_redirection_left(t_list_sh *, char *, int);
+char			*check_good_quote_replace_quote(t_sh *, char *);
+int			if_is_a_separator(char *, int *, int *);
+int			check_synthax(char *, int, int);
 
 /*
 ** AUTO-COMPLETION
@@ -228,12 +268,14 @@ int			get_commom_subtring(char **);
 char			*get_new_str(char **, char *, char *, char *);
 int			show_bin(t_autoc *);
 int			find_in_env_path(char **, char *, char **);
+int			auto_check_quote(char *);
 void			free_autoc(t_autoc *);
 
 /*
 **BUILTINS
 */
 int			my_setenv(t_sh *);
+int			check_setenv_path(t_sh *);
 int			check_path_setenv(t_sh *);
 int			my_unsetenv(t_sh *);
 int			my_exit(t_sh *);
@@ -251,24 +293,24 @@ void			print_help();
 void			print_echo(t_echo *, char **);
 bool			version(char *);
 bool			help(char *);
-void			print_backslash(void);
-void			print_alert(void);
-void			print_backspace(void);
-void			print_nomore(void);
-void			print_escape(void);
-void			print_formfeed(void);
-void			print_newline(void);
-void			print_carriageret(void);
-void			print_tab(void);
-void			print_verttab(void);
-void			print_octal(void);
-void			print_hexa(void);
-void			print_squote(void);
-void			print_dquote(void);
+void			print_backslash(t_echo *);
+void			print_alert(t_echo *);
+void			print_backspace(t_echo *);
+void			print_nomore(t_echo *);
+void			print_escape(t_echo *);
+void			print_formfeed(t_echo *);
+void			print_newline(t_echo *);
+void			print_carriageret(t_echo *);
+void			print_tab(t_echo *);
+void			print_verttab(t_echo *);
+void			print_octal(t_echo *);
+void			print_hexa(t_echo *);
+void			print_squote(t_echo *);
+void			print_dquote(t_echo *);
 bool			opt_exist(char *, t_echo *);
-int			print_octal_char(char *);
-int			print_hexa_char(char *);
-void			print_str_no_change(char *);
+int			print_octal_char(char *, t_echo *);
+int			print_hexa_char(char *, t_echo *);
+void			print_str_no_change(char *, t_echo *);
 void			print_str_changed(char *, t_echo *);
 void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
@@ -289,6 +331,7 @@ int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
 int			double_redir_left(t_sh *, t_node *);
+void			add_to_back(t_pid **, int);
 
 /*
 ** ENV
@@ -321,7 +364,10 @@ void			free_struct(t_sh *);
 void			free_word_tab(char **);
 void			print_tree(t_node *);
 void			free_env(t_env *);
-void			free_tab_int(int **);
+void			free_tab_int(int **, int);
+void			my_free(void **);
+void			free_list(t_sh *);
+void			clear_list(t_pid *);
 
 /*
 ** PROMPT
@@ -330,13 +376,22 @@ char			*prompt_from_env(char **);
 char			*get_prompt_value(char **);
 
 /*
-** Suggest algorithm
+** SUGGEST
 */
 int			suggest(t_sh *, char *);
 
 /*
-** Convert base
+** CONVERT BASE
 */
 unsigned int		my_getnbr_base_limit(char *, char *, unsigned int, int *);
+void			change_read_mode(int, int, int);
+
+/*
+** Job list
+*/
+t_job_list	*update_job_list(t_job_list *, char *, pid_t);
+t_job_list	*erase_job(t_job_list *, t_job_list *);
+int		push_job_foreground(t_sh *);
+int		print_list(t_sh *);
 
 #endif /* _42s_H_ */

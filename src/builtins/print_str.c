@@ -5,12 +5,13 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Tue May 31 17:48:01 2016 bougon_p
-** Last update Tue May 31 17:48:47 2016 bougon_p
+** Last update Sat Jun  4 17:32:05 2016 bougon_p
 */
 
+#include <stdio.h>
 #include "42s.h"
 
-void	print_str_no_change(char *str)
+void	print_str_no_change(char *str, t_echo *opt)
 {
   int	i;
   bool	waiting_s;
@@ -22,7 +23,7 @@ void	print_str_no_change(char *str)
   while (str[++i])
     {
       if (str[i] != '"' && str[i] != '\'')
-        printf("%c", str[i]);
+        dprintf(opt->fd, "%c", str[i]);
       else
         invert(&waiting_d, &waiting_s, str[i]);
     }
@@ -38,9 +39,9 @@ int	convert_next_letter(char c, t_echo *opt)
   if (i > NB_SPE_ECHO)
     return (0);
   if (i < NB_SPE_ECHO)
-    opt->ftab[i]();
+    opt->ftab[i](opt);
   else
-    printf("%c", c);
+    dprintf(opt->fd, "%c", c);
   if (i == 3)
     return (2);
   else if (i == 10)
@@ -62,12 +63,12 @@ int	chose_backslash_fct(char *str, t_echo *opt,
     }
   else if (ret == 3)
     {
-      ret = print_octal_char(&str[++i]);
+      ret = print_octal_char(&str[++i], opt);
       i += ret - 1;
     }
   else if (ret == 4)
     {
-      ret = print_hexa_char(&str[++i]);
+      ret = print_hexa_char(&str[++i], opt);
       i += ret - 1;
     }
   return (i);
@@ -86,7 +87,7 @@ void	print_str_changed(char *str, t_echo *opt)
   while (str[++i])
     {
       if (str[i] != '"' && str[i] != '\'' && str[i] != '\\')
-        printf("%c", str[i]);
+        dprintf(opt->fd, "%c", str[i]);
       else if (str[i] == '\\')
 	{
 	  if ((i = chose_backslash_fct(str, opt, i)) == -1)

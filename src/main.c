@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sat Jun  4 21:00:29 2016 Poc
+** Last update Sat Jun  4 23:28:33 2016 Poc
 */
 
+#include <signal.h>
 #include <sys/ioctl.h>
 #include <ncurses.h>
 #include <termios.h>
@@ -18,194 +19,36 @@
 #include <stdbool.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "42s.h"
 #include "my_glob.h"
 #include "var_env.h"
 
-void	my_show_tab(char **str)
+int	push_job_foreground(t_sh *sh)
 {
-  int	i;
+  int	status;
 
-  i = 0;
-  while (str && str[i] != '\0')
+  if (job_list)
     {
-      printf("%s\n", str[i]);
-      i++;
+      last_fg = true;
+      job_list->prev->state = FG;
+      kill(job_list->prev->pid, SIGCONT);
+      need_check = true;
+      if (waitpid(job_list->prev->pid, &status, WUNTRACED) == -1)
+  	return (1);
+      need_check = false;
+      if (signal_gest(status, sh, job_list->prev->pid, false))
+  	{
+  	  sh->exit = status;
+  	  sh->exec->stop = 1;
+  	}
+      last_fg = false;
     }
-}
-
-int		init_actions_next(t_key_act actions[14])
-{
-  actions[0].fct = &move_left;
-  actions[1].fct = &move_right;
-  actions[2].fct = &debut;
-  actions[3].fct = &end;
-  actions[4].fct = &backspace;
-  actions[5].fct = &backspace;
-  actions[6].fct = &history_up;
-  actions[7].fct = &history_down;
-  actions[8].fct = &auto_complet;
-  actions[9].fct = &clear_scr;
-  actions[10].fct = &del;
-  actions[11].fct = &backspace;
-  actions[12].fct = &end;
-  actions[13].fct = &debut;
+  else
+    dprintf(2, "bg : no current job\n");
   return (0);
-}
-
-int		init_actions2(t_key_act actions[14])
-{
-  char		end[2];
-  char		start[2];
-  char		backs[2];
-
-  backs[0] = 127;
-  backs[1] = 0;
-  end[0] = 5;
-  end[1] = 0;
-  start[0] = 1;
-  start[1] = 0;
-  if ((!(actions[11].key = strdup(&backs[0])) ||
-       !(actions[12].key = strdup(end)) ||
-       !(actions[13].key = strdup(start))))
-    return (-1);
-  return (init_actions_next(actions));
-}
-
-int		init_actions(t_key_act actions[14])
-{
-  char		*str;
-
-  if ((str = tigetstr("kcub1")) == (char *)-1 ||
-      !(actions[0].key = strdup(str)) ||
-      (str = tigetstr("kcuf1")) == (char *)-1 ||
-      !(actions[1].key = strdup(str)) ||
-      (str = tigetstr("khome")) == (char *)-1 ||
-      !(actions[2].key = strdup(str)) ||
-      (str = tigetstr("kend")) == (char *)-1 ||
-      !(actions[3].key = strdup(str)) ||
-      (str = tigetstr("kbs")) == (char *)-1 ||
-      !(actions[4].key = strdup(str)) ||
-      (str = tigetstr("cub1")) == (char *)-1 ||
-      !(actions[5].key = strdup(str)) ||
-      (str = tigetstr("kcuu1")) == (char *)-1 ||
-      !(actions[6].key = strdup(str)) ||
-      (str = tigetstr("kcud1")) == (char *)-1 ||
-      !(actions[7].key = strdup(str)) ||
-      !(actions[8].key = strdup("\t")) ||
-      !(actions[9].key = strdup("\f")) ||
-      (str = tigetstr("kdch1")) == (char *)-1 ||
-      !(actions[10].key = strdup(str)))
-    return (-1);
-  return (init_actions2(actions));
-}
-
-void            change_read_mode(int i, int time, int nb_char)
-{
-  static struct termios old;
-  static struct termios new;
-
-  if (i == 0)
-    {
-      ioctl(0, TCGETS, &old);
-      ioctl(0, TCGETS, &new);
-      new.c_lflag &= ~(ICANON);
-      new.c_lflag &= ~(ECHO);
-      new.c_cc[VMIN] = nb_char;
-      new.c_cc[VTIME] = time;
-      ioctl(0, TCSETS, &new);
-    }
-  if (i == 1)
-    ioctl(0, TCSETS, &old);
-}
-
-int		cpy_to_pos(char **str, char *buff, int *curs_pos, char *prompt)
-{
-  char		*start;
-  char		*end;
-
-  if ((start = strdup(*str)) == NULL)
-    return (1);
-  start[*curs_pos] = 0;
-  if ((end = strdup(*str + *curs_pos)) == NULL ||
-      (*str = realloc(*str, strlen(*str) + strlen(buff) + 1)) == NULL)
-    return (1);
-  strcpy(*str, start);
-  strcat(*str, buff);
-  strcat(*str, end);
-  *curs_pos += 1;
-  cursor_forward(1);
-  cursor_save();
-  fflush(stdout);
-  write(1, "\r", 1);
-  write(1, prompt, strlen(prompt));
-  write(1, *str, strlen(*str));
-  cursor_restore();
-  fflush(stdout);
-  return (0);
-}
-
-int		do_action(t_key_act actions[14], char **str,
-			  t_sh *sh, char *prompt)
-{
-  static int	cur_pos;
-  static int	index_history;
-  char		buff[11];
-  int		i;
-  t_head	*history;
-
-  history = sh->history;
-  i = -1;
-  memset(buff, 0, 11);
-  read(0, buff, 10);
-  history->prompt = prompt;
-
-  if (sh->reset_curs)
-    {
-      cur_pos = 0;
-      *str[0] = 0;
-      sh->reset_curs = false;
-    }
-  /* int j = -1; */
-  /* while (++j < 10) */
-  /*   printf("\n%d %c\n", buff[j], buff[j]); */
-
-  while (++i < 14)
-    {
-      if (strcmp(buff, actions[i].key) == 0)
-	{
-	  actions[i].fct(str, &cur_pos, history, &index_history);
-	  return (1);
-	}
-    }
-  if (check_exit(buff))
-    do_shortcut_exit(sh);
-  i = -1;
-  while (buff[++i])
-    {
-      if (buff[i] == '\n')
-	{
-	  printf("\n");
-	  cur_pos = 0;
-	  return (3);
-	}
-    }
-  cpy_to_pos(str, buff, &cur_pos, prompt);
-  return (0);
-}
-
-void		get_history(t_sh *sh, t_head *history)
-{
-  char		*str;
-
-  history->path = sh->env->path;
-  while ((str = get_next_line(sh->fd_history)))
-    {
-      push_front_history(history, str);
-      free(str);
-    }
 }
 
 int		pars_check_exec(t_sh *sh, char *str)
@@ -219,11 +62,11 @@ int		pars_check_exec(t_sh *sh, char *str)
     return (0);
   if (parsing(sh, str) || execute_each_act(sh))
     return (1);
-  /* free_struct(sh); */
+  my_free((void **)&str);
   return (0);
 }
 
-int		term_func_01(t_sh *sh, t_key_act actions[14],
+int		term_func_01(t_sh *sh, t_key_act actions[18],
 			     char **str, t_head *history)
 {
   init_actions(actions);
@@ -242,16 +85,22 @@ int		term_func_01(t_sh *sh, t_key_act actions[14],
 
 int		execution(char **str, t_head *history, t_sh *sh)
 {
+  int		tty;
+
+  tty = isatty(0);
   if (str && str[0])
     {
-      if ((sh->exit = bang(str, history)))
-	return (0);
-      push_front_history(history, *str);
+      bang(str, history);
+      /*      if ((sh->exit = ))
+	      return (0);*/
+      if (tty)
+	push_front_history(history, *str);
     }
-  if (sh->fd_history > 0)
+  if (tty && sh->fd_history > 0)
     dprintf(sh->fd_history, "%s\n", *str);
   check_alias(sh->conf.head, str);
-  if (var_env_format(sh, str, sh->env->env))
+  if (var_env_format(sh, str, sh->env->env)
+      || (*str = check_good_quote_replace_quote(sh, *str)) == NULL)
     return (0);
   if (globing(str)
       || pars_check_exec(sh, *str))
@@ -282,22 +131,22 @@ int		test(char **str, t_sh *sh, t_head *history, int *a)
 int		term(t_sh *sh)
 {
   char		*str;
-  t_key_act	actions[14];
+  t_key_act	actions[18];
   int		a;
   t_head	history;
 
+  history.cpy_buf = NULL;
   sh->reset_curs = false;
   sh->history = &history;
-  if (isatty(0) && term_func_01(sh, actions, &str, &history))
+  if ((a = 3) && isatty(0) && term_func_01(sh, actions, &str, &history))
     return (1);
-  a = 3;
   sh->exit = 0;
   while (42)
     {
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
-	    return (sh->exit);
+	    exit(sh->exit);
       	  a = 3;
       	}
       else
@@ -308,28 +157,49 @@ int		term(t_sh *sh)
   return (0);
 }
 
-void		create_history_file(t_sh *sh)
+void		catch_ctrlz()
 {
-  sh->fd_history = open(".42sh_history", O_CREAT | O_RDWR | O_APPEND,
-			S_IRUSR | S_IWUSR | S_IRGRP |
-			S_IWGRP | S_IROTH | S_IWOTH);
+  if (need_check)
+    zsig = true;
+  need_check = false;
+}
+
+void		catch_ctrlc()
+{
+  printf("\n");
+}
+
+void		init_data(UNUSED t_sh *sh)
+{
+  #ifndef DEBUG
+  signal(SIGINT, catch_ctrlc);
+  #endif
+  signal(SIGTSTP, catch_ctrlz);
+  job_list = NULL;
+  zsig = false;
+  need_check = false;
+  last_fg = false;
 }
 
 int		main(UNUSED int ac, UNUSED char **av, char **env)
 {
   t_sh		sh;
+  char		*str;
 
   sh.list = NULL;
   if (check_env(&sh, env))
     return (1);
   get_conf_file(&sh.conf, &sh.env->env);
+  init_data(&sh);
   if (isatty(0))
     {
-      if (setupterm(NULL, 0, NULL) < 0)
+      if (setupterm(NULL, 0, NULL) < 0 ||
+	  !(str = tigetstr("smkx")))
 	return (1);
-      printf("%s", tigetstr("smkx"));
+      printf("%s", str);
       fflush(stdout);
       create_history_file(&sh);
+      change_read_mode(2, 100, 1);
       change_read_mode(0, 100, 1);
       sh.history = NULL;
     }

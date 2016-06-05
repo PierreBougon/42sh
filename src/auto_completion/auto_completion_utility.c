@@ -5,9 +5,10 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Tue May 24 11:01:19 2016 Mathieu Sauvau
-** Last update Mon May 30 14:35:37 2016 Mathieu Sauvau
+** Last update Sat Jun  4 20:31:52 2016 debrau_c
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "42s.h"
@@ -53,11 +54,11 @@ int	strlen_b_slash(char *str)
   return (r);
 }
 
-char    *revstr(char *str)
+char	*revstr(char *str)
 {
-  int   i;
-  int   l;
-  char  tmp;
+  int	i;
+  int	l;
+  char	tmp;
 
   i = 0;
   l = strlen(str);

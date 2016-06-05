@@ -5,9 +5,10 @@
 ** Login   <bougon_p@epitech.net>
 **
 ** Started on  Sun May 29 16:23:51 2016 bougon_p
-** Last update Tue May 31 17:04:32 2016 bougon_p
+** Last update Sat Jun  4 16:57:32 2016 bougon_p
 */
 
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
@@ -35,13 +36,14 @@ int		my_echo(t_sh *sh)
 {
   t_echo	opt;
 
+  opt.fd = sh->exec->fd[0][1];
   if (init_opt(&opt) == 1)
     return (1);
   parse_opt(&opt, sh);
   if (opt.opt_e)
     opt.opt_E = false;
   if (opt.opt_vers)
-    printf("%s\n", ECHO_VERSION);
+    dprintf(opt.fd, "%s\n", ECHO_VERSION);
   else if (opt.opt_help)
     print_help();
   else

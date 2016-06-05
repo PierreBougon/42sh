@@ -5,12 +5,33 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Mar 29 15:21:39 2016 marel_m
-** Last update Wed May 18 19:25:46 2016 marel_m
+** Last update Fri Jun  3 22:23:11 2016 marel_m
 */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include "42s.h"
+
+char	*add_path_tetris(t_sh *sh, int l)
+{
+  char	*buf;
+  char	*path;
+
+  buf = NULL;
+  if (!(buf = getcwd(buf, 0)) ||
+      !(buf = realloc(buf, strlen(buf) + strlen("/assets") + 1)))
+    exit(1);
+  strcat(buf, "/assets");
+  if (!(path = my_strdup_e(sh->env->env[l], 5))
+      || !(path = realloc(path,
+			  strlen(path) + strlen(buf) + 2)))
+    exit(1);
+  strcat(path, ":");
+  strcat(path, buf);
+  free(buf);
+  return (path);
+}
 
 int	check_path(t_sh *sh)
 {
@@ -28,8 +49,8 @@ int	check_path(t_sh *sh)
 	  == NULL)
 	return (1);
     }
-  if ((path = my_strdup_e(sh->env->env[l], 5)) == NULL
-      || (sh->env->path = my_str_to_word_tab(path, ':')) == NULL)
+  path = add_path_tetris(sh, l);
+  if ((sh->env->path = my_str_to_word_tab(path, ':')) == NULL)
     return (1);
   free(path);
   sh->env->pst_path = 1;

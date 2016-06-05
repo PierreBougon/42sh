@@ -5,7 +5,7 @@
 ** Login   <sauvau_m@epitech.net>
 **
 ** Started on  Fri May 13 12:31:02 2016 Mathieu Sauvau
-** Last update Tue May 31 17:59:28 2016 Mathieu Sauvau
+** Last update Sat Jun  4 20:41:10 2016 marel_m
 */
 
 #include <unistd.h>
@@ -16,25 +16,31 @@
 #include <stdlib.h>
 #include "42s.h"
 
-void		edit_str(char **str, int *pos, int del)
+void	edit_str(char **str, int *pos, int del)
 {
-  char		*start;
-  char		*end;
+  char	*start;
+  char	*end;
 
-  start = strdup(*str);
+  if ((start = strdup(*str)) == NULL)
+    exit(1);
   if (!del)
     start[*pos - 1] = 0;
   start[*pos] = 0;
   if (!del)
-    end = strdup(*str + *pos);
+    {
+      if ((end = strdup(*str + *pos)) == NULL)
+	exit(1);
+    }
   else
-    end = strdup(*str + *pos + 1);
-  //printf("\nstart %s \n end %s\n", start, end);
+    if ((end = strdup(*str + *pos + 1)) == NULL)
+      exit(1);
   free(*str);
-  if (!(*str = malloc(strlen(start) + strlen(end) + 1)))
-    return ;
+  if ((*str = malloc(strlen(start) + strlen(end) + 1)) == NULL)
+    exit(1);
   *str = strcpy(*str, start);
   strcat(*str, end);
+  free(start);
+  free(end);
 }
 
 void		backspace(char **str, int *pos,

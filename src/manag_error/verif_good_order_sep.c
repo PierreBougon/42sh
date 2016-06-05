@@ -5,49 +5,56 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 22:23:41 2016 marel_m
-** Last update Thu Jun  2 00:17:45 2016 marel_m
+** Last update Sat Jun  4 20:14:46 2016 marel_m
 */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "42s.h"
 
-int	wrong_order(int redir_r, int redir_l, int pipe)
+int	loop_order_else(int *redir_r, int *pipe, int *i, char *str)
 {
-  if (redir_r > 1)
-    return (write(2, "Ambiguous output redirect\n", 26), 1);
-  else if (redir_l > 1 || (redir_l > 1 && pipe != 0))
-    return (write(2, "Ambiguous input redirect\n", 25), 1);
+  if (str[*i] == '"')
+    while (str[(*i) + 1] != '\0' && str[++(*i)] != '"');
+  else if (str[*i] == '|')
+    {
+      if (*redir_r != 0)
+	return (write(2, "Ambiguous output redirect.\n", 27), 1);
+      (*pipe)++;
+    }
+  else if (str[*i] == '>')
+    {
+      if (*redir_r != 0)
+	return (write(2, "Ambiguous output redirect.\n", 27), 1);
+      (*redir_r)++;
+      if (str[(*i) + 1] != '\0' && str[(*i) + 1] == '>')
+	(*i)++;
+    }
+  else
+    return (-1);
   return (0);
 }
 
 int	loop_order(char *str, int redir_r, int redir_l, int pipe)
 {
   int	i;
+  int	ret;
 
-  i = -1;
-  while (str && str[++i] != '\0')
+  i = 0;
+  while (str && str[i] != '\0')
     {
-      if (str[i] == '|')
-	{
-	  if (redir_r != 0)
-	    return (write(2, "Ambiguous output redirect\n", 26), 1);
-	  pipe++;
-	}
-      else if (str[i] == '>')
-	{
-	  redir_r++;
-	  if (str[i + 1] != '\0' && str[i + 1] == '>')
-	    i++;
-	}
-      else if (str[i] == '<')
-	{
-	  redir_l++;
-	  if (str[i + 1] != '\0' && str[i + 1] == '<')
-	    i++;
-	}
-      if (wrong_order(redir_r, redir_l, pipe))
+      if ((ret = loop_order_else(&redir_r, &pipe, &i, str)) == 1)
 	return (1);
+      else if (ret == -1)
+	if (str[i] == '<')
+	  {
+	    if (pipe != 0)
+	      return (write(2, "Ambiguous input redirect.\n", 26), 1);
+	    redir_l++;
+	    if (str[i + 1] != '\0' && str[i + 1] == '<')
+	      i++;
+	  }
+      i++;
     }
   return (0);
 }
@@ -65,8 +72,8 @@ int	check_order(char *str, int st, int end)
   redir_l = 0;
   pipe = 0;
   if (loop_order(tmp, redir_r, redir_l, pipe))
-    return (free(tmp), 1);
-  free(tmp);
+    return (my_free((void **)&tmp), 1);
+  my_free((void **)&tmp);
   return (0);
 }
 

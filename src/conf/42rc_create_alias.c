@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon May 16 13:22:30 2016 Poc
-** Last update Wed Jun  1 14:06:47 2016 Poc
+** Last update Sat Jun  4 21:52:19 2016 bougon_p
 */
 
 #include <string.h>
@@ -33,8 +33,8 @@ static int     		push_alias_string_back(t_aliases *head,
 
   if ((head->alias == NULL))
     {
-      head->original = first;
-      head->alias = last;
+      head->original = last;
+      head->alias = first;
     }
   else
   {
@@ -43,8 +43,8 @@ static int     		push_alias_string_back(t_aliases *head,
     while (head->next)
       head = head->next;
     head->next = alias;
-    alias->alias = first;
-    alias->original = last;
+    alias->alias = last;
+    alias->original = first;
     alias->next = NULL;
   }
   return (0);
@@ -71,6 +71,7 @@ static char		*isolate_str(char *str)
     }
   else if ((str = strdup(cleaned_str)) == NULL)
     return (NULL);
+  free(cleaned_str);
   return (str);
 }
 
@@ -121,5 +122,6 @@ int			create_alias(t_conf *conf,
     return (0);
   if (push_alias_string_back(conf->head, second_part, first_part))
     return (0);
+  free(tmp);
   return (0);
 }

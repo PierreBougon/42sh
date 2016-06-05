@@ -5,34 +5,13 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:52:45 2016 debrau_c
-** Last update Mon May 30 15:16:37 2016 marel_m
+** Last update Fri Jun  3 22:33:14 2016 debrau_c
 */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "my_glob.h"
-
-static char	**glob_str_tab(char *str)
-{
-  char		**newer;
-  int		nb;
-  int		i;
-  int		j;
-
-  nb = glob_count_occur(str, ' ');
-  if (!(newer = malloc(sizeof(char *) * (nb + 1))))
-    return (NULL);
-  i = -1;
-  j = 0;
-  while (++i < nb)
-    {
-      if ((newer[i] = glob_strcdup(&str[j], ' ')) == NULL)
-	return (NULL);
-      j += glob_strclen(&str[j], ' ') + 1;
-    }
-  newer[i] = NULL;
-  return (newer);
-}
 
 static char	*glob_new_str(char *past, glob_t *buf)
 {
@@ -63,39 +42,47 @@ static int	glob_no_match_recup(char **newer, char **tab, int i)
   strcat(*newer, tab[i]);
   return (0);
 }
+
+glob_t 		*init_globing_do(char **newer, int *i, int *on_quotes)
+{
+  *newer = NULL;
+  *i = -1;
+  *on_quotes = 0;
+  return (malloc(sizeof(glob_t)));
+}
+
 static char	*globing_do(char **tab)
 {
   int		i;
+  int		on_quotes;
   char		*newer;
   glob_t	*buf;
   int		rep;
 
-  newer = NULL;
-  i = -1;
-  if ((buf = malloc(sizeof(glob_t))) == NULL)
-    return (NULL);
+  buf = init_globing_do(&newer, &i, &on_quotes);
   while (tab && tab[++i] != NULL)
     {
-      rep = glob(tab[i], 0, NULL, buf);
-      if (rep == GLOB_NOMATCH)
+      on_quotes = glob_maj_quotes(on_quotes, tab[i][0]);
+      if (!on_quotes)
 	{
-	  if (glob_no_match_recup(&newer, tab, i))
+	  if ((rep = glob(tab[i], 0, NULL, buf)) == GLOB_NOMATCH
+	      && (glob_no_match_recup(&newer, tab, i)))
 	    return (NULL);
+	  else if (buf->gl_pathc > 0 && (newer = glob_new_str(newer, buf)) == NULL)
+	    return (NULL);
+	  globfree(buf);
 	}
-      else if (rep == 0)
-	if (buf->gl_pathc > 0)
-	  if ((newer = glob_new_str(newer, buf)) == NULL)
-	    return (NULL);
-      globfree(buf);
+      else
+	glob_no_match_recup(&newer, tab, i);
     }
-  free(buf);
-  return (newer);
+  return (free(buf), newer);
 }
 
 int	globing(char **str)
 {
   char	**recup;
 
+  glob_clean_str_first(*str);
   if ((recup = glob_str_tab(*str)) == NULL)
     return (1);
   free(*str);

@@ -5,10 +5,12 @@
 ** Login   <debrau_c@epitech.net>
 **
 ** Started on  Thu May 26 20:56:29 2016 debrau_c
-** Last update Wed Jun  1 15:00:41 2016 debrau_c
+** Last update Sat Jun  4 19:46:08 2016 debrau_c
 */
 
+#include <string.h>
 #include <stdlib.h>
+#include "my_glob.h"
 
 int	glob_strclen(char *str, char c)
 {
@@ -69,18 +71,28 @@ void	glob_suppr_char(char *str, int index)
 void	glob_epur(char *str)
 {
   int	i;
+  int	on_quotes;
 
+  on_quotes = 0;
   i = -1;
   if (str == NULL)
     return ;
-  while (str[0] == '\t' || str[0] == ' ')
-    glob_suppr_char(str, 0);
+  glob_clean_str_first(str);
   i = 0;
   while (str && str[++i])
-    if ((str[i - 1] == ' ' || str[i - 1] == '\t')
-	&& (str[i] == ' ' || str[i] == '\t'))
-      {
-	glob_suppr_char(str, i - 1);
-	i = 0;
-      }
+    {
+      if (!on_quotes && str[i] == '"')
+	on_quotes = 1;
+      else if (on_quotes && str[i] == '"')
+	on_quotes = 0;
+      if (!on_quotes)
+	if ((str[i - 1] == ' ' || str[i - 1] == '\t')
+	    && (str[i] == ' ' || str[i] == '\t'))
+	  {
+	    glob_suppr_char(str, i - 1);
+	    i = 0;
+	  }
+    }
+  while (str[strlen(str) - 1] == ' ')
+    str[strlen(str) - 1] = '\0';
 }

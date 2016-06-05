@@ -5,9 +5,10 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Tue May 31 17:40:17 2016 Poc
-** Last update Wed Jun  1 15:19:15 2016 bougon_p
+** Last update Sat Jun  4 17:08:23 2016 marel_m
 */
 
+#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -15,7 +16,7 @@
 
 int		go_up(t_history *head, int i, char **str)
 {
-  while (i > 0)
+  while (i > 0 && head)
     {
       head = head->next;
       i--;
@@ -28,7 +29,7 @@ int		go_up(t_history *head, int i, char **str)
 
 int		go_down(t_history *head, int i, char **str)
 {
-  while (i < 0)
+  while (i < 0 && head)
     {
       head = head->prev;
       i++;
@@ -46,7 +47,7 @@ int		bang(char **str, t_head *hist)
   if ((*str)[0] != '!')
     return (0);
   i = 0;
-  i = atoi((*str) + 1);
+  i = my_getnbr((*str) + 1);
   if (i > 0)
     go_up(hist->first, i - 1, str);
   else if (i < 0)

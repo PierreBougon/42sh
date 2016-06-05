@@ -5,9 +5,10 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Sat Jun  4 16:55:43 2016 Poc
-** Last update Sat Jun  4 21:23:54 2016 Poc
+** Last update Sun Jun  5 00:02:41 2016 Poc
 */
 
+#include <string.h>
 #include <stdlib.h>
 #include "42s.h"
 
@@ -36,15 +37,6 @@ void	add_to_back(t_pid **list, int pid)
   tmp->pid = pid;
   tmp->next = (*list);
   *list = tmp;
-}
-
-void	show_pid_list(t_pid *pid)
-{
-  while (pid)
-    {
-      printf("showlist %d\n", pid->pid);
-      pid = pid->next;
-    }
 }
 
 void	clear_list(t_pid *pid)

@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon May 16 18:06:10 2016 marel_m
-** Last update Thu Jun  2 00:23:37 2016 marel_m
+** Last update Sat Jun  4 22:22:39 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -31,12 +31,12 @@ t_node		*one_node(char *arg, t_type type)
   return (new);
 }
 
-t_node		*last_node(t_node *new, char *arg_l, t_type type)
+t_node		*last_node(t_node *new, char *arg_l, UNUSED t_type type)
 {
-  if ((new->arg = strdup(arg_l)) == NULL
-      || (new->left = one_node(NULL, type)) == NULL
-      || (new->right = one_node(NULL, type)) == NULL)
+  if ((new->arg = strdup(arg_l)) == NULL)
     return (NULL);
+  new->left = NULL;
+  new->right = NULL;
   return (new);
 }
 
@@ -52,10 +52,10 @@ int		check_good_node_arg(t_node *new, t_type type)
     if (type == fptrtab[i].arg_act)
       {
 	if (fptrtab[i].ft_arg_act(&new->arg))
-	  return (1);
-	return (0);
+	  return (free(fptrtab), 1);
+	return (free(fptrtab), 0);
       }
-  return (0);
+  return (free(fptrtab), 0);
 }
 
 t_node		*new_node(char *arg_l, char *arg_r, t_type type)

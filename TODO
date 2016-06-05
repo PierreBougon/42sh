@@ -1,1 +1,11 @@
-Faire le relink du Makefile
+Faire le relink du Makefile DONE
+
+
+
+
+
+
+Job control :
+fg -> si != 0 kill(CONT) du dernier
+bg -> si == pas de tache sinon aff dernier + num
+ctrl z -> mettre en bg

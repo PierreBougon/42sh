@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sat Jun  4 23:23:43 2016 Poc
+** Last update Sun Jun  5 00:01:27 2016 Poc
 */
 
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 #include <unistd.h>
 #include "42s.h"
 
-int	close_all_first_pipe(int **fd, int target)
+void	close_all_first_pipe(int **fd, int target)
 {
   int	i;
 
@@ -29,7 +29,7 @@ int	close_all_first_pipe(int **fd, int target)
     }
 }
 
-int	execute_first_pipe(t_sh *sh)
+void	execute_first_pipe(t_sh *sh)
 {
   close(sh->exec->fd[1][1]);
   close_all_first_pipe(sh->exec->fd, 1);
@@ -38,7 +38,7 @@ int	execute_first_pipe(t_sh *sh)
   exit(1);
 }
 
-int	close_all_execute_in_son(int **fd, int target, int next_target)
+void	close_all_execute_in_son(int **fd, int target, int next_target)
 {
   int	i;
 
@@ -66,6 +66,7 @@ int	execute_in_son(t_sh *sh)
   dup2(sh->exec->fd[sh->actual_pipe + 1][0], 0);
   dup2(sh->exec->fd[sh->actual_pipe][1], 1);
   execve(sh->exec->good_path, sh->exec->arg, sh->env->env);
+  exit(1);
 }
 
 int	pipes(t_sh *sh, t_node *node)
@@ -82,16 +83,16 @@ int	pipes(t_sh *sh, t_node *node)
     {
       if (sh->actual_pipe == 0)
 	{
-	  if (execute_first_pipe(sh))
-	    exit (1);
+	  execute_first_pipe(sh);
 	  close(sh->exec->fd[1][0]);
+	  exit (1);
 	}
       else
 	{
-	  if (execute_in_son(sh))
-	    exit (1);
+	  execute_in_son(sh);
 	  close(sh->exec->fd[sh->actual_pipe + 1][0]);
 	  close(sh->exec->fd[sh->actual_pipe + 1][1]);
+	  exit (1);
 	}
       exit (1);
     }
