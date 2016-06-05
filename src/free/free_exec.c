@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 24 13:18:46 2016 marel_m
-** Last update Sat Jun  4 22:33:11 2016 marel_m
+** Last update Sun Jun  5 00:18:40 2016 Poc
 */
 
 #include <stdlib.h>
@@ -17,8 +17,6 @@ void	free_exec(t_exec *exec)
   my_free((void **)exec->arg);
   my_free((void **)&(exec)->exec);
   my_free((void **)&(exec)->good_path);
-  /* free_tab_int((*exec)->fd); */
-  my_free((void **)&(exec)->fd);
 }
 
 void		free_tree(t_list_sh *list)

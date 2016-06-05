@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Sat Jun  4 21:40:24 2016 marel_m
+** Last update Sun Jun  5 00:18:08 2016 Poc
 */
 
 #include <stdlib.h>
@@ -37,7 +37,6 @@ char	*pars_pipe(t_list_sh *elem, char *str, int quote)
 		  (new = strndup(str, i)), PIPE) == NULL)
     return (NULL);
   my_free((void **)&tmp);
-  my_free((void **)&str);
   return (new);
 }
 
