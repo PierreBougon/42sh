@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 14:23:53 2016 Poc
+** Last update Sun Jun  5 14:30:56 2016 Poc
 */
 
 #include <errno.h>
@@ -153,8 +153,7 @@ int	father_action(t_sh *sh, int pid)
       printf("%s", str);
       fflush(stdout);
     }
-  change_read_mode(0, 100, 1);
-  return (0);
+  return (change_read_mode(0, 100, 1), 0);
 }
 
 int	last_action(t_sh *sh, int pid)
