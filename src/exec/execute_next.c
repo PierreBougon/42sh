@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Sun Jun  5 17:12:22 2016 marel_m
+** Last update Sun Jun  5 17:27:20 2016 marel_m
 */
 
 #include <unistd.h>
@@ -46,6 +46,7 @@ int		execute_each_act(t_sh *sh)
   tmp = sh->root->next;
   while (i < sh->lenght - 1)
     {
+      sh->actual_pipe = 0;
       sh->exec->good_path = NULL;
       if ((sh->exec->fd = malloc(sizeof(int *) * (tmp->nb + 1))) == NULL)
 	exit(1);
@@ -57,6 +58,5 @@ int		execute_each_act(t_sh *sh)
     }
   free_list(sh);
   my_free((void **)&(sh)->root);
-  my_free((void **)&(sh->exec));
-  return (0);
+  return (my_free((void **)&(sh->exec)), 0);
 }

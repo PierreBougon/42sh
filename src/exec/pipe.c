@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 16:46:30 2016 Mathieu Sauvau
+** Last update Sun Jun  5 17:25:34 2016 Poc
 */
 
 #include <stdlib.h>
@@ -47,7 +47,7 @@ void	close_all_execute_in_son(int **fd, int target, int next_target)
 
 int	execute_in_son(t_sh *sh)
 {
-  if (!sh->exec->fd[sh->actual_pipe + 1])
+  if (!sh->exec->fd[sh->actual_pipe] || !sh->exec->fd[sh->actual_pipe + 1])
     return (1);
   close_all_execute_in_son(sh->exec->fd, sh->actual_pipe, sh->actual_pipe + 1);
   close(sh->exec->fd[sh->actual_pipe + 1][1]);
@@ -69,7 +69,8 @@ int	in_fork(t_sh *sh)
     }
   else
     {
-      execute_in_son(sh);
+      if (execute_in_son(sh))
+	return (1);
       if ((sh->exec->fd[sh->actual_pipe + 1]))
 	{
 	  close(sh->exec->fd[sh->actual_pipe + 1][0]);
@@ -93,7 +94,8 @@ int	pipes(t_sh *sh, t_node *node)
   if ((chid = fork()) == -1)
     return (1);
   if (!chid)
-    in_fork(sh);
+    if (in_fork(sh))
+      return (0);
   add_to_back(&sh->list, chid);
   sh->actual_pipe++;
   free(sh->exec->exec);
