@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 23:47:51 2016 marel_m
-** Last update Sun Jun  5 01:59:15 2016 Mathieu Sauvau
+** Last update Sun Jun  5 02:07:34 2016 Mathieu Sauvau
 */
 
 #include <string.h>
@@ -74,7 +74,6 @@ char	*rewrite_str(char *str)
       tmp = strcat(tmp, tmp3);
       my_free((void **)&tmp3);
     }
-  printf("tmp %s\n", tmp);
   my_free((void **)&tmp2);
   return (tmp);
 }
