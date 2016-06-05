@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 15:20:02 2016 Poc
+** Last update Sun Jun  5 17:59:13 2016 DEBRAUWERE Carl
 */
 
 #include <sys/wait.h>
@@ -27,7 +27,7 @@ void    signal_gest_init(char *ref[11])
   ref[7] = "Floating point exception";
   ref[8] = "";
   ref[9] = "";
-  ref[10] = "Segmentation Fault";
+  ref[10] = "Segmentation fault";
 }
 
 int     signal_gest(int status, t_sh *sh, pid_t pid, bool stock)
