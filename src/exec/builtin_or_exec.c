@@ -5,11 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-<<<<<<< HEAD
-** Last update Sun Jun  5 11:15:29 2016 Poc
-=======
-** Last update Sun Jun  5 11:25:12 2016 Mathieu Sauvau
->>>>>>> 9326e4d40ed97e31d821eb724a5ac7266dece59e
+** Last update Sun Jun  5 13:27:51 2016 Poc
 */
 
 #include <errno.h>
@@ -71,8 +67,8 @@ int	action_redir(t_sh *sh, int pipe_nb)
     {
       if (pipe_nb)
 	{
-	  dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][1]);
-	  exit(1);
+	  dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][0]);
+	  /* exit(1); */
 	}
       else if (dup2(sh->exec->fd[0][0], 0) == -1)
 	return (1);
@@ -184,7 +180,9 @@ int	action(t_sh *sh)
   if (pid == 0)
     {
       if (action_redir(sh, sh->actual_pipe))
-	  return (1);
+      	  return (1);
+      if (sh->exec->fd[0][0] != -1)
+	dup2(sh->exec->fd[0][0], 0);
       if (sh->actual_pipe && sh->exec->fd[sh->actual_pipe])
 	dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if ((check_builtin(sh)) == -3)
