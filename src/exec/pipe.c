@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 15:06:33 2016 Poc
+** Last update Sun Jun  5 16:46:30 2016 Mathieu Sauvau
 */
 
 #include <stdlib.h>
@@ -86,8 +86,9 @@ int	pipes(t_sh *sh, t_node *node)
 
   sh->is_pipe = true;
   sh->exec->type = node->type;
-  sh->exec->arg = my_str_to_word_tab(node->arg, ' ');
-  sh->exec->exec = strdup(sh->exec->arg[0]);
+  if (!(sh->exec->arg = my_str_to_word_tab(node->arg, ' ')) ||
+      !(sh->exec->exec = strdup(sh->exec->arg[0])))
+    return (1);
   check_good_path(sh);
   if ((chid = fork()) == -1)
     return (1);
@@ -95,5 +96,6 @@ int	pipes(t_sh *sh, t_node *node)
     in_fork(sh);
   add_to_back(&sh->list, chid);
   sh->actual_pipe++;
+  free(sh->exec->exec);
   return (0);
 }
