@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 14:30:56 2016 Poc
+** Last update Sun Jun  5 14:52:59 2016 Poc
 */
 
 #include <errno.h>
@@ -67,7 +67,7 @@ int	action_redir(t_sh *sh, int pipe_nb)
     {
       if (pipe_nb)
 	{
-	  if (dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][0]))
+	  if (dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][0]) == -1)
 	    return (1);
 	}
       else if (dup2(sh->exec->fd[0][0], 0) == -1)
