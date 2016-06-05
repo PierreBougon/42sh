@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Mon Nov 23 11:36:14 2015 maud marel
-** Last update Sat Jun  4 22:35:23 2016 marel_m
+** Last update Sun Jun  5 17:05:02 2016 marel_m
 */
 
 #include <string.h>
@@ -21,7 +21,8 @@ char	**my_realloc_tab(char **old, int size)
   l = 0;
   while (old && old[l] != NULL)
     {
-      new[l] = strdup(old[l]);
+      if ((new[l] = strdup(old[l])) == NULL)
+	return (NULL);
       free(old[l]);
       l++;
     }

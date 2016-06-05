@@ -5,7 +5,7 @@
 ## Login   <debrau_c@epitech.net>
 ## 
 ## Started on  Sat Jun  4 23:23:11 2016 debrau_c
-## Last update Sun Jun  5 17:40:41 2016 debrau_c
+## Last update Sun Jun  5 19:45:40 2016 debrau_c
 ##
 
 test_str[0]="setenv PATH '' ; ls -la /bin ."
@@ -30,8 +30,9 @@ test_str[18]="echo 'main;' > seg.c ; gcc seg.c ; ./a.out ; rm seg.c a.out"
 test_str[19]="ls || ls && ls && ls || ls || ls"
 test_str[20]="ls && ls || ls || ls && ls && ls"
 test_str[21]="ls &&;"
+test_str[22]="grep tty < fic | tr y Y > ficout ; cat ficout | sed s/tt/uu/g > ficout2 ; cat fi cout2 | tr u I"
 i=0
-nb=22
+nb=23
 doss="test_result"
 
 mkdir -p $doss
