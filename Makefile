@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 15:25:58 2016 Mathieu Sauvau
+## Last update Sun Jun  5 15:30:41 2016 Mathieu Sauvau
 ##
 
 DEBUG	= no
@@ -54,6 +54,7 @@ SRC	= main.c				\
 	conf/conf.c				\
 	conf/42rc_create_alias.c		\
 	conf/42rc_alias_checker.c		\
+	conf/aliascmp.c				\
 	conf/42rc_create_export.c		\
 	env/check_home.c			\
 	env/check_oldpwd.c			\
