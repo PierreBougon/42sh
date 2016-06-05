@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun Jun  5 14:34:02 2016 bougon_p
+** Last update Sun Jun  5 15:05:29 2016 marel_m
 */
 
 #include <signal.h>
@@ -97,9 +97,8 @@ int		execution(char **str, t_head *history, t_sh *sh)
   tty = isatty(0);
   if (str && str[0])
     {
-      bang(str, history);
-      /*      if ((sh->exit = ))
-	      return (0);*/
+      if (bang(str, history))
+	return (0);
       if (tty)
 	push_front_history(history, *str);
     }
