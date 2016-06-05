@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri Jun  3 19:55:04 2016 marel_m
-** Last update Sat Jun  4 23:43:27 2016 Mathieu Sauvau
+** Last update Sun Jun  5 00:09:06 2016 Mathieu Sauvau
 */
 
 #include <sys/ioctl.h>
@@ -106,10 +106,12 @@ int		do_action(t_key_act actions[18], char **str,
 
   history = NULL;
   init_action_loop(sh, buff, &history, prompt);
-  if (!(i = -1) && sh->reset_curs)
+  if ((!(i = -1) && sh->reset_curs) || ctrlc)
     {
+      ctrlc = false;
       cur_pos = 0;
       sh->reset_curs = false;
+      memset(*str, 0, strlen(*str));
     }
   while (++i < 18)
     {
