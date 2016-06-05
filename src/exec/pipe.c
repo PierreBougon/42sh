@@ -5,29 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 18:09:06 2016 debrau_c
+** Last update Sun Jun  5 19:02:51 2016 debrau_c
 */
 
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include "42s.h"
-
-void	close_all_first_pipe(int **fd, int target)
-{
-  int	i;
-
-  i = 1;
-  while (fd[i])
-    {
-      if (i != target)
-	{
-	  close(fd[i][1]);
-	  close(fd[i][0]);
-	}
-      i++;
-    }
-}
 
 void	execute_first_pipe(t_sh *sh)
 {
@@ -75,38 +59,43 @@ int	execute_in_son(t_sh *sh)
   exit(1);
 }
 
+int	in_fork(t_sh *sh)
+{
+  if (sh->actual_pipe == 0)
+    {
+      execute_first_pipe(sh);
+      close(sh->exec->fd[1][0]);
+      exit (1);
+    }
+  else
+    {
+      execute_in_son(sh);
+      if ((sh->exec->fd[sh->actual_pipe + 1]))
+	{
+	  close(sh->exec->fd[sh->actual_pipe + 1][0]);
+	  close(sh->exec->fd[sh->actual_pipe + 1][1]);
+	}
+      exit (1);
+    }
+  exit (1);
+}
+
 int	pipes(t_sh *sh, t_node *node)
 {
   int		chid;
 
   sh->is_pipe = true;
   sh->exec->type = node->type;
-  sh->exec->arg = my_str_to_word_tab(node->arg, ' ');
-  sh->exec->exec = strdup(sh->exec->arg[0]);
+  if (!(sh->exec->arg = my_str_to_word_tab(node->arg, ' ')) ||
+      !(sh->exec->exec = strdup(sh->exec->arg[0])))
+    return (1);
   check_good_path(sh);
   if ((chid = fork()) == -1)
     return (1);
   if (!chid)
-    {
-      if (sh->actual_pipe == 0)
-	{
-	  execute_first_pipe(sh);
-	  close(sh->exec->fd[1][0]);
-	  exit (1);
-	}
-      else
-	{
-	  execute_in_son(sh);
-	  if ((sh->exec->fd[sh->actual_pipe + 1]))
-	    {
-	      close(sh->exec->fd[sh->actual_pipe + 1][0]);
-	      close(sh->exec->fd[sh->actual_pipe + 1][1]);
-	    }
-	  exit (1);
-	}
-      exit (1);
-    }
+    in_fork(sh);
   add_to_back(&sh->list, chid);
   sh->actual_pipe++;
+  free(sh->exec->exec);
   return (0);
 }

@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 12:05:38 2016 marel_m
+## Last update Sun Jun  5 15:57:34 2016 Poc
 ##
 
 DEBUG	= no
@@ -29,6 +29,8 @@ AUTO	= auto_completion/
 SRC	= main.c				\
 	convert_base.c				\
 	index.c					\
+	jobs.c					\
+	main_loop.c				\
 	free/free_exec.c			\
 	ncurses/ncurses.c			\
 	ncurses/actions.c			\
@@ -52,6 +54,7 @@ SRC	= main.c				\
 	conf/conf.c				\
 	conf/42rc_create_alias.c		\
 	conf/42rc_alias_checker.c		\
+	conf/aliascmp.c				\
 	conf/42rc_create_export.c		\
 	env/check_home.c			\
 	env/check_oldpwd.c			\
@@ -80,7 +83,10 @@ SRC	= main.c				\
 	manag_error/verif_good_synthax.c	\
 	manag_error/verif_good_syn_dep.c	\
 	manag_error/check_good_double_quote.c	\
+	exec/builtin_or_exec_next.c		\
+	exec/signal.c				\
 	exec/execute.c				\
+	exec/execute_next.c			\
 	exec/builtin_or_exec.c			\
 	exec/check_good_path.c			\
 	exec/redirections.c			\
@@ -88,6 +94,7 @@ SRC	= main.c				\
 	exec/pipe.c				\
 	exec/double_left.c			\
 	exec/pid_list.c				\
+	exec/pipe_next.c			\
 	builtins/check_builtins.c		\
 	builtins/check_cd.c			\
 	builtins/check_env.c			\

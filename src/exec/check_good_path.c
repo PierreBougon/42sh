@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:33:30 2016 marel_m
-** Last update Sun Jun  5 14:43:47 2016 marel_m
+** Last update Sun Jun  5 16:43:01 2016 Mathieu Sauvau
 */
 
 #include <dirent.h>
@@ -23,8 +23,11 @@ int	check_good_path_normal_case(t_sh *sh)
   while (sh->env->path[++i] != '\0' && sh->env->path)
     {
       if ((sh->exec->good_path = strdup(sh->env->path[i])) == NULL
-	  || (sh->exec->good_path = my_strcat(sh->exec->good_path, "/")) == NULL
-	  || (sh->exec->good_path = my_strcat(sh->exec->good_path,
+	  || (sh->exec->good_path =
+	      realloc(sh->exec->good_path, strlen(sh->exec->good_path) +
+		      strlen(sh->exec->exec) + 3)) == NULL
+	  || (sh->exec->good_path = strcat(sh->exec->good_path, "/")) == NULL
+	  || (sh->exec->good_path = strcat(sh->exec->good_path,
 					      sh->exec->exec)) == NULL)
 	return (1);
       if (access(sh->exec->good_path, F_OK) == 0
