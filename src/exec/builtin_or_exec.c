@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 14:08:57 2016 Mathieu Sauvau
+** Last update Sun Jun  5 14:27:29 2016 Mathieu Sauvau
 */
 
 #include <errno.h>
@@ -81,6 +81,10 @@ int	close_all(int **fd)
   int	i;
 
   i = 1;
+  if (fd[0][1] != -1)
+    close (fd[0][1]);
+  if (fd[0][0] != -1)
+    close (fd[0][0]);
   while (fd[i])
     {
       close(fd[i][0]);
