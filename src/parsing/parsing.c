@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 11 16:02:55 2016 marel_m
-** Last update Sun Jun  5 11:39:45 2016 marel_m
+** Last update Sun Jun  5 15:02:02 2016 marel_m
 */
 
 #include <string.h>
@@ -61,8 +61,7 @@ int		pars_tree(t_list_sh *elem, char *str)
   if (check_prior(str) != 0)
     if (pars_tree(elem, str))
       return (1);
-  my_free((void **)&str);
-  return (0);
+  return (my_free((void **)&str), 0);
 }
 
 int		stock_elem(t_sh *sh, char *str, int st, int end)
@@ -133,7 +132,7 @@ int	parsing(t_sh *sh, char *str)
   while (str && str[i] != '\0')
     {
       if (str[i] == '"')
-	while (str[++i] != '"' && str[i] != '\0');
+	while (str[++i] != '\0' && str[i] != '"');
       else if ((ret = which_separator(sh, str, &i, &j)) == -1)
 	i++;
       else if (ret == 1)

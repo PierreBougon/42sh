@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue May 31 23:47:51 2016 marel_m
-** Last update Sun Jun  5 13:29:51 2016 marel_m
+** Last update Sun Jun  5 15:03:03 2016 marel_m
 */
 
 #include <string.h>
@@ -43,12 +43,11 @@ int	do_some(char *str, char **tmp, char **tmp2, char **tmp3)
       if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + 1)) == NULL)
 	return (0);
     }
-  else if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2) + strlen(*tmp3)
-			  + 1)) == NULL)
+  else if ((*tmp = realloc(*tmp, strlen(*tmp) + strlen(*tmp2)
+			   + strlen(*tmp3) + 1)) == NULL)
     return (0);
   return (1);
 }
-
 
 char	*rewrite_str_redir_l(char *str)
 {

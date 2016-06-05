@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 13 15:22:08 2016 marel_m
-** Last update Sun Jun  5 04:49:04 2016 marel_m
+** Last update Sun Jun  5 15:01:15 2016 marel_m
 */
 
 #include <stdlib.h>
@@ -38,8 +38,7 @@ char	*pars_pipe(t_list_sh *elem, char *str, int quote)
   if (insert_node(&elem->node, (tmp = my_strdup_e(str, i + 1)),
 		  (new = strndup(str, i)), PIPE) == NULL)
     return (NULL);
-  my_free((void **)&tmp);
-  return (new);
+  return (my_free((void **)&tmp), new);
 }
 
 char	*pars_redir_left_with_other(t_list_sh *elem, char *str, int i)
