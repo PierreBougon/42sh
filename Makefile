@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 10:51:36 2016 marel_m
+## Last update Sun Jun  5 12:05:38 2016 marel_m
 ##
 
 DEBUG	= no
@@ -135,7 +135,7 @@ TETRI	= stock_check_tetriminos/
 
 FREE	= free/
 
-TETFILE	= main.c				\
+TETFILE	= main.c			\
 	$(ARGS)check_arg.c		\
 	$(ARGS)read_arg.c 		\
 	$(ARGS)init_options.c		\
