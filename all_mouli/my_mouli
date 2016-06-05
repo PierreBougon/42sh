@@ -5,20 +5,33 @@
 ## Login   <debrau_c@epitech.net>
 ## 
 ## Started on  Sat Jun  4 23:23:11 2016 debrau_c
-## Last update Sun Jun  5 03:25:12 2016 debrau_c
+## Last update Sun Jun  5 17:40:41 2016 debrau_c
 ##
 
-SETP="setenv PATH"
-test_str[0]="aaa || s || l || l || && ls || azdazdazdazdazd zdazd || zdazd"
-test_str[1]="|| ls ||"
-test_str[2]="|| && ||"
-test_str[3]=""
-test_str[4]="azdazd || azdazd || azdazdazd || azdazda || && ls || ls || ls"
-test_str[5]="echo salut | ls > salut ; cat salut ; rm salut"
-test_str[6]="ls ; ls | exit"
-test_str[7]="ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l | ls | wc -l"
+test_str[0]="setenv PATH '' ; ls -la /bin ."
+test_str[1]="echo salut toi comment sa va"
+test_str[2]="echo -n coucou toi comment tu vas"
+test_str[3]="ls ; ls ; ls ; ls "
+test_str[4]="ls > coucou | wc -l"
+test_str[5]="ls | wc | cat -e"
+test_str[6]="cd -"
+test_str[7]="cd $HOME"
+test_str[8]="cd"
+test_str[9]="cd coucou"
+test_str[10]="mkdir toto ; cp /bin/ls toto/cat; toto/cat"
+test_str[11]="cat /bin/ls > myls"
+test_str[12]="cat < toto | grep src"
+test_str[13]="< Makefile cat | > wc cat -e"
+test_str[14]="cat | cat -e < Makefile > wc"
+test_str[15]="cat < 42sh | cat > toto ; ls >> toto"
+test_str[16]="> salut ls | < cat salut ; rm salut"
+test_str[17]="setenv PATH \"\"; ls > coucou"
+test_str[18]="echo 'main;' > seg.c ; gcc seg.c ; ./a.out ; rm seg.c a.out"
+test_str[19]="ls || ls && ls && ls || ls || ls"
+test_str[20]="ls && ls || ls || ls && ls && ls"
+test_str[21]="ls &&;"
 i=0
-nb=8
+nb=22
 doss="test_result"
 
 mkdir -p $doss
@@ -37,5 +50,3 @@ do
     fi
     let i=i+1
 done
-
-rm -rf $doss
