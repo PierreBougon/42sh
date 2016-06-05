@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 02:36:13 2016 Poc
+** Last update Sun Jun  5 03:14:39 2016 Poc
 */
 
 #include <errno.h>
@@ -98,7 +98,7 @@ int	wait_func(t_pid *pid, t_sh *sh)
   status = 0;
   while (pid)
     {
-      waitpid(pid->pid, &status, 0);
+      waitpid(pid->pid, &status, WUNTRACED);
       signal_gest(status, sh, pid->pid, 0);
       pid = pid->next;
     }
@@ -132,9 +132,15 @@ int	action(t_sh *sh)
   if (pid != 0)
     {
       close_all(sh->exec->fd);
-      if (waitpid(pid, &status, 0) == -1)
-	return (1);
-      signal_gest(status, sh, pid, 0);
+      need_check = true;
+      if (waitpid(pid, &status, WUNTRACED) == -1)
+      	return (1);
+      need_check = false;
+      if (signal_gest(status, sh, pid, true))
+	{
+	  sh->exit = status;
+	  sh->exec->stop;
+	}
       wait_func(sh->list, sh);
       clear_list(sh->list);
       sh->list = NULL;

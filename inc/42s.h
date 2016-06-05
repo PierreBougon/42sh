@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 00:13:55 2016 Poc
+** Last update Sun Jun  5 03:21:43 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -164,6 +164,7 @@ typedef struct		s_sh
   int			fd_history;
   int			actual_pipe;
   bool			reset_curs;
+  bool			is_pipe;
   t_pid			*list;
   t_job_list		*job_list;
 }			t_sh;

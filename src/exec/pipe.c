@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 02:33:58 2016 Poc
+** Last update Sun Jun  5 03:27:08 2016 Poc
 */
 
 #include <stdlib.h>
@@ -77,6 +77,7 @@ int	pipes(t_sh *sh, t_node *node)
 {
   int		chid;
 
+  sh->is_pipe = true;
   sh->exec->type = node->type;
   sh->exec->arg = my_str_to_word_tab(node->arg, ' ');
   sh->exec->exec = strdup(sh->exec->arg[0]);

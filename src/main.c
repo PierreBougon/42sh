@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun Jun  5 00:13:47 2016 Poc
+** Last update Sun Jun  5 03:29:55 2016 Poc
 */
 
 #include <signal.h>
@@ -30,6 +30,11 @@ int	push_job_foreground(t_sh *sh)
 {
   int	status;
 
+  if (sh->is_pipe)
+    {
+      dprintf(2, "You can't resume a job in a pipe ;)\n");
+      return (1);
+    }
   if (job_list)
     {
       last_fg = true;
@@ -144,6 +149,7 @@ int		term(t_sh *sh)
   sh->exit = 0;
   while (42)
     {
+      sh->is_pipe = false;
       if (!isatty(0))
       	{
       	  if ((str = get_next_line(0)) == NULL)
