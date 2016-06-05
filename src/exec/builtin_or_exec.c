@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 04:54:53 2016 Poc
+** Last update Sun Jun  5 11:25:12 2016 Mathieu Sauvau
 */
 
 #include <errno.h>
@@ -13,6 +13,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <ncurses.h>
 #include "42s.h"
 
 void    signal_gest_init(char *ref[11])
@@ -125,6 +126,7 @@ int	close_all_last_pipe(int **pipe, int pos)
 int	father_action(t_sh *sh, int pid)
 {
   int	status;
+  char	*str;
 
   close_all(sh->exec->fd);
   g_need_check = true;
@@ -139,6 +141,12 @@ int	father_action(t_sh *sh, int pid)
   wait_func(sh->list, sh);
   clear_list(sh->list);
   sh->list = NULL;
+  if ((str = tigetstr("smkx")) != (char *)-1)
+    {
+      printf("%s", str);
+      fflush(stdout);
+    }
+  change_read_mode(0, 100, 1);
   return (0);
 }
 
