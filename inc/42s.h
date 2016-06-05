@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 15:40:48 2016 Poc
+** Last update Sun Jun  5 16:07:51 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -207,6 +207,7 @@ int			check_alias(t_aliases *, char **);
 int			get_conf_file(t_conf *, char ***);
 int			create_alias(t_conf *, char ***, char *);
 int			create_export(t_conf *, char ***, char *);
+int			aliascmp(char *, char *);
 
 /*
 ** CURSOR
@@ -321,6 +322,7 @@ void			invert(bool *, bool *, char);
 void			init_tab(t_echo *);
 int			blt_hist(t_sh *);
 int			tetris(t_sh *);
+int			action_redir(t_sh *, int);
 
 /*
 **EXEC
@@ -404,5 +406,16 @@ t_job_list		*erase_job(t_job_list *, t_job_list *);
 int			push_job_foreground(t_sh *);
 int			print_list(t_sh *);
 void			kill_list_job(void);
+void			init_data(t_sh *);
+int			push_job_foreground(t_sh *);
+void			catch_ctrlz();
+void			catch_ctrlc();
+
+/*
+** MAIN LOOP
+*/
+int			term(t_sh *);
+int			term_func_01(t_sh *, t_key_act *, char **, t_head *);
+int			test(char **, t_sh *, t_head *, int *);
 
 #endif /* _42s_H_ */

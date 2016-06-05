@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Fri May 20 13:59:36 2016 marel_m
-** Last update Sat Jun  4 21:26:41 2016 marel_m
+** Last update Sun Jun  5 15:46:48 2016 marel_m
 */
 
+#include <dirent.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -18,6 +19,16 @@
 
 int	redirection_right(t_sh *sh, t_node *tree)
 {
+  DIR	*dir;
+
+  dir = opendir(tree->arg);
+  if (dir)
+    {
+      write(2, tree->arg, strlen(tree->arg));
+      write(2, ": Is a directory.\n", 18);
+      sh->exit = 1;
+      return (-1);
+    }
   sh->exec->type = tree->type;
   if ((sh->exec->fd[0][1] = open(tree->arg,
 				 O_CREAT | O_WRONLY | O_TRUNC, 0644)) == -1)
@@ -40,6 +51,16 @@ int	redirection_left(t_sh *sh, t_node *tree)
 
 int	double_redirection_right(t_sh *sh, t_node *tree)
 {
+  DIR	*dir;
+
+  dir = opendir(tree->arg);
+  if (dir)
+    {
+      write(2, tree->arg, strlen(tree->arg));
+      write(2, ": Is a directory.\n", 18);
+      sh->exit = 1;
+      return (-1);
+    }
   sh->exec->type = tree->type;
   if ((sh->exec->fd[0][1] =
        open(tree->arg, O_CREAT | O_WRONLY | O_APPEND, 0644)) == -1)
