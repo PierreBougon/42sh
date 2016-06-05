@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 15:08:11 2016 Poc
+** Last update Sun Jun  5 15:40:48 2016 Poc
 */
 
 #ifndef _42s_H_
@@ -325,6 +325,7 @@ int			tetris(t_sh *);
 /*
 **EXEC
 */
+int			check_which_config(t_sh *, t_list_sh *, t_node *);
 int			execute_each_act(t_sh *);
 int			check_good_path(t_sh *);
 int			check_builtin(t_sh *);
@@ -340,6 +341,7 @@ int			close_all(int **);
 int			wait_func(t_pid *, t_sh *);
 void			add_to_back(t_pid **, int);
 void			close_all_first_pipe(int **, int);
+void			loop_execute(t_sh *, t_list_sh **, int *);
 
 /*
 ** ENV

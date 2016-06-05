@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 15:07:05 2016 Poc
+## Last update Sun Jun  5 15:39:33 2016 Poc
 ##
 
 DEBUG	= no
@@ -80,7 +80,10 @@ SRC	= main.c				\
 	manag_error/verif_good_synthax.c	\
 	manag_error/verif_good_syn_dep.c	\
 	manag_error/check_good_double_quote.c	\
+	exec/builtin_or_exec_next.c		\
+	exec/signal.c				\
 	exec/execute.c				\
+	exec/execute_next.c			\
 	exec/builtin_or_exec.c			\
 	exec/check_good_path.c			\
 	exec/redirections.c			\
