@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Thu Jan  7 16:17:02 2016 Clement Peau
-## Last update Sun Jun  5 04:07:06 2016 bougon_p
+## Last update Sun Jun  5 12:05:38 2016 marel_m
 ##
 
 DEBUG	= no
@@ -74,6 +74,7 @@ SRC	= main.c				\
 	parsing/create_list_job.c		\
 	parsing/print_list_job.c		\
 	parsing/kill_list_job.c			\
+	parsing/rewrite_redir_r_redir_l.c	\
 	manag_error/verif_good_order_sep.c	\
 	manag_error/check_if_missing_name.c	\
 	manag_error/verif_good_synthax.c	\
@@ -134,7 +135,7 @@ TETRI	= stock_check_tetriminos/
 
 FREE	= free/
 
-TETFILE	= main.c				\
+TETFILE	= main.c			\
 	$(ARGS)check_arg.c		\
 	$(ARGS)read_arg.c 		\
 	$(ARGS)init_options.c		\

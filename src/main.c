@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed Apr 27 18:00:58 2016 marel_m
-** Last update Sun Jun  5 14:02:27 2016 bougon_p
+** Last update Sun Jun  5 14:34:02 2016 bougon_p
 */
 
 #include <signal.h>
@@ -63,7 +63,8 @@ int		pars_check_exec(t_sh *sh, char *str)
   if ((str = epur(str)) == NULL)
     return (1);
   if (verif_good_synthax_string(sh, str)
-      || verif_good_order_sep(sh, str))
+      || verif_good_order_sep(sh, str)
+      || (str = rewrite_redir_r_redir_l(str)) == NULL)
     return (0);
   if (parsing(sh, str) || execute_each_act(sh))
     return (1);
@@ -104,12 +105,13 @@ int		execution(char **str, t_head *history, t_sh *sh)
     }
   if (tty && sh->fd_history > 0)
     dprintf(sh->fd_history, "%s\n", *str);
-  check_alias(sh->conf.head, str);
   if (var_env_format(sh, str, sh->env->env)
       || (*str = check_good_quote_replace_quote(sh, *str)) == NULL)
     return (0);
-  if (globing(str)
-      || pars_check_exec(sh, *str))
+  if (globing(str))
+    return (1);
+  check_alias(sh->conf.head, str);
+  if (pars_check_exec(sh, *str))
     return (1);
   return (0);
 }

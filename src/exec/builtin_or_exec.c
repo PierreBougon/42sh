@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 17:16:18 2016 marel_m
-** Last update Sun Jun  5 11:25:12 2016 Mathieu Sauvau
+** Last update Sun Jun  5 14:30:56 2016 Poc
 */
 
 #include <errno.h>
@@ -67,8 +67,8 @@ int	action_redir(t_sh *sh, int pipe_nb)
     {
       if (pipe_nb)
 	{
-	  dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][1]);
-	  exit(1);
+	  if (dup2(sh->exec->fd[0][0], sh->exec->fd[pipe_nb][0]))
+	    return (1);
 	}
       else if (dup2(sh->exec->fd[0][0], 0) == -1)
 	return (1);
@@ -81,6 +81,10 @@ int	close_all(int **fd)
   int	i;
 
   i = 1;
+  if (fd[0][1] != -1)
+    close (fd[0][1]);
+  if (fd[0][0] != -1)
+    close (fd[0][0]);
   while (fd[i])
     {
       close(fd[i][0]);
@@ -129,14 +133,17 @@ int	father_action(t_sh *sh, int pid)
   char	*str;
 
   close_all(sh->exec->fd);
-  g_need_check = true;
-  if (waitpid(pid, &status, WUNTRACED) == -1)
-    return (1);
-  g_need_check = false;
-  if (signal_gest(status, sh, pid, true))
+  if (pid != 0)
     {
-      sh->exit = status;
-      sh->exec->stop = 1;
+      g_need_check = true;
+      if (waitpid(pid, &status, WUNTRACED) == -1)
+	return (1);
+      g_need_check = false;
+      if (signal_gest(status, sh, pid, true))
+	{
+	  sh->exit = status;
+	  sh->exec->stop = 1;
+	}
     }
   wait_func(sh->list, sh);
   clear_list(sh->list);
@@ -146,8 +153,7 @@ int	father_action(t_sh *sh, int pid)
       printf("%s", str);
       fflush(stdout);
     }
-  change_read_mode(0, 100, 1);
-  return (0);
+  return (change_read_mode(0, 100, 1), 0);
 }
 
 int	last_action(t_sh *sh, int pid)
@@ -177,7 +183,9 @@ int	action(t_sh *sh)
   if (pid == 0)
     {
       if (action_redir(sh, sh->actual_pipe))
-	  return (1);
+      	  return (1);
+      if (sh->exec->fd[0][0] != -1)
+	dup2(sh->exec->fd[0][0], 0);
       if (sh->actual_pipe && sh->exec->fd[sh->actual_pipe])
 	dup2(sh->exec->fd[sh->actual_pipe][1], 1);
       if ((check_builtin(sh)) == -3)

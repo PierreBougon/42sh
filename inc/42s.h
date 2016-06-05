@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-** Last update Sun Jun  5 14:01:13 2016 bougon_p
+** Last update Sun Jun  5 14:35:01 2016 bougon_p
 */
 
 #ifndef _42s_H_
@@ -241,6 +241,7 @@ int			pos_double_quote(char *, char);
 int			double_quote_redir(char *);
 char			*pars_redir_right(t_list_sh *, char *, int);
 int			signal_gest(int, t_sh *, pid_t, bool);
+char			*rewrite_redir_r_redir_l(char *);
 
 /*
 ** ERROR
@@ -335,6 +336,8 @@ int			double_redirection_right(t_sh *, t_node *);
 int			no_separator(t_sh *, t_node *, t_node *);
 int			check_wrong_path(t_sh *);
 int			double_redir_left(t_sh *, t_node *);
+int			close_all(int **);
+int			wait_func(t_pid *, t_sh *);
 void			add_to_back(t_pid **, int);
 
 /*

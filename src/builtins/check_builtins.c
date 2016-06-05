@@ -5,9 +5,10 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 16:28:38 2016 marel_m
-** Last update Sun Jun  5 13:29:48 2016 bougon_p
+** Last update Sun Jun  5 14:34:42 2016 bougon_p
 */
 
+#include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
 #include "fptrtab.h"
@@ -42,6 +43,16 @@ t_blt	*init_tab_builtins()
   return (tab);
 }
 
+int	determine_fd(t_sh *sh)
+{
+  if (sh->is_pipe && sh->actual_pipe && sh->exec->fd[sh->actual_pipe])
+    {
+      sh->exec->fd[0][1] = sh->exec->fd[sh->actual_pipe][1];
+      close(sh->exec->fd[sh->actual_pipe][0]);
+    }
+  return (0);
+}
+
 int	check_builtin(t_sh *sh)
 {
   t_blt	*fptrtab;
@@ -55,7 +66,10 @@ int	check_builtin(t_sh *sh)
     if (strlen(sh->exec->arg[0]) == strlen(fptrtab[i].blt)
 	&& strncmp(sh->exec->arg[0], fptrtab[i].blt, strlen(fptrtab[i].blt)) == 0)
       {
+	determine_fd(sh);
 	ret = fptrtab[i].ft_blt(sh);
+	close_all(sh->exec->fd);
+	wait_func(sh->list, sh);
 	return (free(fptrtab), ret);
       }
   free(fptrtab);
