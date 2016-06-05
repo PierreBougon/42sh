@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Tue Feb 23 15:11:43 2016 maud marel
-** Last update Sun Jun  5 14:30:11 2016 bougon_p
+** Last update Sun Jun  5 14:51:03 2016 bougon_p
 */
 
 #include <unistd.h>
@@ -23,9 +23,7 @@ int		stock_tetriminos(char *str, t_tetris *tetris)
   char		*way;
 
   if (!(way = strdup(tetris->tetri_file)) ||
-      !(way = my_realloc(way,
-			 strlen(way) +
-			 strlen(str) + 1)))
+      !(way = my_realloc(way, strlen(way) + strlen(str) + 1)))
     return (-1);
   strcat(way, str);
   if ((fd = open(way, O_RDONLY)) == -1)

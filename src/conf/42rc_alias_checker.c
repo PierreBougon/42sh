@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Wed May 18 12:37:44 2016 Poc
-** Last update Sun Jun  5 02:54:19 2016 bougon_p
+** Last update Sun Jun  5 15:06:08 2016 bougon_p
 */
 
 #include <string.h>
@@ -34,27 +34,6 @@ int	jump_next_word(char *str, int i)
     }
   if (str[i] && str[i + 1])
     return (i + 1);
-  else
-    return (-1);
-}
-
-int	aliascmp(char *alias, char *str)
-{
-  int	size;
-  int	i;
-  int	ret;
-
-  size = strlen(alias);
-  i = 0;
-  while (alias && str && alias[i]
-         && str[i] && alias[i] == str[i]
-         && i < size)
-    i++;
-  ret = alias[i] - str[i];
-  if (ret == 0)
-    return (0);
-  else if (i >= 1 && str[i] == ' ' && alias[i] == 0)
-    return (alias[i - 1] - str[i - 1]);
   else
     return (-1);
 }
