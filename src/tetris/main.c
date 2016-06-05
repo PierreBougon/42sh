@@ -5,11 +5,13 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat Feb 27 23:39:59 2016 maud marel
-** Last update Thu Jun  2 15:48:53 2016 bougon_p
+** Last update Sun Jun  5 14:30:39 2016 bougon_p
 */
 
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 #include "tetris.h"
 
 bool		launch_all(t_tetris *tetris)
@@ -33,10 +35,48 @@ bool		launch_all(t_tetris *tetris)
   return (true);
 }
 
-int		main()
+char	*path_tetris(char *cwd)
+{
+  char	*buf;
+
+  buf = NULL;
+  if (!(buf = strdup(cwd)) ||
+      !(buf = realloc(buf, strlen(buf) + strlen("/assets") + 1)))
+    exit(1);
+  strcat(buf, "/assets");
+  return (buf);
+}
+
+char	*concat_tetri(t_tetris *tetris)
+{
+  char		*tetri_file;
+
+  if (!(tetri_file = strdup(tetris->path)))
+    exit(1);
+  tetri_file = realloc(tetri_file,
+		       strlen(tetri_file) + strlen("/tetriminos/") + 1);
+  tetri_file = strcat(tetri_file, "/tetriminos/");
+  return (tetri_file);
+}
+
+void	concat_high(t_tetris *tetris)
+{
+  if (!(tetris->high_path = strdup(tetris->path)))
+    exit(1);
+  tetris->high_path =
+    realloc(tetris->high_path,
+	    strlen(tetris->high_path) + strlen("/high_score") + 1);
+  tetris->high_path = strcat(tetris->high_path, "/high_score");
+}
+
+int		main(UNUSED int ac, char **av)
 {
   t_tetris	tetris;
 
+  if (!(tetris.path = strdup(av[1])))
+    exit(1);
+  tetris.tetri_file = concat_tetri(&tetris);
+  concat_high(&tetris);
   if (check_tetriminos(&tetris) == -1)
     return (-1);
   init_tetris(&tetris);

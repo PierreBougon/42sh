@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Sat Feb 27 23:25:21 2016 maud marel
-** Last update Fri Jun  3 18:59:41 2016 marel_m
+** Last update Sun Jun  5 13:09:21 2016 bougon_p
 */
 
 #ifndef TETRIS_H_
@@ -104,6 +104,9 @@ typedef	struct	s_tetris
   bool		moved;
   float		i;
   int		nb_tetri;
+  char		*path;
+  char		*tetri_file;
+  char		*high_path;
 }		t_tetris;
 
 typedef struct	s_check_opt

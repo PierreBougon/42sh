@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Thu May 26 13:16:31 2016 marel_m
-** Last update Sun Jun  5 04:34:38 2016 Poc
+** Last update Sun Jun  5 14:29:49 2016 Poc
 */
 
 #include <stdlib.h>
@@ -97,8 +97,11 @@ int	pipes(t_sh *sh, t_node *node)
       else
 	{
 	  execute_in_son(sh);
-	  close(sh->exec->fd[sh->actual_pipe + 1][0]);
-	  close(sh->exec->fd[sh->actual_pipe + 1][1]);
+	  if ((sh->exec->fd[sh->actual_pipe + 1]))
+	    {
+	      close(sh->exec->fd[sh->actual_pipe + 1][0]);
+	      close(sh->exec->fd[sh->actual_pipe + 1][1]);
+	    }
 	  exit (1);
 	}
       exit (1);
