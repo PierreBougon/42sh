@@ -5,7 +5,7 @@
 ** Login   <marel_m@epitech.net>
 **
 ** Started on  Wed May 18 13:27:57 2016 marel_m
-** Last update Sat Jun  4 23:29:22 2016 Poc
+** Last update Sun Jun  5 00:56:42 2016 Poc
 */
 
 #include <unistd.h>
@@ -122,15 +122,15 @@ int		execute_each_act(t_sh *sh)
 	    pipe(sh->exec->fd[j]);
 	  else
 	    {
-	      sh->exec->fd[j][0] = 0;
-	      sh->exec->fd[j][1] = 1;
+	      sh->exec->fd[j][0] = -1;
+	      sh->exec->fd[j][1] = -1;
 	    }
 	}
       sh->exec->fd[j] = NULL;
       if (check_which_config(sh, tmp, tmp->node) == 1)
 	return (1);
       loop_execute(sh, &tmp, &i);
-      free_exec(sh->exec);
+      /* free_exec(sh->exec); */
     }
   free_list(sh);
   my_free((void **)&(sh)->root);
