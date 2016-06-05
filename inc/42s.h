@@ -5,11 +5,8 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Apr 18 00:15:01 2016 Poc
-<<<<<<< HEAD
-** Last update Sun Jun  5 11:37:32 2016 Poc
-=======
+** Last update Sun Jun  5 11:47:22 2016 marel_m
 ** Last update Sun Jun  5 10:48:59 2016 bougon_p
->>>>>>> 9326e4d40ed97e31d821eb724a5ac7266dece59e
 */
 
 #ifndef _42s_H_
@@ -244,6 +241,7 @@ int			pos_double_quote(char *, char);
 int			double_quote_redir(char *);
 char			*pars_redir_right(t_list_sh *, char *, int);
 int			signal_gest(int, t_sh *, pid_t, bool);
+char			*rewrite_redir_r_redir_l(char *);
 
 /*
 ** ERROR
